@@ -1,5 +1,6 @@
 # Zabbix-Book
-An opensource book for an opensource monitoring tool
+An opensource book for an opensource monitoring tool with the name Zabbix. 
+Anyone is allowed and encouraged to make a pull request to help with the book.
 
 
 
