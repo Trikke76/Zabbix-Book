@@ -134,4 +134,4 @@ ToDo
 ## Setting up Zabbix HA
 
 ToDo
-
+:simple-opensourceinitiative:
