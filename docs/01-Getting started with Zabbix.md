@@ -129,6 +129,8 @@ For our installation with MySQL we first have to add a repo for MySQL
 
 ## Installing Zabbix with PostgreSQL
 
+ToDo
+
 ## Setting up Zabbix HA
 
 
