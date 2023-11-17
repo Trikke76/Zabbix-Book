@@ -1,0 +1,92 @@
+# Project information
+site_name: Zabbix Book
+site_url: https://trikke76.github.io/Zabbix-Book
+site_author: Patrik Uytterhoeven
+
+# Repository
+repo_name: trikke76
+repo_url: https://github.com/trikke76/Zabbix-Book
+edit_uri: edit/master/docs
+docs_dir: docs
+
+# Navigation
+nav:
+  - Welcome:
+    - index.md
+  - Chapters:
+    - 00-Outline.md
+    - 01-Getting started with Zabbix.md
+    - 02-Starting with the basic configuration.md
+    - 03-Detecting and managing problems.md
+    - 04-Taking action when problems come.md
+    - 05-Managing Permissions.md
+    - 06-Visualising our problems.md
+    - 07-Automating configuration.md
+    - 08-VMWare monitoring.md
+    - 09-Monitoring websites.md
+    - 10-Monitoring SNMP,IPMI and JAVA.md
+    - 11-Monitoring with Proxies.md
+    - 12-Securing Zabbix.md
+    - 13-Maintaining Zabbix.md
+    - 14-Monitoring Windows.md
+    - 15-Zabbix API.md
+
+theme:
+   name: material
+   font:
+     text: IBM Plex Sans
+     code: IBM Plex Mono
+   icon:
+     logo: material/library
+   features:
+     # - navigation.tabs
+     - navigation.instant
+     - navigation.expand
+   palette:
+     scheme: default
+     primary: blue
+     accent: blue
+
+# Plugins
+plugins:
+  - search
+
+# Customization
+# TBD
+
+# Extensions
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - meta
+  - toc:
+      permalink: true
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.critic
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.snippets:
+      check_paths: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
