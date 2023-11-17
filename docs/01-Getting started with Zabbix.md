@@ -1,5 +1,6 @@
 ## Intro
 
+[TOC]
 
 ## Preparing the OS for Zabbix
 
@@ -135,3 +136,13 @@ ToDo
 
 ToDo
 :simple-opensourceinitiative:
+
+The <abbr title="Hyper Text Markup Language">HTML</abbr> specification
+is maintained by the <abbr title="World Wide Web Consortium">W3C</abbr>.
+
+!!! note
+    You should note that the title will be automatically capitalized.
+
+Here is a simple footnote[^1]. With some additional text after it.
+
+[^1]: My reference.
