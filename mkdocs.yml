@@ -14,7 +14,6 @@ nav:
   - Welcome:
     - Overview: README.md
   - Chapters:
-    - 00-Outline.md
     - 01-Getting started with Zabbix.md
     - 02-Starting with the basic configuration.md
     - 03-Detecting and managing problems.md
