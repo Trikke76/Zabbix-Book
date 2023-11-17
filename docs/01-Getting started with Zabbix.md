@@ -1,4 +1,14 @@
-## Preparing the OS for Zabbix
+# Preparing the OS for Zabbix
+
+## Requirements
+
+Zabbix has a set of requirements that need to be met on hardware level and software level. These requirements can change over time and also depends on the size of your setup and the software you choose.
+So before you start buying metal or installing a random database version have a look at the Zabbix documentation and check the latest requirements for the version you want to install. The latest requirements can be found [here](https://www.zabbix.com/documentation/current/en/manual/installation/requirements). Don't forget to select your correct *Zabbix* version from the list.
+
+
+## Basic OS configuration before we start
+
+### firewall 
 
 It's important for our Zabbix server to have an OS that is well prepared before we start to install our monitoring tool. First we need to make sure our firewall is installed. 
 
@@ -14,6 +24,8 @@ or if the service is not known
 
 ???+ note
     Firewalld is the replacement of iptables in Redhat and allows us to make changes available immediately without the need to restart a service. It's possible that your distribution is not using [Firewalld](www.firewalld.org) in this case you have to look to the documentation of your OS.
+
+### timeserver
 
 Another thing we need to configure is the setup of timeserver and sync our Zabbix server to the timeserver by making use of an ntp client. This needs to be done for the Zabbix server but also for the devices we will monitor as time is very important for Zabbix. Imagine one of our hosts having a timezone that is wrong we could end up looking for a problems in Zabbix that happened 6h ago while it had happened maybe only 2h ago.
 
@@ -115,6 +127,8 @@ To change this we have to edit our config file "/etc/chrony.conf" and replace th
 pool 2.centos.pool.ntp.org iburst
 ```
 
+And change it to a local server:
+
 ```
 # Use public servers from the pool.ntp.org project.
 # Please consider joining the pool (http://www.pool.ntp.org/join.html).
@@ -122,6 +136,7 @@ pool be.pool.ntp.org iburst
 ```
 
 Don't forget to restart the ntpd client of course.
+
 ```
 # systemctl restart chronyd
 ```
@@ -139,17 +154,18 @@ MS Name/IP address         Stratum Poll Reach LastRx Last sample
 ^+ time.cloudflare.com           3   6    17    43   +218us[  -83us] +/- 2815us
 ```
 
+## Installing Zabbix
 
-## Installing Zabbix with MySQL
+### Installing Zabbix with MySQL
 
 For our installation with MySQL we first have to add a repo for MySQL
 
 
-## Installing Zabbix with PostgreSQL
+### Installing Zabbix with PostgreSQL
 
 ToDo
 
-## Setting up Zabbix HA
+### Setting up Zabbix HA
 
 ToDo
 :simple-opensourceinitiative:
