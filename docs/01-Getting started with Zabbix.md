@@ -127,7 +127,6 @@ MS Name/IP address         Stratum Poll Reach LastRx Last sample
 For our installation with MySQL we first have to add a repo for MySQL
 
 
-
 ## Installing Zabbix with PostgreSQL
 
 ## Setting up Zabbix HA
