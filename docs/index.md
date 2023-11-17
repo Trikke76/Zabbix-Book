@@ -1,17 +1,29 @@
-# Zabbix-Book
-An opensource book for an opensource monitoring tool with the name Zabbix. 
-Anyone is allowed and encouraged to make a pull request to help with the book.
+[01-Getting started with Zabbix](01-Getting started with Zabbix.md)
 
+[02-Starting with the basic configuration](02-Starting with the basic configuration.md)
 
+[03-Detecting and managing problems](03-Detecting and managing problems.md)
 
+[04-Taking action when problems come](04-Taking action when problems come.md)
 
-Shield: [![CC BY-NC-SA 4.0][cc-by-nc-sa-shield]][cc-by-nc-sa]
+[05-Managing Permissions](05-Managing Permissions.md)
 
-This work is licensed under a
-[Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License][cc-by-nc-sa].
+[06-Visualising our problems](06-Visualising our problems.md)
 
-[![CC BY-NC-SA 4.0][cc-by-nc-sa-image]][cc-by-nc-sa]
+[07-Automating configuration](07-Automating configuration.md)
 
-[cc-by-nc-sa]: http://creativecommons.org/licenses/by-nc-sa/4.0/
-[cc-by-nc-sa-image]: https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png
-[cc-by-nc-sa-shield]: https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg
+[08-VMWare monitoring](08-VMWare monitoring.md)
+
+[09-Monitoring websites](09-Monitoring websites.md)
+
+[10-Monitoring SNMP,IPMI and JAVA](10-Monitoring SNMP,IPMI and JAVA.md)
+
+[11-Monitoring with Proxies](11-Monitoring with Proxies.md)
+
+[12-Securing Zabbix](12-Securing Zabbix.md)
+
+[13-Maintaining Zabbix](13-Maintaining Zabbix.md)
+
+[14-Monitoring Windows](14-Monitoring Windows.md)
+
+[15-Zabbix API](15-Zabbix API.md)
