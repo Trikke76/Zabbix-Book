@@ -14,6 +14,10 @@ My name is Patrik Uytterhoeven and I work for a Belgium company named Open-Futur
 when my journey started with Zabbix aswel. They gave me the opportunity to build my experience and to get certified as Zabbix trainer.
 Since this year I am officialy 10y Zabbix trainer. If you would like to follow one of my trainings feel free to register for a training at our website [www.open-future.be](www.open-future.be)
 
+# What OS do I need ?
+
+Since I work mostly with RHEL based systems and since I am convinced that RHEL is the better choice in Production environments I have chosen to focus on using one of the forks that is available. Zabbix is supported on Ubuntu, Debian, Suse, Debian, .... and it can be compiled on any OS that is Unix based so it's almost impossible to cover them all. However the book is Opensource and in GIT so feel free to contribute the code for your favorite flavour :). I wil use Rocky 9 in this book but it should work for most of the other installations as well.
+
 
 # How to use this book ?
 
