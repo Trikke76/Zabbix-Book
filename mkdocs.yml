@@ -12,7 +12,7 @@ docs_dir: docs
 # Navigation
 nav:
   - Welcome:
-    - index.md
+    - Overview: README.md
   - Chapters:
     - 00-Outline.md
     - 01-Getting started with Zabbix.md
