@@ -3,7 +3,7 @@ An opensource book for an opensource monitoring tool with the name Zabbix.
 Anyone is allowed and encouraged to make a pull request to help with the book.
 
 
-To read the book please open this link : <https://trikke76.github.io/Zabbix-Book/>
+To read the book please open this link : <https://trikke76.github.io/Zabbix-Book/site/>
 
 
 
