@@ -1,26 +1,35 @@
-## Intro
-
-[TOC]
-
 ## Preparing the OS for Zabbix
 
-It's important for our zabbix server to have an OS that is well prepared before we start to install our monitoring tool. First we need to make sure our firewall is installed
+It's important for our Zabbix server to have an OS that is well prepared before we start to install our monitoring tool. First we need to make sure our firewall is installed. 
 
-``dnf install firewalld --now``
+``# dnf install firewalld --now``
 
-Our firewall is installed now and we are ready to configure the needed ports. For our zabbix server we need to allow access to port 10051/tcp this is the port where our zabbix trapper listens on for incoming data.
+Our firewall is installed now and we are ready to configure the needed ports. For our Zabbix server we need to allow access to port 10051/tcp this is the port where our Zabbix trapper listens on for incoming data. So we need to open this port in our firewall to allow access to our Zabbix trapper.
 
-```firewall-cmd --add-service=zabbix-server --permanent```
-or 
-```firewall-cmd --add-port=10051/tcp --permanent```
+```# firewall-cmd --add-service=Zabbix-server --permanent```
 
-Another thing we need to configure is the setup of timeserver and sync our zabbix server to the timeserver by making use of an ntp client. This needs to be done for the Zabbix server but also for the devices we will monitor as time is very important for Zabbix. Imagine one of our hosts having a timezone that is wrong we could end up looking for a problems in Zabbix that happened 6h ago while it had happened maybe only 2h ago.
+or if the service is not known
 
-```dnf install chronyd --now```
+```# firewall-cmd --add-port=10051/tcp --permanent```
 
-Once Chrony is installed we also need to setup our correct timezone.
+???+ note
+    Firewalld is the replacement of iptables in Redhat and allows us to make changes available immediately without the need to restart a service. It's possible that your distribution is not using [Firewalld](www.firewalld.org) in this case you have to look to the documentation of your OS.
+
+Another thing we need to configure is the setup of timeserver and sync our Zabbix server to the timeserver by making use of an ntp client. This needs to be done for the Zabbix server but also for the devices we will monitor as time is very important for Zabbix. Imagine one of our hosts having a timezone that is wrong we could end up looking for a problems in Zabbix that happened 6h ago while it had happened maybe only 2h ago.
+
+```# dnf install chronyd --now```
+
+Chrony should be installed now and enabled and running. This can be verified with the command:
+
+```# systemctl status chronyd```
+
+???+ note
+    dnf is a packagemanager from RedHat you need to replace dnf with your correct packagemanager like zyper, apt, yum, ... chrony is a replacement for ntpd and does a better job being faster and more accurate. If your OS does not support [chrony](https://chrony-project.org/) then maybe ntpd is still available.
+
+
+Once Chrony is installed we also need to setup our correct timezone. We can have a look first with 'timedatectl' to see how our time is configured 
 ```
-timedatectl
+# timedatectl
                Local time: Thu 2023-11-16 15:09:14 UTC
            Universal time: Thu 2023-11-16 15:09:14 UTC
                  RTC time: Thu 2023-11-16 15:09:15
@@ -30,11 +39,14 @@ System clock synchronized: yes
           RTC in local TZ: no
 ```
 
-Make sure NTP is active q
-We can choose the correct timezone from a list that we can lookup with the following command
+Make sure that the service cronyd is active, see above on how to do if you missed it.
+We can choose the correct timezone from a list that we can lookup with the following command:
 
-```timedatectl list-timezones```
+```
+# timedatectl list-timezones
+```
 
+This will give us a list with all available timezones. Choose the one closest to you.
 ```
 Africa/Abidjan
 Africa/Accra
@@ -47,12 +59,13 @@ Pacific/Wallis
 UTC
 ```
 
-We can now configure our correct timezone 
+We can now configure our correct timezone with the following command:
 
 ```
 timedatectl set-timezone Europe/Brussels
 ```
 
+When we look again we should see our timezone properly configured.
 ```
 # timedatectl
                Local time: Thu 2023-11-16 16:13:35 CET
@@ -63,8 +76,11 @@ System clock synchronized: yes
               NTP service: active
           RTC in local TZ: no
 ```
+???+ note
+    Some people like to install all servers in the UTC timezone so that all server logs are in the same timezone when having servers all over the world. Zabbix supports user based timezone settings so it's possible to keep the timezone in UTC on the server and then add the correct timezone in the user interface if you like.
 
-We can test if our Chrony is syncronizing with the correct timeservers as well by running the command chronyc
+
+We can test if Chrony is syncronizing with the correct timeservers as well by running the command chronyc
 
 ```
 # chronyc
@@ -77,7 +93,7 @@ GNU General Public License version 2 for details.
 chronyc>
 ```
 
-Then we type sources
+Then we type ```sources```
 
 ```
 chronyc> sources
@@ -89,7 +105,7 @@ MS Name/IP address         Stratum Poll Reach LastRx Last sample
 ^* leontp1.office.panq.nl        1  10   377   904  +6806ns[ +171us] +/- 2336us
 ```
 
-Here we see that we are using a bunch of ntp servers that are not in our own country so we better swicht to some timeservers in our local country or if we have a timeserver in our company we could use this one. We can find some local timeservers here : https://www.ntppool.org/
+Here we can see that we are using a bunch of ntp servers that are not in our own country so we better swicht to some timeservers in our local country or if we have a timeserver in our company we could use this one. We can find some local timeservers here : [https://www.ntppool.org/](https://www.ntpool.org)
 
 To change this we have to edit our config file "/etc/chrony.conf" and replace the existing ntp server with our local one 
 
@@ -107,13 +123,14 @@ pool be.pool.ntp.org iburst
 
 Don't forget to restart the ntpd client of course.
 ```
-systemctl restart chronyd
+# systemctl restart chronyd
 ```
 
 When we look again we will see that we are now using our local timeservers.
 
-chronyc> sources
 ```
+chronyc> sources
+
 MS Name/IP address         Stratum Poll Reach LastRx Last sample
 ===============================================================================
 ^- ntp1.unix-solutions.be        2   6    17    43   -375us[ -676us] +/-   28ms
@@ -140,9 +157,3 @@ ToDo
 The <abbr title="Hyper Text Markup Language">HTML</abbr> specification
 is maintained by the <abbr title="World Wide Web Consortium">W3C</abbr>.
 
-!!! note
-    You should note that the title will be automatically capitalized.
-
-Here is a simple footnote[^1]. With some additional text after it.
-
-[^1]: My reference.
