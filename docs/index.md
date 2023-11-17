@@ -4,7 +4,9 @@ Hi, welcome and thanks for your interest in my Zabbix book. I wrote a few books 
 As Zabbix is an opensource product and making money out of the book was never my intention it got me thinking. 
 How to make a new book without using a publisher like I had done before.
 After a while I came up with the idea to make a book that would be free and that would be updated when new versions came out.
-Since I am a huge fan of documetation in markdown or asciidoc i came up with the idea to share the book in git and use markdown.
+Since I am a huge fan of documetation in markdown or asciidoc I came up with the idea to share the book in git and use markdown.
+The problem here is that it's probably not the best way to make a book readable so after some searching for a good solution based on markdown I found [MkDocs](www.mkdocs.org). MkDocs is a Python-Markdown library that can convert everything to HTML and can be templated.
+
 
 # Who am i ?
 
@@ -32,8 +34,25 @@ Here is a simple footnote[^1]. With some additional text after it.
 [^1]: My reference.
 
 
-In case there is some important information I will add notes in the documentation like can be seen here :
+In case there is some important information to share I will add notes in the documentation like can be seen here :
 
-!!! note
-    You should note that the title will be automatically capitalized.
+???+ note
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et euismod nulla. Curabitur feugiat, tortor non consequat finibus, justo purus auctor massa, nec semper lorem quam in massa.
 
+???+ info
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et euismod nulla. Curabitur feugiat, tortor non consequat finibus, justo purus auctor massa, nec semper lorem quam in massa.
+
+???+ tip
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et euismod nulla. Curabitur feugiat, tortor non consequat finibus, justo purus auctor massa, nec semper lorem quam in massa.
+
+???+ question
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et euismod nulla. Curabitur feugiat, tortor non consequat finibus, justo purus auctor massa, nec semper lorem quam in massa.
+
+???+ warning
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et euismod nulla. Curabitur feugiat, tortor non consequat finibus, justo purus auctor massa, nec semper lorem quam in massa.
+
+???+ bug
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et euismod nulla. Curabitur feugiat, tortor non consequat finibus, justo purus auctor massa, nec semper lorem quam in massa.
+
+???+ example
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et euismod nulla. Curabitur feugiat, tortor non consequat finibus, justo purus auctor massa, nec semper lorem quam in massa.
