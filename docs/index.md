@@ -8,7 +8,7 @@ Since I am a huge fan of documetation in markdown or asciidoc I came up with the
 The problem here is that it's probably not the best way to make a book readable so after some searching for a good solution based on markdown I found [MkDocs](www.mkdocs.org). MkDocs is a Python-Markdown library that can convert everything to HTML and can be templated.
 
 
-# Who am i ?
+# Who am I ?
 
 My name is Patrik Uytterhoeven and I work for a Belgium company named Open-Future. I started at this company at Januari 2013 and thats
 when my journey started with Zabbix aswel. They gave me the opportunity to build my experience and to get certified as Zabbix trainer.
