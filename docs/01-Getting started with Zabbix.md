@@ -171,11 +171,275 @@ The webserver provides us with a frontend. Note that Zabbix has a API and that t
 
 All these parts have to work together so as you can see in our image above. The Zabbix server needs to read the config and store the data in our database and the Zabbix frontend needs to be able to write the configuration in the database as well. The Zabbix frontend also needs to check the online status of our Zabbix server and needs to read some other information as well.
 
-For our setup we will use 2 VM's 1 VM with a Zabbix server and the Zabbix webserver  and another VM with the database.
+For our setup we will use 2 VM's 1 VM with a Zabbix server and the Zabbix webserver and another VM with the database.
+
 
 ### Installing Zabbix with MariaDB
 
-ToDo
+
+Let us start with the installation of the MariaDB server, you need to create a MariaDB repository configuration file mariadb.repo manually with this path '/etc/yum.repos.d/'
+To create a MariaDB repository file, you can use the following command,
+
+
+#### Add the MariaDB repo
+
+```
+vi /etc/yum.repos.d/mariadb.repo
+```
+
+The above command will create a new repository file, Once it is created, you need to add the following configuration into the file.
+Make sure your version in this case 10.11 is supported by Zabbix by looking at the latest [requirements](https://www.zabbix.com/documentation/current/en/manual/installation/requirements) for your version. 
+
+```
+# MariaDB 10.11 RedHatEnterpriseLinux repository list - created 2023-11-01 14:20 UTC
+# https://mariadb.org/download/
+[mariadb]
+name = MariaDB
+# rpm.mariadb.org is a dynamic mirror if your preferred mirror goes offline. See https://mariadb.org/mirrorbits/ for details.
+# baseurl = https://rpm.mariadb.org/10.11/rhel/$releasever/$basearch
+baseurl = https://mirror.23m.com/mariadb/yum/10.11/rhel/$releasever/$basearch
+# gpgkey = https://rpm.mariadb.org/RPM-GPG-KEY-MariaDB
+gpgkey = https://mirror.23m.com/mariadb/yum/RPM-GPG-KEY-MariaDB
+gpgcheck = 1
+
+
+```
+Lets update our OS first with the latest patches
+
+```
+# dnf update -y
+```
+#### Install the MariaDB database
+
+Now we are ready to install our MariaDB database.
+
+```
+# dnf install MariaDB-server MariaDB-client
+```
+
+We are now ready to enable and start or MariaDB database.
+```
+# systemctl enable mariadb --now
+```
+Once the installation is complete, you can verify the version of the MariaDB server by using the following command:
+
+```
+# mysql -V
+```
+
+The output should look like this:
+
+```
+mysql  Ver 15.1 Distrib 10.11.6-MariaDB, for Linux (x86_64) using  EditLine wrapper
+```
+
+And when we ask the status of our MariaDB server we should get an output like this:
+
+```
+# systemctl status mariadb
+
+● mariadb.service - MariaDB 10.11.6 database server
+     Loaded: loaded (/usr/lib/systemd/system/mariadb.service; enabled; preset: disabled)
+    Drop-In: /etc/systemd/system/mariadb.service.d
+             └─migrated-from-my.cnf-settings.conf
+     Active: active (running) since Sat 2023-11-18 19:19:36 CET; 2min 13s ago
+       Docs: man:mariadbd(8)
+             https://mariadb.com/kb/en/library/systemd/
+    Process: 41986 ExecStartPre=/bin/sh -c systemctl unset-environment _WSREP_START_POSITION (code=exited, status=0/SUCCESS)
+    Process: 41987 ExecStartPre=/bin/sh -c [ ! -e /usr/bin/galera_recovery ] && VAR= ||   VAR=`cd /usr/bin/..; /usr/bin/galera_recovery`; [ $? -eq 0 ]   && systemctl set-environment _WSREP_START>
+    Process: 42006 ExecStartPost=/bin/sh -c systemctl unset-environment _WSREP_START_POSITION (code=exited, status=0/SUCCESS)
+   Main PID: 41995 (mariadbd)
+     Status: "Taking your SQL requests now..."
+      Tasks: 9 (limit: 12344)
+     Memory: 206.8M
+        CPU: 187ms
+```
+#### Securing the database
+
+Time to secure our database by removing the test database and user and set our own root password.  Run the command 'mariadb-secure-installation' you should get the following output.
+
+```
+# mariadb-secure-installation
+
+NOTE: RUNNING ALL PARTS OF THIS SCRIPT IS RECOMMENDED FOR ALL MariaDB
+      SERVERS IN PRODUCTION USE!  PLEASE READ EACH STEP CAREFULLY!
+
+In order to log into MariaDB to secure it, we'll need the current
+password for the root user. If you've just installed MariaDB, and
+haven't set the root password yet, you should just press enter here.
+
+Enter current password for root (enter for none):
+OK, successfully used password, moving on...
+
+Setting the root password or using the unix_socket ensures that nobody
+can log into the MariaDB root user without the proper authorisation.
+
+You already have your root account protected, so you can safely answer 'n'.
+
+Switch to unix_socket authentication [Y/n] n
+ ... skipping.
+
+You already have your root account protected, so you can safely answer 'n'.
+
+Change the root password? [Y/n] y
+New password:
+Re-enter new password:
+Password updated successfully!
+Reloading privilege tables..
+ ... Success!
+
+
+By default, a MariaDB installation has an anonymous user, allowing anyone
+to log into MariaDB without having to have a user account created for
+them.  This is intended only for testing, and to make the installation
+go a bit smoother.  You should remove them before moving into a
+production environment.
+
+Remove anonymous users? [Y/n] y
+ ... Success!
+
+Normally, root should only be allowed to connect from 'localhost'.  This
+ensures that someone cannot guess at the root password from the network.
+
+Disallow root login remotely? [Y/n] y
+ ... Success!
+
+By default, MariaDB comes with a database named 'test' that anyone can
+access.  This is also intended only for testing, and should be removed
+before moving into a production environment.
+
+Remove test database and access to it? [Y/n] y
+ - Dropping test database...
+ ... Success!
+ - Removing privileges on test database...
+ ... Success!
+
+Reloading the privilege tables will ensure that all changes made so far
+will take effect immediately.
+
+Reload privilege tables now? [Y/n] y
+ ... Success!
+
+Cleaning up...
+
+All done!  If you've completed all of the above steps, your MariaDB
+installation should now be secure.
+
+Thanks for using MariaDB!
+```
+#### Create the Zabbix database 
+
+```
+# mysql -uroot -p
+password
+
+MariaDB [(none)]> create database zabbix character set utf8mb4 collate utf8mb4_bin;
+MariaDB [(none)]> grant all privileges on zabbix.* to 'zabbix-web'@'192.168.56.18' identified by 'zabbix-web';
+MariaDB [(none)]> grant all privileges on zabbix.* to 'zabbix-srv'@'192.168.56.18' identified by 'zabbix-srv';
+MariaDB [(none)]> grant all privileges on zabbix.* to 'zabbix-web'@'localhost' identified by 'zabbix-web';
+MariaDB [(none)]> grant all privileges on zabbix.* to 'zabbix-srv'@'localhost' identified by 'zabbix-srv';
+MariaDB [(none)]> set global log_bin_trust_function_creators = 1;
+MariaDB [(none)]> quit
+```
+
+???+ warning
+    The Zabbix documentation explicitly mentions that deterministic triggers need to be created during the import of schema. On MySQL and MariaDB, this requires GLOBAL log_bin_trust_function_creators = 1 to be set if binary logging is enabled and there is no superuser privileges and log_bin_trust_function_creators = 1 is not set in MySQL configuration file.
+
+
+#### Add the Zabbix repository and populate the DB
+
+```
+# rpm -Uvh https://repo.zabbix.com/zabbix/6.5/rocky/9/x86_64/zabbix-release-6.5-2.el9.noarch.rpm
+# dnf clean all
+# dnf install zabbix-sql-scripts
+```
+Upload the data from zabbix (db structure, images, user, ... )
+
+```
+# zcat /usr/share/zabbix-sql-scripts/mysql/server.sql.gz | mysql --default-character-set=utf8mb4 -uzabbix-srv -p zabbix
+```
+
+???+ warning
+    Depending on the speed of your hardware or VM this can take a few seconds upto a few minutes so please don't cancel just sit and wait for the prompt
+
+Log back into your MariaDB Database as root
+
+```
+# mysql -uroot -p
+```
+Remove the global parameter again as its not needed anymore and also for security reasons.
+
+```
+MariaDB [(none)]> SET GLOBAL log_bin_trust_function_creators = 0;
+Query OK, 0 rows affected (0.001 sec)
+```
+
+#### Configure the firewall
+
+One last thing we need to do is open the firewall and allow incoming connections for the MariaDB database from our Zabbix server because at the moment we dont accept any connections yet.
+
+```
+# firewall-cmd --list-all
+public (active)
+  target: default
+  icmp-block-inversion: no
+  interfaces: enp0s3 enp0s8
+  sources:
+  services: cockpit dhcpv6-client  ssh
+  ports:
+  protocols:
+  forward: yes
+  masquerade: no
+  forward-ports:
+  source-ports:
+  icmp-blocks:
+  rich rules:
+```
+
+First we will create an appropriate zone for our MariaDB and open port 3306/tcp but only for the ip from our Zabbix server.
+
+```
+# firewall-cmd --new-zone=mariadb-access --permanent
+success
+
+# firewall-cmd --reload
+success
+
+# firewall-cmd --get-zones
+block dmz drop external home internal mariadb-access nm-shared public trusted work
+
+# firewall-cmd --zone=mariadb-access --add-source=192.168.56.18/24 --permanent
+
+success
+# firewall-cmd --zone=mariadb-access --add-port=3306/tcp  --permanent
+
+success
+# firewall-cmd --reload
+```
+
+Now lets have a look to our firewall rules to see if they are what we expected:
+
+# firewall-cmd --zone=mariadb-access --list-all
+```
+mariadb-access (active)
+  target: default
+  icmp-block-inversion: no
+  interfaces:
+  sources: 192.168.56.18/24
+  services:
+  ports: 3306/tcp
+  protocols:
+  forward: no
+  masquerade: no
+  forward-ports:
+  source-ports:
+  icmp-blocks:
+  rich rules:
+```
+
+Our database server is ready now to accept connections from our Zabbix server :)
+
+
 
 ### Installing Zabbix with MySQL
 
