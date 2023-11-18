@@ -334,10 +334,10 @@ Thanks for using MariaDB!
 password
 
 MariaDB [(none)]> create database zabbix character set utf8mb4 collate utf8mb4_bin;
-MariaDB [(none)]> grant all privileges on zabbix.* to 'zabbix-web'@'192.168.56.18' identified by 'zabbix-web';
-MariaDB [(none)]> grant all privileges on zabbix.* to 'zabbix-srv'@'192.168.56.18' identified by 'zabbix-srv';
-MariaDB [(none)]> grant all privileges on zabbix.* to 'zabbix-web'@'localhost' identified by 'zabbix-web';
-MariaDB [(none)]> grant all privileges on zabbix.* to 'zabbix-srv'@'localhost' identified by 'zabbix-srv';
+MariaDB [(none)]> grant all privileges on zabbix.* to 'zabbix-web'@'<zabbix-server-ip>' identified by '<zabbix-web password>';
+MariaDB [(none)]> grant all privileges on zabbix.* to 'zabbix-srv'@'<zabbix-server-ip>' identified by '<zabbix-srv password>';
+MariaDB [(none)]> grant all privileges on zabbix.* to 'zabbix-web'@'localhost' identified by '<zabbix-web password>';
+MariaDB [(none)]> grant all privileges on zabbix.* to 'zabbix-srv'@'localhost' identified by '<zabbix-srv password>';
 MariaDB [(none)]> set global log_bin_trust_function_creators = 1;
 MariaDB [(none)]> quit
 ```
@@ -406,9 +406,9 @@ success
 success
 
 # firewall-cmd --get-zones
-block dmz drop external home internal mariadb-access nm-shared public trusted work
+block dmz drop external home internal *mariadb-access* nm-shared public trusted work
 
-# firewall-cmd --zone=mariadb-access --add-source=192.168.56.18/24 --permanent
+# firewall-cmd --zone=mariadb-access --add-source=<zabbix-serverip> --permanent
 
 success
 # firewall-cmd --zone=mariadb-access --add-port=3306/tcp  --permanent
@@ -425,7 +425,7 @@ mariadb-access (active)
   target: default
   icmp-block-inversion: no
   interfaces:
-  sources: 192.168.56.18/24
+  sources: <ip from zabbix-server>
   services:
   ports: 3306/tcp
   protocols:
