@@ -406,7 +406,7 @@ success
 success
 
 # firewall-cmd --get-zones
-block dmz drop external home internal *mariadb-access* nm-shared public trusted work
+block dmz drop external home internal mariadb-access nm-shared public trusted work
 
 # firewall-cmd --zone=mariadb-access --add-source=<zabbix-serverip> --permanent
 
@@ -419,7 +419,9 @@ success
 
 Now lets have a look to our firewall rules to see if they are what we expected:
 
+```
 # firewall-cmd --zone=mariadb-access --list-all
+```
 ```
 mariadb-access (active)
   target: default
@@ -439,6 +441,19 @@ mariadb-access (active)
 
 Our database server is ready now to accept connections from our Zabbix server :)
 
+#### Installing the Zabbix Server
+
+    5  rpm -Uvh https://repo.zabbix.com/zabbix/6.5/rocky/9/x86_64/zabbix-release-6.5-2.el9.noarch.rpm
+    6  dnf clean all
+    7  dnf install zabbix-server-mysql zabbix-web-mysql zabbix-nginx-conf zabbix-selinux-policy zabbix-agent
+    8  vi /etc/zabbix/zabbix_server.conf
+    9  setenforce 0
+   10  systemctl enable zabbix-server --now
+   11  tail /var/log/zabbix/zabbix_server.log
+   12  tail -f /var/log/zabbix/zabbix_server.log
+   13  systemctl stop zabbix-server
+   14  systemctl start zabbix-server
+   15  tail -f /var/log/zabbix/zabbix_server.log
 
 
 ### Installing Zabbix with MySQL
