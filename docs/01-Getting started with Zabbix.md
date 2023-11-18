@@ -156,10 +156,30 @@ MS Name/IP address         Stratum Poll Reach LastRx Last sample
 
 ## Installing Zabbix
 
+Before we can install Zabbix we first have to know how the design is. The Zabbix server has been build op modular based on 3 components.
+
+- The Zabbix server
+- The Zabbix webserver
+- The Zabbix database
+
+![Zabbix Server Setup](CH01/zabbix-server.webp)
+
+All these components can be installed on 1 server or can be split over 3 different servers. 
+The Zabbix server itself is the brain this part is doing all the trigger calculations and sendind all the alert.
+The database is where the Zabbix server stores its config and all the data that we have gathered.
+The webserver provides us with a frontend. Note that Zabbix has a API and that this is also located on the frontend and not on the Zabbix server side.
+
+All these parts have to work together so as you can see in our image above. The Zabbix server needs to read the config and store the data in our database and the Zabbix frontend needs to be able to write the configuration in the database as well. The Zabbix frontend also needs to check the online status of our Zabbix server and needs to read some other information as well.
+
+For our setup we will use 2 VM's 1 VM with a Zabbix server and the Zabbix webserver  and another VM with the database.
+
+### Installing Zabbix with MariaDB
+
+ToDo
+
 ### Installing Zabbix with MySQL
 
-For our installation with MySQL we first have to add a repo for MySQL
-
+ToDo
 
 ### Installing Zabbix with PostgreSQL
 
@@ -168,8 +188,5 @@ ToDo
 ### Setting up Zabbix HA
 
 ToDo
-:simple-opensourceinitiative:
 
-The <abbr title="Hyper Text Markup Language">HTML</abbr> specification
-is maintained by the <abbr title="World Wide Web Consortium">W3C</abbr>.
 

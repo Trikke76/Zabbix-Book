@@ -16,7 +16,7 @@ Since this year I am officialy 10y Zabbix trainer. If you would like to follow o
 
 # What OS do I need ?
 
-Since I work mostly with RHEL based systems and since I am convinced that RHEL is the better choice in Production environments I have chosen to focus on using one of the forks that is available. Zabbix is supported on Ubuntu, Debian, Suse, Debian, .... and it can be compiled on any OS that is Unix based so it's almost impossible to cover them all. However the book is Opensource and in GIT so feel free to contribute the code for your favorite flavour :). I wil use Rocky 9 in this book but it should work for most of the other installations as well.
+Since I work mostly with RHEL based systems and since I am convinced that RHEL is the better choice in Production environments I have chosen to focus on using one of the forks that is available. Zabbix is supported on Ubuntu, Debian, Suse, Debian, .... and it can be compiled on any OS that is Unix based so it's almost impossible to cover them all. However the book is Opensource and in GIT so feel free to contribute the code for your favorite flavour :). I wil use [Rocky Linux](https://rockylinux.org/) 9 in this book but it should work for most of the other installations as well.
 
 
 # How to use this book ?
