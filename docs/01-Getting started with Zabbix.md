@@ -1,4 +1,4 @@
-# Preparing the OS for Zabbix
+# Getting started with Zabbix
 
 ## Requirements
 
