@@ -23,7 +23,7 @@ or if the service is not known
 ```# firewall-cmd --add-port=10051/tcp --permanent```
 
 ???+ note
-    Firewalld is the replacement of iptables in Redhat and allows us to make changes available immediately without the need to restart a service. It's possible that your distribution is not using [Firewalld](www.firewalld.org) in this case you have to look to the documentation of your OS.
+    Firewalld is the replacement of iptables in Redhat and allows us to make changes available immediately without the need to restart a service. It's possible that your distribution is not using [Firewalld](https://www.firewalld.org) in this case you have to look to the documentation of your OS.
 
 ### timeserver
 
@@ -439,21 +439,9 @@ mariadb-access (active)
   rich rules:
 ```
 
-Our database server is ready now to accept connections from our Zabbix server :)
+Our database server is ready now to accept connections from our Zabbix server :).
+You can continue with the next task [Installing the Zabbix Server](#installing-the-zabbix-server)
 
-#### Installing the Zabbix Server
-
-    5  rpm -Uvh https://repo.zabbix.com/zabbix/6.5/rocky/9/x86_64/zabbix-release-6.5-2.el9.noarch.rpm
-    6  dnf clean all
-    7  dnf install zabbix-server-mysql zabbix-web-mysql zabbix-nginx-conf zabbix-selinux-policy zabbix-agent
-    8  vi /etc/zabbix/zabbix_server.conf
-    9  setenforce 0
-   10  systemctl enable zabbix-server --now
-   11  tail /var/log/zabbix/zabbix_server.log
-   12  tail -f /var/log/zabbix/zabbix_server.log
-   13  systemctl stop zabbix-server
-   14  systemctl start zabbix-server
-   15  tail -f /var/log/zabbix/zabbix_server.log
 
 
 ### Installing Zabbix with MySQL
@@ -467,5 +455,47 @@ ToDo
 ### Setting up Zabbix HA
 
 ToDo
+
+
+### Installing the Zabbix Server
+
+Before you start to install your Zabbix server make sure the server is properly configure as we explained in our topic [Basic OS configuration before we start](#basic-os-configuration-before-we-start).
+
+#### Adding the Zabbix repository
+
+From the [Zabbix Download page](https://www.zabbix.com/download) select the correct Zabbix version you would like to install. In our case it will be 7.0 LTS. Select the correct OS distribution as well. This will be Rocky Linux 9 in our case. We are going to install the Server and will be using NGINX.
+
+![Zabbix Server Setup](CH01/zabbix-download.png)
+
+Our first step is to disable Zabbix packages provided by EPEL, if you have it installed. Edit file /etc/yum.repos.d/epel.repo and add the following statement.
+
+```
+[epel]
+...
+excludepkgs=zabbix*
+```
+???+ Tip
+    Having the epel repository enabled is a bad practice and could be dangerous if you use EPEL it's best to disable the repo and use dnf install <package> --enablerepo=epel. This way you will never overwrite or install unwanted packages by accident.
+
+Our next task is to install the Zabbix repository on our OS and do a dnf cleanup of old data
+
+``` 
+rpm -Uvh https://repo.zabbix.com/zabbix/6.5/rocky/9/x86_64/zabbix-release-6.5-2.el9.noarch.rpm
+dnf clean all
+```
+#### Installing the Zabbix server
+
+Now that we have our repository with software added to our system we are ready to install our Zabbix server and webserver. Remember the webserver could be installed on another system. There is no need to install both on the same server.
+
+    7  dnf install zabbix-server-mysql zabbix-web-mysql zabbix-nginx-conf zabbix-selinux-policy zabbix-agent
+    8  vi /etc/zabbix/zabbix_server.conf
+    9  setenforce 0
+   10  systemctl enable zabbix-server --now
+   11  tail /var/log/zabbix/zabbix_server.log
+   12  tail -f /var/log/zabbix/zabbix_server.log
+   13  systemctl stop zabbix-server
+   14  systemctl start zabbix-server
+   15  tail -f /var/log/zabbix/zabbix_server.log
+
 
 

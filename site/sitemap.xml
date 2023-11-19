@@ -2,87 +2,82 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://trikke76.github.io/Zabbix-Book/</loc>
-         <lastmod>2023-11-17</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://trikke76.github.io/Zabbix-Book/00-Outline/</loc>
-         <lastmod>2023-11-17</lastmod>
+         <lastmod>2023-11-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://trikke76.github.io/Zabbix-Book/01-Getting%20started%20with%20Zabbix/</loc>
-         <lastmod>2023-11-17</lastmod>
+         <lastmod>2023-11-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://trikke76.github.io/Zabbix-Book/02-Starting%20with%20the%20basic%20configuration/</loc>
-         <lastmod>2023-11-17</lastmod>
+         <lastmod>2023-11-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://trikke76.github.io/Zabbix-Book/03-Detecting%20and%20managing%20problems/</loc>
-         <lastmod>2023-11-17</lastmod>
+         <lastmod>2023-11-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://trikke76.github.io/Zabbix-Book/04-Taking%20action%20when%20problems%20come/</loc>
-         <lastmod>2023-11-17</lastmod>
+         <lastmod>2023-11-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://trikke76.github.io/Zabbix-Book/05-Managing%20Permissions/</loc>
-         <lastmod>2023-11-17</lastmod>
+         <lastmod>2023-11-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://trikke76.github.io/Zabbix-Book/06-Visualising%20our%20problems/</loc>
-         <lastmod>2023-11-17</lastmod>
+         <lastmod>2023-11-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://trikke76.github.io/Zabbix-Book/07-Automating%20configuration/</loc>
-         <lastmod>2023-11-17</lastmod>
+         <lastmod>2023-11-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://trikke76.github.io/Zabbix-Book/08-VMWare%20monitoring/</loc>
-         <lastmod>2023-11-17</lastmod>
+         <lastmod>2023-11-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://trikke76.github.io/Zabbix-Book/09-Monitoring%20websites/</loc>
-         <lastmod>2023-11-17</lastmod>
+         <lastmod>2023-11-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://trikke76.github.io/Zabbix-Book/10-Monitoring%20SNMP%2CIPMI%20and%20JAVA/</loc>
-         <lastmod>2023-11-17</lastmod>
+         <lastmod>2023-11-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://trikke76.github.io/Zabbix-Book/11-Monitoring%20with%20Proxies/</loc>
-         <lastmod>2023-11-17</lastmod>
+         <lastmod>2023-11-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://trikke76.github.io/Zabbix-Book/12-Securing%20Zabbix/</loc>
-         <lastmod>2023-11-17</lastmod>
+         <lastmod>2023-11-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://trikke76.github.io/Zabbix-Book/13-Maintaining%20Zabbix/</loc>
-         <lastmod>2023-11-17</lastmod>
+         <lastmod>2023-11-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://trikke76.github.io/Zabbix-Book/14-Monitoring%20Windows/</loc>
-         <lastmod>2023-11-17</lastmod>
+         <lastmod>2023-11-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://trikke76.github.io/Zabbix-Book/15-Zabbix%20API/</loc>
-         <lastmod>2023-11-17</lastmod>
+         <lastmod>2023-11-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
