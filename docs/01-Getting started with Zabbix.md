@@ -188,7 +188,7 @@ vi /etc/yum.repos.d/mariadb.repo
 ```
 
 The above command will create a new repository file, Once it is created, you need to add the following configuration into the file.
-Make sure your version in this case 10.11 is supported by Zabbix by looking at the latest [requirements](https://www.zabbix.com/documentation/current/en/manual/installation/requirements) for your version. 
+Make sure your version, in this case 10.11, is supported by Zabbix by looking at the latest [requirements](https://www.zabbix.com/documentation/current/en/manual/installation/requirements) for your version. 
 
 ```
 # MariaDB 10.11 RedHatEnterpriseLinux repository list - created 2023-11-01 14:20 UTC
