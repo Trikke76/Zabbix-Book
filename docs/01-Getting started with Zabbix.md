@@ -2,7 +2,7 @@
 
 ## Requirements
 
-Zabbix has a set of requirements that need to be met on hardware level and software level. These requirements can change over time and also depends on the size of your setup and the software you choose.
+Zabbix has a set of requirements that need to be met on the hardware level and software level. These requirements can change over time and also depends on the size of your setup and the software you choose.
 So before you start buying metal or installing a random database version have a look at the Zabbix documentation and check the latest requirements for the version you want to install. The latest requirements can be found [here](https://www.zabbix.com/documentation/current/en/manual/installation/requirements). Don't forget to select your correct *Zabbix* version from the list.
 
 
@@ -14,7 +14,7 @@ It's important for our Zabbix server to have an OS that is well prepared before 
 
 ``# dnf install firewalld --now``
 
-Our firewall is installed now and we are ready to configure the needed ports. For our Zabbix server we need to allow access to port 10051/tcp this is the port where our Zabbix trapper listens on for incoming data. So we need to open this port in our firewall to allow access to our Zabbix trapper.
+Our firewall is installed now, and we are ready to configure the needed ports. For our Zabbix server, we need to allow access to port 10051/tcp this is the port where our Zabbix trapper listens on for incoming data. So we need to open this port in our firewall to allow access to our Zabbix trapper.
 
 ```# firewall-cmd --add-service=Zabbix-server --permanent```
 
@@ -27,7 +27,7 @@ or if the service is not known
 
 ### timeserver
 
-Another thing we need to configure is the setup of timeserver and sync our Zabbix server to the timeserver by making use of an ntp client. This needs to be done for the Zabbix server but also for the devices we will monitor as time is very important for Zabbix. Imagine one of our hosts having a timezone that is wrong we could end up looking for a problems in Zabbix that happened 6h ago while it had happened maybe only 2h ago.
+Another thing we need to configure is the setup of timeserver and sync our Zabbix server to the timeserver by making use of an ntp client. This needs to be done for the Zabbix server but also for the devices we will monitor as time is very important for Zabbix. Imagine one of our hosts having a time zone that is wrong we could end up looking for a problem in Zabbix that happened 6h ago while it had happened maybe only 2h ago.
 
 ```# dnf install chronyd --now```
 
@@ -39,7 +39,7 @@ Chrony should be installed now and enabled and running. This can be verified wit
     dnf is a packagemanager from RedHat you need to replace dnf with your correct packagemanager like zyper, apt, yum, ... chrony is a replacement for ntpd and does a better job being faster and more accurate. If your OS does not support [chrony](https://chrony-project.org/) then maybe ntpd is still available.
 
 
-Once Chrony is installed we also need to setup our correct timezone. We can have a look first with 'timedatectl' to see how our time is configured 
+Once Chrony is installed we also need to setup our correct time zone. We can have a look first with 'timedatectl' to see how our time is configured 
 ```
 # timedatectl
                Local time: Thu 2023-11-16 15:09:14 UTC
@@ -52,13 +52,13 @@ System clock synchronized: yes
 ```
 
 Make sure that the service cronyd is active, see above on how to do if you missed it.
-We can choose the correct timezone from a list that we can lookup with the following command:
+We can choose the correct time zone from a list that we can lookup with the following command:
 
 ```
-# timedatectl list-timezones
+# timedatectl list-time zones
 ```
 
-This will give us a list with all available timezones. Choose the one closest to you.
+This will give us a list with all available time zones. Choose the one closest to you.
 ```
 Africa/Abidjan
 Africa/Accra
@@ -71,13 +71,13 @@ Pacific/Wallis
 UTC
 ```
 
-We can now configure our correct timezone with the following command:
+We can now configure our correct time zone with the following command:
 
 ```
-timedatectl set-timezone Europe/Brussels
+timedatectl set-time zone Europe/Brussels
 ```
 
-When we look again we should see our timezone properly configured.
+When we look again we should see our time zone properly configured.
 ```
 # timedatectl
                Local time: Thu 2023-11-16 16:13:35 CET
@@ -89,7 +89,7 @@ System clock synchronized: yes
           RTC in local TZ: no
 ```
 ???+ note
-    Some people like to install all servers in the UTC timezone so that all server logs are in the same timezone when having servers all over the world. Zabbix supports user based timezone settings so it's possible to keep the timezone in UTC on the server and then add the correct timezone in the user interface if you like.
+    Some people like to install all servers in the UTC time zone so that all server logs are in the same time zone when having servers all over the world. Zabbix supports user based time zone settings so it's possible to keep the time zone in UTC on the server and then add the correct time zone in the user interface if you like.
 
 
 We can test if Chrony is syncronizing with the correct timeservers as well by running the command chronyc
@@ -159,26 +159,26 @@ MS Name/IP address         Stratum Poll Reach LastRx Last sample
 Before we can install Zabbix we first have to know how the design is. The Zabbix server has been build op modular based on 3 components.
 
 - The Zabbix server
-- The Zabbix webserver
+- The Zabbix web server
 - The Zabbix database
 
 ![Zabbix Server Setup](CH01/zabbix-server.webp)
 
 All these components can be installed on 1 server or can be split over 3 different servers. 
-The Zabbix server itself is the brain this part is doing all the trigger calculations and sendind all the alert.
+The Zabbix server itself is the brain this part is doing all the trigger calculations and sending all the alert.
 The database is where the Zabbix server stores its config and all the data that we have gathered.
-The webserver provides us with a frontend. Note that Zabbix has a API and that this is also located on the frontend and not on the Zabbix server side.
+The web server provides us with a front-end. Note that Zabbix has a API and that this is also located on the front-end and not on the Zabbix server side.
 
-All these parts have to work together so as you can see in our image above. The Zabbix server needs to read the config and store the data in our database and the Zabbix frontend needs to be able to write the configuration in the database as well. The Zabbix frontend also needs to check the online status of our Zabbix server and needs to read some other information as well.
+All these parts have to work together so as you can see in our image above. The Zabbix server needs to read the config and store the data in our database and the Zabbix front-end needs to be able to write the configuration in the database as well. The Zabbix front-end also needs to check the online status of our Zabbix server and needs to read some other information as well.
 
-For our setup we will use 2 VM's 1 VM with a Zabbix server and the Zabbix webserver and another VM with the database.
+For our setup, we will use 2 VM's 1 VM with a Zabbix server and the Zabbix web server and another VM with the database.
 
 
 ### Installing Zabbix with MariaDB
 
 
-Let us start with the installation of the MariaDB server, you need to create a MariaDB repository configuration file mariadb.repo manually with this path '/etc/yum.repos.d/'
-To create a MariaDB repository file, you can use the following command,
+Let us start with the installation of the MariaDB server, you need to create a MariaDB repository configuration file `mariadb.repo` manually in the following path `/etc/yum.repos.d/`.
+To create a MariaDB repository file, you can use the following command.
 
 
 #### Add the MariaDB repo
@@ -256,7 +256,7 @@ And when we ask the status of our MariaDB server we should get an output like th
 ```
 #### Securing the database
 
-Time to secure our database by removing the test database and user and set our own root password.  Run the command 'mariadb-secure-installation' you should get the following output.
+It's time to secure our database by removing the test database and user and set our own root password.  Run the command `mariadb-secure-installation`, you should get the following output.
 
 ```
 # mariadb-secure-installation
