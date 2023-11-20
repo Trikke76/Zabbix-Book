@@ -446,7 +446,157 @@ You can continue with the next task [Installing the Zabbix Server](#installing-t
 
 ### Installing Zabbix with MySQL
 
-ToDo
+
+Let us start with the installation of the MySQL server, you need to create a MySQL repository first so that we can install the proper files for our MySQL server
+It's alwqys best to check the Zabbix [documentation](https://www.zabbix.com/documentation/current/en/manual/installation/requirements) to see what version is supported so you don't install a version that is not supported or is not supported anymore.
+
+#### Add the MySQL repo
+
+Run the following command to install the MySQL repo for version 8.0
+
+```# dnf -y install https://dev.mysql.com/get/mysql80-community-release-el9-1.noarch.rpm```
+
+???+ Note
+    If you install this on RedHat 8 or alternatives like CentOS, Rocky or Alma 8 then you need to disable the mysql module by running 'module disable mysql'.
+
+Let's update our OS first with the latest patches
+
+```# dnf update -y```
+
+#### Installing the MySQL database
+
+```# dnf -y install mysql-community-server ```
+
+We are now ready to enable and start or MySQL database.
+
+```# systemctl enable mysqld --now```
+
+Once the installation is complete, you can verify the version of the MySQL server by using the following command:
+
+```# mysql -V```
+
+The output should look like this:
+
+```mysql  Ver 8.0.35 for Linux on x86_64 (MySQL Community Server - GPL)```
+
+And when we ask the status of our MariaDB server we should get an output like this:
+
+```
+# systemctl status mysqld
+● mysqld.service - MySQL Server
+     Loaded: loaded (/usr/lib/systemd/system/mysqld.service; enabled; preset: disabled)
+     Active: active (running) since Mon 2023-11-20 22:15:51 CET; 1min 15s ago
+       Docs: man:mysqld(8)
+             http://dev.mysql.com/doc/refman/en/using-systemd.html
+    Process: 44947 ExecStartPre=/usr/bin/mysqld_pre_systemd (code=exited, status=0/SUCCESS)
+   Main PID: 45012 (mysqld)
+     Status: "Server is operational"
+      Tasks: 37 (limit: 12344)
+     Memory: 448.3M
+        CPU: 4.073s
+     CGroup: /system.slice/mysqld.service
+             └─45012 /usr/sbin/mysqld
+
+Nov 20 22:15:43 mysql-db systemd[1]: Starting MySQL Server...
+Nov 20 22:15:51 mysql-db systemd[1]: Started MySQL Server.
+```
+#### Securing the MySQL database
+
+MySQL will secure our database with a random root password that is generated when we install the database. First thing we need to do is replace it with our own password. To find what the password is we need to read the log file with the followin command:
+
+```# grep 'temporary password' /var/log/mysqld.log```
+
+Change the root password as soon as possible by logging in with the generated, temporary password and set a custom password for the superuser account:
+```
+# mysql -uroot -p
+```
+```
+mysql> ALTER USER 'root'@'localhost' IDENTIFIED BY '<my mysql password>';
+mysql> quit
+```
+Next we can run the command mysql_secure_installation, you should get the following output:
+
+???+ Note
+    There is no need to reset the root password for MySQL again as we have reset it already. The next step is optional but recommended.
+
+```
+# mysql_secure_installation
+
+Securing the MySQL server deployment.
+
+Enter password for user root:
+The 'validate_password' component is installed on the server.
+The subsequent steps will run with the existing configuration
+of the component.
+Using existing password for root.
+
+Estimated strength of the password: 100
+Change the password for root ? ((Press y|Y for Yes, any other key for No) : n
+
+ ... skipping.
+By default, a MySQL installation has an anonymous user,
+allowing anyone to log into MySQL without having to have
+a user account created for them. This is intended only for
+testing, and to make the installation go a bit smoother.
+You should remove them before moving into a production
+environment.
+
+Remove anonymous users? (Press y|Y for Yes, any other key for No) : y
+Success.
+
+
+Normally, root should only be allowed to connect from
+'localhost'. This ensures that someone cannot guess at
+the root password from the network.
+
+Disallow root login remotely? (Press y|Y for Yes, any other key for No) : y
+Success.
+
+By default, MySQL comes with a database named 'test' that
+anyone can access. This is also intended only for testing,
+and should be removed before moving into a production
+environment.
+
+
+Remove test database and access to it? (Press y|Y for Yes, any other key for No) : y
+ - Dropping test database...
+Success.
+
+ - Removing privileges on test database...
+Success.
+
+Reloading the privilege tables will ensure that all changes
+made so far will take effect immediately.
+
+Reload privilege tables now? (Press y|Y for Yes, any other key for No) : y
+Success.
+
+All done!
+```
+mysql> CREATE DATABASE zabbix CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;
+mysql> CREATE USER 'zabbix-web'@'192.168.56.18' IDENTIFIED BY 'zbxWEB70!';
+mysql> CREATE USER 'zabbix-srv'@'192.168.56.18' IDENTIFIED BY 'zbxSRV70!';
+mysql> CREATE USER 'zabbix-srv'@localhost  IDENTIFIED BY 'zbxSRV70!';
+mysql> GRANT ALL PRIVILEGES ON zabbix.* TO 'zabbix-srv'@'192.168.56.18';
+mysql> GRANT SELECT, UPDATE, DELETE, INSERT ON zabbix.* TO 'zabbix-web'@'192.168.56.18';
+mysql> SET GLOBAL log_bin_trust_function_creators = 1;
+mysql> QUIT
+
+???+ warning
+    The Zabbix documentation explicitly mentions that deterministic triggers need to be created during the import of schema. On MySQL and MariaDB, this requires GLOBAL log_bin_trust_function_creators = 1 to be set if binary logging is enabled and there is no superuser privileges and log_bin_trust_function_creators = 1 is not set in MySQL configuration file.
+
+#### Add the Zabbix repository and populate the DB
+
+```
+# rpm -Uvh https://repo.zabbix.com/zabbix/6.5/rocky/9/x86_64/zabbix-release-6.5-2.el9.noarch.rpm
+# dnf clean all
+# dnf install zabbix-sql-scripts
+```
+Upload the data from zabbix (db structure, images, user, ... )
+
+
+
+
 
 ### Installing Zabbix with PostgreSQL
 
