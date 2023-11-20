@@ -876,12 +876,43 @@ The command returns us 2 lines but as we have seen that the code was zh_CN we on
 
 When we return now to our frontend we are able to select the Chinese language. 
 
+![Zabbix Welcome page](CH01/zabbix-locales-chinese.png)
+
 ???+ Note 
     If your language is not available in the frontend don't panic it just means that there is no translation or that the translation was not 100% complete. Zabbis is free and relies on the community for it's translations so you can help in creating the translation. Go to the page ```https://translate.zabbix.com/``` and help us to make Zabbix get better. Once the translation is complete the next Zabbix minor patch version should have your language included.
 
+Click next when you are satisfied with the transaltions available. You will arrive at a screen to verifiy if all pre-requisites are met. If not fix them first but normaly it should be fine and you should be just able to click Next
+
+![Zabbix Welcome page](CH01/pre-requisites.png)
+
+The next page will show you a page with the connection parameters for our database.
+
+First fill in the IP or DNS name of the location of your database server. Use port 3306 as this is the port our MariaDB is listening on.
+
+Fill in the correct  database name, in our case it was ```zabbix```.
+
+Next line will ask you for the DB users here we created a user ```zabbix-web```. Enter it in the correct field and fill in the password that you used for this user.
+
+Make sure the option ```Database TLS encryption``` is not selected and press ```Next step```.
+
+![Zabbix Welcome page](CH01/db-connection.png)
+
+We are almost there. The only thing that rests us to do is give our instance a name, select our timezone and select a default time we like to use.
+
+![Zabbix Welcome page](CH01/zabbix-summary.png)
+
+Press ```Next step``` again you will see a page that tells you that the configuration is successful.
+Press Finish to end the configuration.
 
 
+![Zabbix Welcome page](CH01/zabbix-succcess.png)
 
+We are now ready to login :
+
+![Zabbix Welcome page](CH01/zabbix-login.png)
+
+Login : Admin
+Password : zabbix
 
 
 #### Installing Zabbix frontend with Apache
