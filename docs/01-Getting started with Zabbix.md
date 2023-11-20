@@ -460,6 +460,100 @@ ToDo
 ### Installing the Zabbix Server
 
 Before you start to install your Zabbix server make sure the server is properly configure as we explained in our topic [Basic OS configuration before we start](#basic-os-configuration-before-we-start).
+Something else that is important in this case is that we need to disable SELinux. We will see later in chapter [Securing Zabbix](../12-Securing%20Zabbix) how to do this properly. 
+We can check the status of SELinux with the command ```sestatus``` :
+
+```
+# sestatus
+SELinux status:                 enabled
+SELinuxfs mount:                /sys/fs/selinux
+SELinux root directory:         /etc/selinux
+Loaded policy name:             targeted
+Current mode:                   enforcing
+Mode from config file:          enforcing
+Policy MLS status:              enabled
+Policy deny_unknown status:     allowed
+Memory protection checking:     actual (secure)
+Max kernel policy version:      33
+```
+
+As you can see we are now in enforcing mode.
+To disable SELinux just run ```setenforce 0``` to disable it. 
+
+```
+# setenforce 0
+# sestatus
+
+SELinux status:                 enabled
+SELinuxfs mount:                /sys/fs/selinux
+SELinux root directory:         /etc/selinux
+Loaded policy name:             targeted
+Current mode:                   permissive
+Mode from config file:          enforcing
+Policy MLS status:              enabled
+Policy deny_unknown status:     allowed
+Memory protection checking:     actual (secure)
+Max kernel policy version:      33
+```
+As you can see our current mode is now permissive. 
+However this is not persistent so we also need to alter our SELinux configuration file. This can be done by altering the file ```/etc/config/selinux``` and replacing enforcing by permissive.
+A more easy way is to run the following command :
+```
+sed -i 's/SELINUX=enforcing/SELINUX=permissive/g' /etc/selinux/config
+```
+
+This line will alter the config file for you. So when we run ```sestatus``` again we will see that we are in ```permissive``` mode and that our config file is also in ```permissive``` mode. 
+
+
+We can verify this with our **cat** commando.
+
+```
+# cat /etc/selinux/config
+
+# This file controls the state of SELinux on the system.
+# SELINUX= can take one of these three values:
+#     enforcing - SELinux security policy is enforced.
+#     permissive - SELinux prints warnings instead of enforcing.
+#     disabled - No SELinux policy is loaded.
+# See also:
+# https://docs.fedoraproject.org/en-US/quick-docs/getting-started-with-selinux/#getting-started-with-selinux-selinux-states-and-modes
+#
+# NOTE: In earlier Fedora kernel builds, SELINUX=disabled would also
+# fully disable SELinux during boot. If you need a system with SELinux
+# fully disabled instead of SELinux running with no policy loaded, you
+# need to pass selinux=0 to the kernel command line. You can use grubby
+# to persistently set the bootloader to boot with selinux=0:
+#
+#    grubby --update-kernel ALL --args selinux=0
+#
+# To revert back to SELinux enabled:
+#
+#    grubby --update-kernel ALL --remove-args selinux
+#
+SELINUX=permissive
+# SELINUXTYPE= can take one of these three values:
+#     targeted - Targeted processes are protected,
+#     minimum - Modification of targeted policy. Only selected processes are protected.
+#     mls - Multi Level Security protection.
+SELINUXTYPE=targeted
+```
+And we can also verify it with our commando ```setstatus``` 
+
+```
+# sestatus
+
+SELinux status:                 enabled
+SELinuxfs mount:                /sys/fs/selinux
+SELinux root directory:         /etc/selinux
+Loaded policy name:             targeted
+Current mode:                   permissive
+Mode from config file:          permissive
+Policy MLS status:              enabled
+Policy deny_unknown status:     allowed
+Memory protection checking:     actual (secure)
+Max kernel policy version:      33
+```
+
 
 #### Adding the Zabbix repository
 
@@ -475,27 +569,105 @@ Our first step is to disable Zabbix packages provided by EPEL, if you have it in
 excludepkgs=zabbix*
 ```
 ???+ Tip
-    Having the epel repository enabled is a bad practice and could be dangerous if you use EPEL it's best to disable the repo and use dnf install <package> --enablerepo=epel. This way you will never overwrite or install unwanted packages by accident.
+    Having the EPEL repository enabled is a bad practice and could be dangerous if you use EPEL it's best to disable the repo and use dnf install <package> --enablerepo=epel. This way you will never overwrite or install unwanted packages by accident.
 
-Our next task is to install the Zabbix repository on our OS and do a dnf cleanup of old data
+Our next task is to install the Zabbix repository on our OS and do a dnf cleanup so that old cache files from our repository metadata is cleaned up.
 
 ``` 
 rpm -Uvh https://repo.zabbix.com/zabbix/6.5/rocky/9/x86_64/zabbix-release-6.5-2.el9.noarch.rpm
 dnf clean all
 ```
-#### Installing the Zabbix server
+???+ note
+    A repository is a config in Linux that you can add to make packages available for you OS to install. The best way to look at it is maybe to think of it like an APP store that you add where you can find the software of your vendor. In this case the repository form Zabbix. There are many repositories you can add but you should be sure that they can be trusted. So it's always a good idea to stick to the repositories of your OS and only add extra repositories when you are sure they are to be trusted and needed. In our case the repository is from our vendor Zabbix so it should be safe to add. Epel is another popular repository for RedHat systems that is considered to be safe.
+
+
+#### Installing the Zabbix server for MySQL
 
 Now that we have our repository with software added to our system we are ready to install our Zabbix server and webserver. Remember the webserver could be installed on another system. There is no need to install both on the same server.
 
-    7  dnf install zabbix-server-mysql zabbix-web-mysql zabbix-nginx-conf zabbix-selinux-policy zabbix-agent
-    8  vi /etc/zabbix/zabbix_server.conf
-    9  setenforce 0
-   10  systemctl enable zabbix-server --now
-   11  tail /var/log/zabbix/zabbix_server.log
-   12  tail -f /var/log/zabbix/zabbix_server.log
-   13  systemctl stop zabbix-server
-   14  systemctl start zabbix-server
-   15  tail -f /var/log/zabbix/zabbix_server.log
+```dnf install zabbix-server-mysql zabbix-web-mysql zabbix-nginx-conf ```
+
+Now that we have installed our packages for the Zabbix server and our frontend we still need to change the configuration of our Zabbix server so that we can connect to our database. Open the file ```/etc/zabbix/zabbix_server.conf``` and replace the following lines:
+
+```
+DBHost=<ip or dns of your MariaDB server>
+DBName=<the name of your database>
+DBUser=<the user that will connect to the database>
+DBPassword=<your super secret password>
+```
+Make sure you don't have a '#' in front of the config parameter else Zabbix will see this as text and not as a parameter. Also make sure that there are not extra duplicate lines Zabbix will always take the last config parameter if there is more then 1 line with the same parameter
+
+In our case the config will look like this:
+
+```
+# vi /etc/zabbix/zabbix_server.conf
+
+DBHost=<ip or dns of your MariaDB server>
+DBName=zabbix
+DBUser=zabbix-srv
+DBPassword=<your super secret password>
+```
+
+???+ Note
+    The Zabbix server configuration file has the option to include an extra config file with parameters you like to alter or add. In production it's probably better to not touch the configuration file but to add a new file and include the parameters you like to change. This way you never have to edit your original configuration file after an upgrade it will also make your life more easy when working with configuration tools like Ansible, Puppet, SaltStack, .... The only thing that needs to be done is remove the # in front of the line '# Include=/usr/local/etc/zabbix_server.conf.d/*.conf' and make sure the path exists with a customized config file of your won that is readable by the user zabbix.
+
+
+Ok now that we have changed the configuration of you Zabbix server so that it is able to connect to our DB we are  ready to start. Run the following command to enable the Zabbix server and make it active on boot next time.
+
+```systemctl enable zabbix-server --now```
+
+Our Zabbix server service will start and if everything goes well you should see in the Zabbix server log file the following output 
+
+```tail /var/log/zabbix/zabbix_server.log```
+
+```
+  1123:20231120:110604.440 Starting Zabbix Server. Zabbix 7.0.0alpha7 (revision 60de6a81aca).
+  1123:20231120:110604.440 ****** Enabled features ******
+  1123:20231120:110604.440 SNMP monitoring:           YES
+  1123:20231120:110604.440 IPMI monitoring:           YES
+  1123:20231120:110604.440 Web monitoring:            YES
+  1123:20231120:110604.440 VMware monitoring:         YES
+  1123:20231120:110604.440 SMTP authentication:       YES
+  1123:20231120:110604.440 ODBC:                      YES
+  1123:20231120:110604.440 SSH support:               YES
+  1123:20231120:110604.440 IPv6 support:              YES
+  1123:20231120:110604.440 TLS support:               YES
+  1123:20231120:110604.440 ******************************
+  1123:20231120:110604.440 using configuration file: /etc/zabbix/zabbix_server.conf
+  1123:20231120:110604.470 current database version (mandatory/optional): 06050143/06050143
+  1123:20231120:110604.470 required mandatory version: 06050143
+  1124:20231120:110604.490 starting HA manager
+  1124:20231120:110604.507 HA manager started in active mode
+  1123:20231120:110604.508 server #0 started [main process]
+  1126:20231120:110604.509 server #2 started [configuration syncer #1]
+  1125:20231120:110604.510 server #1 started [service manager #1]
+  1133:20231120:110604.841 server #9 started [lld worker #1]
+  1132:20231120:110604.841 server #8 started [lld manager #1]
+  1134:20231120:110604.841 server #10 started [lld worker #2]
+```
+
+If there was an error and the server was not able to connect to the database you would see something like this in the server log file :
+
+```
+ 10773:20231118:213248.570 Starting Zabbix Server. Zabbix 7.0.0alpha7 (revision 60de6a81aca).
+ 10773:20231118:213248.570 ****** Enabled features ******
+ 10773:20231118:213248.570 SNMP monitoring:           YES
+ 10773:20231118:213248.570 IPMI monitoring:           YES
+ 10773:20231118:213248.570 Web monitoring:            YES
+ 10773:20231118:213248.570 VMware monitoring:         YES
+ 10773:20231118:213248.570 SMTP authentication:       YES
+ 10773:20231118:213248.570 ODBC:                      YES
+ 10773:20231118:213248.570 SSH support:               YES
+ 10773:20231118:213248.570 IPv6 support:              YES
+ 10773:20231118:213248.570 TLS support:               YES
+ 10773:20231118:213248.570 ******************************
+ 10773:20231118:213248.570 using configuration file: /etc/zabbix/zabbix_server.conf
+ 10773:20231118:213248.574 [Z3001] connection to database 'zabbix' failed: [2002] Can't connect to server on 'xxx.xxx.xxx.xxx' (115)
+ 10773:20231118:213248.574 database is down: reconnecting in 10 seconds
+ 10773:20231118:213258.579 [Z3001] connection to database 'zabbix' failed: [2002] Can't connect to server on 'xxx.xxx.xxx.xxx' (115)
+ 10773:20231118:213258.579 database is down: reconnecting in 10 seconds
+```
+
 
 
 
