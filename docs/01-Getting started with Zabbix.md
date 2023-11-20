@@ -585,7 +585,7 @@ dnf clean all
 
 Now that we have our repository with software added to our system we are ready to install our Zabbix server and webserver. Remember the webserver could be installed on another system. There is no need to install both on the same server.
 
-```dnf install zabbix-server-mysql zabbix-web-mysql zabbix-nginx-conf ```
+```dnf install zabbix-server-mysql ```
 
 Now that we have installed our packages for the Zabbix server and our frontend we still need to change the configuration of our Zabbix server so that we can connect to our database. Open the file ```/etc/zabbix/zabbix_server.conf``` and replace the following lines:
 
@@ -668,6 +668,161 @@ If there was an error and the server was not able to connect to the database you
  10773:20231118:213258.579 database is down: reconnecting in 10 seconds
 ```
 
+Let's check the Zabbix server service to see if it's enabled so that it survives a reboot 
+
+```
+# systemctl status zabbix-server
+
+● zabbix-server.service - Zabbix Server
+     Loaded: loaded (/usr/lib/systemd/system/zabbix-server.service; enabled; preset: disabled)
+     Active: active (running) since Mon 2023-11-20 11:06:04 CET; 1h 2min ago
+   Main PID: 1123 (zabbix_server)
+      Tasks: 59 (limit: 12344)
+     Memory: 52.6M
+        CPU: 20.399s
+     CGroup: /system.slice/zabbix-server.service
+             ├─1123 /usr/sbin/zabbix_server -c /etc/zabbix/zabbix_server.conf
+             ├─1124 "/usr/sbin/zabbix_server: ha manager"
+             ├─1125 "/usr/sbin/zabbix_server: service manager #1 [processed 0 events, updated 0 event tags, deleted 0 problems, synced 0 service updates, idle 5.008686 sec during 5.016382 sec]"
+             ├─1126 "/usr/sbin/zabbix_server: configuration syncer [synced configuration in 0.092797 sec, idle 10 sec]"
+             ├─1127 "/usr/sbin/zabbix_server: alert manager #1 [sent 0, failed 0 alerts, idle 5.027620 sec during 5.027828 sec]"
+             ├─1128 "/usr/sbin/zabbix_server: alerter #1 started"
+             ├─1129 "/usr/sbin/zabbix_server: alerter #2 started"
+             ├─1130 "/usr/sbin/zabbix_server: alerter #3 started"
+             ├─1131 "/usr/sbin/zabbix_server: preprocessing manager #1 [queued 1, processed 2 values, idle 5.490312 sec during 5.490555 sec]"
+             ├─1132 "/usr/sbin/zabbix_server: lld manager #1 [processed 1 LLD rules, idle 5.028973sec during 5.029123 sec]"
+             ├─1133 "/usr/sbin/zabbix_server: lld worker #1 [processed 1 LLD rules, idle 60.060180 sec during 60.085009 sec]"
+             ├─1134 "/usr/sbin/zabbix_server: lld worker #2 [processed 1 LLD rules, idle 60.065526 sec during 60.095165 sec]"
+             ├─1135 "/usr/sbin/zabbix_server: housekeeper [deleted 0 hist/trends, 0 items/triggers, 0 events, 0 sessions, 0 alarms, 0 audit items, 0 autoreg_host, 0 records in 0.019108 sec, idle for 1 hour(s)]"
+             ├─1136 "/usr/sbin/zabbix_server: timer #1 [updated 0 hosts, suppressed 0 events in 0.002856 sec, idle 59 sec]"
+             ├─1137 "/usr/sbin/zabbix_server: http poller #1 [got 0 values in 0.000059 sec, idle 5 sec]"
+             ├─1138 "/usr/sbin/zabbix_server: discovery manager #1 [processing 0 rules, 0.000000% of queue used, 0 unsaved checks]"
+             ├─1139 "/usr/sbin/zabbix_server: history syncer #1 [processed 0 values, 0 triggers in 0.000036 sec, idle 1 sec]"
+             ├─1140 "/usr/sbin/zabbix_server: history syncer #2 [processed 1 values, 0 triggers in 0.005016 sec, idle 1 sec]"
+             ├─1141 "/usr/sbin/zabbix_server: history syncer #3 [processed 0 values, 0 triggers in 0.000031 sec, idle 1 sec]"
+             ├─1142 "/usr/sbin/zabbix_server: history syncer #4 [processed 0 values, 0 triggers in 0.000014 sec, idle 1 sec]"
+             ├─1143 "/usr/sbin/zabbix_server: escalator #1 [processed 0 escalations in 0.005587 sec, idle 3 sec]"
+             ├─1144 "/usr/sbin/zabbix_server: proxy poller #1 [exchanged data with 0 proxies in 0.000010 sec, idle 5 sec]"
+             ├─1145 "/usr/sbin/zabbix_server: self-monitoring [processed data in 0.000016 sec, idle 1 sec]"
+             ├─1146 "/usr/sbin/zabbix_server: task manager [processed 0 task(s) in 0.002511 sec, idle 5 sec]"
+             ├─1147 "/usr/sbin/zabbix_server: poller #1 [got 0 values in 0.000009 sec, idle 1 sec]"
+             ├─1148 "/usr/sbin/zabbix_server: poller #2 [got 1 values in 0.000232 sec, idle 1 sec]"
+             ├─1149 "/usr/sbin/zabbix_server: poller #3 [got 0 values in 0.000015 sec, idle 1 sec]"
+             ├─1150 "/usr/sbin/zabbix_server: poller #4 [got 0 values in 0.000010 sec, idle 1 sec]"
+```
+
+This concludes our chapter on installing and configuring our Zabbix server. 
+Next we have to configure our frontend. You can have a look at [Installing Zabbix frontend with Nginx](#installing-zabbix-frontend-with-nginx) or [Installing Zabbix frontend with Apache](#installing-zabbix-frontend-with-apache)
+
+
+#### Installing Zabbix frontend with Nginx
+
+Before we can configure our frontend we need to install our package first. If you run the frontend on the same server as the Zabbix server then there is nothing else you have to do you can just run the following command on your server to install the packages needed for our frontend to install:
+```
+dnf install zabbix-web-mysql zabbix-nginx-conf
+```
+
+In case the frontend is on another server installed you need to add the Zabbix repository first like we did on our Zabbix server. In case you forgot or just skipped to this topic and don't know how to do this have a look at [Adding the Zabbix repository](#adding-the-zabbix-repository)
+
+First thing we have to do is alter the Nginx configuration file so that we don't  use the standard config.
+```
+vi /etc/nginx/nginx.conf
+```
+
+In this config look for the followin block that starts with :
+```
+    server {
+        listen       80;
+        listen       [::]:80;
+        server_name  _;
+        root         /usr/share/nginx/html;
+
+        # Load configuration files for the default server block.
+        include /etc/nginx/default.d/*.conf;
+```
+
+And place the following lines in comment:
+
+```
+    server {
+#        listen       80;
+#        listen       [::]:80;
+#        server_name  _;
+#        root         /usr/share/nginx/html;
+```
+
+We now have to alter the Zabbix configuration file so that it matches our setup. Edit the following file:
+```
+vi /etc/nginx/conf.d/zabbix.conf
+```
+
+```
+server {
+        listen          8080;
+        server_name     example.com;
+
+        root    /usr/share/zabbix;
+
+        index   index.php;
+```
+
+Replace the first 2 lines with the correct port and domain for your frontend in case you don't have a domain you can replace server_name with _; like in the exaple below:
+
+```
+server {
+#        listen          8080;
+#        server_name     example.com;
+        listen          80;
+        server_name     _;
+
+        root    /usr/share/zabbix;
+
+        index   index.php;
+```
+
+We are now ready to start our websever and enable it so that it comes online after a reboot.
+
+```
+systemctl enable nginx --now
+```
+
+Let's verify if the service is properly started and enabled so that it survives our reboot next time.
+
+```
+# systemctl status nginx
+
+● nginx.service - The nginx HTTP and reverse proxy server
+     Loaded: loaded (/usr/lib/systemd/system/nginx.service; enabled; preset: disabled)
+    Drop-In: /usr/lib/systemd/system/nginx.service.d
+             └─php-fpm.conf
+     Active: active (running) since Mon 2023-11-20 11:42:18 CET; 30min ago
+   Main PID: 1206 (nginx)
+      Tasks: 2 (limit: 12344)
+     Memory: 4.8M
+        CPU: 38ms
+     CGroup: /system.slice/nginx.service
+             ├─1206 "nginx: master process /usr/sbin/nginx"
+             └─1207 "nginx: worker process"
+
+Nov 20 11:42:18 zabbix-srv systemd[1]: Starting The nginx HTTP and reverse proxy server...
+Nov 20 11:42:18 zabbix-srv nginx[1204]: nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+Nov 20 11:42:18 zabbix-srv nginx[1204]: nginx: configuration file /etc/nginx/nginx.conf test is successful
+Nov 20 11:42:18 zabbix-srv systemd[1]: Started The nginx HTTP and reverse proxy server.
+```
+
+The service is running and enabled so there is only 1 thing left to do before we can start the configuration in the GUI and that is to configure our firewall to allow incoming communication to the webserver.
+
+```
+firewall-cmd --add-service=http --permanent
+firewall-cmd --reload
+```
+
+Open your browser and go to the url or ip of your frontend 'http://<ip or dns of the zabbix frontend server>/' .
+If all goes well you should be greeted with a Zabbix welcome page.
+In case you have an error check the configuration again or have a look at '/var/log/nginx/error.log' or run 'journalctl -xe' this should help you in locating the errors you made.
+
+![Zabbix Welcome page](CH01/zabbix-welcome.png)
 
 
 
+#### Installing Zabbix frontend with Apache
