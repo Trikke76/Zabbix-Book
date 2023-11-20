@@ -817,11 +817,70 @@ firewall-cmd --add-service=http --permanent
 firewall-cmd --reload
 ```
 
-Open your browser and go to the url or ip of your frontend 'http://<ip or dns of the zabbix frontend server>/' .
+Open your browser and go to the url or ip of your frontend :
+
+```
+http://<ip or dns of the zabbix frontend server>/
+```
+
 If all goes well you should be greeted with a Zabbix welcome page.
-In case you have an error check the configuration again or have a look at '/var/log/nginx/error.log' or run 'journalctl -xe' this should help you in locating the errors you made.
+In case you have an error check the configuration again or have a look at the nginx log file : 
+
+``` /var/log/nginx/error.log ```
+
+or run 
+
+``` journalctl -xe ``` 
+
+This should help you in locating the errors you made.
+
+When you point your browser to the correct URL you should be greeted with a page like here :
 
 ![Zabbix Welcome page](CH01/zabbix-welcome.png)
+
+
+As you see there is only a limited list of local translations available on our Zabbix frontend to choose from 
+
+![Zabbix Welcome page](CH01/zabbix-locales.png)
+
+What if we want to install Chinese as language or another language from the list ?
+Run the next command to get a list of all locales available for your OS.
+
+```dnf list glibc-langpack-*```
+
+This will give you a list like 
+
+```
+Installed Packages
+glibc-langpack-en.x86_64
+Available Packages
+glibc-langpack-aa.x86_64
+...
+
+glibc-langpack-zu.x86_64
+```
+
+Let's search for our Chinese locale to see if it is available. As you can see the code starts with zh
+
+```
+# dnf list glibc-langpack-* | grep zh
+glibc-langpack-zh.x86_64
+glibc-langpack-lzh.x86_64
+```
+
+The command returns us 2 lines but as we have seen that the code was zh_CN we only have to install the first package.
+
+```
+# dnf install glibc-langpack-zh.x86_64 -y
+```
+
+When we return now to our frontend we are able to select the Chinese language. 
+
+???+ Note 
+    If your language is not available in the frontend don't panic it just means that there is no translation or that the translation was not 100% complete. Zabbis is free and relies on the community for it's translations so you can help in creating the translation. Go to the page ```https://translate.zabbix.com/``` and help us to make Zabbix get better. Once the translation is complete the next Zabbix minor patch version should have your language included.
+
+
+
 
 
 
