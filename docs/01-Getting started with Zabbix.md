@@ -171,7 +171,7 @@ The web server provides us with a front-end. Note that Zabbix has a API and that
 
 All these parts have to work together so as you can see in our image above. The Zabbix server needs to read the config and store the data in our database and the Zabbix front-end needs to be able to write the configuration in the database as well. The Zabbix front-end also needs to check the online status of our Zabbix server and needs to read some other information as well.
 
-For our setup, we will use 2 VM's 1 VM with a Zabbix server and the Zabbix web server and another VM with the database.
+For our setup, we will use 2 VM's, 1 VM with a Zabbix server and our Zabbix web server and another VM with our Zabbix database.
 
 
 ### Installing Zabbix with MariaDB
@@ -333,13 +333,14 @@ Thanks for using MariaDB!
 # mysql -uroot -p
 password
 
-MariaDB [(none)]> create database zabbix character set utf8mb4 collate utf8mb4_bin;
-MariaDB [(none)]> grant all privileges on zabbix.* to 'zabbix-web'@'<zabbix-server-ip>' identified by '<zabbix-web password>';
-MariaDB [(none)]> grant all privileges on zabbix.* to 'zabbix-srv'@'<zabbix-server-ip>' identified by '<zabbix-srv password>';
-MariaDB [(none)]> grant all privileges on zabbix.* to 'zabbix-web'@'localhost' identified by '<zabbix-web password>';
-MariaDB [(none)]> grant all privileges on zabbix.* to 'zabbix-srv'@'localhost' identified by '<zabbix-srv password>';
-MariaDB [(none)]> set global log_bin_trust_function_creators = 1;
-MariaDB [(none)]> quit
+MariaDB [(none)]> CREATE DATABASE zabbix CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;
+MariaDB [(none)]> CREATE USER 'zabbix-web'@'<zabbix server ip>' IDENTIFIED BY '<password>';
+MariaDB [(none)]> CREATE USER 'zabbix-srv'@'<zabbix server ip>' IDENTIFIED BY '<password>';
+MariaDB [(none)]> GRANT ALL PRIVILEGES ON zabbix.* TO 'zabbix-srv'@'<zabbix server ip>';
+MariaDB [(none)]> GRANT SELECT, UPDATE, DELETE, INSERT ON zabbix.* TO 'zabbix-web'@'<zabbix server ip>';
+MariaDB [(none)]> SET GLOBAL log_bin_trust_function_creators = 1;
+MariaDB [(none)]> QUIT
+
 ```
 
 ???+ warning
@@ -356,7 +357,7 @@ MariaDB [(none)]> quit
 Upload the data from zabbix (db structure, images, user, ... )
 
 ```
-# zcat /usr/share/zabbix-sql-scripts/mysql/server.sql.gz | mysql --default-character-set=utf8mb4 -uzabbix-srv -p zabbix
+# zcat /usr/share/zabbix-sql-scripts/mysql/server.sql.gz | mysql --default-character-set=utf8mb4 -uroot -p zabbix
 ```
 
 ???+ warning
