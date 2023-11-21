@@ -483,6 +483,7 @@ And when we ask the status of our MariaDB server we should get an output like th
 
 ```
 # systemctl status mysqld
+
 ● mysqld.service - MySQL Server
      Loaded: loaded (/usr/lib/systemd/system/mysqld.service; enabled; preset: disabled)
      Active: active (running) since Mon 2023-11-20 22:15:51 CET; 1min 15s ago
@@ -597,10 +598,96 @@ mysql> QUIT
 # dnf clean all
 # dnf install zabbix-sql-scripts
 ```
-Upload the data from zabbix (db structure, images, user, ... )
+Now let;s upload the data from zabbix (db structure, images, user, ... )
 
+```
+# zcat /usr/share/zabbix-sql-scripts/mysql/server.sql.gz | mysql --default-character-set=utf8mb4 -uroot -p zabbix
+Enter password:
+```
 
+???+ warning
+    Depending on the speed of your hardware or VM this can take a few seconds upto a few minutes so please don't cancel just sit and wait for the prompt.
 
+```
+Log back into your MySQL Database as root
+
+# mysql -uroot -p
+```
+
+Remove the global parameter again as its not needed anymore and also for security reasons.
+
+```
+mysql> SET GLOBAL log_bin_trust_function_creators = 0;
+Query OK, 0 rows affected, 1 warning (0.00 sec)
+```
+
+#### Configure the firewall
+One last thing we need to do is open the firewall and allow incoming connections from our Zabbix server to our MySQL database because at the moment we dont accept any connections yet.
+
+```
+# firewall-cmd --list-all
+public (active)
+  target: default
+  icmp-block-inversion: no
+  interfaces: enp0s3 enp0s8
+  sources:
+  services: cockpit dhcpv6-client  ssh
+  ports:
+  protocols:
+  forward: yes
+  masquerade: no
+  forward-ports:
+  source-ports:
+  icmp-blocks:
+  rich rules:
+```
+
+First we will create an appropriate zone for our MySQL Database and open port 3306/tcp but only for the IP from our Zabbix server. This way no one unallowed is able to connect.
+
+```
+# firewall-cmd --new-zone=mysql-access --permanent
+success
+
+# firewall-cmd --reload
+success
+
+# firewall-cmd --get-zones
+block dmz drop external home internal mysql-access nm-shared public trusted work
+
+# firewall-cmd --zone=mysql-access --add-source=<zabbix-serverip> --permanent
+
+success
+# firewall-cmd --zone=mysql-access --add-port=3306/tcp  --permanent
+
+success
+# firewall-cmd --reload
+```
+
+Now lets have a look to our firewall rules to see if they are what we expected:
+
+```
+# firewall-cmd --list-all --zone=mysql-access
+```
+
+```
+mysql-access (active)
+  target: default
+  icmp-block-inversion: no
+  interfaces:
+  sources: <ip from the zabbix-server>
+  services:
+  ports: 3306/tcp
+  protocols:
+  forward: no
+  masquerade: no
+  forward-ports:
+  source-ports:
+  icmp-blocks:
+  rich rules:
+```
+
+Our database server is ready now to accept connections from our Zabbix server :).
+You can continue with the next task [Installing the Zabbix Server](#installing-the-zabbix-server)
 
 
 ### Installing Zabbix with PostgreSQL
@@ -615,7 +702,7 @@ ToDo
 ### Installing the Zabbix Server
 
 Before you start to install your Zabbix server make sure the server is properly configure as we explained in our topic [Basic OS configuration before we start](#basic-os-configuration-before-we-start).
-Something else that is important in this case is that we need to disable SELinux. We will see later in chapter [Securing Zabbix](../12-Securing%20Zabbix) how to do this properly. 
+Something else that is important in this case is that we need to disable SELinux. We will see later in chapter [Securing Zabbix](/Zabbix-Book/12-Securing%20Zabbix) how to do this properly. 
 We can check the status of SELinux with the command ```sestatus``` :
 
 ```
