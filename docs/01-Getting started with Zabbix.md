@@ -573,14 +573,19 @@ Success.
 
 All done!
 ```
+Let's create our DB users and the correct permissions in the database:
+
+```mysql -uroot -p```
+
+```
 mysql> CREATE DATABASE zabbix CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;
-mysql> CREATE USER 'zabbix-web'@'192.168.56.18' IDENTIFIED BY 'zbxWEB70!';
-mysql> CREATE USER 'zabbix-srv'@'192.168.56.18' IDENTIFIED BY 'zbxSRV70!';
-mysql> CREATE USER 'zabbix-srv'@localhost  IDENTIFIED BY 'zbxSRV70!';
-mysql> GRANT ALL PRIVILEGES ON zabbix.* TO 'zabbix-srv'@'192.168.56.18';
-mysql> GRANT SELECT, UPDATE, DELETE, INSERT ON zabbix.* TO 'zabbix-web'@'192.168.56.18';
+mysql> CREATE USER 'zabbix-web'@'<zabbix server ip>' IDENTIFIED BY '<password>';
+mysql> CREATE USER 'zabbix-srv'@'<zabbix server ip>' IDENTIFIED BY '<password>';
+mysql> GRANT ALL PRIVILEGES ON zabbix.* TO 'zabbix-srv'@'<zabbix server ip>';
+mysql> GRANT SELECT, UPDATE, DELETE, INSERT ON zabbix.* TO 'zabbix-web'@'<zabbix server ip>';
 mysql> SET GLOBAL log_bin_trust_function_creators = 1;
 mysql> QUIT
+```
 
 ???+ warning
     The Zabbix documentation explicitly mentions that deterministic triggers need to be created during the import of schema. On MySQL and MariaDB, this requires GLOBAL log_bin_trust_function_creators = 1 to be set if binary logging is enabled and there is no superuser privileges and log_bin_trust_function_creators = 1 is not set in MySQL configuration file.
