@@ -693,7 +693,85 @@ You can continue with the next task [Installing the Zabbix Server](#installing-t
 
 ### Installing Zabbix with PostgreSQL
 
-ToDo
+For out DB setup with PostgreSQL we need to add out PostgreSQL repository first to the system. As of writing PostgreSQL 13-16 are supported but best is to have a look before you install it as new versions may be supported and older maybe unsupported both by Zabbix and PostgreSQL. Usually it's a good idea to go with the latest version that is supported by Zabbix in this case however we will choose version 15 because Zabbix also spports the extension TimescaleDB wich we will talk later about but Timescaledb as of today is not supported yet on PostgreSQL 16.
+The table of compatibility can be found [here](https://docs.timescale.com/self-hosted/latest/upgrades/upgrade-pg/).
+
+So let us start first setting up our PostgreSQL repository with the folowing commands.
+
+```
+# Install the repository RPM:
+sudo dnf install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-9-x86_64/pgdg-redhat-repo-latest.noarch.rpm
+
+# Disable the built-in PostgreSQL module:
+sudo dnf -qy module disable postgresql
+
+# Install PostgreSQL:
+sudo dnf install -y postgresql15-server
+
+# Optionally initialize the database and enable automatic start:
+sudo /usr/pgsql-15/bin/postgresql-15-setup initdb
+sudo systemctl enable postgresql-15
+sudo systemctl start postgresql-15
+```
+
+Our repository is now installed and we also have installed the PostgreSQL database let's start it up and configure it for Zabbix.
+
+```
+systemctl enable postgresql-15 --now
+```
+For our Zabbix server we need to create tables in the database for this we need ot install the Zabbix repository like we did for our Zabbix server and install the Zabbix package containing all the database tables images icons, ....
+
+```
+dnf install https://repo.zabbix.com/zabbix/6.0/rhel/9/x86_64/zabbix-release-6.0-4.el9.noarch.rpm -y
+dnf install zabbix-sql-scripts -y
+```
+
+Now we are ready to create our Zabbix users for the server and the frontend:
+
+```
+# su - postgres 
+# createuser --pwprompt zabbix-srv
+Enter password for new role: <zbxSRV70!>
+Enter it again: <zbxSRV70!>
+``` 
+Let's do the same for our frontend let's create a user to connect to the database:
+
+```
+# createuser --pwprompt zabbix-web
+Enter password for new role: <zbxWEB70!>
+Enter it again: <zbxWEB70!>
+```
+
+Next we have to unzip the database schema files. Run as user root followin command::
+
+```
+gzip -d /usr/share/zabbix-sql-scripts/postgresql/server.sql.gz
+```
+
+We are now ready to create our database zabbix. Become user postgres again and run next command to create the database as our user zabbix-srv:
+
+```
+# su - postgres
+# createdb -E Unicode -O zabbix-srv  zabbix
+```
+
+
+
+PostgreSQL works a bit different then MySQL or MariqDB when it comes to almost everything :) One of the things that it has that MySQL nog has are for example shemas. If you like to know more about it i can recommend [this](https://hevodata.com/learn/postgresql-schema/#schema)  URI. It explains in detail what it is and why we need it. But in short ...  In PostgreSQL schema enables a multi-user environment that allows multiple users to access the same database without interference. Schemas are important when several users use the application and access the database in their way or when various applications utilize the same database. There is a standard schema that you can use but the better way is to create our own schema.
+
+Login to the database and let's create one.
+
+```
+# su - postgres
+# psql
+psql (15.5)
+Type "help" for help.
+postgres=# create schema "zabbix-server";
+CREATE SCHEMA
+postgres=# \q
+```
+
+
 
 ### Setting up Zabbix HA
 
