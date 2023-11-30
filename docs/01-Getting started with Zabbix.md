@@ -693,7 +693,8 @@ You can continue with the next task [Installing the Zabbix Server](#installing-t
 
 ### Installing Zabbix with PostgreSQL
 
-For out DB setup with PostgreSQL we need to add out PostgreSQL repository first to the system. As of writing PostgreSQL 13-16 are supported but best is to have a look before you install it as new versions may be supported and older maybe unsupported both by Zabbix and PostgreSQL. Usually it's a good idea to go with the latest version that is supported by Zabbix in this case however we will choose version 15 because Zabbix also spports the extension TimescaleDB wich we will talk later about but Timescaledb as of today is not supported yet on PostgreSQL 16.
+For out DB setup with PostgreSQL we need to add out PostgreSQL repository first to the system. As of writing PostgreSQL 13-16 are supported but best is to have a look before you install it as new versions may be supported and older maybe unsupported both by Zabbix and PostgreSQL. Usually it's a good idea to go with the latest version that is supported by Zabbix. Zabbix also supports the extension TimescaleDB this is someting we will talk later about.
+
 The table of compatibility can be found [here](https://docs.timescale.com/self-hosted/latest/upgrades/upgrade-pg/).
 
 So let us start first setting up our PostgreSQL repository with the folowing commands.
@@ -706,19 +707,37 @@ sudo dnf install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-9-
 sudo dnf -qy module disable postgresql
 
 # Install PostgreSQL:
-sudo dnf install -y postgresql15-server
+sudo dnf install -y postgresql16-server
 
-# Optionally initialize the database and enable automatic start:
-sudo /usr/pgsql-15/bin/postgresql-15-setup initdb
-sudo systemctl enable postgresql-15
-sudo systemctl start postgresql-15
+# Initialize the database and enable automatic start:
+sudo /usr/pgsql-15/bin/postgresql-16-setup initdb
+sudo systemctl enable postgresql-16 --now
 ```
-
-Our repository is now installed and we also have installed the PostgreSQL database let's start it up and configure it for Zabbix.
+As i told you PostgreSQL works a bit different then MySQL or MariaDB and this applies aswell to how we manage access permissions. Postgres works with a file with the name pg_hba.conf where we have to tell who can access our database from where and what encryption is used for the password. So let's edit this file to allow our frontend and zabbix server to access the database.
 
 ```
-systemctl enable postgresql-15 --now
+vi /var/lib/pgsql/16/data/pg_hba.conf
 ```
+
+Add the followin lines the order here is important
+
+```
+# "local" is for Unix domain socket connections only
+local   zabbix          zabbix-srv                              	scram-sha-256
+local   all             all                                     	peer
+# IPv4 local connections:
+host    zabbix          zabbix-srv      <ip from zabbix server/24>	scram-sha-256
+host    zabbix          zabbix-web      <ip from zabbix server/24>	scram-sha-256
+host    all             all             127.0.0.1/32            	scram-sha-256
+```
+After we changed the pg_hba file don't forget to restart postgres else the settings will not be applied.
+
+```
+systemctl restart postgresql-16
+```
+
+
+
 For our Zabbix server we need to create tables in the database for this we need ot install the Zabbix repository like we did for our Zabbix server and install the Zabbix package containing all the database tables images icons, ....
 
 ```
@@ -731,15 +750,15 @@ Now we are ready to create our Zabbix users for the server and the frontend:
 ```
 # su - postgres 
 # createuser --pwprompt zabbix-srv
-Enter password for new role: <zbxSRV70!>
-Enter it again: <zbxSRV70!>
+Enter password for new role: <server-password>
+Enter it again: <server-password>
 ``` 
 Let's do the same for our frontend let's create a user to connect to the database:
 
 ```
 # createuser --pwprompt zabbix-web
-Enter password for new role: <zbxWEB70!>
-Enter it again: <zbxWEB70!>
+Enter password for new role: <frontend-password>
+Enter it again: <frontend-password>
 ```
 
 Next we have to unzip the database schema files. Run as user root followin command::
@@ -754,22 +773,93 @@ We are now ready to create our database zabbix. Become user postgres again and r
 # su - postgres
 # createdb -E Unicode -O zabbix-srv  zabbix
 ```
+Let's verify that we are really connected to the database with the correct session.
 
-
+```
+zabbix=> SELECT session_user, current_user;
+ session_user | current_user
+--------------+--------------
+ zabbix-srv   | zabbix-srv
+(1 row)
+```
 
 PostgreSQL works a bit different then MySQL or MariqDB when it comes to almost everything :) One of the things that it has that MySQL nog has are for example shemas. If you like to know more about it i can recommend [this](https://hevodata.com/learn/postgresql-schema/#schema)  URI. It explains in detail what it is and why we need it. But in short ...  In PostgreSQL schema enables a multi-user environment that allows multiple users to access the same database without interference. Schemas are important when several users use the application and access the database in their way or when various applications utilize the same database. There is a standard schema that you can use but the better way is to create our own schema.
 
-Login to the database and let's create one.
 
 ```
-# su - postgres
-# psql
-psql (15.5)
-Type "help" for help.
-postgres=# create schema "zabbix-server";
+zabbix=> CREATE SCHEMA zabbix_server AUTHORIZATION "zabbix-srv";
 CREATE SCHEMA
-postgres=# \q
+zabbix=> set search_path to "zabbix-server";^C
+zabbix=> \dn
+          List of schemas
+     Name      |       Owner
+---------------+-------------------
+ public        | pg_database_owner
+ zabbix_server | zabbix-srv
+(2 rows)
 ```
+
+
+
+```
+systemctl restart postgresql16
+```
+
+We are now ready to pupulate the database with the Zabbix schemas etc ... log back in as user postgres and run the following commands 
+```
+[postgres@localhost ~]$ psql
+psql (16.1)
+Type "help" for help.
+```
+Show a list of all the schemas
+```
+postgres=# \dn
+          List of schemas
+     Name      |       Owner
+---------------+-------------------
+ public        | pg_database_owner
+ zabbix-server | zabbix-srv
+```
+
+
+Switch to our schema zabbix-server
+```
+zabbix=> set search_path to "zabbix_server";
+SET
+zabbix=> show search_path ;
+  search_path
+---------------
+ zabbix_server
+(1 row)
+```
+
+Let's upload the Zabbix SQL file we extracted earlier to populate our database with the needed schemas images users etc ...
+```
+zabbix=# \i /usr/share/zabbix-sql-scripts/postgresql/server.sql
+CREATE TABLE
+CREATE INDEX
+...
+...
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+COMMIT
+zabbix=#
+```
+
+Lets verify that our tables are properly created with the correct permissions
+```
+zabbix=# \dt
+                   List of relations
+ Schema |            Name            | Type  |  Owner
+--------+----------------------------+-------+----------
+ public | acknowledges               | table | postgres
+ public | actions                    | table | postgres
+ public | alerts                     | table | postgres
+
+
+
 
 
 
