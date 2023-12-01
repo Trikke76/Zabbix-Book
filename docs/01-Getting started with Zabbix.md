@@ -693,9 +693,11 @@ You can continue with the next task [Installing the Zabbix Server](#installing-t
 
 ### Installing Zabbix with PostgreSQL
 
-For out DB setup with PostgreSQL we need to add out PostgreSQL repository first to the system. As of writing PostgreSQL 13-16 are supported but best is to have a look before you install it as new versions may be supported and older maybe unsupported both by Zabbix and PostgreSQL. Usually it's a good idea to go with the latest version that is supported by Zabbix. Zabbix also supports the extension TimescaleDB this is someting we will talk later about.
+For our DB setup with PostgreSQL we need to add our PostgreSQL repository first to the system. As of writing PostgreSQL 13-16 are supported but best is to have a look before you install it as new versions may be supported and older maybe unsupported both by Zabbix and PostgreSQL. Usually it's a good idea to go with the latest version that is supported by Zabbix. Zabbix also supports the extension TimescaleDB this is someting we will talk later about. As you will see the setup from PostgreSQL is very different from MySQL not only the installation but also securing the DB.
 
 The table of compatibility can be found [here](https://docs.timescale.com/self-hosted/latest/upgrades/upgrade-pg/).
+
+#### Add the PostgreSQL repo
 
 So let us start first setting up our PostgreSQL repository with the folowing commands.
 
@@ -713,13 +715,17 @@ sudo dnf install -y postgresql16-server
 sudo /usr/pgsql-15/bin/postgresql-16-setup initdb
 sudo systemctl enable postgresql-16 --now
 ```
+
+#### Securing the PostgreSQL database
+
 As i told you PostgreSQL works a bit different then MySQL or MariaDB and this applies aswell to how we manage access permissions. Postgres works with a file with the name pg_hba.conf where we have to tell who can access our database from where and what encryption is used for the password. So let's edit this file to allow our frontend and zabbix server to access the database.
 
-```
-vi /var/lib/pgsql/16/data/pg_hba.conf
-```
 
-Add the followin lines the order here is important
+Add the following lines, the order here is important.
+
+```
+# vi /var/lib/pgsql/16/data/pg_hba.conf
+```
 
 ```
 # "local" is for Unix domain socket connections only
@@ -730,19 +736,28 @@ host    zabbix          zabbix-srv      <ip from zabbix server/24>	scram-sha-256
 host    zabbix          zabbix-web      <ip from zabbix server/24>	scram-sha-256
 host    all             all             127.0.0.1/32            	scram-sha-256
 ```
-After we changed the pg_hba file don't forget to restart postgres else the settings will not be applied.
+After we changed the pg_hba file don't forget to restart postgres else the settings will not be applied. But before we restart let us also edit the file postgresql.conf and allow our database to listen on our network interface for incomming connections from the zabbix server. Postgresql will standard only allow connections from the socket.
 
 ```
-systemctl restart postgresql-16
+# vi /var/lib/pgsql/16/data/postgresql.conf
+
+and replace 
+#listen_addresses = 'localhost' with  listen_addresses = '*'
+```
+
+```
+# systemctl restart postgresql-16
 ```
 
 
 
 For our Zabbix server we need to create tables in the database for this we need ot install the Zabbix repository like we did for our Zabbix server and install the Zabbix package containing all the database tables images icons, ....
 
+#### Add the Zabbix repository and populate the DB
+
 ```
-dnf install https://repo.zabbix.com/zabbix/6.0/rhel/9/x86_64/zabbix-release-6.0-4.el9.noarch.rpm -y
-dnf install zabbix-sql-scripts -y
+# dnf install https://repo.zabbix.com/zabbix/6.0/rhel/9/x86_64/zabbix-release-6.0-4.el9.noarch.rpm -y
+# dnf install zabbix-sql-scripts -y
 ```
 
 Now we are ready to create our Zabbix users for the server and the frontend:
@@ -783,7 +798,7 @@ zabbix=> SELECT session_user, current_user;
 (1 row)
 ```
 
-PostgreSQL works a bit different then MySQL or MariqDB when it comes to almost everything :) One of the things that it has that MySQL nog has are for example shemas. If you like to know more about it i can recommend [this](https://hevodata.com/learn/postgresql-schema/#schema)  URI. It explains in detail what it is and why we need it. But in short ...  In PostgreSQL schema enables a multi-user environment that allows multiple users to access the same database without interference. Schemas are important when several users use the application and access the database in their way or when various applications utilize the same database. There is a standard schema that you can use but the better way is to create our own schema.
+PostgreSQL works a bit different then MySQL or MariqDB when it comes to almost everything :) One of the things that it has that MySQL not has are for example shemas. If you like to know more about it i can recommend [this](https://hevodata.com/learn/postgresql-schema/#schema)  URI. It explains in detail what it is and why we need it. But in short ...  In PostgreSQL schema enables a multi-user environment that allows multiple users to access the same database without interference. Schemas are important when several users use the application and access the database in their way or when various applications utilize the same database. There is a standard schema that you can use but the better way is to create our own schema.
 
 
 ```
@@ -802,11 +817,12 @@ zabbix=> \dn
 
 
 ```
-systemctl restart postgresql16
+systemctl restart postgresql-16
 ```
 
-We are now ready to pupulate the database with the Zabbix schemas etc ... log back in as user postgres and run the following commands 
+We are now ready to pupulate the database with the Zabbix table structures etc ... log back in as user postgres and run the following commands 
 ```
+
 [postgres@localhost ~]$ psql
 psql (16.1)
 Type "help" for help.
@@ -851,12 +867,109 @@ zabbix=#
 Lets verify that our tables are properly created with the correct permissions
 ```
 zabbix=# \dt
-                   List of relations
- Schema |            Name            | Type  |  Owner
---------+----------------------------+-------+----------
- public | acknowledges               | table | postgres
- public | actions                    | table | postgres
- public | alerts                     | table | postgres
+                        List of relations
+    Schema     |            Name            | Type  |   Owner
+---------------+----------------------------+-------+------------
+ zabbix_server | acknowledges               | table | zabbix-srv
+ zabbix_server | actions                    | table | zabbix-srv
+ zabbix_server | alerts                     | table | zabbix-srv
+ zabbix_server | auditlog                   | table | zabbix-srv
+ zabbix_server | autoreg_host               | table | zabbix-srv
+...
+...
+ zabbix_server | usrgrp                     | table | zabbix-srv
+ zabbix_server | valuemap                   | table | zabbix-srv
+ zabbix_server | valuemap_mapping           | table | zabbix-srv
+ zabbix_server | widget                     | table | zabbix-srv
+ zabbix_server | widget_field               | table | zabbix-srv
+(173 rows)
+```
+
+#### Configure the firewall
+
+One last thing we need to do is open the firewall and allow incoming connections for the PostgreSQL database from our Zabbix server because at the moment we dont accept any connections yet.
+
+```
+# firewall-cmd --list-all
+public (active)
+  target: default
+  icmp-block-inversion: no
+  interfaces: enp0s3 enp0s8
+  sources:
+  services: cockpit dhcpv6-client  ssh
+  ports:
+  protocols:
+  forward: yes
+  masquerade: no
+  forward-ports:
+  source-ports:
+  icmp-blocks:
+  rich rules:
+```
+
+First we will create an appropriate zone for our PostgreSQL DB and open port 5432/tcp but only for the ip from our Zabbix server.
+
+```
+# firewall-cmd --new-zone=postgresql-access --permanent
+success
+
+# firewall-cmd --reload
+success
+
+# firewall-cmd --get-zones
+block dmz drop external home internal nm-shared postgresql-access public trusted work
+
+# firewall-cmd --zone=postgresql-access--add-source=<zabbix-serverip> --permanent
+
+success
+# firewall-cmd --zone=postgresql-access --add-port=5432/tcp  --permanent
+
+success
+# firewall-cmd --reload
+```
+
+Now lets have a look to our firewall rules to see if they are what we expected:
+
+```
+# firewall-cmd --zone=postgresql-access --list-all
+```
+
+```
+postgresql-access (active)
+  target: default
+  icmp-block-inversion: no
+  interfaces:
+  sources: 192.168.56.18
+  services:
+  ports: 5432/tcp
+  protocols:
+  forward: no
+  masquerade: no
+  forward-ports:
+  source-ports:
+  icmp-blocks:
+  rich rules:
+```
+
+Our database server is ready now to accept connections from our Zabbix server :).
+You can continue with the next task [Installing the Zabbix Server](#installing-the-zabbix-server)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -992,11 +1105,11 @@ dnf clean all
     A repository is a config in Linux that you can add to make packages available for you OS to install. The best way to look at it is maybe to think of it like an APP store that you add where you can find the software of your vendor. In this case the repository form Zabbix. There are many repositories you can add but you should be sure that they can be trusted. So it's always a good idea to stick to the repositories of your OS and only add extra repositories when you are sure they are to be trusted and needed. In our case the repository is from our vendor Zabbix so it should be safe to add. Epel is another popular repository for RedHat systems that is considered to be safe.
 
 
-#### Installing the Zabbix server for MySQL
+#### Installing the Zabbix server for MySQL/MariaDB
 
 Now that we have our repository with software added to our system we are ready to install our Zabbix server and webserver. Remember the webserver could be installed on another system. There is no need to install both on the same server.
 
-```dnf install zabbix-server-mysql ```
+```dnf install zabbix-server-mysql zabbix-web-mysql```
 
 Now that we have installed our packages for the Zabbix server and our frontend we still need to change the configuration of our Zabbix server so that we can connect to our database. Open the file ```/etc/zabbix/zabbix_server.conf``` and replace the following lines:
 
@@ -1017,6 +1130,7 @@ DBHost=<ip or dns of your MariaDB server>
 DBName=zabbix
 DBUser=zabbix-srv
 DBPassword=<your super secret password>
+DBPort=3306
 ```
 
 ???+ Note
@@ -1124,6 +1238,164 @@ Let's check the Zabbix server service to see if it's enabled so that it survives
 
 This concludes our chapter on installing and configuring our Zabbix server. 
 Next we have to configure our frontend. You can have a look at [Installing Zabbix frontend with Nginx](#installing-zabbix-frontend-with-nginx) or [Installing Zabbix frontend with Apache](#installing-zabbix-frontend-with-apache)
+
+
+
+
+#### Installing the Zabbix server for PostgreSQL
+
+Now that we have our repository with software added to our system we are ready to install our Zabbix server and webserver. Remember the webserver could be installed on another system. There is no need to install both on the same server.
+
+```dnf install zabbix-server-pgsql zabbix-web-pgsql```
+
+Now that we have installed our packages for the Zabbix server and our frontend we still need to change the configuration of our Zabbix server so that we can connect to our database. Open the file ```/etc/zabbix/zabbix_server.conf``` and replace the following lines:
+
+```
+DBHost=<ip or dns of your PostgreSQL server>
+DBName=<the name of your database>
+DBSchema=<our PostgreSQL schema name>
+DBUser=<the user that will connect to the database>
+DBPassword=<your super secret password>
+```
+Make sure you don't have a '#' in front of the config parameter else Zabbix will see this as text and not as a parameter. Also make sure that there are not extra duplicate lines Zabbix will always take the last config parameter if there is more then 1 line with the same parameter
+
+In our case the config will look like this:
+
+```
+# vi /etc/zabbix/zabbix_server.conf
+
+DBHost=<ip or dns of your MariaDB server>
+DBName=zabbix
+DBSchema=zabbix_server
+DBUser=zabbix-srv
+DBPassword=<your super secret password>
+DBPort=5432
+```
+
+???+ Note
+    The Zabbix server configuration file has the option to include an extra config file with parameters you like to alter or add. In production it's probably better to not touch the configuration file but to add a new file and include the parameters you like to change. This way you never have to edit your original configuration file after an upgrade it will also make your life more easy when working with configuration tools like Ansible, Puppet, SaltStack, .... The only thing that needs to be done is remove the # in front of the line '# Include=/usr/local/etc/zabbix_server.conf.d/*.conf' and make sure the path exists with a customized config file of your won that is readable by the user zabbix.
+
+
+Ok now that we have changed the configuration of you Zabbix server so that it is able to connect to our DB we are  ready to start. Run the following command to enable the Zabbix server and make it active on boot next time.
+
+```systemctl enable zabbix-server --now```
+
+Our Zabbix server service will start and if everything goes well you should see in the Zabbix server log file the following output
+
+```tail /var/log/zabbix/zabbix_server.log```
+
+```
+  1123:20231120:110604.440 Starting Zabbix Server. Zabbix 7.0.0alpha7 (revision 60de6a81aca).
+  1123:20231120:110604.440 ****** Enabled features ******
+  1123:20231120:110604.440 SNMP monitoring:           YES
+  1123:20231120:110604.440 IPMI monitoring:           YES
+  1123:20231120:110604.440 Web monitoring:            YES
+  1123:20231120:110604.440 VMware monitoring:         YES
+  1123:20231120:110604.440 SMTP authentication:       YES
+  1123:20231120:110604.440 ODBC:                      YES
+  1123:20231120:110604.440 SSH support:               YES
+  1123:20231120:110604.440 IPv6 support:              YES
+  1123:20231120:110604.440 TLS support:               YES
+  1123:20231120:110604.440 ******************************
+  1123:20231120:110604.440 using configuration file: /etc/zabbix/zabbix_server.conf
+  1123:20231120:110604.470 current database version (mandatory/optional): 06050143/06050143
+  1123:20231120:110604.470 required mandatory version: 06050143
+  1124:20231120:110604.490 starting HA manager
+  1124:20231120:110604.507 HA manager started in active mode
+  1123:20231120:110604.508 server #0 started [main process]
+  1126:20231120:110604.509 server #2 started [configuration syncer #1]
+  1125:20231120:110604.510 server #1 started [service manager #1]
+  1133:20231120:110604.841 server #9 started [lld worker #1]
+  1132:20231120:110604.841 server #8 started [lld manager #1]
+  1134:20231120:110604.841 server #10 started [lld worker #2]
+```
+
+If there was an error and the server was not able to connect to the database you would see something like this in the server log file :
+
+```
+ 10773:20231118:213248.570 Starting Zabbix Server. Zabbix 7.0.0alpha7 (revision 60de6a81aca).
+ 10773:20231118:213248.570 ****** Enabled features ******
+ 10773:20231118:213248.570 SNMP monitoring:           YES
+ 10773:20231118:213248.570 IPMI monitoring:           YES
+ 10773:20231118:213248.570 Web monitoring:            YES
+ 10773:20231118:213248.570 VMware monitoring:         YES
+ 10773:20231118:213248.570 SMTP authentication:       YES
+ 10773:20231118:213248.570 ODBC:                      YES
+ 10773:20231118:213248.570 SSH support:               YES
+ 10773:20231118:213248.570 IPv6 support:              YES
+ 10773:20231118:213248.570 TLS support:               YES
+ 10773:20231118:213248.570 ******************************
+ 10773:20231118:213248.570 using configuration file: /etc/zabbix/zabbix_server.conf
+ 10773:20231118:213248.574 [Z3001] connection to database 'zabbix' failed: [2002] Can't connect to server on 'xxx.xxx.xxx.xxx' (115)
+ 10773:20231118:213248.574 database is down: reconnecting in 10 seconds
+ 10773:20231118:213258.579 [Z3001] connection to database 'zabbix' failed: [2002] Can't connect to server on 'xxx.xxx.xxx.xxx' (115)
+ 10773:20231118:213258.579 database is down: reconnecting in 10 seconds
+```
+
+Let's check the Zabbix server service to see if it's enabled so that it survives a reboot
+
+```
+# systemctl status zabbix-server
+
+```
+# systemctl status zabbix-server
+
+● zabbix-server.service - Zabbix Server
+     Loaded: loaded (/usr/lib/systemd/system/zabbix-server.service; enabled; preset: disabled)
+     Active: active (running) since Mon 2023-11-20 11:06:04 CET; 1h 2min ago
+   Main PID: 1123 (zabbix_server)
+      Tasks: 59 (limit: 12344)
+     Memory: 52.6M
+        CPU: 20.399s
+     CGroup: /system.slice/zabbix-server.service
+             ├─1123 /usr/sbin/zabbix_server -c /etc/zabbix/zabbix_server.conf
+             ├─1124 "/usr/sbin/zabbix_server: ha manager"
+             ├─1125 "/usr/sbin/zabbix_server: service manager #1 [processed 0 events, updated 0 event tags, deleted 0 problems, synced 0 service updates, idle 5.008686 sec during 5.016382 sec]"
+             ├─1126 "/usr/sbin/zabbix_server: configuration syncer [synced configuration in 0.092797 sec, idle 10 sec]"
+             ├─1127 "/usr/sbin/zabbix_server: alert manager #1 [sent 0, failed 0 alerts, idle 5.027620 sec during 5.027828 sec]"
+             ├─1128 "/usr/sbin/zabbix_server: alerter #1 started"
+             ├─1129 "/usr/sbin/zabbix_server: alerter #2 started"
+             ├─1130 "/usr/sbin/zabbix_server: alerter #3 started"
+             ├─1131 "/usr/sbin/zabbix_server: preprocessing manager #1 [queued 1, processed 2 values, idle 5.490312 sec during 5.490555 sec]"
+             ├─1132 "/usr/sbin/zabbix_server: lld manager #1 [processed 1 LLD rules, idle 5.028973sec during 5.029123 sec]"
+             ├─1133 "/usr/sbin/zabbix_server: lld worker #1 [processed 1 LLD rules, idle 60.060180 sec during 60.085009 sec]"
+             ├─1134 "/usr/sbin/zabbix_server: lld worker #2 [processed 1 LLD rules, idle 60.065526 sec during 60.095165 sec]"
+             ├─1135 "/usr/sbin/zabbix_server: housekeeper [deleted 0 hist/trends, 0 items/triggers, 0 events, 0 sessions, 0 alarms, 0 audit items, 0 autoreg_host, 0 records in 0.019108 sec, idle for 1 hour(s)]"
+             ├─1136 "/usr/sbin/zabbix_server: timer #1 [updated 0 hosts, suppressed 0 events in 0.002856 sec, idle 59 sec]"
+             ├─1137 "/usr/sbin/zabbix_server: http poller #1 [got 0 values in 0.000059 sec, idle 5 sec]"
+             ├─1138 "/usr/sbin/zabbix_server: discovery manager #1 [processing 0 rules, 0.000000% of queue used, 0 unsaved checks]"
+             ├─1139 "/usr/sbin/zabbix_server: history syncer #1 [processed 0 values, 0 triggers in 0.000036 sec, idle 1 sec]"
+             ├─1140 "/usr/sbin/zabbix_server: history syncer #2 [processed 1 values, 0 triggers in 0.005016 sec, idle 1 sec]"
+             ├─1141 "/usr/sbin/zabbix_server: history syncer #3 [processed 0 values, 0 triggers in 0.000031 sec, idle 1 sec]"
+             ├─1142 "/usr/sbin/zabbix_server: history syncer #4 [processed 0 values, 0 triggers in 0.000014 sec, idle 1 sec]"
+             ├─1143 "/usr/sbin/zabbix_server: escalator #1 [processed 0 escalations in 0.005587 sec, idle 3 sec]"
+             ├─1144 "/usr/sbin/zabbix_server: proxy poller #1 [exchanged data with 0 proxies in 0.000010 sec, idle 5 sec]"
+             ├─1145 "/usr/sbin/zabbix_server: self-monitoring [processed data in 0.000016 sec, idle 1 sec]"
+             ├─1146 "/usr/sbin/zabbix_server: task manager [processed 0 task(s) in 0.002511 sec, idle 5 sec]"
+             ├─1147 "/usr/sbin/zabbix_server: poller #1 [got 0 values in 0.000009 sec, idle 1 sec]"
+             ├─1148 "/usr/sbin/zabbix_server: poller #2 [got 1 values in 0.000232 sec, idle 1 sec]"
+             ├─1149 "/usr/sbin/zabbix_server: poller #3 [got 0 values in 0.000015 sec, idle 1 sec]"
+             ├─1150 "/usr/sbin/zabbix_server: poller #4 [got 0 values in 0.000010 sec, idle 1 sec]"
+```
+
+This concludes our chapter on installing and configuring our Zabbix server.
+Next we have to configure our frontend. You can have a look at [Installing Zabbix frontend with Nginx](#installing-zabbix-frontend-with-nginx) or [Installing Zabbix frontend with Apache](#installing-zabbix-frontend-with-apache)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 #### Installing Zabbix frontend with Nginx
