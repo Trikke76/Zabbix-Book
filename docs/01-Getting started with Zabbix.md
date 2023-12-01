@@ -789,6 +789,12 @@ We are now ready to create our database zabbix. Become user postgres again and r
 # createdb -E Unicode -O zabbix-srv  zabbix
 ```
 Let's verify that we are really connected to the database with the correct session.
+Login from the Postgres shell on the zabbix database
+
+```
+# psql -d zabbix -U zabbix-srv
+```
+Make sure we are logged in with our correct user ```zabbix-srv```.
 
 ```
 zabbix=> SELECT session_user, current_user;
@@ -804,7 +810,7 @@ PostgreSQL works a bit different then MySQL or MariqDB when it comes to almost e
 ```
 zabbix=> CREATE SCHEMA zabbix_server AUTHORIZATION "zabbix-srv";
 CREATE SCHEMA
-zabbix=> set search_path to "zabbix-server";^C
+zabbix=> set search_path to "zabbix_server";
 zabbix=> \dn
           List of schemas
      Name      |       Owner
@@ -812,44 +818,35 @@ zabbix=> \dn
  public        | pg_database_owner
  zabbix_server | zabbix-srv
 (2 rows)
-```
 
 
+```
+Now we have our DB ready with correct permissions for user ```zabbix-srv``` but not yet for our user ```zabbix-web```. Let's fix this first and give the rights to connect to our schema.
 
 ```
-systemctl restart postgresql-16
+zabbix=# GRANT USAGE ON SCHEMA zabbix_server TO "zabbix-web";
+GRANT
 ```
 
-We are now ready to pupulate the database with the Zabbix table structures etc ... log back in as user postgres and run the following commands 
+The user ```zabbix-web``` has now the rights to connect to our schema but cannot to anything yet lets fix this but also don't give too many rights.
+
+```
+zabbix=# GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA zabbix_server TO "zabbix-web";
+GRANT
+zabbix=# GRANT SELECT, UPDATE ON ALL SEQUENCES IN SCHEMA zabbix_server TO "zabbix-web";
+GRANT
 ```
 
-[postgres@localhost ~]$ psql
-psql (16.1)
-Type "help" for help.
-```
-Show a list of all the schemas
-```
-postgres=# \dn
-          List of schemas
-     Name      |       Owner
----------------+-------------------
- public        | pg_database_owner
- zabbix-server | zabbix-srv
-```
+There we go both users are created with the correct permissons.
+We are now ready to populate the database with the Zabbix table structures etc ... log back in as user postgres and run the following commands 
 
-
-Switch to our schema zabbix-server
-```
-zabbix=> set search_path to "zabbix_server";
-SET
-zabbix=> show search_path ;
-  search_path
----------------
- zabbix_server
-(1 row)
-```
 
 Let's upload the Zabbix SQL file we extracted earlier to populate our database with the needed schemas images users etc ...
+
+???+ warning
+    Depending on the speed of your hardware or VM this can take a few seconds upto a few minutes so please don't cancel just sit and wait for the prompt.
+
+
 ```
 zabbix=# \i /usr/share/zabbix-sql-scripts/postgresql/server.sql
 CREATE TABLE
@@ -864,7 +861,11 @@ COMMIT
 zabbix=#
 ```
 
+???+ note
+    If the import fails with ```psql:/usr/share/zabbix-sql-scripts/postgresql/server.sql:7: ERROR:  no schema has been selected to create in```  then you probably made an error in the line where you set the search path.
+
 Lets verify that our tables are properly created with the correct permissions
+
 ```
 zabbix=# \dt
                         List of relations
@@ -883,6 +884,15 @@ zabbix=# \dt
  zabbix_server | widget                     | table | zabbix-srv
  zabbix_server | widget_field               | table | zabbix-srv
 (173 rows)
+```
+???+ Note
+    If you are like me and don't like to set the search path every time you logon with the user zabbix-srv to the correct search path you can run the following SQL. ```zabbix=> alter role "zabbix-srv" set search_path = "$user", public, zabbix_server ;```
+
+If you are ready you can exit the database and return as user root.
+
+```
+zabbix=>  \q
+# exit
 ```
 
 #### Configure the firewall
@@ -1336,10 +1346,9 @@ Let's check the Zabbix server service to see if it's enabled so that it survives
 
 ```
 # systemctl status zabbix-server
+```
 
 ```
-# systemctl status zabbix-server
-
 ● zabbix-server.service - Zabbix Server
      Loaded: loaded (/usr/lib/systemd/system/zabbix-server.service; enabled; preset: disabled)
      Active: active (running) since Mon 2023-11-20 11:06:04 CET; 1h 2min ago
@@ -1387,22 +1396,11 @@ Next we have to configure our frontend. You can have a look at [Installing Zabbi
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 #### Installing Zabbix frontend with Nginx
 
 Before we can configure our frontend we need to install our package first. If you run the frontend on the same server as the Zabbix server then there is nothing else you have to do you can just run the following command on your server to install the packages needed for our frontend to install:
 ```
-dnf install zabbix-web-mysql zabbix-nginx-conf
+dnf install zabbix-nginx-conf and zabbix-web-mysql or if you used Postgres dnf install zabbix-web-pgsql
 ```
 
 In case the frontend is on another server installed you need to add the Zabbix repository first like we did on our Zabbix server. In case you forgot or just skipped to this topic and don't know how to do this have a look at [Adding the Zabbix repository](#adding-the-zabbix-repository)
@@ -1466,6 +1464,7 @@ server {
 We are now ready to start our websever and enable it so that it comes online after a reboot.
 
 ```
+systemctl enable php-fpm --now
 systemctl enable nginx --now
 ```
 
@@ -1570,9 +1569,10 @@ Click next when you are satisfied with the transaltions available. You will arri
 
 The next page will show you a page with the connection parameters for our database.
 
-First fill in the IP or DNS name of the location of your database server. Use port 3306 as this is the port our MariaDB is listening on.
+First you select your DB type 'MySQL' or 'PostgreSQL' and fill in the IP or DNS name of the location of your database server. Use port 3306 for MariaDB/MySQL or 5432 if you used PostgreSQL.
 
 Fill in the correct  database name, in our case it was ```zabbix```.
+If you used PostgreSQL then you also need to fill in the correct schema name in our case it was ``` zabbix_server```
 
 Next line will ask you for the DB users here we created a user ```zabbix-web```. Enter it in the correct field and fill in the password that you used for this user.
 
