@@ -184,7 +184,7 @@ To create a MariaDB repository file, you can use the following command.
 #### Add the MariaDB repo
 
 ```
-vi /etc/yum.repos.d/mariadb.repo
+# vi /etc/yum.repos.d/mariadb.repo
 ```
 
 The above command will create a new repository file, Once it is created, you need to add the following configuration into the file.
@@ -458,7 +458,7 @@ Run the following command to install the MySQL repo for version 8.0
 ```# dnf -y install https://dev.mysql.com/get/mysql80-community-release-el9-1.noarch.rpm```
 
 ???+ Note
-    If you install this on RedHat 8 or alternatives like CentOS, Rocky or Alma 8 then you need to disable the mysql module by running 'module disable mysql'.
+    If you install this on RedHat 8 and higher or alternatives like CentOS, Rocky or Alma 8 then you need to disable the mysql module by running 'module disable mysql'.
 
 Let's update our OS first with the latest patches
 
@@ -712,7 +712,7 @@ sudo dnf -qy module disable postgresql
 sudo dnf install -y postgresql16-server
 
 # Initialize the database and enable automatic start:
-sudo /usr/pgsql-15/bin/postgresql-16-setup initdb
+sudo /usr/pgsql-16/bin/postgresql-16-setup initdb
 sudo systemctl enable postgresql-16 --now
 ```
 
@@ -720,6 +720,8 @@ sudo systemctl enable postgresql-16 --now
 
 As i told you PostgreSQL works a bit different then MySQL or MariaDB and this applies aswell to how we manage access permissions. Postgres works with a file with the name pg_hba.conf where we have to tell who can access our database from where and what encryption is used for the password. So let's edit this file to allow our frontend and zabbix server to access the database.
 
+???+ note
+    Client authentication is configured by a configuration file with the name ```pg_hba.conf```. HBA here stands for host based authentication. For more information feel free to check the [PostgreSQL documentation](https://www.postgresql.org/docs/current/auth-pg-hba-conf.html).
 
 Add the following lines, the order here is important.
 
@@ -740,10 +742,14 @@ After we changed the pg_hba file don't forget to restart postgres else the setti
 
 ```
 # vi /var/lib/pgsql/16/data/postgresql.conf
+```
+and replace the line with listen_addresses so that PostgreSQL will listen on all interfaces and not only on our localhost.
 
-and replace 
+```
 #listen_addresses = 'localhost' with  listen_addresses = '*'
 ```
+
+When done restart the PostgreSQL cluster and see if it comes back online in case of an error check the ```pg_hba.conf``` file you just edited for typos.
 
 ```
 # systemctl restart postgresql-16
@@ -779,7 +785,7 @@ Enter it again: <frontend-password>
 Next we have to unzip the database schema files. Run as user root followin command::
 
 ```
-gzip -d /usr/share/zabbix-sql-scripts/postgresql/server.sql.gz
+# gzip -d /usr/share/zabbix-sql-scripts/postgresql/server.sql.gz
 ```
 
 We are now ready to create our database zabbix. Become user postgres again and run next command to create the database as our user zabbix-srv:
@@ -806,6 +812,8 @@ zabbix=> SELECT session_user, current_user;
 
 PostgreSQL works a bit different then MySQL or MariqDB when it comes to almost everything :) One of the things that it has that MySQL not has are for example shemas. If you like to know more about it i can recommend [this](https://hevodata.com/learn/postgresql-schema/#schema)  URI. It explains in detail what it is and why we need it. But in short ...  In PostgreSQL schema enables a multi-user environment that allows multiple users to access the same database without interference. Schemas are important when several users use the application and access the database in their way or when various applications utilize the same database. There is a standard schema that you can use but the better way is to create our own schema.
 
+???+ Note
+    There is a standard schema ```public``` that you can use but the better way is to create our own schema this was if later something else is installed next to the Zabbix database it will be easier to create users with only access to the newly created database tables.
 
 ```
 zabbix=> CREATE SCHEMA zabbix_server AUTHORIZATION "zabbix-srv";
