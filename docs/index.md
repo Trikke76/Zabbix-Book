@@ -22,7 +22,7 @@ Since I work mostly with RHEL based systems and since I am convinced that RHEL i
 
 # What version of Zabbix is used in this book ?
 
-Since we are almost at the release of Zabbix 7, I will focus on version 7 since it will be the new LTS. It should also apply to most other versions but of course there will be minor changes. In the future, if there is enough support from the community to update this book together with it would be great if we could build a book for every LTS version available.
+Since we are almost at the release of Zabbix 7, I will focus on version 7 since it will be the new LTS. It should also apply to most other versions but of course there will be minor changes. In the future, if there is enough support from the community to update this book together, it would be great if we could build a book for every LTS version available.
 
 
 # How to use this book ?
