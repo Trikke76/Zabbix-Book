@@ -1,6 +1,30 @@
 # Starting with the basics
 
-## Working with items
-## Working with triggers
+## Zabbix Interface
 
-## Working with templates
+### Overview of the interface
+
+### Zabbix Users
+
+## Zabbix hosts
+
+### Host groups
+
+### Items
+
+### Interfaces
+
+### Macros
+
+## Data Flow
+
+### Data Collection
+
+### Simple Checks
+
+## Zabbix Agent
+
+### Zabbix agent Linux
+
+### Zabbix agent windows
+
