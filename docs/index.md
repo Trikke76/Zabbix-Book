@@ -1,6 +1,7 @@
 # What is this book about ?
 
-Hi, welcome and thank you for your interest in my Zabbix book. I wrote the Zabbix cookbook and Zabbix 4 Network Monitoring  a few years ago for PackPub.
+Hi, welcome and thank you for your interest in my Zabbix book. I wrote the [Zabbix cookbook](https://www.packtpub.com/product/zabbix-cookbook/9781784397586) and [Zabbix 4 Network Monitoring](https://www.packtpub.com/product/zabbix-4-network-monitoring-third-edition/9781789340266) a few years ago for PackPub. The cookbook the first of it's kind probably outdated and replaced by the [Zabbix 6 IT Infrastructure Monitoring Cookbook](https://www.packtpub.com/product/zabbix-6-it-infrastructure-monitoring-cookbook-second-edition/9781803246918), written by Brian and Nathan.
+
 As Zabbix is an opensource product and making money out of the books was never my intention, it got me thinking how to do things different.
 How to make a new book without using a publisher like I had done before.
 After a while, I came up with the idea to make a book that would be free and that would be updated when new versions came out.
