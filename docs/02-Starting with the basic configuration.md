@@ -25,7 +25,7 @@ You will see that the menu collapses to a set of small icons. Pressing ">>" will
 
 Yet another way to make the screen bigger that is quit useful for monitors in NOK teams for example is the kiosk mode button. This one is however located on the left side of your screen and looks like 4 arrows pointing to every corner of the screen. Pressing this button will remove all the menus and leave only main window to focus on.
 
-![Image title](CH02/kiosk-menu.png/) ![Image title](CH02/exitkiosk-menu.png/){ width="75" }
+![Image title](CH02/kiosk-menu.png/){ width="70" } ![Image title](CH02/exitkiosk-menu.png/){ width="70" }
 
 When wanting to leave the kios mode the button will be changed to 2 arrows poiting to the inside of the screen. Pressing this button will revert us back to the original state.
 
