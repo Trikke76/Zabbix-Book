@@ -61,6 +61,33 @@ Our last part the ```links``` part  contain a set of useful links that we can us
 * User settings		--> The user profile settings
 * Sign out		--> Log out of the current session.
 
+
+There are still a few buttons left on the right side of our screen
+
+![edit buttons](CH02/edit-dashboard.png/)
+
+The edit button allows us to change our dashboard. This is something we will cover later.
+On the far left side there is a  "?" this will bring you to the Zabbix documentation page that explains everything about the dashboard.
+The button on the right side with the 3 horizontal lines is the one to share, rename, delete, ... our dashboards.
+
+![edit buttons](CH02/system-info.png/)
+
+There is also a box on the dashboard called ```System Information```. This widget will show you the current System status of your Zabbix setup. Let's go over the different lines of information as they are important to understand.
+
+|Parameter|Value|Details|
+|----|----|----|
+|Zabbix server is running | This gives us the status of our zabbix server if it is running yes or no and if it is running on our localhost or another IP and on what port the zabbix server is listening. If no trapper is listening the rest of the information can not be displayed|IP and port of the Zabbix server|
+|Zabbix server version | This shows us the version of the ```Zabbix server``` so the version you see at the bottom of your screen is the one from the Zabbix frontend and can be different but should be in the same major version.| Version Number |
+|Zabbix frontend version | This is the version of the frontend and should match with what you see at the bottom of your screen.| Version Number | 
+|Number of hosts (enabled/disabled) | The total number of hosts configured on our system | How many of those are enabled and disabled |
+|Number of templates | The number of templates installed on our Zabbix server. | |
+|Number of items (enabled/disabled/not supported) | This line shows us the number of items we have configured in total in this case 99 | 90 are enabled and 0 are disabled but 9 of them are unsupported. This last number is important as those are items not working. We will look into this later why it happens and how to fix it. For now remember that a high number of unsupported items is not a good idea.|
+|Number of triggers (Enabled/disabled[problem/ok]) | The number of triggers configured | Number of enabled and disabled triggers. Just as with items we also see if there are triggers that are in a problem state or ok state. A trigger in a problem state is a non working trigger something we need to monitor and fix. We will cover this also later.|
+|Number of users (online) | Here we see the number of users that are configured on our system | The nunber of users currently online. |
+|Required server performance, nvps | The number of new values per second that Zabbix will process per second. | This is just an estimated number as some values we get are unknown so the real value is probably higher. So we can have some indication about how many IOPS we need and how busy our database is. A better indication is probably the internal item ```zabbix[wcache,values,all]``` |
+|High availability cluser |  It will show us if we are running on a Zabbix HA cluster or not | Failover delay once HA is activated |
+
+
 It's important to know that we have so far seen our dashboard with the Admin user and that this user is a ```Zabbix Super Admin``` user. This means that the user has no restrictions. Zabbix works with 3 different levels of users we have the regular users, Zabbix Admin and Zabbix Super Admin users. Let's have a look
 
 
