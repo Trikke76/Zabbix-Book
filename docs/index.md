@@ -5,7 +5,7 @@ Hi, welcome and thank you for your interest in my Zabbix book. I wrote the [Zabb
 As Zabbix is an opensource product and making money out of the books was never my intention, it got me thinking how to do things different.
 How to make a new book without using a publisher like I had done before.
 After a while, I came up with the idea to make a book that would be free and that would be updated when new versions came out.
-Since I am a huge fan of documetation in markdown or asciidoc I came up with the idea to share the book in git and use markdown.
+Since I am a huge fan of documentation in markdown or asciidoc I came up with the idea to share the book in git and use markdown.
 The only problem left was how to make those markdown files readable in an easy way like a book ? After some searching trying to look for a good solution I found [MkDocs](https://www.mkdocs.org). MkDocs is a Python-Markdown library that can convert everything to HTML and can be templated. So the problem was solved and a new book was born.
 
 

@@ -126,9 +126,9 @@ It's important to know that we have so far seen our dashboard with the Admin use
 ![Menu by user](CH02/monitoring-menu.png){ align=right width="180" }
 
 * Problems: This page will give us an overview of all the problems. With filter we can look at recent problems past problems and problems that are active now. There are many more filters tor drill down more.
-* Hosts: will give us a quick overview page with whats happening on our hosts and allows us to quickly go to the latest data, graphs and dashboards.
+* Hosts: This will give us a quick overview page with whats happening on our hosts and allows us to quickly go to the latest data, graphs and dashboards.
 * Latest data: This page I probably use the most, it shows us all the information collected from all our hosts.
-* Maps: is the location where we can create map that are an oveview of our IT infrastructure very useful to get a high level overview of the network.
+* Maps: The location where we can create map that are an oveview of our IT infrastructure very useful to get a high level overview of the network.
 * Discovery: When we run a network discovery this is the place where we can find the results.
 
 ---
@@ -150,13 +150,13 @@ It's important to know that we have so far seen our dashboard with the Admin use
 
 ![Menu by user](CH02/reports-menu.png){ align=left width="180" }
 
-* System information:
-* Scheduled reports:
-* Availability report:
-* Top 100 triggers:
-* Audit log:
-* Action log:
-* Notifications:
+* System information: System information is a summary of key Zabbix server and system data.
+* Scheduled reports: The place where we can schedule our reports, a pdf of the dashboard that will be sent at a specified time and date.
+* Availability report: A nice overview where we can see what trigger has been in ok/nok state for how much % of the time 
+* Top 100 triggers: Another page I visit a lot here we have our top list with triggers that have been in a nok state.
+* Audit log: An overview of the user activity that happend on our system. Useful if we want to know who did what and when.
+* Action log: A detailed overview of our actions can be found here. What mail was sent to who and when ...?
+* Notifications: A quick overview of the number of notifications sent to each user.
 
 ---
 
