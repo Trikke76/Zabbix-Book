@@ -90,13 +90,22 @@ There is also a box on the dashboard called ```System Information```. This widge
 
 It's important to know that we have so far seen our dashboard with the Admin user and that this user is a ```Zabbix Super Admin``` user. This means that the user has no restrictions. Zabbix works with 3 different levels of users we have the regular users, Zabbix Admin and Zabbix Super Admin users. Let's have a look
 
+</br>
 
-![Image title](CH02/main-menu.png/)
+![Menu by user](CH02/main-menu.png/){ align=left }
 
 * A ```Zabbix User``` will only see the red part of our ```main menu``` and will only be able to see our collected data.
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
 * A ```Zabbix Admin``` will see the red part and the yellow part of the ```main menu``` and is able to change our configuration.
+</br>
+</br>
 * A ```Zabbix Super Admin``` will see the complete ```main menu``` and so is able to change the configuration and all the global settings.
-
+</br>
 
 
 ### Zabbix Users
