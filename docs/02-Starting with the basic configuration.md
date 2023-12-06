@@ -31,6 +31,13 @@ Yet another way to make the screen bigger that is quit useful for monitors in NO
 
 When wanting to leave the kios mode the button will be changed to 2 arrows poiting to the inside of the screen. Pressing this button will revert us back to the original state.
 
+???+ tip
+    We can also enter and exit kiosk mode by making use of parameters in our Zabbix url: 
+    ```/zabbix.php?action=dashboard.view&kiosk=1``` - activate kiosk mode
+    or ```/zabbix.php?action=dashboard.view&kiosk=0``` - activate normal mode
+
+???+ note
+    There are many other page parameters we can use. A full list can be found [here](https://www.zabbix.com/documentation/7.0/en/manual/web_interface/page_parameters)
 Zabbix also has a global search menu that we can use to find hosts, host groups and templates.
 
 ![Image title](CH02/search-menu.png/){ width="200" }
@@ -41,25 +48,28 @@ If we look in the search box for ```server``` you will see that we get an overvi
 
 Our main menu on the left consists of a few sections, 9 to be exact:
 
-
-* Dashboards		--> Contains an overview of all the dashboards we have access to
-* Monitoring		--> Shows us the hosts, problems, latest data, maps, ...
-* Services		--> An overview of all the Services and SLA settings
-* Inventory		--> An overview of our collected inventory data
-* Reports		--> Shows us the system information, scheduled reports, audit logs, action logs, etc
-* Data collection	--> Contains all things related to collecting data like hosts, templates, maintenance, discovery, ...
-* Alerts		--> The configuration of our media types, scripts and actions
-* Users			--> User configuration like user roles, user groups, authentication, API tokes, ...
-* Administration	--> The administration part containing all global settings, housekeeper, proxies, queue, ...
+| Menu Name | Details |
+| ---- | ---- |
+| Dashboards | Contains an overview of all the dashboards we have access to. |
+| Monitoring | Shows us the hosts, problems, latest data, maps, ... |
+| Services |  An overview of all the Services and SLA settings. |
+| Inventory | An overview of our collected inventory data. |
+| Reports | Shows us the system information, scheduled reports, audit logs, action logs, etc .|
+| Data collection | Contains all things related to collecting data like hosts, templates, maintenance, discovery, ... |
+| Alert | The configuration of our media types, scripts and actions |
+| Users	|  User configuration like user roles, user groups, authentication, API tokes, ... |
+| Administration | The administration part containing all global settings, housekeeper, proxies, queue, ... |
 
 
 Our last part the ```links``` part  contain a set of useful links that we can use:
 
-* Support		--> This brings us to the technical support page that you can buy from Zabbix. Remember that your local partner is also able to sell these contracts and can help you in your own language. [Your local distributors](https://www.zabbix.com/distributors)
-* Integrations		--> The official zabbix [integeration page](https://www.zabbix.com/integrations) 
-* Help			--> The link to the documentation of your [Zabbix version](https://www.zabbix.com/documentation/7.0/)
-* User settings		--> The user profile settings
-* Sign out		--> Log out of the current session.
+| Menu name | Details |
+| ---- | ---- |
+| Support |  This brings us to the technical support page that you can buy from Zabbix. Remember that your local partner is also able to sell these contracts and can help you in your own language. [Your local distributors](https://www.zabbix.com/distributors) |
+| Integrations | The official zabbix [integeration page](https://www.zabbix.com/integrations) |
+| Help | The link to the documentation of your [Zabbix version](https://www.zabbix.com/documentation/7.0/) |
+| User settings	| The user profile settings. |
+| Sign out | Log out of the current session. |
 
 
 There are still a few buttons left on the right side of our screen
