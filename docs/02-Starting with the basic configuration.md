@@ -72,7 +72,7 @@ Our last part the ```links``` part  contain a set of useful links that we can us
 | Sign out | Log out of the current session. |
 
 
-There are still a few buttons left on the right side of our screen
+There are still a few buttons that we need to cover on the right side of our screen
 
 ![edit buttons](CH02/edit-dashboard.png/)
 
@@ -118,7 +118,49 @@ It's important to know that we have so far seen our dashboard with the Admin use
 </br>
 * A ```Zabbix Super Admin``` will see the complete ```main menu``` and so is able to change the configuration and all the global settings.
 </br>
+</br>
+</br>
 
+#### The main menu explained
+
+![Menu by user](CH02/monitoring-menu.png){ align=right width="180" }
+
+* Problems: This page will give us an overview of all the problems. With filter we can look at recent problems past problems and problems that are active now. There are many more filters tor drill down more.
+* Hosts: will give us a quick overview page with whats happening on our hosts and allows us to quickly go to the latest data, graphs and dashboards.
+* Latest data: This page I probably use the most, it shows us all the information collected from all our hosts.
+* Maps: is the location where we can create map that are an oveview of our IT infrastructure very useful to get a high level overview of the network.
+* Discovery: When we run a network discovery this is the place where we can find the results.
+
+---
+
+![Menu by user](CH02/services-menu.png){ align=left width="180" }
+
+* Services: This page will give us a high level overview of all services configured in Zabbix.
+* SLA: An overview of all the SLAs configured in Zabbix.
+* SLA Report: Here we can watch all SLA reports based on our filters.
+
+---
+
+![Menu by user](CH02/inventory-menu.png){ align=right width="180" }
+
+* Overview: A place where we can watch all our iventory data that we have retrieved from our hosts.
+* Hosts: Here we can filter by host and watch all inventory data for the hosts we have selected.
+
+---
+
+![Menu by user](CH02/reports-menu.png){ align=left width="180" }
+
+* System information:
+* Scheduled reports:
+* Availability report:
+* Top 100 triggers:
+* Audit log:
+* Action log:
+* Notifications:
+
+---
+
+![Menu by user](CH02/datacollection-menu.png){ align=right width="180" }
 
 ### Zabbix Users
 
