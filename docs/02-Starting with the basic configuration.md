@@ -8,7 +8,7 @@ This chapter is going to cover the basics we need to know when it comes to the Z
 ### Overview of the interface
 
 With Zabbix 7 the user interface after logging in is a bit changed. Our menu on the left side of the screen has has a small overhaul. Let's dive into it.
-When we login into our Zabbix setup the first time with our Admin user we see a page like this where we have our ```main window``` in green our ```main menu``` marked in red and our ```links``` marked in yellow.
+When we login into our Zabbix setup the first time with our Admin user we see a page like this where we have our ```main window``` in <font color='green'>green</font>  our ```main menu``` marked in <font color='red'>red</font> and our ```links``` marked in <font color='gold'>yellow</font>.
 
 ![main view](CH02/main-window.png)
 
@@ -94,14 +94,14 @@ It's important to know that we have so far seen our dashboard with the Admin use
 
 ![Menu by user](CH02/main-menu.png/){ align=left }
 
-* A ```Zabbix User``` will only see the red part of our ```main menu``` and will only be able to see our collected data.
+* A ```Zabbix User``` will only see the <font color='red'>red</font> part of our ```main menu``` and will only be able to see our collected data.
 </br>
 </br>
 </br>
 </br>
 </br>
 </br>
-* A ```Zabbix Admin``` will see the red part and the yellow part of the ```main menu``` and is able to change our configuration.
+* A ```Zabbix Admin``` will see the red part and the <font color='gold'>yellow</font>  part of the ```main menu``` and is able to change our configuration.
 </br>
 </br>
 * A ```Zabbix Super Admin``` will see the complete ```main menu``` and so is able to change the configuration and all the global settings.
