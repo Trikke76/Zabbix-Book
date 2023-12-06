@@ -162,6 +162,52 @@ It's important to know that we have so far seen our dashboard with the Admin use
 
 ![Menu by user](CH02/datacollection-menu.png){ align=right width="180" }
 
+* Template groups:
+* Host groups: 
+* Templates:
+* Hosts:
+* Maintenance:
+* Event correlation:
+* Discovery:
+
+---
+
+![Menu by user](CH02/alerts-menu.png){ align=left width="180" }
+
+* Actions:
+* Media types:
+* Scripts:
+</br>
+</br>
+
+---
+
+![Menu by user](CH02/users-menu.png){ align=right width="180" }
+
+* User groups:
+* User roles:
+* Users:
+* API tokens:
+* Authentication: 
+</br>
+</br>
+
+---
+
+![Menu by user](CH02/administration-menu.png){ align=left width="180" }
+
+* General: 
+* Audit log:
+* Housekeeping:
+* Proxies:
+* Macros:
+* Queue:
+
+---
+
+???+ info
+    More information can be found in the online Zabbix documentation [here](https://www.zabbix.com/documentation/7.0/en/manual/web_interface/frontend_sections)
+
 ### Zabbix Users
 
 Now that we know how the Zabbix dashboard is build up our first task will be to create a user.
