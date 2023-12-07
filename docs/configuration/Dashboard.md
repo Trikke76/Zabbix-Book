@@ -1,6 +1,4 @@
-# Starting with the basics
-
-## Zabbix Interface
+# Zabbix Interface
 
 This chapter is going to cover the basics we need to know when it comes to the Zabbix userinterface and the thing we need to know before we can start to fully dive into our monitoring tool. We will see how the userinteface works how to add a host, groups users, items ... so that we have a good understanding of the basics. This is something that is sometimes missed and can lead to frustrations not knowing why things don't work like we had expected them to work. So even if you are an advanced user it may be usefull to have a look into this chapter.
 
@@ -46,6 +44,8 @@ If we look in the search box for ```server``` you will see that we get an overvi
 
 ![Image title](image/main-search.png/)
 
+## Main menu
+
 Our main menu on the left consists of a few sections, 9 to be exact:
 
 | Menu Name | Details |
@@ -60,6 +60,7 @@ Our main menu on the left consists of a few sections, 9 to be exact:
 | Users	|  User configuration like user roles, user groups, authentication, API tokes, ... |
 | Administration | The administration part containing all global settings, housekeeper, proxies, queue, ... |
 
+## Links menu
 
 Our last part the ```links``` part  contain a set of useful links that we can use:
 
@@ -82,6 +83,8 @@ The button on the right side with the 3 horizontal lines is the one to share, re
 
 ![edit buttons](image/system-info.png/)
 
+## System Information
+
 There is also a box on the dashboard called ```System Information```. This widget will show you the current System status of your Zabbix setup. Let's go over the different lines of information as they are important to understand.
 
 |Parameter|Value|Details|
@@ -99,6 +102,9 @@ There is also a box on the dashboard called ```System Information```. This widge
 
 ???+ Tip
     System information may display some additonal warnings like when your database doesnt have the correct character set or collation UTF-8. Also when the database you used is lower or higher then the recommended version or when there are misconfigurations on housekeeper or TimescaleDB. Another warning you can see is about database history tables that aren't upgraded or primary keys that have not been set. This is possible if you are coming from an older version before Zabbix 6 and never did the upgrade.
+
+
+## The main menu explained
 
 It's important to know that we have so far seen our dashboard with the Admin user and that this user is a ```Zabbix Super Admin``` user. This means that the user has no restrictions. Zabbix works with 3 different levels of users we have the regular users, Zabbix Admin and Zabbix Super Admin users. Let's have a look
 
@@ -120,8 +126,6 @@ It's important to know that we have so far seen our dashboard with the Admin use
 </br>
 </br>
 </br>
-
-#### The main menu explained
 
 ![Menu by user](image/monitoring-menu.png){ align=right width="180" }
 

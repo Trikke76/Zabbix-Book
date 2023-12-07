@@ -6,16 +6,6 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://trikke76.github.io/Zabbix-Book/03-Detecting%20and%20managing%20problems/</loc>
-         <lastmod>2023-12-07</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://trikke76.github.io/Zabbix-Book/04-Taking%20action%20when%20problems%20come/</loc>
-         <lastmod>2023-12-07</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
          <loc>https://trikke76.github.io/Zabbix-Book/05-Managing%20Permissions/</loc>
          <lastmod>2023-12-07</lastmod>
          <changefreq>daily</changefreq>
@@ -71,6 +61,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://trikke76.github.io/Zabbix-Book/actions/zabbix-eventactions/</loc>
+         <lastmod>2023-12-07</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://trikke76.github.io/Zabbix-Book/configuration/Dashboard/</loc>
          <lastmod>2023-12-07</lastmod>
          <changefreq>daily</changefreq>
@@ -122,6 +117,11 @@
     </url>
     <url>
          <loc>https://trikke76.github.io/Zabbix-Book/installation/installing-zabbix/</loc>
+         <lastmod>2023-12-07</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://trikke76.github.io/Zabbix-Book/problems/zabbix-triggers/</loc>
          <lastmod>2023-12-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
