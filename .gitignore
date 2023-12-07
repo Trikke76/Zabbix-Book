@@ -2,3 +2,4 @@
 site/
 docs/.DS_Store
 .DS_Store
+libcairo.2.dylib

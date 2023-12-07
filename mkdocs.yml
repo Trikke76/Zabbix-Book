@@ -49,6 +49,43 @@ theme:
 # Plugins
 plugins:
   - search
+  - with-pdf: #add only if you like to build a pdf file
+      author: Patrik Uytterhoeven
+      copyright: Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
+      #
+      #cover: false
+      #back_cover: true
+      cover_title: Zabbix 7 Book
+      #cover_subtitle: SUBTITLE TEXT
+      #custom_template_path: TEMPLATES PATH
+      #
+      #toc_title: TOC TITLE TEXT
+      #heading_shift: false
+      #toc_level: 3
+      #ordered_chapter_level: 2
+      #excludes_children:
+      #    - 'release-notes/:upgrading'
+      #    - 'release-notes/:changelog'
+      #
+      #exclude_pages:
+      #    - 'bugs/'
+      #    - 'appendix/contribute/'
+      #convert_iframe:
+      #    - src: IFRAME SRC
+      #      img: POSTER IMAGE URL
+      #      text: ALTERNATE TEXT
+      #    - src: ...
+      #two_columns_level: 3
+      #
+      #render_js: true
+      #headless_chrome_path: headless-chromium
+      #
+      output_path: ../zabbix-7-book.pdf
+      #enabled_if_env: ENABLE_PDF_EXPORT
+      #
+      #debug_html: true
+      #show_anchors: true
+      #verbose: true
 
 # Customization
 # TBD

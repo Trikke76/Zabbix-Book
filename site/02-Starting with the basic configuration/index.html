@@ -20,18 +20,18 @@
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.9">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.0">
     
     
       
-        <title>02 Starting with the basic configuration - Zabbix Book</title>
+        <title>Starting with the basics - Zabbix Book</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.78cf6014.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.45e1311d.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.356b1318.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -68,14 +68,13 @@
     <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="blue">
   
     
-    
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
         
-        <a href="#working-with-items" class="md-skip">
+        <a href="#starting-with-the-basics" class="md-skip">
           Skip to content
         </a>
       
@@ -111,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              02 Starting with the basic configuration
+              Starting with the basics
             
           </span>
         </div>
@@ -119,6 +118,7 @@
     </div>
     
       
+    
     
     
     
@@ -164,7 +164,7 @@
         <a href="https://github.com/trikke76/Zabbix-Book" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
   </div>
   <div class="md-source__repository">
     trikke76
@@ -210,7 +210,7 @@
       <a href="https://github.com/trikke76/Zabbix-Book" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
   </div>
   <div class="md-source__repository">
     trikke76
@@ -222,6 +222,7 @@
     
       
       
+  
   
   
   
@@ -263,6 +264,7 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href=".." class="md-nav__link">
         
@@ -290,6 +292,7 @@
   
   
     
+  
   
   
     
@@ -328,6 +331,7 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../01-Getting%20started%20with%20Zabbix/" class="md-nav__link">
         
@@ -350,17 +354,20 @@
     
   
   
+  
     <li class="md-nav__item md-nav__item--active">
       
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
+      
+        
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
           
   
   <span class="md-ellipsis">
-    02 Starting with the basic configuration
+    Starting with the basics
   </span>
   
 
@@ -371,7 +378,7 @@
         
   
   <span class="md-ellipsis">
-    02 Starting with the basic configuration
+    Starting with the basics
   </span>
   
 
@@ -383,6 +390,8 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -391,29 +400,161 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#working-with-items" class="md-nav__link">
+  <a href="#zabbix-interface" class="md-nav__link">
     <span class="md-ellipsis">
-      Working with items
+      Zabbix Interface
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zabbix Interface">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#overview-of-the-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview of the interface
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Overview of the interface">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-main-menu-explained" class="md-nav__link">
+    <span class="md-ellipsis">
+      The main menu explained
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#working-with-triggers" class="md-nav__link">
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zabbix-users" class="md-nav__link">
     <span class="md-ellipsis">
-      Working with triggers
+      Zabbix Users
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#working-with-templates" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#zabbix-hosts" class="md-nav__link">
     <span class="md-ellipsis">
-      Working with templates
+      Zabbix hosts
     </span>
   </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#host-groups" class="md-nav__link">
+    <span class="md-ellipsis">
+      Host groups
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#items" class="md-nav__link">
+    <span class="md-ellipsis">
+      Items
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interfaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      Interfaces
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#macros" class="md-nav__link">
+    <span class="md-ellipsis">
+      Macros
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Flow
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Data Flow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#data-collection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Collection
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#simple-checks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Simple Checks
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zabbix-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      Zabbix Agent
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zabbix Agent">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#zabbix-agent-linux" class="md-nav__link">
+    <span class="md-ellipsis">
+      Zabbix agent Linux
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zabbix-agent-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      Zabbix agent windows
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -431,12 +572,13 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../03-Detecting%20and%20managing%20problems/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    03 Detecting and managing problems
+    Detecting and managing problems
   </span>
   
 
@@ -448,6 +590,7 @@
             
               
                 
+  
   
   
   
@@ -456,7 +599,7 @@
         
   
   <span class="md-ellipsis">
-    04 Taking action when problems come
+    Taking action when problems come
   </span>
   
 
@@ -468,6 +611,7 @@
             
               
                 
+  
   
   
   
@@ -476,7 +620,7 @@
         
   
   <span class="md-ellipsis">
-    05 Managing Permissions
+    Managing Permissions
   </span>
   
 
@@ -488,6 +632,7 @@
             
               
                 
+  
   
   
   
@@ -496,7 +641,7 @@
         
   
   <span class="md-ellipsis">
-    06 Visualising our problems
+    Visualising our problems
   </span>
   
 
@@ -508,6 +653,7 @@
             
               
                 
+  
   
   
   
@@ -516,7 +662,7 @@
         
   
   <span class="md-ellipsis">
-    07 Automating configuration
+    Automating configuration
   </span>
   
 
@@ -528,6 +674,7 @@
             
               
                 
+  
   
   
   
@@ -536,7 +683,7 @@
         
   
   <span class="md-ellipsis">
-    08 VMWare monitoring
+    VMWare monitoring
   </span>
   
 
@@ -548,6 +695,7 @@
             
               
                 
+  
   
   
   
@@ -556,7 +704,7 @@
         
   
   <span class="md-ellipsis">
-    09 Monitoring websites
+    Monitoring websites
   </span>
   
 
@@ -568,6 +716,7 @@
             
               
                 
+  
   
   
   
@@ -576,7 +725,7 @@
         
   
   <span class="md-ellipsis">
-    10 Monitoring SNMP,IPMI and JAVA
+    Monitoring SNMP,IPMI and JAVA
   </span>
   
 
@@ -588,6 +737,7 @@
             
               
                 
+  
   
   
   
@@ -596,7 +746,7 @@
         
   
   <span class="md-ellipsis">
-    11 Monitoring with Proxies
+    Monitoring with Proxies
   </span>
   
 
@@ -608,6 +758,7 @@
             
               
                 
+  
   
   
   
@@ -616,7 +767,7 @@
         
   
   <span class="md-ellipsis">
-    12 Securing Zabbix
+    Securing Zabbix
   </span>
   
 
@@ -628,6 +779,7 @@
             
               
                 
+  
   
   
   
@@ -636,7 +788,7 @@
         
   
   <span class="md-ellipsis">
-    13 Maintaining Zabbix
+    Maintaining Zabbix
   </span>
   
 
@@ -648,6 +800,7 @@
             
               
                 
+  
   
   
   
@@ -656,7 +809,7 @@
         
   
   <span class="md-ellipsis">
-    14 Monitoring Windows
+    Monitoring Windows
   </span>
   
 
@@ -671,12 +824,13 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../15-Zabbix%20API/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    15 Zabbix API
+    Zabbix API
   </span>
   
 
@@ -710,6 +864,8 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -718,29 +874,161 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#working-with-items" class="md-nav__link">
+  <a href="#zabbix-interface" class="md-nav__link">
     <span class="md-ellipsis">
-      Working with items
+      Zabbix Interface
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zabbix Interface">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#overview-of-the-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview of the interface
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Overview of the interface">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-main-menu-explained" class="md-nav__link">
+    <span class="md-ellipsis">
+      The main menu explained
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#working-with-triggers" class="md-nav__link">
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zabbix-users" class="md-nav__link">
     <span class="md-ellipsis">
-      Working with triggers
+      Zabbix Users
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#working-with-templates" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#zabbix-hosts" class="md-nav__link">
     <span class="md-ellipsis">
-      Working with templates
+      Zabbix hosts
     </span>
   </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#host-groups" class="md-nav__link">
+    <span class="md-ellipsis">
+      Host groups
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#items" class="md-nav__link">
+    <span class="md-ellipsis">
+      Items
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interfaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      Interfaces
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#macros" class="md-nav__link">
+    <span class="md-ellipsis">
+      Macros
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Flow
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Data Flow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#data-collection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Collection
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#simple-checks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Simple Checks
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zabbix-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      Zabbix Agent
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zabbix Agent">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#zabbix-agent-linux" class="md-nav__link">
+    <span class="md-ellipsis">
+      Zabbix agent Linux
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zabbix-agent-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      Zabbix agent windows
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -762,11 +1050,304 @@
   
 
 
-  <h1>02 Starting with the basic configuration</h1>
+<h1 id="starting-with-the-basics">Starting with the basics<a class="headerlink" href="#starting-with-the-basics" title="Permanent link">&para;</a></h1>
+<h2 id="zabbix-interface">Zabbix Interface<a class="headerlink" href="#zabbix-interface" title="Permanent link">&para;</a></h2>
+<p>This chapter is going to cover the basics we need to know when it comes to the Zabbix userinterface and the thing we need to know before we can start to fully dive into our monitoring tool. We will see how the userinteface works how to add a host, groups users, items ... so that we have a good understanding of the basics. This is something that is sometimes missed and can lead to frustrations not knowing why things don't work like we had expected them to work. So even if you are an advanced user it may be usefull to have a look into this chapter.</p>
+<h3 id="overview-of-the-interface">Overview of the interface<a class="headerlink" href="#overview-of-the-interface" title="Permanent link">&para;</a></h3>
+<p>With Zabbix 7 the user interface after logging in is a bit changed. Our menu on the left side of the screen has has a small overhaul. Let's dive into it.
+When we login into our Zabbix setup the first time with our Admin user we see a page like this where we have our <code>main window</code> in <font color='green'>green</font>  our <code>main menu</code> marked in <font color='red'>red</font> and our <code>links</code> marked in <font color='gold'>yellow</font>.</p>
+<p><img alt="main view" src="../CH02/main-window.png" /></p>
+<p>The main menu can be hidden by collapsing it completely or to reduce it to a set of small icons. </p>
+<p>When we click on the button with the 2 arrows to the left:</p>
+<p><img alt="Image title" src="../CH02/small-menu.png" width="200" /> </p>
+<p>You will see that the menu collapses to a set of small icons. Pressing "&gt;&gt;" will bring the <code>main menu</code> back to it's original state. Pressing the box with the arrow sticking out next to the "&lt;&lt;" button will hide the <code>main menu</code> completely.</p>
+<p><img alt="Image title" src="../CH02/hide-menu.png" width="200" /></p>
+<p>To get the main menu back it's not too difficult we just look for the button on the left with three horizontal lines and click it. This will bring the menu back and clicking on the box with the arrow agian will bring the <code>main menu</code> back.</p>
+<p>Yet another way to make the screen bigger that is quit useful for monitors in NOK teams for example is the kiosk mode button. This one is however located on the left side of your screen and looks like 4 arrows pointing to every corner of the screen. Pressing this button will remove all the menus and leave only main window to focus on.</p>
+<p><img alt="Image title" src="../CH02/kiosk-menu.png" width="70" /> <img alt="Image title" src="../CH02/exitkiosk-menu.png" width="70" /></p>
+<p>When wanting to leave the kios mode the button will be changed to 2 arrows poiting to the inside of the screen. Pressing this button will revert us back to the original state.</p>
+<details class="tip" open="open">
+<summary>Tip</summary>
+<p>We can also enter and exit kiosk mode by making use of parameters in our Zabbix url: 
+<code>/zabbix.php?action=dashboard.view&amp;kiosk=1</code> - activate kiosk mode
+or <code>/zabbix.php?action=dashboard.view&amp;kiosk=0</code> - activate normal mode</p>
+</details>
+<details class="note" open="open">
+<summary>Note</summary>
+<p>There are many other page parameters we can use. A full list can be found <a href="https://www.zabbix.com/documentation/7.0/en/manual/web_interface/page_parameters">here</a></p>
+</details>
+<p>Zabbix also has a global search menu that we can use to find hosts, host groups and templates.</p>
+<p><img alt="Image title" src="../CH02/search-menu.png" width="200" /></p>
+<p>If we look in the search box for <code>server</code> you will see that we get an overview of all templates, host groups and hosts with the name <code>server</code> in it.</p>
+<p><img alt="Image title" src="../CH02/main-search.png" /></p>
+<p>Our main menu on the left consists of a few sections, 9 to be exact:</p>
+<table>
+<thead>
+<tr>
+<th>Menu Name</th>
+<th>Details</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Dashboards</td>
+<td>Contains an overview of all the dashboards we have access to.</td>
+</tr>
+<tr>
+<td>Monitoring</td>
+<td>Shows us the hosts, problems, latest data, maps, ...</td>
+</tr>
+<tr>
+<td>Services</td>
+<td>An overview of all the Services and SLA settings.</td>
+</tr>
+<tr>
+<td>Inventory</td>
+<td>An overview of our collected inventory data.</td>
+</tr>
+<tr>
+<td>Reports</td>
+<td>Shows us the system information, scheduled reports, audit logs, action logs, etc .</td>
+</tr>
+<tr>
+<td>Data collection</td>
+<td>Contains all things related to collecting data like hosts, templates, maintenance, discovery, ...</td>
+</tr>
+<tr>
+<td>Alert</td>
+<td>The configuration of our media types, scripts and actions</td>
+</tr>
+<tr>
+<td>Users</td>
+<td>User configuration like user roles, user groups, authentication, API tokes, ...</td>
+</tr>
+<tr>
+<td>Administration</td>
+<td>The administration part containing all global settings, housekeeper, proxies, queue, ...</td>
+</tr>
+</tbody>
+</table>
+<p>Our last part the <code>links</code> part  contain a set of useful links that we can use:</p>
+<table>
+<thead>
+<tr>
+<th>Menu name</th>
+<th>Details</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Support</td>
+<td>This brings us to the technical support page that you can buy from Zabbix. Remember that your local partner is also able to sell these contracts and can help you in your own language. <a href="https://www.zabbix.com/distributors">Your local distributors</a></td>
+</tr>
+<tr>
+<td>Integrations</td>
+<td>The official zabbix <a href="https://www.zabbix.com/integrations">integeration page</a></td>
+</tr>
+<tr>
+<td>Help</td>
+<td>The link to the documentation of your <a href="https://www.zabbix.com/documentation/7.0/">Zabbix version</a></td>
+</tr>
+<tr>
+<td>User settings</td>
+<td>The user profile settings.</td>
+</tr>
+<tr>
+<td>Sign out</td>
+<td>Log out of the current session.</td>
+</tr>
+</tbody>
+</table>
+<p>There are still a few buttons that we need to cover on the right side of our screen</p>
+<p><img alt="edit buttons" src="../CH02/edit-dashboard.png" /></p>
+<p>The edit button allows us to change our dashboard. This is something we will cover later.
+On the far left side there is a  "?" this will bring you to the Zabbix documentation page that explains everything about the dashboard.
+The button on the right side with the 3 horizontal lines is the one to share, rename, delete, ... our dashboards.</p>
+<p><img alt="edit buttons" src="../CH02/system-info.png" /></p>
+<p>There is also a box on the dashboard called <code>System Information</code>. This widget will show you the current System status of your Zabbix setup. Let's go over the different lines of information as they are important to understand.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Value</th>
+<th>Details</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Zabbix server is running</td>
+<td>This gives us the status of our zabbix server if it is running yes or no and if it is running on our localhost or another IP and on what port the zabbix server is listening. If no trapper is listening the rest of the information can not be displayed</td>
+<td>IP and port of the Zabbix server</td>
+</tr>
+<tr>
+<td>Zabbix server version</td>
+<td>This shows us the version of the <code>Zabbix server</code> so the version you see at the bottom of your screen is the one from the Zabbix frontend and can be different but should be in the same major version.</td>
+<td>Version Number</td>
+</tr>
+<tr>
+<td>Zabbix frontend version</td>
+<td>This is the version of the frontend and should match with what you see at the bottom of your screen.</td>
+<td>Version Number</td>
+</tr>
+<tr>
+<td>Number of hosts (enabled/disabled)</td>
+<td>The total number of hosts configured on our system</td>
+<td>How many of those are enabled and disabled</td>
+</tr>
+<tr>
+<td>Number of templates</td>
+<td>The number of templates installed on our Zabbix server.</td>
+<td></td>
+</tr>
+<tr>
+<td>Number of items (enabled/disabled/not supported)</td>
+<td>This line shows us the number of items we have configured in total in this case 99</td>
+<td>90 are enabled and 0 are disabled but 9 of them are unsupported. This last number is important as those are items not working. We will look into this later why it happens and how to fix it. For now remember that a high number of unsupported items is not a good idea.</td>
+</tr>
+<tr>
+<td>Number of triggers (Enabled/disabled[problem/ok])</td>
+<td>The number of triggers configured</td>
+<td>Number of enabled and disabled triggers. Just as with items we also see if there are triggers that are in a problem state or ok state. A trigger in a problem state is a non working trigger something we need to monitor and fix. We will cover this also later.</td>
+</tr>
+<tr>
+<td>Number of users (online)</td>
+<td>Here we see the number of users that are configured on our system</td>
+<td>The nunber of users currently online.</td>
+</tr>
+<tr>
+<td>Required server performance, nvps</td>
+<td>The number of new values per second that Zabbix will process per second.</td>
+<td>This is just an estimated number as some values we get are unknown so the real value is probably higher. So we can have some indication about how many IOPS we need and how busy our database is. A better indication is probably the internal item <code>zabbix[wcache,values,all]</code></td>
+</tr>
+<tr>
+<td>High availability cluser</td>
+<td>It will show us if we are running on a Zabbix HA cluster or not</td>
+<td>Failover delay once HA is activated</td>
+</tr>
+</tbody>
+</table>
+<details class="tip" open="open">
+<summary>Tip</summary>
+<p>System information may display some additonal warnings like when your database doesnt have the correct character set or collation UTF-8. Also when the database you used is lower or higher then the recommended version or when there are misconfigurations on housekeeper or TimescaleDB. Another warning you can see is about database history tables that aren't upgraded or primary keys that have not been set. This is possible if you are coming from an older version before Zabbix 6 and never did the upgrade.</p>
+</details>
+<p>It's important to know that we have so far seen our dashboard with the Admin user and that this user is a <code>Zabbix Super Admin</code> user. This means that the user has no restrictions. Zabbix works with 3 different levels of users we have the regular users, Zabbix Admin and Zabbix Super Admin users. Let's have a look</p>
+<p></br></p>
+<p><img align="left" alt="Menu by user" src="../CH02/main-menu.png" /></p>
+<ul>
+<li>A <code>Zabbix User</code> will only see the <font color='red'>red</font> part of our <code>main menu</code> and will only be able to see our collected data.
+</br>
+</br>
+</br>
+</br>
+</br>
+</br></li>
+<li>A <code>Zabbix Admin</code> will see the red part and the <font color='gold'>yellow</font>  part of the <code>main menu</code> and is able to change our configuration.
+</br>
+</br></li>
+<li>A <code>Zabbix Super Admin</code> will see the complete <code>main menu</code> and so is able to change the configuration and all the global settings.
+</br>
+</br>
+</br></li>
+</ul>
+<h4 id="the-main-menu-explained">The main menu explained<a class="headerlink" href="#the-main-menu-explained" title="Permanent link">&para;</a></h4>
+<p><img align="right" alt="Menu by user" src="../CH02/monitoring-menu.png" width="180" /></p>
+<ul>
+<li>Problems: This page will give us an overview of all the problems. With filter we can look at recent problems past problems and problems that are active now. There are many more filters tor drill down more.</li>
+<li>Hosts: This will give us a quick overview page with whats happening on our hosts and allows us to quickly go to the latest data, graphs and dashboards.</li>
+<li>Latest data: This page I probably use the most, it shows us all the information collected from all our hosts.</li>
+<li>Maps: The location where we can create map that are an oveview of our IT infrastructure very useful to get a high level overview of the network.</li>
+<li>Discovery: When we run a network discovery this is the place where we can find the results.</li>
+</ul>
+<hr />
+<p><img align="left" alt="Menu by user" src="../CH02/services-menu.png" width="180" /></p>
+<ul>
+<li>Services: This page will give us a high level overview of all services configured in Zabbix.</li>
+<li>SLA: An overview of all the SLAs configured in Zabbix.</li>
+<li>SLA Report: Here we can watch all SLA reports based on our filters.</li>
+</ul>
+<hr />
+<p><img align="right" alt="Menu by user" src="../CH02/inventory-menu.png" width="180" /></p>
+<ul>
+<li>Overview: A place where we can watch all our iventory data that we have retrieved from our hosts.</li>
+<li>Hosts: Here we can filter by host and watch all inventory data for the hosts we have selected.</li>
+</ul>
+<hr />
+<p><img align="left" alt="Menu by user" src="../CH02/reports-menu.png" width="180" /></p>
+<ul>
+<li>System information: System information is a summary of key Zabbix server and system data.</li>
+<li>Scheduled reports: The place where we can schedule our reports, a pdf of the dashboard that will be sent at a specified time and date.</li>
+<li>Availability report: A nice overview where we can see what trigger has been in ok/nok state for how much % of the time </li>
+<li>Top 100 triggers: Another page I visit a lot here we have our top list with triggers that have been in a nok state.</li>
+<li>Audit log: An overview of the user activity that happend on our system. Useful if we want to know who did what and when.</li>
+<li>Action log: A detailed overview of our actions can be found here. What mail was sent to who and when ...?</li>
+<li>Notifications: A quick overview of the number of notifications sent to each user.</li>
+</ul>
+<hr />
+<p><img align="right" alt="Menu by user" src="../CH02/datacollection-menu.png" width="180" /></p>
+<ul>
+<li>Template groups:</li>
+<li>Host groups: </li>
+<li>Templates:</li>
+<li>Hosts:</li>
+<li>Maintenance:</li>
+<li>Event correlation:</li>
+<li>Discovery:</li>
+</ul>
+<hr />
+<p><img align="left" alt="Menu by user" src="../CH02/alerts-menu.png" width="180" /></p>
+<ul>
+<li>Actions:</li>
+<li>Media types:</li>
+<li>Scripts:
+</br>
+</br></li>
+</ul>
+<hr />
+<p><img align="right" alt="Menu by user" src="../CH02/users-menu.png" width="180" /></p>
+<ul>
+<li>User groups:</li>
+<li>User roles:</li>
+<li>Users:</li>
+<li>API tokens:</li>
+<li>Authentication: 
+</br>
+</br></li>
+</ul>
+<hr />
+<p><img align="left" alt="Menu by user" src="../CH02/administration-menu.png" width="180" /></p>
+<ul>
+<li>General: </li>
+<li>Audit log:</li>
+<li>Housekeeping:</li>
+<li>Proxies:</li>
+<li>Macros:</li>
+<li>Queue:</li>
+</ul>
+<hr />
+<details class="info" open="open">
+<summary>Info</summary>
+<p>More information can be found in the online Zabbix documentation <a href="https://www.zabbix.com/documentation/7.0/en/manual/web_interface/frontend_sections">here</a></p>
+</details>
+<h3 id="zabbix-users">Zabbix Users<a class="headerlink" href="#zabbix-users" title="Permanent link">&para;</a></h3>
+<p>Now that we know how the Zabbix dashboard is build up our first task will be to create a user.</p>
+<h3 id="zabbix-hosts">Zabbix hosts<a class="headerlink" href="#zabbix-hosts" title="Permanent link">&para;</a></h3>
+<h3 id="host-groups">Host groups<a class="headerlink" href="#host-groups" title="Permanent link">&para;</a></h3>
+<h3 id="items">Items<a class="headerlink" href="#items" title="Permanent link">&para;</a></h3>
+<h3 id="interfaces">Interfaces<a class="headerlink" href="#interfaces" title="Permanent link">&para;</a></h3>
+<h3 id="macros">Macros<a class="headerlink" href="#macros" title="Permanent link">&para;</a></h3>
+<h2 id="data-flow">Data Flow<a class="headerlink" href="#data-flow" title="Permanent link">&para;</a></h2>
+<h3 id="data-collection">Data Collection<a class="headerlink" href="#data-collection" title="Permanent link">&para;</a></h3>
+<h3 id="simple-checks">Simple Checks<a class="headerlink" href="#simple-checks" title="Permanent link">&para;</a></h3>
+<h2 id="zabbix-agent">Zabbix Agent<a class="headerlink" href="#zabbix-agent" title="Permanent link">&para;</a></h2>
+<h3 id="zabbix-agent-linux">Zabbix agent Linux<a class="headerlink" href="#zabbix-agent-linux" title="Permanent link">&para;</a></h3>
+<h3 id="zabbix-agent-windows">Zabbix agent windows<a class="headerlink" href="#zabbix-agent-windows" title="Permanent link">&para;</a></h3>
 
-<h2 id="working-with-items">Working with items<a class="headerlink" href="#working-with-items" title="Permanent link">&para;</a></h2>
-<h2 id="working-with-triggers">Working with triggers<a class="headerlink" href="#working-with-triggers" title="Permanent link">&para;</a></h2>
-<h2 id="working-with-templates">Working with templates<a class="headerlink" href="#working-with-templates" title="Permanent link">&para;</a></h2>
+
+
+
+
+
+
 
 
 
@@ -777,6 +1358,7 @@
             </div>
           
           
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>
         
       </main>
@@ -808,7 +1390,7 @@
     <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.expand"], "search": "../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.6c14ae12.min.js"></script>
+      <script src="../assets/javascripts/bundle.d7c377c4.min.js"></script>
       
     
   </body>
