@@ -1,4 +1,4 @@
-# Getting started with Zabbix
+## Getting started with Zabbix
 
 ## Requirements
 
@@ -162,7 +162,7 @@ Before we can install Zabbix we first have to know how the design is. The Zabbix
 - The Zabbix web server
 - The Zabbix database
 
-![Zabbix Server Setup](CH01/zabbix-server.webp)
+![Zabbix Server Setup](CH01/zabbix-server.png){width=800}
 
 All these components can be installed on 1 server or can be split over 3 different servers. 
 The Zabbix server itself is the brain this part is doing all the trigger calculations and sending all the alert.
@@ -1526,12 +1526,12 @@ This should help you in locating the errors you made.
 
 When you point your browser to the correct URL you should be greeted with a page like here :
 
-![Zabbix Welcome page](CH01/zabbix-welcome.png)
+![Zabbix Welcome page](CH01/zabbix-welcome.png){width=800}
 
 
 As you see there is only a limited list of local translations available on our Zabbix frontend to choose from 
 
-![Zabbix Welcome page](CH01/zabbix-locales.png)
+![Zabbix Welcome page](CH01/zabbix-locales.png){width=800}
 
 What if we want to install Chinese as language or another language from the list ?
 Run the next command to get a list of all locales available for your OS.
