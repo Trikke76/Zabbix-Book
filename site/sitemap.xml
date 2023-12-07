@@ -6,16 +6,6 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://trikke76.github.io/Zabbix-Book/01-Getting%20started%20with%20Zabbix/</loc>
-         <lastmod>2023-12-07</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://trikke76.github.io/Zabbix-Book/02-Starting%20with%20the%20basic%20configuration/</loc>
-         <lastmod>2023-12-07</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
          <loc>https://trikke76.github.io/Zabbix-Book/03-Detecting%20and%20managing%20problems/</loc>
          <lastmod>2023-12-07</lastmod>
          <changefreq>daily</changefreq>
@@ -77,6 +67,61 @@
     </url>
     <url>
          <loc>https://trikke76.github.io/Zabbix-Book/15-Zabbix%20API/</loc>
+         <lastmod>2023-12-07</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://trikke76.github.io/Zabbix-Book/configuration/Dashboard/</loc>
+         <lastmod>2023-12-07</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://trikke76.github.io/Zabbix-Book/configuration/zabbix-agent/</loc>
+         <lastmod>2023-12-07</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://trikke76.github.io/Zabbix-Book/configuration/zabbix-dataflow/</loc>
+         <lastmod>2023-12-07</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://trikke76.github.io/Zabbix-Book/configuration/zabbix-hostgroups/</loc>
+         <lastmod>2023-12-07</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://trikke76.github.io/Zabbix-Book/configuration/zabbix-hosts/</loc>
+         <lastmod>2023-12-07</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://trikke76.github.io/Zabbix-Book/configuration/zabbix-interfaces/</loc>
+         <lastmod>2023-12-07</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://trikke76.github.io/Zabbix-Book/configuration/zabbix-items/</loc>
+         <lastmod>2023-12-07</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://trikke76.github.io/Zabbix-Book/configuration/zabbix-macros/</loc>
+         <lastmod>2023-12-07</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://trikke76.github.io/Zabbix-Book/configuration/zabbix-users/</loc>
+         <lastmod>2023-12-07</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://trikke76.github.io/Zabbix-Book/installation/Requirements/</loc>
+         <lastmod>2023-12-07</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://trikke76.github.io/Zabbix-Book/installation/installing-zabbix/</loc>
          <lastmod>2023-12-07</lastmod>
          <changefreq>daily</changefreq>
     </url>

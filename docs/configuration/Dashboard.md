@@ -10,24 +10,24 @@ This chapter is going to cover the basics we need to know when it comes to the Z
 With Zabbix 7 the user interface after logging in is a bit changed. Our menu on the left side of the screen has has a small overhaul. Let's dive into it.
 When we login into our Zabbix setup the first time with our Admin user we see a page like this where we have our ```main window``` in <font color='green'>green</font>  our ```main menu``` marked in <font color='red'>red</font> and our ```links``` marked in <font color='gold'>yellow</font>.
 
-![main view](CH02/main-window.png)
+![main view](image/main-window.png)
 
 The main menu can be hidden by collapsing it completely or to reduce it to a set of small icons. 
 
 
 When we click on the button with the 2 arrows to the left:
 
-![Image title](CH02/small-menu.png/){ width="200" } 
+![Image title](image/small-menu.png/){ width="200" } 
 
 You will see that the menu collapses to a set of small icons. Pressing ">>" will bring the ```main menu``` back to it's original state. Pressing the box with the arrow sticking out next to the "<<" button will hide the ```main menu``` completely.
 
-![Image title](CH02/hide-menu.png/){ width="200" }
+![Image title](image/hide-menu.png/){ width="200" }
 
  To get the main menu back it's not too difficult we just look for the button on the left with three horizontal lines and click it. This will bring the menu back and clicking on the box with the arrow agian will bring the ```main menu``` back.
 
 Yet another way to make the screen bigger that is quit useful for monitors in NOK teams for example is the kiosk mode button. This one is however located on the left side of your screen and looks like 4 arrows pointing to every corner of the screen. Pressing this button will remove all the menus and leave only main window to focus on.
 
-![Image title](CH02/kiosk-menu.png/){ width="70" } ![Image title](CH02/exitkiosk-menu.png/){ width="70" }
+![Image title](image/kiosk-menu.png/){ width="70" } ![Image title](image/exitkiosk-menu.png/){ width="70" }
 
 When wanting to leave the kios mode the button will be changed to 2 arrows poiting to the inside of the screen. Pressing this button will revert us back to the original state.
 
@@ -40,11 +40,11 @@ When wanting to leave the kios mode the button will be changed to 2 arrows poiti
     There are many other page parameters we can use. A full list can be found [here](https://www.zabbix.com/documentation/7.0/en/manual/web_interface/page_parameters)
 Zabbix also has a global search menu that we can use to find hosts, host groups and templates.
 
-![Image title](CH02/search-menu.png/){ width="200" }
+![Image title](image/search-menu.png/){ width="200" }
 
 If we look in the search box for ```server``` you will see that we get an overview of all templates, host groups and hosts with the name ```server``` in it.
 
-![Image title](CH02/main-search.png/)
+![Image title](image/main-search.png/)
 
 Our main menu on the left consists of a few sections, 9 to be exact:
 
@@ -74,13 +74,13 @@ Our last part the ```links``` part  contain a set of useful links that we can us
 
 There are still a few buttons that we need to cover on the right side of our screen
 
-![edit buttons](CH02/edit-dashboard.png/)
+![edit buttons](image/edit-dashboard.png/)
 
 The edit button allows us to change our dashboard. This is something we will cover later.
 On the far left side there is a  "?" this will bring you to the Zabbix documentation page that explains everything about the dashboard.
 The button on the right side with the 3 horizontal lines is the one to share, rename, delete, ... our dashboards.
 
-![edit buttons](CH02/system-info.png/)
+![edit buttons](image/system-info.png/)
 
 There is also a box on the dashboard called ```System Information```. This widget will show you the current System status of your Zabbix setup. Let's go over the different lines of information as they are important to understand.
 
@@ -104,7 +104,7 @@ It's important to know that we have so far seen our dashboard with the Admin use
 
 </br>
 
-![Menu by user](CH02/main-menu.png/){ align=left }
+![Menu by user](image/main-menu.png/){ align=left }
 
 * A ```Zabbix User``` will only see the <font color='red'>red</font> part of our ```main menu``` and will only be able to see our collected data.
 </br>
@@ -123,32 +123,34 @@ It's important to know that we have so far seen our dashboard with the Admin use
 
 #### The main menu explained
 
-![Menu by user](CH02/monitoring-menu.png){ align=right width="180" }
+![Menu by user](image/monitoring-menu.png){ align=right width="180" }
 
 * Problems: This page will give us an overview of all the problems. With filter we can look at recent problems past problems and problems that are active now. There are many more filters tor drill down more.
 * Hosts: This will give us a quick overview page with whats happening on our hosts and allows us to quickly go to the latest data, graphs and dashboards.
 * Latest data: This page I probably use the most, it shows us all the information collected from all our hosts.
 * Maps: The location where we can create map that are an oveview of our IT infrastructure very useful to get a high level overview of the network.
 * Discovery: When we run a network discovery this is the place where we can find the results.
-
+</br>
+</br>
 ---
 
-![Menu by user](CH02/services-menu.png){ align=left width="180" }
+![Menu by user](image/services-menu.png){ align=left width="180" }
 
 * Services: This page will give us a high level overview of all services configured in Zabbix.
 * SLA: An overview of all the SLAs configured in Zabbix.
 * SLA Report: Here we can watch all SLA reports based on our filters.
-
+</br>
+</br>
 ---
 
-![Menu by user](CH02/inventory-menu.png){ align=right width="180" }
+![Menu by user](image/inventory-menu.png){ align=right width="180" }
 
 * Overview: A place where we can watch all our iventory data that we have retrieved from our hosts.
 * Hosts: Here we can filter by host and watch all inventory data for the hosts we have selected.
 
 ---
 
-![Menu by user](CH02/reports-menu.png){ align=left width="180" }
+![Menu by user](image/reports-menu.png){ align=left width="180" }
 
 * System information: System information is a summary of key Zabbix server and system data.
 * Scheduled reports: The place where we can schedule our reports, a pdf of the dashboard that will be sent at a specified time and date.
@@ -160,7 +162,7 @@ It's important to know that we have so far seen our dashboard with the Admin use
 
 ---
 
-![Menu by user](CH02/datacollection-menu.png){ align=right width="180" }
+![Menu by user](image/datacollection-menu.png){ align=right width="180" }
 
 * Template groups:
 * Host groups: 
@@ -172,7 +174,7 @@ It's important to know that we have so far seen our dashboard with the Admin use
 
 ---
 
-![Menu by user](CH02/alerts-menu.png){ align=left width="180" }
+![Menu by user](image/alerts-menu.png){ align=left width="180" }
 
 * Actions:
 * Media types:
@@ -182,7 +184,7 @@ It's important to know that we have so far seen our dashboard with the Admin use
 
 ---
 
-![Menu by user](CH02/users-menu.png){ align=right width="180" }
+![Menu by user](image/users-menu.png){ align=right width="180" }
 
 * User groups:
 * User roles:
@@ -194,7 +196,7 @@ It's important to know that we have so far seen our dashboard with the Admin use
 
 ---
 
-![Menu by user](CH02/administration-menu.png){ align=left width="180" }
+![Menu by user](image/administration-menu.png){ align=left width="180" }
 
 * General: 
 * Audit log:
@@ -207,30 +209,4 @@ It's important to know that we have so far seen our dashboard with the Admin use
 
 ???+ info
     More information can be found in the online Zabbix documentation [here](https://www.zabbix.com/documentation/7.0/en/manual/web_interface/frontend_sections)
-
-### Zabbix Users
-
-Now that we know how the Zabbix dashboard is build up our first task will be to create a user.
-
-### Zabbix hosts
-
-### Host groups
-
-### Items
-
-### Interfaces
-
-### Macros
-
-## Data Flow
-
-### Data Collection
-
-### Simple Checks
-
-## Zabbix Agent
-
-### Zabbix agent Linux
-
-### Zabbix agent windows
 

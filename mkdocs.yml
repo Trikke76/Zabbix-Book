@@ -11,24 +11,33 @@ docs_dir: docs
 
 # Navigation
 nav:
-  - Welcome:
-    - Intro: index.md
-  - Chapters:
-    - 01-Getting started with Zabbix.md
-    - 02-Starting with the basic configuration.md
-    - 03-Detecting and managing problems.md
-    - 04-Taking action when problems come.md
-    - 05-Managing Permissions.md
-    - 06-Visualising our problems.md
-    - 07-Automating configuration.md
-    - 08-VMWare monitoring.md
-    - 09-Monitoring websites.md
-    - 10-Monitoring SNMP,IPMI and JAVA.md
-    - 11-Monitoring with Proxies.md
-    - 12-Securing Zabbix.md
-    - 13-Maintaining Zabbix.md
-    - 14-Monitoring Windows.md
-    - 15-Zabbix API.md
+  - Welcome: 'index.md'
+  - 'Getting started':
+    - installation/Requirements.md
+    - installation/installing-zabbix.md
+  - 'The basics':
+    - configuration/Dashboard.md
+    - configuration/zabbix-users.md
+    - configuration/zabbix-hosts.md
+    - configuration/zabbix-hostgroups.md
+    - configuration/zabbix-items.md
+    - configuration/zabbix-interfaces.md
+    - configuration/zabbix-macros.md
+    - configuration/zabbix-dataflow.md
+    - configuration/zabbix-agent.md
+  - 03-Detecting and managing problems.md
+  - 04-Taking action when problems come.md
+  - 05-Managing Permissions.md
+  - 06-Visualising our problems.md
+  - 07-Automating configuration.md
+  - 08-VMWare monitoring.md
+  - 09-Monitoring websites.md
+  - 10-Monitoring SNMP,IPMI and JAVA.md
+  - 11-Monitoring with Proxies.md
+  - 12-Securing Zabbix.md
+  - 13-Maintaining Zabbix.md
+  - 14-Monitoring Windows.md
+  - 15-Zabbix API.md
 
 theme:
    name: material
