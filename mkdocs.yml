@@ -55,8 +55,8 @@ plugins:
       #
       #cover: false
       #back_cover: true
-      cover_title: Zabbix 7 Book
-      #cover_subtitle: SUBTITLE TEXT
+      cover_title: Zabbix 7 Monitoring
+      cover_subtitle: Enterprise Monitoring With Zabbix
       #custom_template_path: TEMPLATES PATH
       #
       #toc_title: TOC TITLE TEXT
@@ -78,7 +78,7 @@ plugins:
       #two_columns_level: 3
       #
       #render_js: true
-      #headless_chrome_path: headless-chromium
+      #headless_chrome_path: chrome-headless
       #
       output_path: ../zabbix-7-book.pdf
       #enabled_if_env: ENABLE_PDF_EXPORT
