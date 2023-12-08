@@ -187,8 +187,7 @@ MariaDB [(none)]> QUIT
 
 ```
 
-???+ warning
-    The Zabbix documentation explicitly mentions that deterministic triggers need to be created during the import of schema. On MySQL and MariaDB, this requires GLOBAL log_bin_trust_function_creators = 1 to be set if binary logging is enabled and there is no superuser privileges and log_bin_trust_function_creators = 1 is not set in MySQL configuration file.
+??? warning "The Zabbix documentation explicitly mentions that deterministic triggers need to be created during the import of schema. On MySQL and MariaDB, this requires GLOBAL log_bin_trust_function_creators = 1 to be set if binary logging is enabled and there is no superuser privileges and log_bin_trust_function_creators = 1 is not set in MySQL configuration file."
 
 
 #### Add the Zabbix repository and populate the DB
@@ -204,8 +203,7 @@ Upload the data from zabbix (db structure, images, user, ... )
 # zcat /usr/share/zabbix-sql-scripts/mysql/server.sql.gz | mysql --default-character-set=utf8mb4 -uroot -p zabbix
 ```
 
-???+ warning
-    Depending on the speed of your hardware or VM this can take a few seconds upto a few minutes so please don't cancel just sit and wait for the prompt
+??? warning "Depending on the speed of your hardware or VM this can take a few seconds upto a few minutes so please don't cancel just sit and wait for the prompt."
 
 Log back into your MariaDB Database as root
 
@@ -301,8 +299,7 @@ Run the following command to install the MySQL repo for version 8.0
 
 ```# dnf -y install https://dev.mysql.com/get/mysql80-community-release-el9-1.noarch.rpm```
 
-???+ Note
-    If you install this on RedHat 8 and higher or alternatives like CentOS, Rocky or Alma 8 then you need to disable the mysql module by running 'module disable mysql'.
+??? note "If you install this on RedHat 8 and higher or alternatives like CentOS, Rocky or Alma 8 then you need to disable the mysql module by running 'module disable mysql'."
 
 Let's update our OS first with the latest patches
 
@@ -362,8 +359,7 @@ mysql> quit
 ```
 Next we can run the command mysql_secure_installation, you should get the following output:
 
-???+ Note
-    There is no need to reset the root password for MySQL again as we have reset it already. The next step is optional but recommended.
+??? note "There is no need to reset the root password for MySQL again as we have reset it already. The next step is optional but recommended."
 
 ```
 # mysql_secure_installation
@@ -433,8 +429,7 @@ mysql> SET GLOBAL log_bin_trust_function_creators = 1;
 mysql> QUIT
 ```
 
-???+ warning
-    The Zabbix documentation explicitly mentions that deterministic triggers need to be created during the import of schema. On MySQL and MariaDB, this requires GLOBAL log_bin_trust_function_creators = 1 to be set if binary logging is enabled and there is no superuser privileges and log_bin_trust_function_creators = 1 is not set in MySQL configuration file.
+??? warning "The Zabbix documentation explicitly mentions that deterministic triggers need to be created during the import of schema. On MySQL and MariaDB, this requires GLOBAL log_bin_trust_function_creators = 1 to be set if binary logging is enabled and there is no superuser privileges and log_bin_trust_function_creators = 1 is not set in MySQL configuration file."
 
 #### Add the Zabbix repository and populate the DB
 
@@ -442,6 +437,7 @@ mysql> QUIT
 # rpm -Uvh https://repo.zabbix.com/zabbix/6.5/rocky/9/x86_64/zabbix-release-6.5-2.el9.noarch.rpm
 # dnf clean all
 # dnf install zabbix-sql-scripts
+
 ```
 Now let;s upload the data from zabbix (db structure, images, user, ... )
 
@@ -450,8 +446,7 @@ Now let;s upload the data from zabbix (db structure, images, user, ... )
 Enter password:
 ```
 
-???+ warning
-    Depending on the speed of your hardware or VM this can take a few seconds upto a few minutes so please don't cancel just sit and wait for the prompt.
+??? warning "Depending on the speed of your hardware or VM this can take a few seconds upto a few minutes so please don't cancel just sit and wait for the prompt."
 
 ```
 Log back into your MySQL Database as root
@@ -564,8 +559,7 @@ sudo systemctl enable postgresql-16 --now
 
 As i told you PostgreSQL works a bit different then MySQL or MariaDB and this applies aswell to how we manage access permissions. Postgres works with a file with the name pg_hba.conf where we have to tell who can access our database from where and what encryption is used for the password. So let's edit this file to allow our frontend and zabbix server to access the database.
 
-???+ note
-    Client authentication is configured by a configuration file with the name ```pg_hba.conf```. HBA here stands for host based authentication. For more information feel free to check the [PostgreSQL documentation](https://www.postgresql.org/docs/current/auth-pg-hba-conf.html).
+??? note "Client authentication is configured by a configuration file with the name ```pg_hba.conf```. HBA here stands for host based authentication. For more information feel free to check the [PostgreSQL documentation](https://www.postgresql.org/docs/current/auth-pg-hba-conf.html)."
 
 Add the following lines, the order here is important.
 
@@ -656,8 +650,7 @@ zabbix=> SELECT session_user, current_user;
 
 PostgreSQL works a bit different then MySQL or MariaDB when it comes to almost everything :) One of the things that it has that MySQL not has are for example shemas. If you like to know more about it i can recommend [this](https://hevodata.com/learn/postgresql-schema/#schema)  URI. It explains in detail what it is and why we need it. But in short ...  In PostgreSQL schema enables a multi-user environment that allows multiple users to access the same database without interference. Schemas are important when several users use the application and access the database in their way or when various applications utilize the same database. There is a standard schema that you can use but the better way is to create our own schema.
 
-???+ Note
-    There is a standard schema ```public``` that you can use but the better way is to create our own schema this was if later something else is installed next to the Zabbix database it will be easier to create users with only access to the newly created database tables.
+??? note "There is a standard schema ```public``` that you can use but the better way is to create our own schema this was if later something else is installed next to the Zabbix database it will be easier to create users with only access to the newly created database tables."
 
 ```
 zabbix=> CREATE SCHEMA zabbix_server AUTHORIZATION "zabbix-srv";
@@ -695,8 +688,7 @@ We are now ready to populate the database with the Zabbix table structures etc .
 
 Let's upload the Zabbix SQL file we extracted earlier to populate our database with the needed schemas images users etc ...
 
-???+ warning
-    Depending on the speed of your hardware or VM this can take a few seconds upto a few minutes so please don't cancel just sit and wait for the prompt.
+??? warning "Depending on the speed of your hardware or VM this can take a few seconds upto a few minutes so please don't cancel just sit and wait for the prompt."
 
 
 ```
@@ -713,8 +705,7 @@ COMMIT
 zabbix=#
 ```
 
-???+ note
-    If the import fails with ```psql:/usr/share/zabbix-sql-scripts/postgresql/server.sql:7: ERROR:  no schema has been selected to create in```  then you probably made an error in the line where you set the search path.
+??? note "If the import fails with ```psql:/usr/share/zabbix-sql-scripts/postgresql/server.sql:7: ERROR:  no schema has been selected to create in```  then you probably made an error in the line where you set the search path."
 
 Lets verify that our tables are properly created with the correct permissions
 
@@ -737,8 +728,9 @@ zabbix=# \dt
  zabbix_server | widget_field               | table | zabbix-srv
 (173 rows)
 ```
-???+ Note
-    If you are like me and don't like to set the search path every time you logon with the user zabbix-srv to the correct search path you can run the following SQL. ```zabbix=> alter role "zabbix-srv" set search_path = "$user", public, zabbix_server ;```
+
+??? note "If you are like me and don't like to set the search path every time you logon with the user zabbix-srv to the correct search path you can run the following SQL. ```zabbix=> alter role "zabbix-srv" set search_path = "$user", public, zabbix_server ;```"
+
 
 If you are ready you can exit the database and return as user root.
 
@@ -815,26 +807,6 @@ postgresql-access (active)
 
 Our database server is ready now to accept connections from our Zabbix server :).
 You can continue with the next task [Installing the Zabbix Server](#installing-the-zabbix-server)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -42,20 +42,32 @@ nav:
   - 15-Zabbix API.md
 
 theme:
+   language: en
    name: material
    font:
-     text: IBM Plex Sans
-     code: IBM Plex Mono
+     text: Roboto
+     code: Roboto Mono
    icon:
      logo: material/library
    features:
-     # - navigation.tabs
+#     - navigation.tabs
+     - navigation.sections
      - navigation.instant
      - navigation.expand
    palette:
-     scheme: default
-     primary: blue
-     accent: blue
+     - scheme: default
+       primary: blue
+       accent: blue
+       toggle:
+         icon: material/toggle-switch-off-outline
+         name: Switch to dark mode
+     - scheme: slate
+       primary: light blue
+       accent: light blue
+       toggle:
+         icon: material/toggle-switch
+         name: Switch to light mode
+       
 
 # Plugins
 plugins:

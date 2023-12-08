@@ -20,8 +20,8 @@ or if the service is not known
 
 ```# firewall-cmd --add-port=10051/tcp --permanent```
 
-???+ note
-    Firewalld is the replacement of iptables in Redhat and allows us to make changes available immediately without the need to restart a service. It's possible that your distribution is not using [Firewalld](https://www.firewalld.org) in this case you have to look to the documentation of your OS.
+
+??? note " Firewalld is the replacement of iptables in Redhat and allows us to make changes available immediately without the need to restart a service. It's possible that your distribution is not using [Firewalld](https://www.firewalld.org) in this case you have to look to the documentation of your OS."
 
 ### timeserver
 
@@ -33,8 +33,7 @@ Chrony should be installed now and enabled and running. This can be verified wit
 
 ```# systemctl status chronyd```
 
-???+ note
-    dnf is a packagemanager from RedHat you need to replace dnf with your correct packagemanager like zyper, apt, yum, ... chrony is a replacement for ntpd and does a better job being faster and more accurate. If your OS does not support [chrony](https://chrony-project.org/) then maybe ntpd is still available.
+??? note "dnf is a packagemanager from RedHat you need to replace dnf with your correct packagemanager like zyper, apt, yum, ... chrony is a replacement for ntpd and does a better job being faster and more accurate. If your OS does not support [chrony](https://chrony-project.org/) then maybe ntpd is still available."
 
 
 Once Chrony is installed we also need to setup our correct time zone. We can have a look first with 'timedatectl' to see how our time is configured 
@@ -86,8 +85,8 @@ System clock synchronized: yes
               NTP service: active
           RTC in local TZ: no
 ```
-???+ note
-    Some people like to install all servers in the UTC time zone so that all server logs are in the same time zone when having servers all over the world. Zabbix supports user based time zone settings so it's possible to keep the time zone in UTC on the server and then add the correct time zone in the user interface if you like.
+
+??? note "Some people like to install all servers in the UTC time zone so that all server logs are in the same time zone when having servers all over the world. Zabbix supports user based time zone settings so it's possible to keep the time zone in UTC on the server and then add the correct time zone in the user interface if you like."
 
 
 We can test if Chrony is syncronizing with the correct timeservers as well by running the command chronyc
