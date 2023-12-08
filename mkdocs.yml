@@ -14,6 +14,7 @@ nav:
   - Welcome: 'index.md'
   - 'Getting started':
     - installation/Requirements.md
+    - installation/installing-zabbixdb.md
     - installation/installing-zabbix.md
   - 'The basics':
     - configuration/Dashboard.md
@@ -46,11 +47,11 @@ theme:
    name: material
    font:
      text: Roboto
-     code: Roboto Mono
+     code: Nunito
    icon:
      logo: material/library
    features:
-#     - navigation.tabs
+     - header.autohide
      - navigation.sections
      - navigation.instant
      - navigation.expand
@@ -101,7 +102,7 @@ plugins:
       #two_columns_level: 3
       #
       #render_js: true
-      #headless_chrome_path: chrome-headless
+      #headless_chrome_path:
       #
       output_path: ../zabbix-7-book.pdf
       #enabled_if_env: ENABLE_PDF_EXPORT
@@ -109,9 +110,9 @@ plugins:
       #debug_html: true
       #show_anchors: true
       #verbose: true
+# alternative pdf solution https://github.com/orzih/mkdocs-with-pdf
+#  - page-to-pdf
 
-# Customization
-# TBD
 
 # Extensions
 markdown_extensions:
@@ -124,12 +125,13 @@ markdown_extensions:
   - toc:
       permalink: true
   - pymdownx.details
+  - pymdownx.blocks.admonition
   - pymdownx.arithmatex:
       generic: true
   - pymdownx.caret
-  - pymdownx.emoji:
-      emoji_index: !!python/name:material.extensions.emoji.twemoji
-      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+#  - pymdownx.emoji:
+#      emoji_index: !!python/name:material.extensions.emoji.twemoji
+#      emoji_generator: !!python/name:material.extensions.emoji.to_svg
   - pymdownx.highlight
   - pymdownx.inlinehilite
   - pymdownx.progressbar
