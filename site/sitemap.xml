@@ -121,6 +121,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://trikke76.github.io/Zabbix-Book/installation/installing-zabbixdb/</loc>
+         <lastmod>2023-12-08</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://trikke76.github.io/Zabbix-Book/problems/zabbix-triggers/</loc>
          <lastmod>2023-12-08</lastmod>
          <changefreq>daily</changefreq>
