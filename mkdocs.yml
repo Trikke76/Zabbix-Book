@@ -30,17 +30,30 @@ nav:
     - problems/zabbix-triggers.md
   - 'Taking action when problems come':
     - actions/zabbix-eventactions.md
-  - 05-Managing Permissions.md
-  - 06-Visualising our problems.md
-  - 07-Automating configuration.md
-  - 08-VMWare monitoring.md
-  - 09-Monitoring websites.md
-  - 10-Monitoring SNMP,IPMI and JAVA.md
-  - 11-Monitoring with Proxies.md
-  - 12-Securing Zabbix.md
-  - 13-Maintaining Zabbix.md
-  - 14-Monitoring Windows.md
-  - 15-Zabbix API.md
+  - 'Managing permissions':
+    - permissions/managing-permissions.md
+  - 'Visualising Problems':
+     - visualising/Visualising-our-problems.md
+  - 'Automating configuration':
+    - automation/automating-configuration.md
+  - 'VMWare monitoring':
+    - vmware/vmware-monitoring.md
+  - 'Monitoring websites':
+    - websites/monitoring-websites.md
+  - 'Monitoring SNMP, IPMI and JAVA':
+    - extra-monitoring/SNMP-monitoring.md
+    - extra-monitoring/JAVA-monitoring.md
+    - extra-monitoring/IPMI-monitoring.md
+  - 'Monitoring with Proxies':
+    - proxies/installing-proxies.md
+  - 'Securing Zabbix':
+    - security/securing-zabbix.md
+  - 'Maintaining Zabbix':
+    - maintenance/maintaining-zabbix.md
+  - 'Monitoring Windows':
+    - windows/monitoring-windows.md
+  - 'Zabbix API':
+    - api/zabbix-api.md
 
 theme:
    language: en
@@ -68,7 +81,7 @@ theme:
        toggle:
          icon: material/toggle-switch
          name: Switch to light mode
-       
+
 
 # Plugins
 plugins:
