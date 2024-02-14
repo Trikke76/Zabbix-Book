@@ -35,29 +35,62 @@ Click on the top right on '''Create user''' and fill in the details of your new 
 | Groups    | Select what group the user will belong to. Atleast 1 group needs to be selected. This feeld will auto complete or you can press the '''Select''' button at the end of the field. |
 | Passowrd  | There are 2 password fields they can only be used for internal authentication but more about this later. If the user has the Super admin role then clicking on the Change password button opens an additional field to entering the current (old) password. On a successful password change, the user for which the password was changed will be logged out of all active sessions.|
 | Language  | Language of the frontend. The php gettext extension is required for the translations to work. And the language needs to be configured on the system. See the chapter "Installing Zabbix" in case you forgot. |
+| Time zone | Select the time zone per user or use the default timezone that is configured on the Zabbix server. |
+| Theme	    | Here users can select their own look and feel by choosing one of the 4 themes provided by Zabbix or another custom made theme. Default will switch to the default theme chosen by the admin. |
+| Auto-login | Check this box so that the user will be remembered for 30 days. The browser must accept cookies for this to work. |
+| Auto-logout | Checking this box makes sure the user gets logged out automatically, after the set amount of seconds (minimum 90 seconds, maximum 1 day). |
+|           | Time suffixes are supported, e.g. 90s, 5m, 2h, 1d. |
+|           | Note that this option will not work if : |
+|           | * If the "Show warning if Zabbix server is down" global configuration option is enabled and Zabbix frontend is kept open. |
+|           | * When Monitoring menu pages perform background information refreshes. |
+|           | * If logging in with the Remember me for 30 days option checked. |
+| Refresh   | Set the refresh rate used for graphs, plain text data, etc. Can be set to 0 to disable. Time suffixes are supported. Ex:  90s, 5m, 1h. |
+| Rows per page	| Define how many rows per page will be displayed in lists. |
+| URL (after login) | You can make Zabbix transfer the user to a specific URL after successful login. This can be useful for monitors in NOC team for example so you arrive on a specific dashboard that is maximised. |
+|           | The URL can be the full url or only the relative url like : zabbix.php?action=host.list |
 
+### User Media
 
-Time zone	Select the time zone to override global time zone on user level or select System default to use global time zone settings.
+The tab ''' Media ''' contains a list of all media that is defined for out user. Media is used for sending notifications to the user. We can click the ''' Add ''' button.
 
-Theme	Defines how the frontend looks like:
-System default - use default system settings
-Blue - standard blue theme
-Dark - alternative dark theme
-High-contrast light - light theme with high contrast
-High-contrast dark - dark theme with high contrast
+![User Media](image/user-media.png)
 
-Auto-login	Mark this checkbox to make Zabbix remember the user and log the user in automatically for 30 days. Browser cookies are used for this.
+Adding the media here is not enough to receive notification we also need to configure our media properly and we still need to configure Actions as well.
+When pressing the ''' Add ''' button we get a popup where we can select some information.
 
-Auto-logout	With this checkbox marked the user will be logged out automatically, after the set amount of seconds (minimum 90 seconds, maximum 1 day).
-Time suffixes are supported, e.g. 90s, 5m, 2h, 1d.
-Note that this option will not work:
-* If the "Show warning if Zabbix server is down" global configuration option is enabled and Zabbix frontend is kept open.
-* When Monitoring menu pages perform background information refreshes.
-* If logging in with the Remember me for 30 days option checked.
+![User Media popup](image/user-media-popup.png)
 
-Refresh	Set the refresh rate used for graphs, plain text data, etc. Can be set to 0 to disable.
-Time suffixes are supported, e.g. 90s, 5m, 1h.
-
-Rows per page	You can determine how many rows per page will be displayed in lists.
-
-URL (after login)	You can make Zabbix transfer the user to a specific URL after successful login, for example, to Problems page.
+<html>
+<head>
+<style>
+thead th { text-align:left; background:grey; color:white}
+tbody th { text-align:right; background: lightgrey; color:whitwhitee}
+</style>
+</head>
+<body>
+<table>
+<thead>
+<tr>
+<th>Parameter</th><th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>Type</th><td>A</td>
+</tr>
+<tr>
+<th>Send to</th><td>java2s.com long data</td>
+</tr>
+<tr>
+<th>when active</th><td>A</td>
+</tr>
+<tr>
+<th>Use if severity</th><td>A</td>
+</tr>
+<tr>
+<th>Enabled</th><td>A</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>
