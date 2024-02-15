@@ -85,7 +85,7 @@ tbody th { text-align:right; background: lightgrey; color:whitwhitee}
 <th>when active</th><td>The time when media will be active from monday till sundat, 1-7 and the time from 00:00 till 24:00 for example only in weekends from 6 in the morning till 5 in the evening: 6-7,06-17:00i. This is based on the user his timezone</td>
 </tr>
 <tr>
-<th>Use if severity</th><td>A list of checkboxes from the severities you would like to recieve notifications from. Selected severities will be displayed in color</td>
+<th>Use if severity</th><td>A list of checkboxes from the severities you would like to recieve notifications from. Selected severities will be displayed in color. !! Read the warning below!!</td>
 </tr>
 <tr>
 <th>Status</th><td>Status of the media we have selected either enabled or disabled ( in use or not )</td>
@@ -94,3 +94,6 @@ tbody th { text-align:right; background: lightgrey; color:whitwhitee}
 </table>
 </body>
 </html>
+
+???+ warning
+    When selecting the different severities be aware that you have to select '''Not classified''' if you want to receive notifications about non trigger events like internal events. For more info check out : (Event sources)[https://www.zabbix.com/documentation/7.0/en/manual/config/events/sources]. This is something that is not obvious and Zabbix documentation could be better in explaining this imho
