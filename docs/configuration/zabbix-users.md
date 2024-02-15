@@ -76,19 +76,19 @@ tbody th { text-align:right; background: lightgrey; color:whitwhitee}
 </thead>
 <tbody>
 <tr>
-<th>Type</th><td>A</td>
+<th>Type</th><td>A drop down list with the names of all media types. When a media type is disabled it will be in red.</td>
 </tr>
 <tr>
-<th>Send to</th><td>java2s.com long data</td>
+<th>Send to</th><td>Here we can provide contact information. For an email media type it is possible to add several addresses by clicking on  below the address field. In this case, the notification will be sent to all email addresses provided. It is also possible to specify recipient name in the Send to field of the email recipient in a format 'Recipient name <address1@company.com>'. Note that if a recipient name is provided, an email address should be wrapped in angle brackets (<>). UTF-8 characters in the name are supported, quoted pairs and comments are not. For example: John Abercroft <manager@nycdatacenter.com> and manager@nycdatacenter.com are both valid formats. Incorrect examples: John Doe zabbix@company.com, %%"Zabbix\@\<H(comment)Q\>" zabbix@company.com %%.</td>
 </tr>
 <tr>
-<th>when active</th><td>A</td>
+<th>when active</th><td>The time when media will be active from monday till sundat, 1-7 and the time from 00:00 till 24:00 for example only in weekends from 6 in the morning till 5 in the evening: 6-7,06-17:00i. This is based on the user his timezone</td>
 </tr>
 <tr>
-<th>Use if severity</th><td>A</td>
+<th>Use if severity</th><td>A list of checkboxes from the severities you would like to recieve notifications from. Selected severities will be displayed in color</td>
 </tr>
 <tr>
-<th>Enabled</th><td>A</td>
+<th>Status</th><td>Status of the media we have selected either enabled or disabled ( in use or not )</td>
 </tr>
 </tbody>
 </table>
