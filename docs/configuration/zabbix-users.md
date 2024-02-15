@@ -79,7 +79,7 @@ tbody th { text-align:right; background: lightgrey; color:whitwhitee}
 <th>Type</th><td>A drop down list with the names of all media types. When a media type is disabled it will be in red.</td>
 </tr>
 <tr>
-<th>Send to</th><td>Here we can provide contact information. For an email media type it is possible to add several addresses by clicking on  below the address field. In this case, the notification will be sent to all email addresses provided. It is also possible to specify recipient name in the Send to field of the email recipient in a format 'Recipient name <address1@company.com>'. Note that if a recipient name is provided, an email address should be wrapped in angle brackets (<>). UTF-8 characters in the name are supported, quoted pairs and comments are not. For example: John Abercroft <manager@nycdatacenter.com> and manager@nycdatacenter.com are both valid formats. Incorrect examples: John Doe zabbix@company.com, %%"Zabbix\@\<H(comment)Q\>" zabbix@company.com %%.</td>
+<th>Send to</th><td>Here we can provide contact information. For an email media type it is possible to add several addresses by clicking on '''Add'''  below the address field. In this case, the notification will be sent to all email addresses provided. It's also possible to specify recipient name in the Send to field of the email recipient in a format 'Recipient name &lt;address1@company.com>'. Note that if a recipient name is provided, an email address should be wrapped in angle brackets (<>). UTF-8 characters in the name are supported, quoted pairs and comments are not. For example: John Doe &lt;manager@open-future.com> and manager@nycdatacenter.com are both valid formats. Incorrect examples: John Doe manager@open-future.com, %%"Zabbix\@\&lt;H(comment)Q\>" zabbix@company.com %%.<td>
 </tr>
 <tr>
 <th>when active</th><td>The time when media will be active from monday till sundat, 1-7 and the time from 00:00 till 24:00 for example only in weekends from 6 in the morning till 5 in the evening: 6-7,06-17:00i. This is based on the user his timezone</td>
@@ -96,4 +96,4 @@ tbody th { text-align:right; background: lightgrey; color:whitwhitee}
 </html>
 
 ???+ warning
-    When selecting the different severities be aware that you have to select '''Not classified''' if you want to receive notifications about non trigger events like internal events. For more info check out : (Event sources)[https://www.zabbix.com/documentation/7.0/en/manual/config/events/sources]. This is something that is not obvious and Zabbix documentation could be better in explaining this imho
+    When selecting the different severities be aware that you have to select '''Not classified''' if you want to receive notifications about non trigger events like internal events. For more info check out : [Event sources](https://www.zabbix.com/documentation/7.0/en/manual/config/events/sources). This is something that is not obvious and Zabbix documentation could be better in explaining this imho.
