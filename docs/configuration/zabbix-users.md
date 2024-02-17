@@ -18,6 +18,90 @@ To change the password do the following steps
 - Fill in the current password '''zabbix'''
 - Fill in the new password twice and press '''Update''' at the bottom of the page.
 
+## Zabbix User types
+
+Before we create new users it's important to know that Zabbix has 3 user types that are built-in.
+
+- Zabbix user -> This is a normal user that only has read only permissions if given. So there are no permissions assigned by default.
+- Zabbix admin -> A user with read/write permissions. Just like the Zabbix user there are not permissions by default
+- Zabbix super admin -> A user with read/write permissions that can't be revoked
+
+Besides these differences these users also have different accesses rights in our menu. Let's have a closer look.
+
+A normal user wil only see a part of our menu on the left. Also some sub sections of the menu will not be visible. An ```Admin``` user will have more rights than a regular user and will be able to make some configuration changes in Zabbix. A ```Super Admin``` user will have unlimted right and see every part of the menu. The only way to limit a ```Super Admin``` will be by making use of roles. Something we cover later.
+
+<html>
+<head>
+<style>
+thead th { text-align:left; background:grey; color:white}
+tbody th { text-align:right; background: lightgrey; color:whitwhitee}
+</style>
+</head>
+<body>
+<table>
+<thead>
+<tr>
+<th> </th><th>Zabbix User</th><th>Zabbix Admin</th><th>Zabbix Super Admin</th>
+</tr>
+</thead>
+<tbody>
+<thead>
+<tr>
+<th>Dashboards</th><td><center>&#9989;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
+<tr>
+</thead>
+<thead>
+<tr>
+<th>Monitoring</th><td><center>&#9989;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
+<tr>
+</thead>
+<th>- Problems</th><td><center>&#9989;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
+</tr>
+<tr>
+<th>- Hosts</th><td><center>&#9989;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
+</tr>
+<tr>
+<th>- Latest data</th><td><center>&#9989;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
+</tr>
+<tr>
+<th>- Maps</th><td><center>&#9989;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
+</tr>
+<tr>
+<th>- Discovery</th><td><center>&#10060;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
+</tr>
+<thead>
+<tr>
+<th>Services</th><th><center>&#9989;</center></th><th><center>&#9989;</center></th><th><center>&#9989;</center></th>
+</tr>
+</thead>
+<tr>
+<th>- Services</th><td><center>&#9989;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
+</tr>
+<tr>
+<th>- SLA</th><td><center>&#10060;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
+</tr>
+<tr>
+<th>- SLA Report</th><td><center>&#9989;;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
+</tr>
+<thead>
+<tr>
+<th>Inventory</th><th><center>&#9989;</center></th><th><center>&#9989;</center></th><th><center>&#9989;</center></th>
+</tr>
+</thead>
+<tr>
+<th>- Overview</th><td><center>&#9989;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
+</tr>
+<tr>
+<th>- Hosts</th><td><center>&#9989;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>
+
+An ```Admin``` user will have more rights than a regular user and will be able to make some configuration changes in Zabbix.
+
+
 
 ## Creating a new User in Zabbix
 
