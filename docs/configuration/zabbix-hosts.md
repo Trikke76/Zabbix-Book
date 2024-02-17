@@ -13,7 +13,7 @@ To Add a new host to our system we press ```Create host`` this button can be fou
 
 ![Create a host](image/zabbix-add-hosts.png)
 
-We now get a popup where we need to fill in some information about our host.
+We now get a modal form where we need to fill in some information about our host. The fields marked with a <span style="color:red"> *red* </span> asterisk <span style="color:red"> "*" </span> are the fields that are mandatory.
 
 ![Create a host](image/zabbix-new-host.png)
 
@@ -61,15 +61,56 @@ tbody th { text-align:right; background: lightgrey; color:whitwhitee}
 </body>
 </html>
 
-## Host details
+## Host menu details
 
-Befor we add a host ourselves there are a few things we need to know first.
+Before we add a host ourselves there are a few things we need to know first.
 When we click on a host that we already configured before there are a few things that we notice. First of all we see a ```blue``` line under ```Host```. This means that we are on the current ```tab``` of the host page. As you can see there are multiple tabs that we can click on like IPMI, Tags, Macros, ... 
-![Host menu bar](image/host-menu-details.png)
+
+![Host menu bar](image/host-menu-details.png){ width="600" }
 
 The next thing we see is that next to the tab ```Macros``` there is a number 2. This is because there are 2 macros configured in the macro tab. So when we add information in tabs like macros or tags ... Zabbix will show how many items we have added on these tabs by showing next to the tab name the number.
 
 When looking at the ```encryption``` tab we notice the green dot. This shows us that an option on the tab has been activated.
 Now that we know this lets get a quick overview of every tab and see what it does.
 
+### IPMI
 
+So looking at the tab ```IPMI``` there are a few thing we need to fill in when working with an IPMI interface. IPMI stands for Intelligent Platform Management Interface and is basicaly a set of standards to manage hardware platforms. In short it allows us to monitor and manage ours servers hardware even if the server is not turned on yet. IPMI is better known as ILO on HP servers and DRAC on Dell servers.
+
+<html>
+<head>
+<style>
+thead th { text-align:left; background:grey; color:white}
+tbody th { text-align:right; background: lightgrey; color:whitwhitee}
+</style>
+</head>
+<body>
+<table>
+<thead>
+<tr>
+<th>Parameter</th><th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>Autentication algorithm</th><td>Select the authentication algorithm that we have configured on our IPMI server this can be Default, none, MD2, MD5, Straight, OEM, RMCP+</td>
+</tr>
+<tr>
+<th>Privelege level</th><td>Here we select the privelege level: Callback, User, Operator, Admin or OEM. </td>
+</tr>
+<tr>
+<th>Username</th><td>The user for authentication that was created on the host. User Macros can be used</td>
+</tr>
+<tr>
+<th>Password</th><td>The password for our user on the host. User macros can be used.</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>
+
+??? Note+
+  We will cover IPMI in more detail later in the Chapter [IPMI Monitoring](../extra-monitoring/IPMI-monitoring.md)
+
+
+### Tags
