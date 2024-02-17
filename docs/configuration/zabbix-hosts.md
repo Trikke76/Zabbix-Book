@@ -60,3 +60,16 @@ tbody th { text-align:right; background: lightgrey; color:whitwhitee}
 </table>
 </body>
 </html>
+
+## Host details
+
+Befor we add a host ourselves there are a few things we need to know first.
+When we click on a host that we already configured before there are a few things that we notice. First of all we see a ```blue``` line under ```Host```. This means that we are on the current ```tab``` of the host page. As you can see there are multiple tabs that we can click on like IPMI, Tags, Macros, ... 
+![Host menu bar](image/host-menu-details.png)
+
+The next thing we see is that next to the tab ```Macros``` there is a number 2. This is because there are 2 macros configured in the macro tab. So when we add information in tabs like macros or tags ... Zabbix will show how many items we have added on these tabs by showing next to the tab name the number.
+
+When looking at the ```encryption``` tab we notice the green dot. This shows us that an option on the tab has been activated.
+Now that we know this lets get a quick overview of every tab and see what it does.
+
+
