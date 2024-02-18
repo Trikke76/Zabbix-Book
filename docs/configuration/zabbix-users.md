@@ -28,80 +28,209 @@ Before we create new users it's important to know that Zabbix has 3 user types t
 
 Besides these differences these users also have different accesses rights in our menu. Let's have a closer look.
 
-A normal user wil only see a part of our menu on the left. Also some sub sections of the menu will not be visible. An ```Admin``` user will have more rights than a regular user and will be able to make some configuration changes in Zabbix. A ```Super Admin``` user will have unlimted right and see every part of the menu. The only way to limit a ```Super Admin``` will be by making use of roles. Something we cover later.
+- A normal user wil only see a part of our menu on the left. Also some sub sections of the menu will not be visible. An ```Admin``` user will have more rights than a regular user and will be able to make some configuration changes in Zabbix. A ```Super Admin``` user will have unlimted right and see every part of the menu. The only way to limit a ```Super Admin``` will be by making use of roles. Something we cover later.
+- An ```Admin``` user will have more rights than a regular user and will be able to make some configuration changes in Zabbix.
+- A ```Super Admin``` can access all parts of the menu. The user will have read/write access to all host and template groups. Access can't be revoked by denying access to groups like with a normal admin.
+
+This table gives an overview of all the permissions a Zabbix user, admin and super admin have:
 
 <html>
 <head>
 <style>
-thead th { text-align:left; background:grey; color:white}
-tbody th { text-align:right; background: lightgrey; color:whitwhitee}
+thead th { text-align:left; background:grey; color:white; height: 20px }
+tbody th { text-align:center; background: lightgrey; color:whitwhitee }
 </style>
 </head>
 <body>
 <table>
-<thead>
-<tr>
-<th> </th><th>Zabbix User</th><th>Zabbix Admin</th><th>Zabbix Super Admin</th>
-</tr>
-</thead>
+  <thead>
+    <tr>
+      <th> </th><th>Zabbix User</th><th>Zabbix Admin</th><th>Zabbix Super Admin</th>
+    </tr>
+  </thead>
 <tbody>
-<thead>
-<tr>
-<th>Dashboards</th><td><center>&#9989;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
-<tr>
-</thead>
-<thead>
-<tr>
-<th>Monitoring</th><td><center>&#9989;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
-<tr>
-</thead>
-<th>- Problems</th><td><center>&#9989;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
-</tr>
-<tr>
-<th>- Hosts</th><td><center>&#9989;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
-</tr>
-<tr>
-<th>- Latest data</th><td><center>&#9989;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
-</tr>
-<tr>
-<th>- Maps</th><td><center>&#9989;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
-</tr>
-<tr>
-<th>- Discovery</th><td><center>&#10060;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
-</tr>
-<thead>
-<tr>
-<th>Services</th><th><center>&#9989;</center></th><th><center>&#9989;</center></th><th><center>&#9989;</center></th>
-</tr>
-</thead>
-<tr>
-<th>- Services</th><td><center>&#9989;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
-</tr>
-<tr>
-<th>- SLA</th><td><center>&#10060;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
-</tr>
-<tr>
-<th>- SLA Report</th><td><center>&#9989;;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
-</tr>
-<thead>
-<tr>
-<th>Inventory</th><th><center>&#9989;</center></th><th><center>&#9989;</center></th><th><center>&#9989;</center></th>
-</tr>
-</thead>
-<tr>
-<th>- Overview</th><td><center>&#9989;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
-</tr>
-<tr>
-<th>- Hosts</th><td><center>&#9989;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th >Dashboards</th><td><center>&#9989;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
+    <tr>
+  </thead>
+  <thead>
+    <tr>
+      <th>Monitoring</th><td><center>&#9989;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
+    </tr>
+  </thead>
+    <tr>
+      <th>- Problems</th><td><center>&#9989;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
+    </tr>
+    <tr>
+      <th>- Hosts</th><td><center>&#9989;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
+    </tr>
+    <tr>
+      <th>- Latest data</th><td><center>&#9989;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
+    </tr>
+    <tr>
+      <th>- Maps</th><td><center>&#9989;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
+    </tr>
+    <tr>
+      <th>- Discovery</th><td><center>&#10060;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
+    </tr>
+  <thead>
+    <tr>
+      <th>Services</th><th><center>&#9989;</center></th><th><center>&#9989;</center></th><th><center>&#9989;</center></th>
+    </tr>
+  </thead>
+    <tr>
+      <th>- Services</th><td><center>&#9989;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
+    </tr>
+    <tr>
+      <th>- SLA</th><td><center>&#10060;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
+    </tr>
+    <tr>
+      <th>- SLA Report</th><td><center>&#9989;;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
+    </tr>
+  <thead>
+    <tr>
+      <th>Inventory</th><th><center>&#9989;</center></th><th><center>&#9989;</center></th><th><center>&#9989;</center></th>
+    </tr>
+  </thead>
+    <tr>
+      <th>- Overview</th><td><center>&#9989;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
+    </tr>
+    <tr>
+      <th>- Hosts</th><td><center>&#9989;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
+    </tr>
+  <thead>
+    <tr>
+      <th>Reports</th><th><center>&#9989;</center></th><th><center>&#9989;</center></th><th><center>&#9989;</center></th>
+    </tr>
+  </thead>
+    <tr>
+      <th>- System information</th><td><center>&#10060;</center></td><td><center>&#10060;</center></td><td><center>&#9989;</center></td>
+    </tr>
+    <tr>
+      <th>- Scheduled reports</th><td><center>&#10060;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
+    </tr>
+    <tr>
+      <th>- Availability report</th><td><center>&#9989;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
+    </tr>
+    <tr>
+      <th>- Triggers top 100</th><td><center>&#9989;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
+    </tr>
+    <tr>
+      <th>- Audit log</th><td><center>&#10060;</center></td><td><center>&#10060;</center></td><td><center>&#9989;</center></td>
+    </tr>
+    <tr>
+      <th>- Action log</th><td><center>&#10060;</center></td><td><center>&#10060;</center></td><td><center>&#9989;</center></td>
+    </tr>
+    <tr>
+      <th>- Notifications</th><td><center>&#10060;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
+    </tr>
+  <thead>
+    <tr>
+      <th>Data Collection</th><th><center>&#10060;</center></th><th><center>&#9989;</center></th><th><center>&#9989;</center></th>
+    </tr>
+  </thead>
+    <tr>
+      <th>- Template groups</th><td><center>&#10060;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
+    </tr>
+    <tr>
+      <th>- Host groups</th><td><center>&#10060;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
+    </tr>
+    <tr>
+      <th>- Templates</th><td><center>&#10060;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
+    </tr>
+    <tr>
+      <th>- Hosts</th><td><center>&#10060;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
+    </tr>
+    <tr>
+      <th>- Maintenance</th><td><center>&#10060;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
+    </tr>
+    <tr>
+      <th>- Event correlation</th><td><center>&#10060;</center></td><td><center>&#10060;</center></td><td><center>&#9989;</center></td>
+    </tr>
+    <tr>
+      <th>- Discovery</th><td><center>&#10060;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
+    </tr>
+  <thead>
+    <tr>
+      <th>Alerts</th><th><center>&#10060;</center></th><th><center>&#9989;</center></th><th><center>&#9989;</center></th>
+    </tr>
+  </thead>
+    <tr>
+      <th>- Trigger actions</th><td><center>&#10060;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
+    </tr>
+    <tr>
+      <th>- Service actions</th><td><center>&#10060;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
+    </tr>
+    <tr>
+      <th>- Autoregistration actions</th><td><center>&#10060;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
+    </tr>
+    <tr>
+      <th>- Internal actions</th><td><center>&#10060;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
+    </tr>
+    <tr>
+      <th>- Media types</th><td><center>&#10060;</center></td><td><center>&#10060;</center></td><td><center>&#9989;</center></td>
+    </tr>
+    <tr>
+      <th>- Scripts</th><td><center>&#10060;</center></td><td><center>&#10060;</center></td><td><center>&#9989;</center></td>
+    </tr>
+  <thead>
+    <tr>
+      <th>Users</th><th><center>&#10060;</center></th><th><center>&#10060;</center></th><th><center>&#9989;</center></th>
+    </tr>
+  </thead>
+    <tr>
+      <th>- User groups</th><td><center>&#10060;</center></td><td><center>&#10060;</center></td><td><center>&#9989;</center></td>
+    </tr>
+    <tr>
+      <th>- User roles</th><td><center>&#10060;</center></td><td><center>&#10060;</center></td><td><center>&#9989;</center></td>
+    </tr>
+    <tr>
+      <th>- Users</th><td><center>&#10060;</center></td><td><center>&#10060;</center></td><td><center>&#9989;</center></td>
+    </tr>
+    <tr>
+      <th>- Api tokens</th><td><center>&#10060;</center></td><td><center>&#10060;</center></td><td><center>&#9989;</center></td>
+    </tr>
+    <tr>
+      <th>- Authentication</th><td><center>&#10060;</center></td><td><center>&#10060;</center></td><td><center>&#9989;</center></td>
+    </tr>
+  <thead>
+    <tr>
+      <th>Administration</th><th><center>&#10060;</center></th><th><center>&#10060;</center></th><th><center>&#9989;</center></th>
+    </tr>
+  </thead>
+    <tr>
+      <th>- General</th><td><center>&#10060;</center></td><td><center>&#10060;</center></td><td><center>&#9989;</center></td>
+    </tr>
+    <tr>
+      <th>- Audit log</th><td><center>&#10060;</center></td><td><center>&#10060;</center></td><td><center>&#9989;</center></td>
+    </tr>
+    <tr>
+      <th>- Housekeeping</th><td><center>&#10060;</center></td><td><center>&#10060;</center></td><td><center>&#9989;</center></td>
+    </tr>
+    <tr>
+      <th>- Proxies</th><td><center>&#10060;</center></td><td><center>&#10060;</center></td><td><center>&#9989;</center></td>
+    </tr>
+    <tr>
+      <th>- Macros</th><td><center>&#10060;</center></td><td><center>&#10060;</center></td><td><center>&#9989;</center></td>
+    </tr>
+    <tr>
+      <th>- Queue</th><td><center>&#10060;</center></td><td><center>&#10060;</center></td><td><center>&#9989;</center></td>
+    </tr>
+  </tbody>
 </table>
 </body>
 </html>
 
-An ```Admin``` user will have more rights than a regular user and will be able to make some configuration changes in Zabbix.
+- An ```Admin``` user will have more rights than a regular user and will be able to make some configuration changes in Zabbix.
+- A ```Super Admin``` can access all parts of the menu. The user will have read/write access to all host and template groups. Access can't be revoked by denying access to groups like with a normal admin.
 
+## User Roles
 
+User roles have been in Zabbix since version 5.2 and make our live more easy by allowing us to make some custom adjustments to the standard defind user types in Zabbix. 
+
+???+ warning
+    Be aware the no permissions can be added to user roles only permissions can be revoked.
 
 ## Creating a new User in Zabbix
 
