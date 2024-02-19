@@ -2,152 +2,152 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://trikke76.github.io/Zabbix-Book/</loc>
-         <lastmod>2024-02-18</lastmod>
+         <lastmod>2024-02-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://trikke76.github.io/Zabbix-Book/actions/zabbix-eventactions/</loc>
-         <lastmod>2024-02-18</lastmod>
+         <lastmod>2024-02-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://trikke76.github.io/Zabbix-Book/api/zabbix-api/</loc>
-         <lastmod>2024-02-18</lastmod>
+         <lastmod>2024-02-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://trikke76.github.io/Zabbix-Book/automation/automating-configuration/</loc>
-         <lastmod>2024-02-18</lastmod>
+         <lastmod>2024-02-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://trikke76.github.io/Zabbix-Book/configuration/Dashboard/</loc>
-         <lastmod>2024-02-18</lastmod>
+         <lastmod>2024-02-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://trikke76.github.io/Zabbix-Book/configuration/zabbix-agent/</loc>
-         <lastmod>2024-02-18</lastmod>
+         <lastmod>2024-02-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://trikke76.github.io/Zabbix-Book/configuration/zabbix-dataflow/</loc>
-         <lastmod>2024-02-18</lastmod>
+         <lastmod>2024-02-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://trikke76.github.io/Zabbix-Book/configuration/zabbix-hostgroups/</loc>
-         <lastmod>2024-02-18</lastmod>
+         <lastmod>2024-02-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://trikke76.github.io/Zabbix-Book/configuration/zabbix-hosts/</loc>
-         <lastmod>2024-02-18</lastmod>
+         <lastmod>2024-02-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://trikke76.github.io/Zabbix-Book/configuration/zabbix-interfaces/</loc>
-         <lastmod>2024-02-18</lastmod>
+         <lastmod>2024-02-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://trikke76.github.io/Zabbix-Book/configuration/zabbix-items/</loc>
-         <lastmod>2024-02-18</lastmod>
+         <lastmod>2024-02-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://trikke76.github.io/Zabbix-Book/configuration/zabbix-macros/</loc>
-         <lastmod>2024-02-18</lastmod>
+         <lastmod>2024-02-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://trikke76.github.io/Zabbix-Book/configuration/zabbix-templates/</loc>
-         <lastmod>2024-02-18</lastmod>
+         <lastmod>2024-02-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://trikke76.github.io/Zabbix-Book/configuration/zabbix-triggers/</loc>
-         <lastmod>2024-02-18</lastmod>
+         <lastmod>2024-02-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://trikke76.github.io/Zabbix-Book/configuration/zabbix-users/</loc>
-         <lastmod>2024-02-18</lastmod>
+         <lastmod>2024-02-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://trikke76.github.io/Zabbix-Book/extra-monitoring/IPMI-monitoring/</loc>
-         <lastmod>2024-02-18</lastmod>
+         <lastmod>2024-02-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://trikke76.github.io/Zabbix-Book/extra-monitoring/JAVA-monitoring/</loc>
-         <lastmod>2024-02-18</lastmod>
+         <lastmod>2024-02-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://trikke76.github.io/Zabbix-Book/extra-monitoring/SNMP-monitoring/</loc>
-         <lastmod>2024-02-18</lastmod>
+         <lastmod>2024-02-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://trikke76.github.io/Zabbix-Book/installation/Requirements/</loc>
-         <lastmod>2024-02-18</lastmod>
+         <lastmod>2024-02-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://trikke76.github.io/Zabbix-Book/installation/installing-zabbix/</loc>
-         <lastmod>2024-02-18</lastmod>
+         <lastmod>2024-02-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://trikke76.github.io/Zabbix-Book/installation/installing-zabbixdb/</loc>
-         <lastmod>2024-02-18</lastmod>
+         <lastmod>2024-02-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://trikke76.github.io/Zabbix-Book/maintenance/maintaining-zabbix/</loc>
-         <lastmod>2024-02-18</lastmod>
+         <lastmod>2024-02-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://trikke76.github.io/Zabbix-Book/permissions/managing-permissions/</loc>
-         <lastmod>2024-02-18</lastmod>
+         <lastmod>2024-02-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://trikke76.github.io/Zabbix-Book/problems/zabbix-triggers/</loc>
-         <lastmod>2024-02-18</lastmod>
+         <lastmod>2024-02-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://trikke76.github.io/Zabbix-Book/proxies/installing-proxies/</loc>
-         <lastmod>2024-02-18</lastmod>
+         <lastmod>2024-02-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://trikke76.github.io/Zabbix-Book/security/securing-zabbix/</loc>
-         <lastmod>2024-02-18</lastmod>
+         <lastmod>2024-02-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://trikke76.github.io/Zabbix-Book/visualising/Visualising-our-problems/</loc>
-         <lastmod>2024-02-18</lastmod>
+         <lastmod>2024-02-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://trikke76.github.io/Zabbix-Book/vmware/vmware-monitoring/</loc>
-         <lastmod>2024-02-18</lastmod>
+         <lastmod>2024-02-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://trikke76.github.io/Zabbix-Book/websites/monitoring-websites/</loc>
-         <lastmod>2024-02-18</lastmod>
+         <lastmod>2024-02-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://trikke76.github.io/Zabbix-Book/windows/monitoring-windows/</loc>
-         <lastmod>2024-02-18</lastmod>
+         <lastmod>2024-02-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
