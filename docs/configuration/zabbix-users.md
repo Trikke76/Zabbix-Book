@@ -240,27 +240,74 @@ Click on the top right on '''Create user''' and fill in the details of your new 
 
 ![new user form](image/new-user-form.png)
 
-| Parameter | Description   |
-| :----     | :----          |
-| Username  | A unique name that will be used as username when we login|
-| Name      | The users firstname this field is optional visible in acknowledgment information and notification recipient information if set.|
-| Last name | Users last name. Optional, this field is optional visible in acknowledgment information and notification recipient information if set.|
-| Groups    | Select what group the user will belong to. Atleast 1 group needs to be selected. This feeld will auto complete or you can press the '''Select''' button at the end of the field. |
-| Passowrd  | There are 2 password fields they can only be used for internal authentication but more about this later. If the user has the Super admin role then clicking on the Change password button opens an additional field to entering the current (old) password. On a successful password change, the user for which the password was changed will be logged out of all active sessions.|
-| Language  | Language of the frontend. The php gettext extension is required for the translations to work. And the language needs to be configured on the system. See the chapter "Installing Zabbix" in case you forgot. |
-| Time zone | Select the time zone per user or use the default timezone that is configured on the Zabbix server. |
-| Theme	    | Here users can select their own look and feel by choosing one of the 4 themes provided by Zabbix or another custom made theme. Default will switch to the default theme chosen by the admin. |
-| Auto-login | Check this box so that the user will be remembered for 30 days. The browser must accept cookies for this to work. |
-| Auto-logout | Checking this box makes sure the user gets logged out automatically, after the set amount of seconds (minimum 90 seconds, maximum 1 day). |
-|           | Time suffixes are supported, e.g. 90s, 5m, 2h, 1d. |
-|           | Note that this option will not work if : |
-|           | * If the "Show warning if Zabbix server is down" global configuration option is enabled and Zabbix frontend is kept open. |
-|           | * When Monitoring menu pages perform background information refreshes. |
-|           | * If logging in with the Remember me for 30 days option checked. |
-| Refresh   | Set the refresh rate used for graphs, plain text data, etc. Can be set to 0 to disable. Time suffixes are supported. Ex:  90s, 5m, 1h. |
-| Rows per page	| Define how many rows per page will be displayed in lists. |
-| URL (after login) | You can make Zabbix transfer the user to a specific URL after successful login. This can be useful for monitors in NOC team for example so you arrive on a specific dashboard that is maximised. |
-|           | The URL can be the full url or only the relative url like : zabbix.php?action=host.list |
+#### Strengthen the Zabbix password policy
+
+Zabbix passwords rely on a minimum length of 8 characters and also block a list of easy to guess passwords. We can make our passwords more secure by telling Zabbix that our passwords must contain uppercase and lowercase characters, a digit and a special character. This policy is a global policy that will be enforced and we have to set this policy as Super Admin. Go to the menu Users -> Authentication in older versions you can find it under Administration Authentication.
+
+
+
+![User Password policy](image/user-policy.png)
+
+
+<html>
+  <head>
+    <style>
+      thead th { text-align:left; background:grey; color:white}
+      tbody th { text-align:right; background: lightgrey; color:whitwhitee}
+    </style>
+  </head>
+<body>
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th><th>Description</th>
+      </tr>
+  </thead>
+<tbody>
+  <tr>
+    <th>Username</th><td>A unique name that will be used as username when we login.</td>
+  </tr>
+  <tr>
+    <th>Name</th><td>The users firstname this field is optional visible in acknowledgment information and notification recipient information if set.</td>
+  </tr>
+  <tr>
+    <th>Last Name</th><td>Users last name. Optional, this field is optional visible in acknowledgment information and notification recipient information if set.</td>
+  </tr>
+  <tr>
+    <th>Groups</th><td>Select what group the user will belong to. Atleast 1 group needs to be selected. This feeld will auto complete or you can press the '''Select''' button at the end of the field.</td>
+  </tr>
+  <tr>
+    <th>Password</th><td>There are 2 password fields they can only be used for internal authentication but more about this later. If the user has the Super admin role then clicking on the Change password button opens an additional field to entering the current (old) password. On a successful password change, the user for which the password was changed will be logged out of all active sessions.</td>
+  </tr>
+  <tr>
+    <th>Language</th><td>Language of the frontend. The php gettext extension is required for the translations to work. And the language needs to be configured on the system. See the chapter "Installing Zabbix" in case you forgot.</td>
+  </tr>
+  <tr>
+    <th>Timezone</th><td>Select the time zone per user or use the default timezone that is configured on the Zabbix server.</td>
+  </tr>
+  <tr>
+    <th>Theme</th><td>Here users can select their own look and feel by choosing one of the 4 themes provided by Zabbix or another custom made theme. Default will switch to the default theme chosen by the admin.</td>
+  </tr>
+  <tr>
+    <th>Auto-Login</th><td>Check this box so that the user will be remembered for 30 days. The browser must accept cookies for this to work.</td>
+  </tr>
+  <tr>
+    <th>Auto-Logout</th><td>Checking this box makes sure the user gets logged out automatically, after the set amount of seconds (minimum 90 seconds, maximum 1 day). Time suffixes are supported, e.g. 90s, 5m, 2h, 1d. Note that this option will not work if : <li>If the "Show warning if Zabbix server is down" global configuration option is enabled and Zabbix frontend is kept open.</li><li>When Monitoring menu pages perform background information refreshes.</li><li>If logging in with the Remember me for 30 days option checked.</li></td>
+  </tr>
+  <tr>
+    <th>Refresh</th><td>Set the refresh rate used for graphs, plain text data, etc. Can be set to 0 to disable. Time suffixes are supported. Ex: 90s, 5m, 1h.</td>
+  </tr>
+  <tr>
+    <th>Rows per page</th><td>Define how many rows per page will be displayed in lists.</td>
+  </tr>
+  <tr>
+    <th>URL(after login)</th><td>You can make Zabbix transfer the user to a specific URL after successful login. This can be useful for monitors in NOC team for example so you arrive on a specific dashboard that is maximised. You can make Zabbix transfer the user to a specific URL after successful login. This can be useful for monitors in NOC team for example so you arrive on a specific dashboard that is maximised.</td>
+  </tr>
+</tbody>
+</table>
+</body>
+</html>
+
 
 ### User Media
 
