@@ -225,13 +225,6 @@ tbody th { text-align:center; background: lightgrey; color:whitwhitee }
 - An ```Admin``` user will have more rights than a regular user and will be able to make some configuration changes in Zabbix.
 - A ```Super Admin``` can access all parts of the menu. The user will have read/write access to all host and template groups. Access can't be revoked by denying access to groups like with a normal admin.
 
-## User Roles
-
-User roles have been in Zabbix since version 5.2 and make our live more easy by allowing us to make some custom adjustments to the standard defind user types in Zabbix. 
-
-???+ warning
-    Be aware the no permissions can be added to user roles only permissions can be revoked.
-
 ## Creating a new User in Zabbix
 
 So now that we are in the users section of Zabbix it's probably a good time to create a new user for our system. If you skipped previous step go to the menu '''Users''' -> '''Users'''.
@@ -357,3 +350,74 @@ tbody th { text-align:right; background: lightgrey; color:whitwhitee}
 
 ???+ warning
     When selecting the different severities be aware that you have to select '''Not classified''' if you want to receive notifications about non trigger events like internal events. For more info check out : [Event sources](https://www.zabbix.com/documentation/7.0/en/manual/config/events/sources). This is something that is not obvious and Zabbix documentation could be better in explaining this imho.
+
+
+### User permissions
+
+Choosing a ```User type``` is one thing based on the ```User type``` we have chosen our user will have more or less rights in our main menu. But there is another thing choosing the ```User Type``` also has in impact on the rights each user has.  For example a regular user an only have read only right or none, A Zabbix admin user can have full, read only or no right and a Zabbix Super Admin always has full rights on host groups and his rights on the host groups cannot be revoked.
+
+Here is an overview of every user and his rights:
+
+<html>
+  <head>
+    <style>
+      thead th { text-align:left; background:grey; color:white}
+      tbody th { text-align:right; background: lightgrey; color:whitwhitee}
+    </style>
+  </head>
+<body>
+  <table>
+    <thead>
+      <tr>
+        <th>Group rights</th><th>Zabbix User</th><th>Zabbix Admin</th><th>Zabbix Super Admin</th>
+      </tr>
+    </thead>
+  <tbody>
+    <tr>
+      <th>Read/Write</th><td>Read Only</td><td>Full</td><td>Full</td>
+    </tr>
+    <tr>
+      <th>Read only</th><td>Read Only</td><td>Read Only</td><td>Full</td>
+    </tr>
+    <tr>
+      <th>Deny</th><td>None</td><td>None</td><td>Full</td>
+    </tr>
+      </tbody>
+    </table>
+  </body>
+</html>
+
+
+
+
+## User Roles
+
+User roles have been in Zabbix since version 5.2 and make our live more easy by allowing us to make some custom adjustments to the standard defind user types in Zabbix.
+
+???+ warning
+    Be aware the no permissions can be added to user roles only permissions can be revoked.
+
+## Creating a new User in Zabbix
+
+So now that we are in the users section of Zabbix it's probably a good time to create a new user for our system. If you skipped previous step go to the menu '''Users''' -> '''Users'''.
+
+Click on the top right on '''Create user''' and fill in the details of your new users. You will see that some fiels have red asterisks in front of them like Username and Password, ... this means that those feelds are mandatory to fill in.
+
+![new user form](image/new-user-form.png)
+
+
+
+## User Roles
+
+User roles have been in Zabbix since version 5.2 and make our live more easy by allowing us to make some custom adjustments to the standard defind user types in Zabbix.
+
+???+ warning
+    Be aware the no permissions can be added to user roles only permissions can be revoked.
+
+## Creating a new User in Zabbix
+
+So now that we are in the users section of Zabbix it's probably a good time to create a new user for our system. If you skipped previous step go to the menu '''Users''' -> '''Users'''.
+
+Click on the top right on '''Create user''' and fill in the details of your new users. You will see that some fiels have red asterisks in front of them like Username and Password, ... this means that those feelds are mandatory to fill in.
+
+![new user form](image/new-user-form.png)
