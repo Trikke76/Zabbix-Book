@@ -354,7 +354,12 @@ tbody th { text-align:right; background: lightgrey; color:whitwhitee}
 
 ### User permissions
 
-Choosing a ```User type``` is one thing based on the ```User type``` we have chosen our user will have more or less rights in our main menu. But there is another thing choosing the ```User Type``` also has in impact on the rights each user has.  For example a regular user an only have read only right or none, A Zabbix admin user can have full, read only or no right and a Zabbix Super Admin always has full rights on host groups and his rights on the host groups cannot be revoked.
+When we go to the ```Permissions``` tab in our ```Users``` we will get an overview of all permissions our users had in the Menu structure. Or when creating a new user we have the option to select a ```User Role```. Zabbix has 4 different ```User Roles``` built-in. There is a User role, Admin role, Super admin role and a Guest role.
+
+The Guest role is a role with very strict access limitations. Its a role intended to user for accesss to zabbix without any user account. I never advice using this role unless you know what you are doing as you open your GUI to users without any authorization. This could leak potential sensitive data like hostnames, IP, ..... .
+
+
+Choosing a ```User type``` is one thing based on the ```User type``` we choose, our user will have more or less rights in our main menu. But there is another important part when choosing the ```User Type```. This also has in impact on the rights each user has on host groups.  For example a regular user an only have read only right or none, A Zabbix admin user can have full, read only or no right and a Zabbix Super Admin always has full rights on host groups and his rights on the host groups cannot be revoked.
 
 Here is an overview of every user and his rights:
 
@@ -388,6 +393,8 @@ Here is an overview of every user and his rights:
 </html>
 
 
+???+ Note
+    With all this knowledge we now know that if we like to create a regular user who also has access to certain parts of the Administration menu that it is not possible. We can never create a user that has only RO access to certain host groups and RW access to the Administration part. What we could do however is create a ```Super Administrator``` account and remove access from the menu for certain parts in the ```Administration```menu by creating a special role. There is no limit on the amount of roles you can create.
 
 
 ## User Roles
