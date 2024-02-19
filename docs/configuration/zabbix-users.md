@@ -396,6 +396,12 @@ Here is an overview of every user and his rights:
 ???+ Note
     With all this knowledge we now know that if we like to create a regular user who also has access to certain parts of the Administration menu that it is not possible. We can never create a user that has only RO access to certain host groups and RW access to the Administration part. What we could do however is create a ```Super Administrator``` account and remove access from the menu for certain parts in the ```Administration```menu by creating a special role. There is no limit on the amount of roles you can create.
 
+???+ Note
+    Also be aware that when you click on an item on the dashboard on ```Update``` , you will see a modal window popup that some options to change the severity, close a problem etc ... somwe will be grayed out. This is because the user needs write permissions. For example a user need write permissions to close a problem, change the severity level 
+
+[Update](update-ack.png)
+
+
 
 ## User Roles
 
