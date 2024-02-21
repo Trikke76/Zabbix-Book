@@ -432,4 +432,5 @@ Click on the top right on ```Create user``` and fill in the details of your new 
 ???+ warning
     Be careful if you use the API at the time of writing it's possible to create a Zabbix user with the API without a role. When created by the API the user can even be saved by the frontend afterwards !
 
-
+???+ info
+    More information can be found in the online Zabbix documentation [here](https://www.zabbix.com/documentation/7.0/en/manual/config/users_and_usergroups/user)
