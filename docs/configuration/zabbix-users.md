@@ -5,7 +5,7 @@ The most confusing part is probably that the user Admin in zabbix is actually a 
 
 ## Changing the Zabbix super admin password
 
-In our menu on the right side of the screen, click the 'Users' section, and then choose ```users```. As you can see here in the screenshot.
+In our menu on the right side of the screen, click the ```Users``` section, and then choose ```users```. As you can see here in the screenshot.
 
 ![user menu](image/user-menu.png)
 
@@ -349,7 +349,7 @@ tbody th { text-align:right; background: lightgrey; color:whitwhitee}
 </html>
 
 ???+ warning
-    When selecting the different severity levels, be aware that you have to select ```Not classified``` if you want to receive notifications about non-trigger events, like internal events. For more information, check out [Event Sources] (https://www.zabbix.com/documentation/7.0/en/manual/config/events/sources). This is something that is not obvious, and Zabbix documentation could be better at explaining this.
+    When selecting the different severity levels, be aware that you have to select ```Not classified``` if you want to receive notifications about non-trigger events, like internal events. For more information, check out [Event Sources](https://www.zabbix.com/documentation/7.0/en/manual/config/events/sources). This is something that is not obvious, and Zabbix documentation could be better at explaining this.
 
 
 ### User permissions
@@ -399,7 +399,7 @@ Here is an overview of every user and his rights:
 ???+ Note
     Also, be aware that when you click on an item on the dashboard on ```Update```, you will see a modal window popup with some options to change the severity, close a problem, etc., so some will be greyed out. This is because the user needs write permissions. For example, a user needs write permissions to close a problem and change the severity level.
 
-[Update](image/update-ack.png)
+![Update](image/update-ack.png)
 
 
 
