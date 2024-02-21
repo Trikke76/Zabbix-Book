@@ -407,6 +407,14 @@ Here is an overview of every user and his rights:
 
 User roles have been in Zabbix since version 5.2 and make our live more easy by allowing us to make some custom adjustments to the standard defind user types in Zabbix.
 
+When we go to our ```Permissions``` tab, we can see a box ```Role```. Press the ```Select``` box to see a popup with a list of roles to choose from. There are standard 4 different roles to choose from. 
+You can create your own list of rules by going to the menu ```Users -> User roles``` and create your own limited user.
+
+The box is marked with an Asterisks in front so you need to select a user role for every user you create.
+
+![User Role box](image/user-roles-box.png)
+
+
 ???+ warning
     Be aware the no permissions can be added to user roles only permissions can be revoked.
 
@@ -418,19 +426,10 @@ Click on the top right on '''Create user''' and fill in the details of your new 
 
 ![new user form](image/new-user-form.png)
 
-
-
-## User Roles
-
-User roles have been in Zabbix since version 5.2 and make our live more easy by allowing us to make some custom adjustments to the standard defind user types in Zabbix.
+???+ note
+    A Zabbix user needs to be created with a user role. You cannot create one without. 
 
 ???+ warning
-    Be aware the no permissions can be added to user roles only permissions can be revoked.
+    Be careful if you use the API at the time of writing it's possible to create a Zabbix user with the API without a role. When created by the API the user can even be saved by the frontend afterwards !
 
-## Creating a new User in Zabbix
 
-So now that we are in the users section of Zabbix it's probably a good time to create a new user for our system. If you skipped previous step go to the menu '''Users''' -> '''Users'''.
-
-Click on the top right on '''Create user''' and fill in the details of your new users. You will see that some fiels have red asterisks in front of them like Username and Password, ... this means that those feelds are mandatory to fill in.
-
-![new user form](image/new-user-form.png)
