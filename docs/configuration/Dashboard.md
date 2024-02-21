@@ -214,3 +214,5 @@ It's important to know that we have so far seen our dashboard with the Admin use
 ???+ info
     More information can be found in the online Zabbix documentation [here](https://www.zabbix.com/documentation/7.0/en/manual/web_interface/frontend_sections)
 
+??? +info
+    You will see that Zabbix is using the modal forms in the frontend on many places. The problem is that they are not movable. [This](https://github.com/gr8b/zabbix-module-uitwix/) module created by one of the Zabbix devs ```UI Twix``` will solve this problem for you.
