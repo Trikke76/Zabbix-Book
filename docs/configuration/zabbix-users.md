@@ -1,10 +1,11 @@
 # Zabbix Users
 
-Now that we know how the Zabbix dashboard is build up our first task will be to create a user. In case you missed it the standard Zabbix (yes the capital Z here is eeded to login.) user is Admin and has the password zabbix so we need to change this ASAP. The most confusing part is probably that the user Admin in zabbix is actually a 'super admin' but more about that later.
+Now that we know how the Zabbix dashboard is build up our first task will be to create a user. In case you missed it the standard Zabbix (yes the capital Z here is eeded to login.) user is Admin and has the password zabbix so we need to change this ASAP. 
+The most confusing part is probably that the user Admin in zabbix is actually a ```super admin``` but more about that later.
 
 ## Changing the Zabbix super admin password
 
-In our menu on the right side of the screen click the 'Users' section and then choose '''users'''. As you see here in the screenshot.
+In our menu on the right side of the screen, click the 'Users' section, and then choose ```users```. As you can see here in the screenshot.
 
 ![user menu](image/user-menu.png)
 
@@ -12,27 +13,27 @@ You will now see a list of all the users that are created on the system when ins
 
 ![user list](image/users-list.png)
 
-To change the password do the following steps
-- Click user '''Admin'''
-- Click on the button '''Change password'''
-- Fill in the current password '''zabbix'''
-- Fill in the new password twice and press '''Update''' at the bottom of the page.
+To change the password, do the following steps:
+- Click user ```Admin```
+- Click on the button ```Change password```.
+- Fill in the current password, ```zabbix```
+- Fill in the new password twice and press ```Update``` at the bottom of the page.
 
 ## Zabbix User types
 
-Before we create new users it's important to know that Zabbix has 3 user types that are built-in.
+Before we create new users, it's important to know that Zabbix has three user types that are built-in.
 
-- Zabbix user -> This is a normal user that only has read only permissions if given. So there are no permissions assigned by default.
-- Zabbix admin -> A user with read/write permissions. Just like the Zabbix user there are not permissions by default
+- Zabbix user -> This is a normal user that only has read-only permissions if given. So there are no permissions assigned by default.
+- Zabbix admin -> A user with read/write permissions. Just like the Zabbix user, there are no permissions by default.
 - Zabbix super admin -> A user with read/write permissions that can't be revoked
 
-Besides these differences these users also have different accesses rights in our menu. Let's have a closer look.
+Besides these differences, these users also have different access rights to our menu. Let's have a closer look.
 
-- A normal user wil only see a part of our menu on the left. Also some sub sections of the menu will not be visible. An ```Admin``` user will have more rights than a regular user and will be able to make some configuration changes in Zabbix. A ```Super Admin``` user will have unlimted right and see every part of the menu. The only way to limit a ```Super Admin``` will be by making use of roles. Something we cover later.
+- A normal user will only see a part of our menu on the left. Also, some sub-sections of the menu will not be visible. An ```Admin``` user will have more rights than a regular user and will be able to make some configuration changes in Zabbix. A ```Super Admin``` user will have unlimted right and see every part of the menu. The only way to limit a ```Super Admin``` will be by making use of roles. Something we cover later.
 - An ```Admin``` user will have more rights than a regular user and will be able to make some configuration changes in Zabbix.
-- A ```Super Admin``` can access all parts of the menu. The user will have read/write access to all host and template groups. Access can't be revoked by denying access to groups like with a normal admin.
+- A ```Super Admin``` can access all parts of the menu. The user will have read/write access to all host and template groups. Access can't be revoked by denying access to groups, like with a normal admin.
 
-This table gives an overview of all the permissions a Zabbix user, admin and super admin have:
+This table gives an overview of all the permissions a Zabbix user, admin, and super admin have:
 
 <html>
 <head>
@@ -227,16 +228,15 @@ tbody th { text-align:center; background: lightgrey; color:whitwhitee }
 
 ## Creating a new User in Zabbix
 
-So now that we are in the users section of Zabbix it's probably a good time to create a new user for our system. If you skipped previous step go to the menu '''Users''' -> '''Users'''.
+So now that we are in the users section of Zabbix, it's probably a good time to create a new user for our system. If you skipped the previous step, go to the menu ```Users``` -> ```Users```.
 
-Click on the top right on '''Create user''' and fill in the details of your new users. You will see that some fiels have red asterisks in front of them like Username and Password, ... this means that those feelds are mandatory to fill in.
+Click on the top right on ```Create user``` and fill in the details of your new users. You will see that some fields have red asterisks in front of them, like Username and Password, ... this means that those fields are mandatory to fill in.
 
 ![new user form](image/new-user-form.png)
 
-#### Strengthen the Zabbix password policy
+#### Strengthen the Zabbix password policy.
 
-Zabbix passwords rely on a minimum length of 8 characters and also block a list of easy to guess passwords. We can make our passwords more secure by telling Zabbix that our passwords must contain uppercase and lowercase characters, a digit and a special character. This policy is a global policy that will be enforced and we have to set this policy as Super Admin. Go to the menu Users -> Authentication in older versions you can find it under Administration Authentication.
-
+Zabbix passwords rely on a minimum length of 8 characters and also block a list of easy-to-guess passwords. We can make our passwords more secure by telling Zabbix that our passwords must contain uppercase and lowercase characters, a digit, and a special character. This policy is a global policy that will be enforced, and we have to set this policy as Super Admin. Go to the menu Users -> Authentication. In older versions, you can find it under Administration Authentication.
 
 
 ![User Password policy](image/user-policy.png)
@@ -304,12 +304,12 @@ Zabbix passwords rely on a minimum length of 8 characters and also block a list 
 
 ### User Media
 
-The tab ''' Media ''' contains a list of all media that is defined for out user. Media is used for sending notifications to the user. We can click the ''' Add ''' button.
+The tab ''' Media ''' contains a list of all media that are defined for our user. Media is used for sending notifications to the user. We can click the ```Add``` button.
 
 ![User Media](image/user-media.png)
 
-Adding the media here is not enough to receive notification we also need to configure our media properly and we still need to configure Actions as well.
-When pressing the ''' Add ''' button we get a popup where we can select some information.
+Adding the media here is not enough to receive notification; we also need to configure our media properly, and we still need to configure actions as well.
+When pressing the ''' Add ''' button, we get a popup where we can select some information.
 
 ![User Media popup](image/user-media-popup.png)
 
@@ -349,17 +349,17 @@ tbody th { text-align:right; background: lightgrey; color:whitwhitee}
 </html>
 
 ???+ warning
-    When selecting the different severities be aware that you have to select '''Not classified''' if you want to receive notifications about non trigger events like internal events. For more info check out : [Event sources](https://www.zabbix.com/documentation/7.0/en/manual/config/events/sources). This is something that is not obvious and Zabbix documentation could be better in explaining this imho.
+    When selecting the different severity levels, be aware that you have to select ```Not classified``` if you want to receive notifications about non-trigger events, like internal events. For more information, check out [Event Sources] (https://www.zabbix.com/documentation/7.0/en/manual/config/events/sources). This is something that is not obvious, and Zabbix documentation could be better at explaining this.
 
 
 ### User permissions
 
-When we go to the ```Permissions``` tab in our ```Users``` we will get an overview of all permissions our users had in the Menu structure. Or when creating a new user we have the option to select a ```User Role```. Zabbix has 4 different ```User Roles``` built-in. There is a User role, Admin role, Super admin role and a Guest role.
+When we go to the ```Permissions``` tab in our ```Users```, we will get an overview of all permissions our users had in the menu structure. Or when creating a new user, we have the option to select a ```User Role```. Zabbix has four different ```User Roles``` built-in. There is a User role, Admin role, Super admin role, and a Guest role.
 
-The Guest role is a role with very strict access limitations. Its a role intended to user for accesss to zabbix without any user account. I never advice using this role unless you know what you are doing as you open your GUI to users without any authorization. This could leak potential sensitive data like hostnames, IP, ..... .
+The ```Guest role``` is a role with very strict access limitations. Its role is intended for users to access Zabbix without any user account. I never advise using this role unless you know what you are doing. When you open your GUI to users without any authorization, this could leak potential sensitive data like hostnames, IPs, etc.
 
 
-Choosing a ```User type``` is one thing based on the ```User type``` we choose, our user will have more or less rights in our main menu. But there is another important part when choosing the ```User Type```. This also has in impact on the rights each user has on host groups.  For example a regular user an only have read only right or none, A Zabbix admin user can have full, read only or no right and a Zabbix Super Admin always has full rights on host groups and his rights on the host groups cannot be revoked.
+Choosing a ```User type``` is one thing; based on the ```User type``` we choose, our users will have more or less rights in our main menu. But there is another important part when choosing the ```User Type```. This also has an impact on the rights each user has over host groups. For example, a regular user can only have read rights or no rights. A Zabbix admin user can have full, read-only, or no rights, and a Zabbix Super Admin always has full rights on host groups, and his rights on the host groups cannot be revoked.
 
 Here is an overview of every user and his rights:
 
@@ -394,23 +394,23 @@ Here is an overview of every user and his rights:
 
 
 ???+ Note
-    With all this knowledge we now know that if we like to create a regular user who also has access to certain parts of the Administration menu that it is not possible. We can never create a user that has only RO access to certain host groups and RW access to the Administration part. What we could do however is create a ```Super Administrator``` account and remove access from the menu for certain parts in the ```Administration```menu by creating a special role. There is no limit on the amount of roles you can create.
+    With all this knowledge, we now know that if we want to create a regular user who also has access to certain parts of the Administration menu, that it's not possible. We can never create a user that has only RO access to certain host groups and RW access to the ```Administration``` part. What we could do, however, is create a ```Super Administrator``` account and remove access from the menu for certain parts of the ```Administration```menu by creating a special role. There is no limit on the number of roles you can create.
 
 ???+ Note
-    Also be aware that when you click on an item on the dashboard on ```Update``` , you will see a modal window popup that some options to change the severity, close a problem etc ... somwe will be grayed out. This is because the user needs write permissions. For example a user need write permissions to close a problem, change the severity level 
+    Also, be aware that when you click on an item on the dashboard on ```Update```, you will see a modal window popup with some options to change the severity, close a problem, etc., so some will be greyed out. This is because the user needs write permissions. For example, a user needs write permissions to close a problem and change the severity level.
 
-[Update](update-ack.png)
+[Update](image/update-ack.png)
 
 
 
 ## User Roles
 
-User roles have been in Zabbix since version 5.2 and make our live more easy by allowing us to make some custom adjustments to the standard defind user types in Zabbix.
+User roles have been in Zabbix since version 5.2 and make our lives easier by allowing us to make some custom adjustments to the standard defind user types in Zabbix.
 
-When we go to our ```Permissions``` tab, we can see a box ```Role```. Press the ```Select``` box to see a popup with a list of roles to choose from. There are standard 4 different roles to choose from. 
-You can create your own list of rules by going to the menu ```Users -> User roles``` and create your own limited user.
+When we go to our ```Permissions``` tab, we can see a box ```Role```. Press the ```Select``` box to see a popup with a list of roles to choose from. There are four standard roles to choose from.
+You can create your own list of rules by going to the menu ```Users -> User Roles``` and create your own limited user.
 
-The box is marked with an Asterisks in front so you need to select a user role for every user you create.
+The box is marked with an asterisk in front, so you need to select a user role for every user you create.
 
 ![User Role box](image/user-roles-box.png)
 
@@ -420,9 +420,9 @@ The box is marked with an Asterisks in front so you need to select a user role f
 
 ## Creating a new User in Zabbix
 
-So now that we are in the users section of Zabbix it's probably a good time to create a new user for our system. If you skipped previous step go to the menu ```Users``` -> ```Users```.
+So now that we are in the users section of Zabbix, it's probably a good time to create a new user for our system. If you skipped the previous step, go to the menu ```Users``` -> ```Users```.
 
-Click on the top right on ```Create user``` and fill in the details of your new users. You will see that some fiels have red asterisks in front of them like Username and Password, ... this means that those feelds are mandatory to fill in.
+Click on the top right on ```Create user``` and fill in the details of your new users. You will see that some fields have red asterisks in front of them, like Username and Password, ... this means that those fields are mandatory to fill in.
 
 ![new user form](image/new-user-form.png)
 
