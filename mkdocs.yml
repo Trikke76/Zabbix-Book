@@ -20,8 +20,8 @@ nav:
     - configuration/Dashboard.md
     - configuration/zabbix-users.md
     - configuration/zabbix-hosts.md
-    - configuration/zabbix-interfaces.md
     - configuration/zabbix-hostgroups.md
+    - configuration/zabbix-interfaces.md
     - configuration/zabbix-templates.md
     - configuration/zabbix-items.md
     - configuration/zabbix-triggers.md
