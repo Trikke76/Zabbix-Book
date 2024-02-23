@@ -216,3 +216,7 @@ It's important to know that we have so far seen our dashboard with the Admin use
 
 ???+ info
     You will see that Zabbix is using the modal forms in the frontend on many places. The problem is that they are not movable. [This](https://github.com/gr8b/zabbix-module-uitwix/) module created by one of the Zabbix devs ```UI Twix``` will solve this problem for you.
+
+
+???+ Note
+    At time of writing there is no Dashboard import/export functionality in zabbix. So when upgrading dashboards need to be created for admin by hand. This should be fixed in 7 onces it comes out. If not feel free to track https://support.zabbix.com/browse/ZBXNEXT-5419
