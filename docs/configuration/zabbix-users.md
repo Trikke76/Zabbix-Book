@@ -421,21 +421,45 @@ A user always needs to be member of one or more ```User groups```. We will not s
 
 ![User Role box](image/group-permissions.png)
 
-Zabbix has a few different rights we can use on group level:
+Zabbix has a few different rights we can use on group level, as we have seen above. To make it easier for you I add them again:
 
-- Read-write : Read and write access to a group
-- Read : Read access to a group but not write
-- None : No permissions are defined
-- Deny : Explicit deny is set
+<html>
+  <head>
+    <style>
+      thead th { text-align:left; background:grey; color:white}
+      tbody th { text-align:right; background: lightgrey; color:whitwhitee}
+    </style>
+  </head>
+<body>
+  <table>
+    <thead>
+      <tr>
+        <th>Group rights</th><th>Zabbix User</th><th>Zabbix Admin</th><th>Zabbix Super Admin</th>
+      </tr>
+    </thead>
+  <tbody>
+    <tr>
+      <th>Read/Write</th><td>Read Only</td><td>Full</td><td>Full</td>
+    </tr>
+    <tr>
+      <th>Read only</th><td>Read Only</td><td>Read Only</td><td>Full</td>
+    </tr>
+    <tr>
+      <th>Deny</th><td>None</td><td>None</td><td>Full</td>
+    </tr>
+      </tbody>
+    </table>
+  </body>
+</html>
 
-So if we have a Zabbix ```Admin``` user then this user can have Read/Write rights and iff we add a host in a hostgroup where our usergroup has read rigths and the same server is in another hostgroup with Read/Write rights, then our user will have Read/Write permissions on the hosts. However if the same host is only in the Read hostgroup then our user will only have read rights. However if we also add host in a Hostgroup where our usergroup had Deny rights then the server will not be visible.
 
-
+So if we have a Zabbix ```Admin``` user then this user can have Read/Write rights and if we add a host in a hostgroup where our usergroup has read rigths and the same server is in another hostgroup with Read/Write rights, then our user will have Read/Write permissions on the hosts.
+However if the same host is only in the ```Read``` hostgroup then our user will only have read rights.
+If we also add host in a Hostgroup where our usergroup has ```Deny``` rights then the server will not be visible.
 
 
 ???+ warning
     Be aware that no permissions can be added to user roles only permissions can be revoked.
-
 
 
 
