@@ -414,6 +414,28 @@ The box is marked with an asterisk in front, so you need to select a user role f
 
 ![User Role box](image/user-roles-box.png)
 
+## User Groups
+
+A user always needs to be member of one or more ```User groups```. We will not set any user rights directly on Users in Zabbix but we do this on User groups. So if a User needs the  permission to view or edit a host or a template then this is set on the ```User group``` wich has the permisson to view or edit a host or template group and never on a host or a template directly.
+
+
+![User Role box](image/group-permissions.png)
+
+Zabbix has a few different rights we can use on group level:
+
+- Read-write : Read and write access to a group
+- Read : Read access to a group but not write
+- None : No permissions are defined
+- Deny : Explicit deny is set
+
+So if we have a Zabbix ```Admin``` user then this user can have Read/Write rights and iff we add a host in a hostgroup where our usergroup has read rigths and the same server is in another hostgroup with Read/Write rights, then our user will have Read/Write permissions on the hosts. However if the same host is only in the Read hostgroup then our user will only have read rights. However if we also add host in a Hostgroup where our usergroup had Deny rights then the server will not be visible.
+
+Let's try this out in real life :
+
+
+
+
+
 
 ???+ warning
     Be aware that no permissions can be added to user roles only permissions can be revoked.
