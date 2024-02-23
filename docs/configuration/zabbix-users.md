@@ -436,13 +436,6 @@ So if we have a Zabbix ```Admin``` user then this user can have Read/Write right
 ???+ warning
     Be aware that no permissions can be added to user roles only permissions can be revoked.
 
-## Creating a new User in Zabbix
-
-So now that we are in the users section of Zabbix, it's probably a good time to create a new user for our system. If you skipped the previous step, go to the menu ```Users``` -> ```Users```.
-
-Click on the top right on ```Create user``` and fill in the details of your new users. You will see that some fields have red asterisks in front of them, like Username and Password, ... this means that those fields are mandatory to fill in.
-
-![new user form](image/new-user-form.png)
 
 
 

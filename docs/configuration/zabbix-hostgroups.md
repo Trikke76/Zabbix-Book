@@ -26,4 +26,5 @@ Once our group or set of nested groups is made you can click again from the ```h
 ???+ Note
     When creating nested groups, Parent groups don't have to exist. So we can have only the group ```open-future``` without any of the parent groups. It's up to the user to create them or not. Also group names cannot have `/` in their names. We cannot escape the `/` character. Also leading and trailing slashes and multiple slashes in a row are not allowed.
 
-
+???+ Tip
+    Have you tried to put emoticons in fields like host group yet ?
