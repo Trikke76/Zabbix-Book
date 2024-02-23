@@ -17,7 +17,7 @@ When you click on the menu ```Data collection``` -> Host groups. You will notice
 Zabbix allows the creation of nested groups. As you can see we are using forward slashes in our group name. When you make use of nested group you can use the '/' to separate groups. 
 
 
-![host-groups](image/host-groups.png)
+![host-groups](image/host-groups-edit.png)
 
 Once our group or set of nested groups is made you can click again from the ```host group``` overview on the group. You will notice that there is now a box that says ```Apply permissions and tag filters to all subgroups```. When pressing this button, all right that are this group will be applied to the sub-groups. So if we have a user ```John``` for example in a user group that has rights to see everything in the ```Host group``` with the name ```Europe/Belgium``` and we apply the option to the subgroups then our user ```John``` will suddenly see also the hosts in all our nestet groups and the tags on this host.
 
