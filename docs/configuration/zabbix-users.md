@@ -430,10 +430,6 @@ Zabbix has a few different rights we can use on group level:
 
 So if we have a Zabbix ```Admin``` user then this user can have Read/Write rights and iff we add a host in a hostgroup where our usergroup has read rigths and the same server is in another hostgroup with Read/Write rights, then our user will have Read/Write permissions on the hosts. However if the same host is only in the Read hostgroup then our user will only have read rights. However if we also add host in a Hostgroup where our usergroup had Deny rights then the server will not be visible.
 
-Let's try this out in real life :
-
-
-
 
 
 
@@ -447,6 +443,53 @@ So now that we are in the users section of Zabbix, it's probably a good time to 
 Click on the top right on ```Create user``` and fill in the details of your new users. You will see that some fields have red asterisks in front of them, like Username and Password, ... this means that those fields are mandatory to fill in.
 
 ![new user form](image/new-user-form.png)
+
+
+
+## Let's do this together:
+
+Let us make three ```Host groups```, go to the ```Data collection``` menu -> ```Host groups``` and create a Host group for ```read``` , ```read-write```, and ```deny```.
+
+
+![3 host groups](image/3-hgroups.png)
+
+Next step is to create a host and add the host in our three groups. Go to the ```Data collection``` menu -> ```Hosts``` and press ```Create host``` on the right. Add a ```Host name```, the name is not that important and add the three ```Host groups``` we just made.
+
+
+![3 host groups](image/3-hgroups2.png)
+
+The only thing we need to do now is create our ```User``` and ```User group``` and give the correct rights. Go to our menu ```Users``` -> ``` Users group``` and click on the top right to ```Create user group```. Let's call this group our ```Admin Group``` as we need a Zabbix ```Admin``` that we can give read, read-write and later deny to show this.
+
+ 
+![3 host groups](image/3-hgroups3.png)
+
+Next go to the tab ```Host permissions``` and start typing the name of our group ```read``` in the search box or press the ```Select``` button and select the correct group. Next before we do anything select also the correct permissions ```Deny``` and press the add just below NOT the button.
+Do this also for the group ```read-write``` and ```deny```. If everything looks like in our screenshot then press the ```Add``` button
+
+![3 host groups](image/3-hgroups4.png)
+
+Now for the final step let's create a user. Go to the menu ```Users``` -> ```Users``` and create a new user, in the field ```Username``` we can add our fictive user with the name Brian.
+In the ```Groups``` box we select our ```Users group``` this was ```Admin Group```. Don't forget also to add a Password we need to do this twice.
+Next go to the tab ```Permissions``` and select the role ```Admin role```.
+You will see directly once selected that our users bridan has read, write and deny on the correct groups. Press ```Add``` at the bottom.
+
+![3 host groups](image/3-hgroups5.png)
+![3 host groups](image/3-hgroups6.png)
+
+Now it's time to check if everything is as expected. Our user ```Brian``` if all goes well shouldn't have any rights as we explicitly denied accesss.
+Press ```Sign out``` at the bottom left and then login as user ```Brian```.
+Go to the menu ```Monitoring``` -> ```Hosts```. Select all the hosts groups, you should normally only see read, and read-write. Our host group ```Deny``` is not visible and our host ```postgres``` is not visible either.
+
+![3 host groups](image/3-hgroups7.png)
+
+Now log back in as user ```Admin```, our Zabbix Super Admin and remove the deny group from our ```Admin group```. This can be done by selecting the ```None``` permissions for the group ```Deny``` in the ```Host permissions``` tab from our ```User group```.
+
+Log back in as our user Brian go back to the ```Monitoring``` menu to ```Hosts```. If all goes well our groups ```read``` and ```read-write``` are still selected if nog you just select them again. You will see that our host ```postgres``` is visisble and that you can click on it to edit the host propreties.
+
+![3 host groups](image/3-hgroups8.png)
+ 
+As final test you can try to remove the group ```read-write``` same as we did before with the ```Deny``` group. This time only the ```read``` group will be visible for our user and Brian will not be able to edit our host ```postgres``` anymore.
+
 
 ???+ note
     A Zabbix user needs to be created with a user role. You cannot create one without. 
