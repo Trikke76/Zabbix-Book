@@ -450,18 +450,6 @@ A user always needs to be member of one or more ```User groups```. We will not s
 
 ![User Role box](image/group-permissions.png)
 
-- User group : A field where we have to specify a unique name. This field in mandatory
-- Users : Here we add users to our group. Users need to exist before we can add them. Just press select or type the name.
-- Frontend Access : How users of the group will authenticate with Zabbix.
-  - System default : The global configure access method
-  - Internal : The most easiest way User and Password are configured in Zabbix ( Ignored if HTTP authentication is the global default.)
-  - LDAP: LDAP/AD authentication ( Ignored if HTTP authentication is the global default )
-  - Enabled : If checked the group is Enabled else it will be Disabled
-  - Debug : Activate debug mode for the users in this group [More info about debug](https://www.zabbix.com/documentation/7.0/en/manual/web_interface/debug_mode)
-
-
-
-
 
 
 Zabbix has a few different rights we can use on group level, as we have seen above. To make it easier for you I add them again:
@@ -504,6 +492,17 @@ If we also add host in a Hostgroup where our usergroup has ```Deny``` rights the
 Let's have a look at our ```User groups```, for this go to the menu ```Users -> User groups``` and click on one of the existing users. I used ```Guest``` in this case.
 
 ![user groups](image/user_groups/user-groups.png)
+
+### User Groups Overview
+
+- User group : A field where we have to specify a unique name. This field in mandatory
+- Users : Here we add users to our group. Users need to exist before we can add them. Just press select or type the name.
+- Frontend Access : How users of the group will authenticate with Zabbix.
+>  - System default : The global configure access method
+>  - Internal : The most easiest way User and Password are configured in Zabbix ( Ignored if HTTP authentication is the global default.)
+>  - LDAP: LDAP/AD authentication ( Ignored if HTTP authentication is the global default )
+>  - Enabled : If checked the group is Enabled else it will be Disabled
+>  - Debug : Activate debug mode for the users in this group [More info about debug](https://www.zabbix.com/documentation/7.0/en/manual/web_interface/debug_mode)
 
 ## Let's do this together:
 
