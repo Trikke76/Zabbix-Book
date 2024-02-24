@@ -1,4 +1,4 @@
-# Zabbix Users
+# Zabbix Users & User groups
 
 Now that we know how the Zabbix dashboard is build up our first task will be to create a user. In case you missed it the standard Zabbix (yes the capital Z here is eeded to login.) user is Admin and has the password zabbix so we need to change this ASAP. 
 The most confusing part is probably that the user Admin in zabbix is actually a ```super admin``` but more about that later.
@@ -23,17 +23,43 @@ To change the password, do the following steps:
 
 Before we create new users, it's important to know that Zabbix has three user types that are built-in.
 
-- Zabbix user -> This is a normal user that only has read-only permissions if given. So there are no permissions assigned by default.
-- Zabbix admin -> A user with read/write permissions. Just like the Zabbix user, there are no permissions by default.
-- Zabbix super admin -> A user with read/write permissions that can't be revoked
+<html>
+  <head>
+    <style>
+      thead th { text-align:left; background:grey; color:white}
+      tbody th { text-align:right; background: lightgrey; color:whitwhitee}
+    </style>
+  </head>
+<body>
+  <table>
+    <thead>
+      <tr>
+        <th>User type</th><th>Description</th>
+      </tr>
+    </thead>
+  <tbody>
+    <tr>
+      <th>Zabbix User</th><td>This is a normal user that only has read-only permissions if given. So there are no permissions assigned by default.</td>
+    </tr>
+    <tr>
+      <th>Zabbix Admin</th><td>A user with read/write permissions. Just like the Zabbix user, there are no permissions by default. However access can be denied to some groups.</td>
+    </tr>
+    <tr>
+      <th>Zabbix Super Admin</th><td>A user with group read/write permissions. The user will have read/write access to all host and template groups. Access can't be revoked by denying access to groups, like with a normal admin.</td>
+    </tr>
+      </tbody>
+    </table>
+  </body>
+</html>
+
 
 Besides these differences, these users also have different access rights to our menu. Let's have a closer look.
 
 - A normal user will only see a part of our menu on the left. Also, some sub-sections of the menu will not be visible. An ```Admin``` user will have more rights than a regular user and will be able to make some configuration changes in Zabbix. A ```Super Admin``` user will have unlimted right and see every part of the menu. The only way to limit a ```Super Admin``` will be by making use of roles. Something we cover later.
 - An ```Admin``` user will have more rights than a regular user and will be able to make some configuration changes in Zabbix.
-- A ```Super Admin``` can access all parts of the menu. The user will have read/write access to all host and template groups. Access can't be revoked by denying access to groups, like with a normal admin.
+- A ```Super Admin``` can access all parts of the menu. 
 
-This table gives an overview of all the permissions a Zabbix user, admin, and super admin have:
+This table gives an overview of all the permissions a Zabbix user, admin, and super admin have in the Zabbix menu:
 
 <html>
 <head>
@@ -224,7 +250,7 @@ tbody th { text-align:center; background: lightgrey; color:whitwhitee }
 </html>
 
 - An ```Admin``` user will have more rights than a regular user and will be able to make some configuration changes in Zabbix.
-- A ```Super Admin``` can access all parts of the menu. The user will have read/write access to all host and template groups. Access can't be revoked by denying access to groups like with a normal admin.
+- A ```Super Admin``` can access all parts of the menu. 
 
 ## Creating a new User in Zabbix
 
@@ -414,6 +440,9 @@ The box is marked with an asterisk in front, so you need to select a user role f
 
 ![User Role box](image/user-roles-box.png)
 
+???+ warning
+    Be aware that no permissions can be added to user roles only permissions can be revoked.
+
 ## User Groups
 
 A user always needs to be member of one or more ```User groups```. We will not set any user rights directly on Users in Zabbix but we do this on User groups. So if a User needs the  permission to view or edit a host or a template then this is set on the ```User group``` wich has the permisson to view or edit a host or template group and never on a host or a template directly.
@@ -452,16 +481,15 @@ Zabbix has a few different rights we can use on group level, as we have seen abo
   </body>
 </html>
 
-
-So if we have a Zabbix ```Admin``` user then this user can have Read/Write rights and if we add a host in a hostgroup where our usergroup has read rigths and the same server is in another hostgroup with Read/Write rights, then our user will have Read/Write permissions on the hosts.
+When it comes to permissions in Zabbix groups, the highest level will win. 
+A user that has read and read-write rights on the same host will get read-write permissions. Except for Deny, Deny will always overrule.
+So if we have a Zabbix ```Admin``` user then this user can have Read/Write rights, if we add a host in a hostgroup where our usergroup has read rigths, and the same server is in another hostgroup with Read/Write rights, then our user will have Read/Write permissions on the hosts.
 However if the same host is only in the ```Read``` hostgroup then our user will only have read rights.
 If we also add host in a Hostgroup where our usergroup has ```Deny``` rights then the server will not be visible.
 
+Let's have a look at our ```User groups```, for this go to the menu ```Users -> User groups``` and click on one of the existing users. I used ```Guest``` in this case.
 
-???+ warning
-    Be aware that no permissions can be added to user roles only permissions can be revoked.
-
-
+![user groups](image/user_groups/user-groups.png)
 
 ## Let's do this together:
 
