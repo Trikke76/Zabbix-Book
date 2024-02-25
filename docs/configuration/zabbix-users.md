@@ -7,11 +7,11 @@ The most confusing part is probably that the user Admin in zabbix is actually a 
 
 In our menu on the right side of the screen, click the ```Users``` section, and then choose ```users```. As you can see here in the screenshot.
 
-![user menu](image/user-menu.png)
+![user menu](image/user-menu.png){ width=20% }
 
 You will now see a list of all the users that are created on the system when installing a new Zabbix instance. Here you will always see a list of all users that are configured on the system.
 
-![user list](image/users-list.png)
+![user list](image/users-list.png){ width=90% }
 
 To change the password, do the following steps:
 - Click user ```Admin```
@@ -258,14 +258,14 @@ So now that we are in the users section of Zabbix, it's probably a good time to 
 
 Click on the top right on ```Create user``` and fill in the details of your new users. You will see that some fields have red asterisks in front of them, like Username and Password, ... this means that those fields are mandatory to fill in.
 
-![new user form](image/new-user-form.png)
+![new user form](image/new-user-form.png){ width=80% }
 
 #### Strengthen the Zabbix password policy.
 
 Zabbix passwords rely on a minimum length of 8 characters and also block a list of easy-to-guess passwords. We can make our passwords more secure by telling Zabbix that our passwords must contain uppercase and lowercase characters, a digit, and a special character. This policy is a global policy that will be enforced, and we have to set this policy as Super Admin. Go to the menu Users -> Authentication. In older versions, you can find it under Administration Authentication.
 
 
-![User Password policy](image/user-policy.png)
+![User Password policy](image/user-policy.png){ width=80% }
 
 
 <html>
@@ -332,12 +332,12 @@ Zabbix passwords rely on a minimum length of 8 characters and also block a list 
 
 The tab ''' Media ''' contains a list of all media that are defined for our user. Media is used for sending notifications to the user. We can click the ```Add``` button.
 
-![User Media](image/user-media.png)
+![User Media](image/user-media.png){ width=80% }
 
 Adding the media here is not enough to receive notification; we also need to configure our media properly, and we still need to configure actions as well.
 When pressing the ''' Add ''' button, we get a popup where we can select some information.
 
-![User Media popup](image/user-media-popup.png)
+![User Media popup](image/user-media-popup.png){ width=80% }
 
 <html>
 <head>
@@ -425,7 +425,7 @@ Here is an overview of every user and his rights:
 ???+ Note
     Also, be aware that when you click on an item on the dashboard on ```Update```, you will see a modal window popup with some options to change the severity, close a problem, etc., so some will be greyed out. This is because the user needs write permissions. For example, a user needs write permissions to close a problem and change the severity level.
 
-![Update](image/update-ack.png)
+![Update](image/update-ack.png){ width=80% }
 
 
 
@@ -438,7 +438,7 @@ You can create your own list of rules by going to the menu ```Users -> User Role
 
 The box is marked with an asterisk in front, so you need to select a user role for every user you create.
 
-![User Role box](image/user-roles-box.png)
+![User Role box](image/user-roles-box.png){ width=80% }
 
 ???+ warning
     Be aware that no permissions can be added to user roles only permissions can be revoked.
@@ -448,7 +448,7 @@ The box is marked with an asterisk in front, so you need to select a user role f
 A user always needs to be member of one or more ```User groups```. We will not set any user rights directly on Users in Zabbix but we do this on User groups. So if a User needs the  permission to view or edit a host or a template then this is set on the ```User group``` wich has the permisson to view or edit a host or template group and never on a host or a template directly.
 
 
-![User Role box](image/group-permissions.png)
+![User Role box](image/group-permissions.png){ width=80% }
 
 
 
@@ -491,7 +491,7 @@ If we also add host in a Hostgroup where our usergroup has ```Deny``` rights the
 
 Let's have a look at our ```User groups```, for this go to the menu ```Users -> User groups``` and click on one of the existing users. I used ```Guest``` in this case.
 
-![user groups](image/user_groups/user-groups.png)
+![user groups](image/user_groups/user-groups.png){ width=80% }
 
 ### User Groups Overview
 
@@ -509,7 +509,7 @@ Let's have a look at our ```User groups```, for this go to the menu ```Users -> 
 Let us make three ```Host groups```, go to the ```Data collection``` menu -> ```Host groups``` and create a Host group for ```read``` , ```read-write```, and ```deny```.
 
 
-![3 host groups](image/3-hgroups.png)
+![3 host groups](image/3-hgroups.png){ width=60% }
 
 Next step is to create a host and add the host in our three groups. Go to the ```Data collection``` menu -> ```Hosts``` and press ```Create host``` on the right. Add a ```Host name```, the name is not that important and add the three ```Host groups``` we just made.
 
@@ -519,32 +519,32 @@ Next step is to create a host and add the host in our three groups. Go to the ``
 The only thing we need to do now is create our ```User``` and ```User group``` and give the correct rights. Go to our menu ```Users``` -> ``` Users group``` and click on the top right to ```Create user group```. Let's call this group our ```Admin Group``` as we need a Zabbix ```Admin``` that we can give read, read-write and later deny to show this.
 
  
-![3 host groups](image/3-hgroups3.png)
+![3 host groups](image/3-hgroups3.png){ width=70% }
 
 Next go to the tab ```Host permissions``` and start typing the name of our group ```read``` in the search box or press the ```Select``` button and select the correct group. Next before we do anything select also the correct permissions ```Deny``` and press the add just below NOT the button.
 Do this also for the group ```read-write``` and ```deny```. If everything looks like in our screenshot then press the ```Add``` button
 
-![3 host groups](image/3-hgroups4.png)
+![3 host groups](image/3-hgroups4.png){ width=80% }
 
 Now for the final step let's create a user. Go to the menu ```Users``` -> ```Users``` and create a new user, in the field ```Username``` we can add our fictive user with the name Brian.
 In the ```Groups``` box we select our ```Users group``` this was ```Admin Group```. Don't forget also to add a Password we need to do this twice.
 Next go to the tab ```Permissions``` and select the role ```Admin role```.
 You will see directly once selected that our users bridan has read, write and deny on the correct groups. Press ```Add``` at the bottom.
 
-![3 host groups](image/3-hgroups5.png)
-![3 host groups](image/3-hgroups6.png)
+![3 host groups](image/3-hgroups5.png){ width=80% }
+![3 host groups](image/3-hgroups6.png){ width=80% }
 
 Now it's time to check if everything is as expected. Our user ```Brian``` if all goes well shouldn't have any rights as we explicitly denied accesss.
 Press ```Sign out``` at the bottom left and then login as user ```Brian```.
 Go to the menu ```Monitoring``` -> ```Hosts```. Select all the hosts groups, you should normally only see read, and read-write. Our host group ```Deny``` is not visible and our host ```postgres``` is not visible either.
 
-![3 host groups](image/3-hgroups7.png)
+![3 host groups](image/3-hgroups7.png){ width=80% }
 
 Now log back in as user ```Admin```, our Zabbix Super Admin and remove the deny group from our ```Admin group```. This can be done by selecting the ```None``` permissions for the group ```Deny``` in the ```Host permissions``` tab from our ```User group```.
 
 Log back in as our user Brian go back to the ```Monitoring``` menu to ```Hosts```. If all goes well our groups ```read``` and ```read-write``` are still selected if nog you just select them again. You will see that our host ```postgres``` is visisble and that you can click on it to edit the host propreties.
 
-![3 host groups](image/3-hgroups8.png)
+![3 host groups](image/3-hgroups8.png){ width=80% }
  
 As final test you can try to remove the group ```read-write``` same as we did before with the ```Deny``` group. This time only the ```read``` group will be visible for our user and Brian will not be able to edit our host ```postgres``` anymore.
 

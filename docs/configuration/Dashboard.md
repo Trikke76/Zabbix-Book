@@ -25,7 +25,7 @@ You will see that the menu collapses to a set of small icons. Pressing ">>" will
 
 Yet another way to make the screen bigger that is quit useful for monitors in NOK teams for example is the kiosk mode button. This one is however located on the left side of your screen and looks like 4 arrows pointing to every corner of the screen. Pressing this button will remove all the menus and leave only main window to focus on.
 
-![Image title](image/kiosk-menu.png/){ width="70" } ![Image title](image/exitkiosk-menu.png/){ width="70" }
+![Image title](image/kiosk-menu.png/){ width="60" } ![Image title](image/exitkiosk-menu.png/){ width="60" }
 
 When wanting to leave the kios mode the button will be changed to 2 arrows poiting to the inside of the screen. Pressing this button will revert us back to the original state.
 
@@ -43,6 +43,8 @@ Zabbix also has a global search menu that we can use to find hosts, host groups 
 If we look in the search box for ```server``` you will see that we get an overview of all templates, host groups and hosts with the name ```server``` in it.
 
 ![Image title](image/main-search.png/)
+
+---
 
 ## Main menu
 
@@ -75,13 +77,13 @@ Our last part the ```links``` part  contain a set of useful links that we can us
 
 There are still a few buttons that we need to cover on the right side of our screen
 
-![edit buttons](image/edit-dashboard.png/)
+![edit buttons](image/edit-dashboard.png/){ width=20% }
 
 The edit button allows us to change our dashboard. This is something we will cover later.
 On the far left side there is a  "?" this will bring you to the Zabbix documentation page that explains everything about the dashboard.
 The button on the right side with the 3 horizontal lines is the one to share, rename, delete, ... our dashboards.
 
-![edit buttons](image/system-info.png/)
+![edit buttons](image/system-info.png/){ width=70% style="display: block; margin: 0 auto" }
 
 ## System Information
 
@@ -106,109 +108,110 @@ There is also a box on the dashboard called ```System Information```. This widge
 
 ## The main menu explained
 
-It's important to know that we have so far seen our dashboard with the Admin user and that this user is a ```Zabbix Super Admin``` user. This means that the user has no restrictions. Zabbix works with 3 different levels of users we have the regular users, Zabbix Admin and Zabbix Super Admin users. Let's have a look
+It's important to know that we have so far seen our dashboard with the Admin user and that this user is a ```Zabbix Super Admin``` user.
+This means that the user has no restrictions. Zabbix works with 3 different levels of users we have the regular users, Zabbix Admin and Zabbix Super Admin users. Let's have a look
 
-</br>
 
-![Menu by user](image/main-menu.png/){ align=left }
+![Menu by user](image/main-menu.png/){ width=20% }
 
+```
 * A ```Zabbix User``` will only see the <font color='red'>red</font> part of our ```main menu``` and will only be able to see our collected data.
-</br>
-</br>
-</br>
-</br>
-</br>
-</br>
 * A ```Zabbix Admin``` will see the red part and the <font color='gold'>yellow</font>  part of the ```main menu``` and is able to change our configuration.
-</br>
-</br>
 * A ```Zabbix Super Admin``` will see the complete ```main menu``` and so is able to change the configuration and all the global settings.
-</br>
-</br>
-</br>
-
-![Menu by user](image/monitoring-menu.png){ align=right width="180" }
-
-* Problems: This page will give us an overview of all the problems. With filter we can look at recent problems past problems and problems that are active now. There are many more filters tor drill down more.
-* Hosts: This will give us a quick overview page with whats happening on our hosts and allows us to quickly go to the latest data, graphs and dashboards.
-* Latest data: This page I probably use the most, it shows us all the information collected from all our hosts.
-* Maps: The location where we can create map that are an oveview of our IT infrastructure very useful to get a high level overview of the network.
-* Discovery: When we run a network discovery this is the place where we can find the results.
-</br>
-</br>
----
-
-![Menu by user](image/services-menu.png){ align=left width="180" }
-
-* Services: This page will give us a high level overview of all services configured in Zabbix.
-* SLA: An overview of all the SLAs configured in Zabbix.
-* SLA Report: Here we can watch all SLA reports based on our filters.
-</br>
-</br>
----
-
-![Menu by user](image/inventory-menu.png){ align=right width="180" }
-
-* Overview: A place where we can watch all our iventory data that we have retrieved from our hosts.
-* Hosts: Here we can filter by host and watch all inventory data for the hosts we have selected.
+```
 
 ---
 
-![Menu by user](image/reports-menu.png){ align=left width="180" }
+![Menu by user](image/monitoring-menu.png){ width=20% }
 
-* System information: System information is a summary of key Zabbix server and system data.
-* Scheduled reports: The place where we can schedule our reports, a pdf of the dashboard that will be sent at a specified time and date.
-* Availability report: A nice overview where we can see what trigger has been in ok/nok state for how much % of the time 
-* Top 100 triggers: Another page I visit a lot here we have our top list with triggers that have been in a nok state.
-* Audit log: An overview of the user activity that happend on our system. Useful if we want to know who did what and when.
-* Action log: A detailed overview of our actions can be found here. What mail was sent to who and when ...?
-* Notifications: A quick overview of the number of notifications sent to each user.
-
----
-
-![Menu by user](image/datacollection-menu.png){ align=right width="180" }
-
-* Template groups:
-* Host groups: 
-* Templates:
-* Hosts:
-* Maintenance:
-* Event correlation:
-* Discovery:
+```
+- Problems: This page will give us an overview of all the problems. With filter we can look at recent problems past problems and problems that are active now. There are many more filters tor drill down more.
+- Hosts: This will give us a quick overview page with whats happening on our hosts and allows us to quickly go to the latest data, graphs and dashboards.
+- Latest data: This page I probably use the most, it shows us all the information collected from all our hosts.
+- Maps:	The location where we can create map that are an oveview of our IT infrastructure very useful to get a high level overview of the network.
+- Discovery: When we run a network discovery this is the place where we can find the results.
+```
 
 ---
 
-![Menu by user](image/alerts-menu.png){ align=left width="180" }
+![Menu by user](image/services-menu.png){ width="20%" }
 
-* Actions:
-* Media types:
-* Scripts:
-</br>
-</br>
-
----
-
-![Menu by user](image/users-menu.png){ align=right width="180" }
-
-* User groups:
-* User roles:
-* Users:
-* API tokens:
-* Authentication: 
-</br>
-</br>
+```
+- Services This page will give us a high level overview of all services configured in Zabbix.
+- SLA: An overview of all the SLAs configured in Zabbix.
+- SLA Report: Here we can watch all SLA reports based on our filters.
+```
 
 ---
 
-![Menu by user](image/administration-menu.png){ align=left width="180" }
+![Menu by user](image/inventory-menu.png){ width="20%" }
 
-* General: 
-* Audit log:
-* Housekeeping:
-* Proxies:
-* Macros:
-* Queue:
+```
+- Overview: A place where we can watch all our iventory data that we have retrieved from our hosts.
+- Hosts: Here we can filter by host and watch all inventory data for the hosts we have selected.
+```
 
+---
+
+![Menu by user](image/reports-menu.png){ width="20%" }
+
+```
+- System information: System information is a summary of key Zabbix server and system data.
+- Scheduled reports: The place where we can schedule our reports, a pdf of the dashboard that will be sent at a specified time and date.
+- Availability report: A nice overview where we can see what trigger has been in ok/nok state for how much % of the time 
+- Top 100 triggers: Another page I visit a lot here we have our top list with triggers that have been in a nok state.
+- Audit log: An overview of the user activity that happend on our system. Useful if we want to know who did what and when.
+- Action log: A detailed overview of our actions can be found here. What mail was sent to who and when ...?
+- Notifications: A quick overview of the number of notifications sent to each user.
+```
+
+---
+
+![Menu by user](image/datacollection-menu.png){ width="20%" }
+
+```
+- Template groups: A place to logical group all templates together in different groups. Before it was mixed together with hosts in host groups.
+- Host groups: A logical collection of different hosts put together. Host groups are used for our permissions.
+- Templates: A set off entities like items and triggers can be grouped together on a template, A template can be applied to one or more hosts.
+- Hosts: What we need in Zabbix to monitor A  host, application, service ...
+- Maintenance: The place to configure our maintenance windows. A maintenance can be planned in this location.
+- Event correlation: When we have multiple events that fires triggers related we can configure correlations in this place.
+- Discovery: Sometimes we like to use Zabbix to discover devices, services,... on our network. This can be done here.
+```
+
+---
+
+![Menu by user](image/alerts-menu.png){ width="20%" }
+
+```
+- Actions:
+- Media types:
+- Scripts:
+```
+
+---
+
+![Menu by user](image/users-menu.png){ width="20%" }
+
+```
+- User groups:
+- User roles:
+- Users:
+- API tokens:
+- Authentication: 
+```
+---
+
+![Menu by user](image/administration-menu.png){ width="20%" }
+
+```
+- General: 
+- Audit log:
+- Housekeeping:
+- Proxies:
+- Macros:
+- Queue:
+```
 ---
 
 ???+ info
