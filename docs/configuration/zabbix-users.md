@@ -617,7 +617,7 @@ As ```Super Admin``` log back in and go to our trigger ```Ping``` and mark the b
 Go back to the dashboard and behind the problem ping you will see ```Update```. Click on it and selec the option ```Close problem``` and press ```Update```.
 
 
-![update-problem](image/example/update-problem.png)
+![update-problem](image/example/update-problem.png){ width=80% }
 
 Log back in as our user ```Brian``` and go to the problem dashboard. We will see that the problem is back. Even we closed the problem before Zabbix opened a new problem because the issue was not resolved. This time our issue has the tag with the correct value.
 
