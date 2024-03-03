@@ -31,11 +31,9 @@ First step is to make a folder named SSL so we can create our certificates and s
 ```
 # openssl req -new -sha256 -key root.key -out root.csr
 
-The above command will ask for the below information,  you can provide them or you can just hit enter and skip them.
+The above command will ask for the below information, you can provide them or you can just hit enter and skip them.
 However it's recommended to give the meaningful details where possible.
 The above command will save a file in the name root.csr in the SSL directory
-
-
 
 You are about to be asked to enter information that will be incorporated
 into your certificate request.
@@ -86,13 +84,14 @@ The next command will create a Certificate Signing Request for the Server webpag
 openssl req -new -sha256 -key private.key -out local.csr
 ```
 It will ask for the details as below we should give the details as shown below.
-
+```
 Country Name.
 State Name.
 Organization.
 Common name (Here please provide the Domain or the IP through which you need to access zabbix).
 Email address.
 The rest can be left blank and after this is completed it will create the CSR file and save it with the name local.csr in the SSL directory.
+```
 
 ### Create a certificate and sign it with the CA private key.
 
@@ -118,23 +117,15 @@ We need to update the CA certificate’s, run the below command to update the CA
 update-ca-trust extract
 ```
 
-After adding the SSL certificates and virtual hosts we need to add the domain to the hosts file to the local host as below.
-```
-vi /etc/hosts
-
-In the above file add the below line replace the domain or the IP which is used.
-
-127.0.0.1  ---Domain or IP---
-
-After the above is done, we need to add the the ca-cert file path to the /etc/php.ini file.
+After the above is done, we need to add the the ca-cert file path to the ```/etc/php.ini``` file.
 Add the path to the openssl.cafile like this :
-
+```
 openssl.cafile = "/etc/pki/tls/certs/ca-bundle.crt"
 ```
 
 As you are using OpenSSL, you should also create a strong Diffie-Hellman group, which is used in negotiating Perfect Forward Secrecy with clients.
-
 You can do this by typing:
+
 ```
 openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
 ```
@@ -173,9 +164,9 @@ firewall-cmd --add-service=https --permanent
 firewall-cmd --reload
 ```
 ???+ Note
-    To be even more secure have a loot at https://cipherlist.eu/ this page maintains a list of strong ciphers that you can use so secure your Nginx even more.
-    you can test your nginx config with nginx -t before you restart.
-    For HTTP/2 to work you need atleast nginx 1.9.5 or later
+    - To be even more secure have a loot at https://cipherlist.eu/ this page maintains a list of strong ciphers that you can use so secure your Nginx even more.<br />
+    - You can test your nginx config with 'nginx -t' before you restart.<br />
+    - For HTTP/2 to work you need atleast nginx 1.9.5 or later
 
 
 
