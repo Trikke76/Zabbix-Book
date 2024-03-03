@@ -427,7 +427,12 @@ Here is an overview of every user and his rights:
 
 ![Update](image/update-ack.png){ width=80% }
 
-
+???+ Note
+    With Zabbix 7 Permission checks have been made much faster. This was made possible by making some improvements on how permissions are stored. This should make the frontend faster when when we have permission havy pages to load like the ones with hosts or problems widgets.<br />
+    - New tables have been introduced for the check of non-privileged users.<br />
+    - The new tables will keep hashes (SHA-256) of user group sets and host group sets for each user/host.<br />
+    - Also a new permission table was introduced for storing only the accessible combinations of users and hosts, specified by the hash IDs.<br />
+    - Hashes and permissons are not calculated for Super Admin users.
 
 ## User Roles
 
@@ -495,6 +500,8 @@ Let's have a look at our ```User groups```, for this go to the menu ```Users -> 
 
 ### User Groups Overview
 
+Under the tab ```User group``` we see the following options:
+
 - User group : A field where we have to specify a unique name. This field in mandatory
 - Users : Here we add users to our group. Users need to exist before we can add them. Just press select or type the name.
 - Frontend Access : How users of the group will authenticate with Zabbix.
@@ -503,6 +510,28 @@ Let's have a look at our ```User groups```, for this go to the menu ```Users -> 
 >  - LDAP: LDAP/AD authentication ( Ignored if HTTP authentication is the global default )
 >  - Enabled : If checked the group is Enabled else it will be Disabled
 >  - Debug : Activate debug mode for the users in this group [More info about debug](https://www.zabbix.com/documentation/7.0/en/manual/web_interface/debug_mode)
+
+- The next tab next to ```User group``` is the tab ```Template permissions```. Here we can define what ```User group``` will have access to what ```template group```. We can define if a ```User group``` has read, read-write permissions or if all access must be denied.
+When selecting a template group don't forget to press the ```Add``` button first so that you see the ```Template group``` appear in the Permissions box. Then when you are ready confirm again at the bottom of the page with ```Updqte```.
+
+![Template permissions tab](image/user_groups/template-permissions.png){ width=80% }
+
+- The ```Hosts permissions``` tab allows us to specify what ```User group```` will have what kind of access on the selected ```Host groups``` this can again be read, read-write or explicit deny. Just as with the ```Templates permissions``` tab don't forget to click ```Add``` first and when you are ready defining all the permissions click ```Update``` at the bottom. The name is a bit confusing as we don't select permissions for a host but a host group.
+
+![Host permissions tab](image/user_groups/host-permissions.png){ width=80% }
+
+
+???+ Note
+    If we add multiple lines with the same host group or template group with different permissions Zabbix will apply the strongest permission.<br />
+    Alow be aware that a Super admin user can enforce nested groups to have the same level of permissions as the parent group. It can be done in the host group or template group configuration.
+
+- The ```Problem tag filter``` allows us to filter problems based on tags and their value. It also allows us to separate the access to host groups from our possibility to see only the problems we want.
+
+
+![Problem tag filter tab](image/user_groups/problem-tag-filter-tab.png){ width=80% }
+
+
+
 
 ## Let's do this together:
 
@@ -547,6 +576,54 @@ Log back in as our user Brian go back to the ```Monitoring``` menu to ```Hosts``
 ![3 host groups](image/3-hgroups8.png){ width=80% }
  
 As final test you can try to remove the group ```read-write``` same as we did before with the ```Deny``` group. This time only the ```read``` group will be visible for our user and Brian will not be able to edit our host ```postgres``` anymore.
+
+### Let's try out tags 
+
+Now let's add tags into the mix. Imagine that we only like to see problems with a tag ```read-write``` and value ```off```.
+Go to ```User groups``` select our ```Admin Group``` again and go to the tab ```Problem tag filter``` and fill in the needed tag ```read-write``` and value ```off```.   
+
+![Problem tag filter tab](image/user_groups/problem-tag-filter-tab.png){ width=80% }
+
+Now we need to create a problem for this we will add an item and a trigger to our host ```postgres```. Go to the menu ```Data collection``` -> ```Hosts``` and click on items behind our host ```postgres```. On the top right you will see a button ```Create item``` click on it and fill in the same data as in the screenshot below. Don't worry if you don't understand anything we will come to items later.
+
+
+![item](image/example/item.png){ width=80% }
+
+???+ Note
+    In this item we just tell our Zabbix server to do a ping to IP ```192.168.10.1``` make sure this IP doesn't exist in your lan so try to ping it first to be sure you don't get a reply back. If you do get a reply back change the IP with some address that is not pingable for you.
+
+Next step once you have filled in all the data is to save the item and click on top on Triggers. You will also notice now that there is a ```1``` next to Items. This indicates that we have made 1 item on our host ```postgres```.
+Now that we are in the trigger tab click in the top right corner on the button ```Create trigger```.
+Once again copy over all the data from the screenshot and save the trigger. If you changed the IP in the item make sure you use same IP in the trigger.
+
+![trigger](image/example/trigger.png){ width=80% }
+
+
+Next let's add a tag on our host ```postgres``` that tells Zabbix to mark everything on the host with a tag ```read-write``` and value ```on```. Remember we added a value ```off``` in our ```User group``` problem tag filter tab. So we only want to see everything with a tag ```read-write``` and value ```off```.
+
+
+![host-tags](image/example/host-tags.png){ width=80% }
+
+When you go now to the ```Problem``` page in the menu ```Monitoring``` you should see after some time a warning that there is a problem on our host postgres. You will also see that the problem got a tag read-write with value ```on```.
+
+![problem](image/example/problem.png)
+
+You can clearly see that under our ```Zabbix super admin``` user the problem is visible. Now do the same but as user ```Brian```. You will notice that there is no visible problem for our user even he has ```read-write``` access to the hostgroup where our server ```postgres``` belongs to.
+
+Now as user ```Brian``` I would like to see the problem so let's go to our menu ```Data collection``` and click on our host ```postgres```. Go to the ```Tags``` tab and change the value from our tag ```read-write``` from on to ```off```. So now everything on our host should get the tags ```read-write``` with value ```off```. So now Brian should be able to see the problem right ? 
+Sadly ```Brian``` is still not able to see the problem in our Problem page. This is because the problem was already created in Zabbix and has already received the tag. So the only way to fix this is to close the problem first and let Zabbix create a new problem again.
+
+As ```Super Admin``` log back in and go to our trigger ```Ping``` and mark the box ```Allow manual close``` and press ```Update```.
+Go back to the dashboard and behind the problem ping you will see ```Update```. Click on it and selec the option ```Close problem``` and press ```Update```.
+
+
+![update-problem](image/example/update-problem.png)
+
+Log back in as our user ```Brian``` and go to the problem dashboard. We will see that the problem is back. Even we closed the problem before Zabbix opened a new problem because the issue was not resolved. This time our issue has the tag with the correct value.
+
+![problem-correct-tag](image/example/problems-correct-tag.png){ width=80% }
+
+
 
 
 ???+ note
