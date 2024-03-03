@@ -1,4 +1,4 @@
-# Securing Zabbix
+# Securing Zabbix Frontend
 
 ## Securing the Frontend with Self signed SSL on Nginx
 
