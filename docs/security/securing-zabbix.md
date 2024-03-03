@@ -119,7 +119,7 @@ update-ca-trust extract
 ```
 
 After adding the SSL certificates and virtual hosts we need to add the domain to the hosts file to the local host as below.
-``
+```
 vi /etc/hosts
 
 In the above file add the below line replace the domain or the IP which is used.
