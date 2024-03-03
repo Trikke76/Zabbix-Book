@@ -6,7 +6,7 @@ Before we can install Zabbix we first have to know how the design is. The Zabbix
 - The Zabbix web server
 - The Zabbix database
 
-![Zabbix Server Setup](image/zabbix-server.png){width=800}
+![Zabbix Server Setup](image/zabbix-server.png){width=80%}
 
 All these components can be installed on 1 server or can be split over 3 different servers.
 The Zabbix server itself is the brain this part is doing all the trigger calculations and sending all the alert.
