@@ -626,9 +626,170 @@ Login : Admin
 Password : zabbix
 
 
+
+
+
+
 ### Installing Zabbix frontend with Apache
 
-ToDo
+Before we can configure our frontend we need to install our package first. If you run the frontend on the same server as the Zabbix server then there is nothing else you have to do you can just run the following command on your server to install the packages needed for our frontend to install:
+```
+dnf install zabbix-apache-conf and zabbix-web-mysql or if you used Postgres dnf install zabbix-web-pgsql
+```
+
+In case the frontend is on another server installed you need to add the Zabbix repository first like we did on our Zabbix server. In case you forgot or just skipped to this topic and don't know how to do this have a look at [Adding the Zabbix repository](#adding-the-zabbix-repository)
+
+
+We are now ready to start our websever and enable it so that it comes online after a reboot.
+
+```
+systemctl enable php-fpm --now
+systemctl enable httpd --now
+```
+
+Let's verify if the service is properly started and enabled so that it survives our reboot next time.
+
+```
+# systemctl status httpd
+
+```
+```
+● httpd.service - The Apache HTTP Server
+     Loaded: loaded (/usr/lib/systemd/system/httpd.service; enabled; preset: disabled)
+    Drop-In: /usr/lib/systemd/system/httpd.service.d
+             └─php-fpm.conf
+     Active: active (running) since Mon 2024-03-04 08:50:17 CET; 7min ago
+       Docs: man:httpd.service(8)
+   Main PID: 690 (httpd)
+     Status: "Total requests: 96; Idle/Busy workers 100/0;Requests/sec: 0.213; Bytes served/sec: 560 B/sec"
+      Tasks: 278 (limit: 22719)
+     Memory: 39.6M
+        CPU: 1.132s
+     CGroup: /system.slice/httpd.service
+             ├─ 690 /usr/sbin/httpd -DFOREGROUND
+             ├─ 736 /usr/sbin/httpd -DFOREGROUND
+             ├─ 737 /usr/sbin/httpd -DFOREGROUND
+             ├─ 738 /usr/sbin/httpd -DFOREGROUND
+             ├─ 739 /usr/sbin/httpd -DFOREGROUND
+             └─4534 /usr/sbin/httpd -DFOREGROUND
+
+Mar 04 08:50:17 localhost.localdomain systemd[1]: Starting The Apache HTTP Server...
+Mar 04 08:50:17 localhost.localdomain httpd[690]: AH00558: httpd: Could not reliably determine the server's fully qualified domain name, using localhost.localdomain. Set th>
+Mar 04 08:50:17 localhost.localdomain httpd[690]: Server configured, listening on: port 80
+Mar 04 08:50:17 localhost.localdomain systemd[1]: Started The Apache HTTP Server.x
+```
+
+The service is running and enabled so there is only 1 thing left to do before we can start the configuration in the GUI and that is to configure our firewall to allow incoming communication to the webserver.
+
+```
+firewall-cmd --add-service=http --permanent
+firewall-cmd --reload
+```
+
+Open your browser and go to the url or ip of your frontend :
+
+```
+http://<ip or dns of the zabbix frontend server>/zabbix/
+```
+If all goes well you should be greeted with a Zabbix welcome page.
+In case you have an error check the configuration again or have a look at the Apache log file :
+
+``` /var/log/httpd/error_log ```
+
+or run
+
+``` journalctl -xe ```
+
+This should help you in locating the errors you made.
+
+When you point your browser to the correct URL you should be greeted with a page like here :
+
+![Zabbix Welcome page](image/zabbix-welcome.png){width=800}
+
+
+As you see there is only a limited list of local translations available on our Zabbix frontend to choose from
+
+![Zabbix Welcome page](image/zabbix-locales.png){width=800}
+
+What if we want to install Chinese as language or another language from the list ?
+Run the next command to get a list of all locales available for your OS.
+
+```dnf list glibc-langpack-*```
+
+This will give you a list like
+
+```
+Installed Packages
+glibc-langpack-en.x86_64
+Available Packages
+glibc-langpack-aa.x86_64
+...
+
+glibc-langpack-zu.x86_64
+```
+
+Let's search for our Chinese locale to see if it is available. As you can see the code starts with zh
+
+```
+# dnf list glibc-langpack-* | grep zh
+glibc-langpack-zh.x86_64
+glibc-langpack-lzh.x86_64
+```
+
+The command returns us 2 lines but as we have seen that the code was zh_CN we only have to install the first package.
+
+```
+# dnf install glibc-langpack-zh.x86_64 -y
+```
+
+When we return now to our frontend we are able to select the Chinese language.
+
+![Zabbix Welcome page](image/zabbix-locales-chinese.png)
+
+???+ Note
+    If your language is not available in the frontend don't panic it just means that there is no translation or that the translation was not 100% complete. Zabbis is free and relies on the community for it's translations so you can help in creating the translation. Go to the page ```https://translate.zabbix.com/``` and help us to make Zabbix get better. Once the translation is complete the next Zabbix minor patch version should have your language included.
+
+Click next when you are satisfied with the transaltions available. You will arrive at a screen to verifiy if all pre-requisites are met. If not fix them first but normaly it should be fine and you should be just able to click Next
+
+![Zabbix Welcome page](image/pre-requisites.png)
+
+The next page will show you a page with the connection parameters for our database.
+
+First you select your DB type 'MySQL' or 'PostgreSQL' and fill in the IP or DNS name of the location of your database server. Use port 3306 for MariaDB/MySQL or 5432 if you used PostgreSQL.
+
+Fill in the correct  database name, in our case it was ```zabbix```.
+If you used PostgreSQL then you also need to fill in the correct schema name in our case it was ``` zabbix_server```
+
+Next line will ask you for the DB users here we created a user ```zabbix-web```. Enter it in the correct field and fill in the password that you used for this user.
+
+Make sure the option ```Database TLS encryption``` is not selected and press ```Next step```.
+
+![Zabbix Welcome page](image/db-connection.png)
+
+We are almost there. The only thing that rests us to do is give our instance a name, select our timezone and select a default time we like to use.
+
+![Zabbix Welcome page](image/zabbix-summary.png)
+
+Press ```Next step``` again you will see a page that tells you that the configuration is successful.
+Press Finish to end the configuration.
+
+
+![Zabbix Welcome page](image/zabbix-succcess.png)
+
+We are now ready to login :
+
+![Zabbix Welcome page](image/zabbix-login.png)
+
+Login : Admin
+Password : zabbix
+
+
+
+
+
+
+
+
 
 ## Setting up Zabbix HA
 
