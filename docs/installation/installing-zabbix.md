@@ -784,8 +784,17 @@ Login : Admin
 Password : zabbix
 
 
+In case you are like me and don't like the /zabbix path at the end of you url then there is an easy way to remove this. Edit you ```httpd``` config file and add the lines below and replace it with your own domain:
+```
+vi /etc/httpd/conf/httpd.conf
 
+NameVirtualHost 172.1.11.21:80
 
+<VirtualHost "your ip or dns":80>
+  ServerName zabbixserver.mydomain.org
+  ServerAlias zabbixserver
+  DocumentRoot /usr/share/zabbix
+</VirtualHost>
 
 
 
