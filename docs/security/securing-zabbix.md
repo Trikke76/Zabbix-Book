@@ -13,7 +13,7 @@ To configure this there are a few steps that we need to follow:
 - Create a private key for the certificate
 - Create a certificate signing request.
 - Create a certificate and sign it with the CA private key.
-- Installall  the SSL certificate.
+- Install  the SSL certificate.
 ```
 
 ### Create a private key for the CA
@@ -23,14 +23,26 @@ First step is to make a folder named SSL so we can create our certificates and s
 ```
 - mkdir ~/ssl
 - cd ~/ssl
-- openssl ecparam -out root.key -name prime256v1 -genkey
+- openssl genrsa -des3 -out myCA.key 4096
 ```
 
-### Generate a (CSR) certificate signing request for the CA.
+### Generate a Root Certificate
 
 ```
-# openssl req -new -sha256 -key root.key -out root.csr
+openssl req -x509 -new -nodes -key myCA.key -sha256 -days 1825 -out myCA.pem
+```
 
+Import the myCA.pem in your local OS
+
+### Generating CA-Authenticated Certificates
+```
+openssl genrsa -out zabbix.open-future.internal.key 2048
+````
+
+### Generate a Certificate Signing Request (CSR)
+```
+openssl req -new -key zabbix.open-future.internal.key -out zabbix.open-future.internal.csr
+```
 The above command will ask for the below information, you can provide them or you can just hit enter and skip them.
 However it's recommended to give the meaningful details where possible.
 The above command will save a file in the name root.csr in the SSL directory
@@ -56,59 +68,34 @@ A challenge password []:
 An optional company name []:
 ```
 
-### Generate our root certificate
-
-The next command will create the Root CA certificate which we will use to sign the SSL certificates.
-
+### Generate an X509 V3 certificate extension configuration file,
 ```
-openssl x509 -req -sha256 -days 3650 -in root.csr -signkey root.key -out rootCA.crt
-```
+vi zabbix.open-future.internal.ext
 
-The above command will create a file and save it as rootCA.crt in the SSL directory.
+authorityKeyIdentifier=keyid,issuer
+basicConstraints=CA:FALSE
+keyUsage = digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment
+subjectAltName = @alt_names
 
-### Create a private key for the certificate
-
-This command will create a private key file for the server SSL certificate.
-
-```
-openssl ecparam -out private.key -name prime256v1 -genkey
+[alt_names]
+IP.1 = 192.168.0.133
+#DNS.1 = MYDNS (You can use DNS if you have a dns name if you use IP then use the above line)
 ```
 
-This command will save a key file with the name private.key for the server SSL certificate.
-
-### Create a certificate signing request for the server SSL
-
-The next command will create a Certificate Signing Request for the Server webpage SSL
+### Generate the certificate using our CSR, the CA private key, the CA certificate, and the config file
 
 ```
-openssl req -new -sha256 -key private.key -out local.csr
-```
-It will ask for the details as below we should give the details as shown below.
-```
-Country Name.
-State Name.
-Organization.
-Common name (Here please provide the Domain or the IP through which you need to access zabbix).
-Email address.
-The rest can be left blank and after this is completed it will create the CSR file and save it with the name local.csr in the SSL directory.
+openssl x509 -req -in zabbix.open-future.internal.csr -CA myCA.pem -CAkey myCA.key \
+-CAcreateserial -out zabbix.open-future.internal.crt -days 825 -sha256 -extfile zabbix.open-future.internal.ext
 ```
 
-### Create a certificate and sign it with the CA private key.
-
-Our next command will create the server SSL certificate which is signed by the Root CA that we created above.
-
-```
-openssl x509 -req -in local.csr -CA  rootCA.crt -CAkey root.key -CAcreateserial -out local.crt -days 3650 -sha256
-```
-
-The above command will create a server SSL file and save it in the name local.crt, this certificate will be valid for 3650 days or 10 years.
 
 ### Copy the SSL certificates to our Virtual Host
 
 ```
-cp local.crt /etc/pki/tls/certs/. 
-cp private.key /etc/pki/tls/private/.
-cp rootCA.crt /etc/pki/ca-trust/source/anchors/.
+cp zabbix.open-future.internal.crt /etc/pki/tls/certs/. 
+cp zabbix.open-future.internal.key /etc/pki/tls/private/.
+cp myCA.pem /etc/pki/ca-trust/source/anchors/myCA.crt
 ```
 #### After Creating the Virtual Host file we need to add the local host for the domain
 
@@ -140,8 +127,8 @@ server {
         listen          443 http2 ssl;
         listen          [::]:443 http2 ssl;
         server_name     <ip qddress>;
-        ssl_certificate /etc/ssl/certs/local.crt;
-        ssl_certificate_key /etc/pki/tls/private/private.key;
+        ssl_certificate /etc/ssl/certs/zabbix.open-future.internal.crt;
+        ssl_certificate_key /etc/pki/tls/private/zabbix.open-future.internal.key;
         ssl_dhparam /etc/ssl/certs/dhparam.pem;
 ```
 To redirect traffic from port 80 to 443 we can add the following lines above our https block:
@@ -149,8 +136,8 @@ To redirect traffic from port 80 to 443 we can add the following lines above our
 ```
 server {
        listen         80;
-       server_name    <ip address>;
-       return         301 https://<ip address>;
+       server_name    _; #dns or ip is also possible
+       return         301 https://$host$request_uri;
 }
 ```
 
