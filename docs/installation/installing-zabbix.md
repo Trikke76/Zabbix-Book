@@ -626,7 +626,9 @@ Login : Admin
 Password : zabbix
 
 
+If you like to secure the frontend with SSL then checkout the following topic
 
+[Securing Zabbix](../../security/securing-zabbix)
 
 
 
