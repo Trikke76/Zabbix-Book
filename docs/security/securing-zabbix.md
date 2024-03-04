@@ -23,7 +23,8 @@ First step is to make a folder named SSL so we can create our certificates and s
 ```
 - mkdir ~/ssl
 - cd ~/ssl
-- openssl genrsa -des3 -out myCA.key 4096
+- openssl genrsa -aes128 -out myCA.key 4096
+- openssl ecparam -out myCA.key -name prime256v1 -genkey
 ```
 
 ### Generate a Root Certificate
