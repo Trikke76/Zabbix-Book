@@ -46,6 +46,10 @@ nav:
     - extra-monitoring/SNMP-monitoring.md
     - extra-monitoring/JAVA-monitoring.md
     - extra-monitoring/IPMI-monitoring.md
+  - 'Authentication':
+    - authentication/zabbix-http.md
+    - authentication/zabbix-ldap.md
+    - authentication/zabbix-saml.md
   - 'Monitoring with Proxies':
     - proxies/installing-proxies.md
   - 'Securing Zabbix':
