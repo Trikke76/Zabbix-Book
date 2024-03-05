@@ -50,6 +50,7 @@ nav:
     - authentication/zabbix-http.md
     - authentication/zabbix-ldap.md
     - authentication/zabbix-saml.md
+    - authentication/zabbix-mfa.md
   - 'Monitoring with Proxies':
     - proxies/installing-proxies.md
   - 'Securing Zabbix':
