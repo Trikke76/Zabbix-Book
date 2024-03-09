@@ -809,4 +809,71 @@ systemctl restart httpd
 
 ## Setting up Zabbix HA
 
+In our next exercise we will setup Zabbix in a HA setup. This feature was added in Zabbix 6 and was one of the most important features added that time.
+The idea about this functionallity is that if your Zabbix server fails that another Zabbix server can take over.
+In this setup we will use 2 Zabbix servers but you are not limited to this you can add as many as you like.
+
+The HA setup in Zabbix is rather basic but works like a charm so don't expect fancy things like load balancing.
+
+???+ note
+    At the time of writing there is nothing yet for HA when it comes to proxies. However it should arrive in Zabbix 7 and when it does we will try to cover it ASAP.
+
+
+Just like we did in our basic setup we will make a few notes again about the setup of the servers we have. I added the IP's that we will use here don't forgot to make notes of your own ip adresses.
+
+| Server 	| IP	|
+|:----		|:----	|
+|Zabbix Server 1|192.168.0.130 |
+|Zabbix Server 2|192.168.0.131 |
+|Postgres DB	|192.168.0.131 |
+
+
+As you notice our DB is not HA this is not a Zabbix component you have to implement your own solution this can be a HA SAN or you DB in a HA cluster setup.
+
+
+
+### Let's install our Postgres DB
+
+If you are not running on x86 or like to try on another OS, then have a look at https://www.postgresql.org/download/ for the commands you need.
+
+
+```
+# Install the repository RPM:
+sudo dnf install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-9-x86_64/pgdg-redhat-repo-latest.noarch.rpm
+
+# Disable the built-in PostgreSQL module:
+sudo dnf -qy module disable postgresql
+
+# Install PostgreSQL:
+sudo dnf install -y postgresql16-server
+
+# Initialize the database and enable automatic start:
+sudo /usr/pgsql-16/bin/postgresql-16-setup initdb
+sudo systemctl enable postgresql-16 --now
+```
+
+### Securing the PostgreSQL database¶
+
+PostgreSQL works a bit different then MySQL or MariaDB and this applies aswell to how we manage access permissions. 
+Postgres works with a file with the name ```pg_hba.conf``` where we have to tell who can access our database from where and what encryption is used for the password. So let's edit this file to allow our frontend and zabbix server to access the database.
+
+```
+# vi /var/lib/pgsql/16/data/pg_hba.conf
+```
+
+```
+# "local" is for Unix domain socket connections only
+local   all             all                                         peer
+# IPv4 local connections:
+host    zabbix          zabbix     192.168.0.130/32  		scram-sha-256
+host    zabbix          zabbix     192.168.0.131/32  		scram-sha-256
+host    all             all            127.0.0.1/32            	scram-sha-256
+```
+
+
+
+
+
+
+
 ToDo
