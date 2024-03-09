@@ -16,6 +16,7 @@ nav:
     - installation/Requirements.md
     - installation/installing-zabbixdb.md
     - installation/installing-zabbix.md
+    - installation/installing-zabbix-ha.md
   - 'The basics':
     - configuration/Dashboard.md
     - configuration/zabbix-users.md
