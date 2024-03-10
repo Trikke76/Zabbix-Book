@@ -13,7 +13,6 @@ I added the IP's that we will use here don't forgot to make notes of your own ip
 ![HA Setup](image/ha/HA-setup.png){width=80%}
 
 
-
 | Server 	| IP	|
 |:----		|:----	|
 |Zabbix Server 1|192.168.0.130 |
@@ -405,3 +404,33 @@ Now that this is all taken care of stop keepalived on our server and repeat the 
 
 Congratulations you have a HA Zabbix server now .
 
+#### Checking the Database for HA info.
+
+Now that everything is up and running there is probably something you like to know. 
+Where can we find the info in our database ?
+
+It's actually very straighforward we can go to our zabbix database and run the following query to see our servers: ```SELECT *FROM ha_node;```
+
+```
+zabbix=# SELECT *FROM ha_node;
+         ha_nodeid         |  name   |    address    | port  | lastaccess | status |       ha_sessionid
+---------------------------+---------+---------------+-------+------------+--------+---------------------------
+ cltk7h2n600017kkd1jtx6f1f | zabbix2 | 192.168.0.131 | 10051 | 1710085786 |      0 | cltlov4ly0000jkkdteikeo77
+ cltk7ci340001inkc2befwg9f | zabbix1 | 192.168.0.130 | 10051 | 1710085787 |      3 | cltlov1r00000jtkcpeh9oqhp
+```
+
+This is also how our frontend is able to know what server it needs to connect to. Remember our picture in the first page ? Actually the frontend has a connection to our database and reads out the status from our ```zabbix server```.
+This way it knows what server is active.
+
+It's probably also good to know that we can have 4 statusses:
+
+| status      | number | info |
+|:----        |:----   |:---- |
+| Active      | 3      | Only one node can be active |
+| Standby     | 0      | Multiple nodes can be in standby |
+| Stopped     | 1      | A previous detected node is nog stopped |
+| Unavailable | 2      | A previous dtected node was lost without being shutdown |
+
+???+ Note
+    Zabbix agents need to have their Server and ServerActive addresses pointed to both active and passive Zabbix server. 
+    This option is supported in all agents since Zabbix 6.0
