@@ -6,8 +6,13 @@ In this setup we will use 2 Zabbix servers but you are not limited to this you c
 
 The HA setup in Zabbix is rather basic but works like a charm so don't expect fancy things like load balancing.
 
+Just like we did in our basic setup we will make a few notes again about the setup of the servers we have.
+I added the IP's that we will use here don't forgot to make notes of your own ip adresses.
 
-Just like we did in our basic setup we will make a few notes again about the setup of the servers we have. I added the IP's that we will use here don't forgot to make notes of your own ip adresses.
+
+![HA Setup](image/ha/HA-setup.png){width=80%}
+
+
 
 | Server 	| IP	|
 |:----		|:----	|
@@ -17,7 +22,9 @@ Just like we did in our basic setup we will make a few notes again about the set
 |Virtual IP	|192.168.0.135 |
 
 
-As you notice our DB is not HA this is not a Zabbix component you have to implement your own solution this can be a HA SAN or you DB in a HA cluster setup.
+???+ Note
+    As you notice our DB is not HA this is not a Zabbix component you have to implement your own solution this can be a HA SAN or you DB in a HA cluster setup.
+    The cluster setup of our DB is out of the scope and not related to Zabbix so we will not cover this here. 
 
 
 ## Let's install our Postgres DB
@@ -26,7 +33,7 @@ As you notice our DB is not HA this is not a Zabbix component you have to implem
     If you are not running on x86 or like to try on another OS, then have a look at https://www.postgresql.org/download/ for the commands you need.
 
 ???+ Warning
-    In this exercise we will install a PostgreSQL db the quick way if you like to it in a more correct wqy have a look at out topic ```Installing Zabbix DB Server```.
+    In this exercise we will take some shortcuts for the installation of the PostgreSQLDB and the OS. Look at our previous topics to get a better understanding where to tweak.
 
 
 ```
@@ -61,7 +68,8 @@ host    zabbix          zabbix     192.168.0.130/32  		scram-sha-256
 host    zabbix          zabbix     192.168.0.131/32  		scram-sha-256
 host    all             all            127.0.0.1/32            	scram-sha-256
 ```
-After we changed the pg_hba file don't forget to restart postgres else the settings will not be applied. But before we restart let us also edit the file postgresql.conf and allow our database to listen on our network interface for incomming connections from the zabbix server.
+After we changed the pg_hba file don't forget to restart postgres else the settings will not be applied.
+But before we restart let us also edit the file postgresql.conf and allow our database to listen on our network interface for incomming connections from the zabbix server.
 Postgresql will standard only allow connections from the socket.
 
 ```
