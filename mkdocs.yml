@@ -96,14 +96,14 @@ theme:
 # Plugins
 plugins:
   - search
-  - with-pdf: #add only if you like to build a pdf file
-      author: Patrik Uytterhoeven
-      copyright: Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
+#  - with-pdf: #add only if you like to build a pdf file
+#      author: Patrik Uytterhoeven
+#      copyright: Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
       #
       #cover: false
       #back_cover: true
-      cover_title: Zabbix 7 Monitoring
-      cover_subtitle: Enterprise Monitoring With Zabbix
+#      cover_title: Zabbix 7 Monitoring
+#      cover_subtitle: Enterprise Monitoring With Zabbix
       #custom_template_path: TEMPLATES PATH
       #
       #toc_title: TOC TITLE TEXT
@@ -127,7 +127,7 @@ plugins:
       #render_js: true
       #headless_chrome_path:
       #
-      output_path: ../zabbix-7-book.pdf
+#      output_path: ../zabbix-7-book.pdf
       #enabled_if_env: ENABLE_PDF_EXPORT
       #
       #debug_html: true

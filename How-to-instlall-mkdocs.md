@@ -9,10 +9,11 @@ This explains how to setup MkDocs on your Mac so that you can pull git on your p
 brew --version
 ```
 
-## Install python 3
+## Install python 3 and pango library
 
 ```zsh
 brew install python3
+brew install pango
 ```
 
 ## Install pip
@@ -32,6 +33,10 @@ pip3 install mkdocs
 ```zsh
 pip3 install mkdocs-material
 ```
+
+## Install MkDocs extension with-pdf
+
+pip3 install mkdocs-with-pdf
 
 ## Build your site local and test it
 
