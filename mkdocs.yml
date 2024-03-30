@@ -62,6 +62,8 @@ nav:
     - windows/monitoring-windows.md
   - 'Zabbix API':
     - api/zabbix-api.md
+  - 'Zabbix Projects':
+    - project/modbus.md
 
 theme:
    language: en
