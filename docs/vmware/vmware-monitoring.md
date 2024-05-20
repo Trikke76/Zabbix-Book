@@ -86,6 +86,30 @@ As you have may have noticed already, in the Zabbix server configuration file th
 ???+ note
     If config.vpxd.stats.maxQueryMetrics is invalid or exceeds the maximum number of characters permitted error, add a config.vpxd.stats.maxQueryMetrics parameter to the vCenter Server settings. The value of this parameter should be the same as the value of maxQuerysize in VMware's web.xml file.
 
+## Available metrics
+
+After some time in latest data you should see for all the items data being populated. It can take a while before every item is populated it depends a bit on the order of the LLD rule being executed.
+
+These are the items that are configure with our standard Zabbix VMware template. But the template does not cover all items and more items might be added over time. A list of all keys can be found in the online documentation. https://www.zabbix.com/documentation/7.0/en/manual/vm_monitoring/vmware_keys
+Those items are ```simple checks``` so when creating a new item don't forget to select the correct item type.
+
+## Internal working
+
+We know now that Zabbix can monitor VMware out of the box and the setup for it is very easy. There is a lot of information that we can retreive but to get to this information there is a complex process behind it. To tune this process we have seen that there are parameters that can be set like VMWareFrequency, VMwarePerfFrequency, VMWareTimeout and VMwareCacheSize.
+
+The next diagram shows us how Zabbix collects the data and end up with the data in it's history Cache.
+
+![VMWare internals](image/internal.png)
+
+Here we can see the different steps involving in the data flow when monitoring VMWare with Zabbix. Connections are made from the VMWare collector to the SDK interface.
+The collectors will grab the data and place it in a special VMWare chache. Pollers then will look into the cache and grab the data from it and send it to the preprocessors. The data after preprocessin is then placed in the Zabbix history cache. In case of a proxy it will be sent to the Zabbix server.
+
+???+ Note
+VMwarePerfFrequency and VMWareFrequency are both set standard to 60 seconds wich is fine for small to medium setups lowering this number could create some overload on the VMWare servers. On a larger instance it's probably best to increase then together with the VMWareTimeout parameter.
+
+
+
+## Debugging
 
 ???+ warning
     It can take some time before you will see all the VMs in your Zabbix setup popup. If you want to know what the Zabbix server or Proxy (if you monitor VMware over a proxy then you have to adjust all config on the proxy) is doing then you can increase the debug level. This can be done on they fly without changing the debug parameter in the zabbix_server.conf file. Just one the console run the following command to increase logging for all the vmware collectors.
