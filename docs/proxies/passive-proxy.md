@@ -88,7 +88,7 @@ systemctl enable zabbix-proxy --now
 
 If you look now in the frontend of the Zabbix server you will see that the proxy we have configured is Offline.
 
-![proxy offline](image/ProxyP-offline.png)
+![proxy offline](image/proxyp-offline.png)
 
 This is because we have configured a Passive agent remember we had to specify the IP and the Port in our Zabbix frontend?
 So we need to open port 10051/tcp for our zabbix server.
@@ -122,7 +122,7 @@ proxy-access (active)
 
 When we now look at our frontend our proxy should be online 
 
-![proxy online](image/ProxyP-online.png)
+![proxy online](image/proxyp-online.png)
 
 
 
