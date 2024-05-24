@@ -56,6 +56,7 @@ nav:
     - proxies/installing-proxies.md
     - proxies/active-proxy.md
     - proxies/passive-proxy.md
+    - proxies/loadbalancing-proxies.md
   - 'Securing Zabbix':
     - security/securing-zabbix.md
   - 'Maintaining Zabbix':
