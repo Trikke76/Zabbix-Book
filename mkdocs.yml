@@ -1,8 +1,8 @@
 # Project information
 site_name: Zabbix 7 Monitoring
 site_url: https://trikke76.github.io/Zabbix-Book
-site_author: Patrik Uytterhoeven
-site_description: 
+site_author: Patrik Uytterhoeven and all github contributors
+site_description: An open-source Zabbix book
 copyright: Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
 
 # Repository
@@ -98,10 +98,27 @@ theme:
          icon: material/toggle-switch
          name: Switch to light mode
 
-
 # Plugins
 plugins:
   - search
+  - i18n:
+      reconfigure_material: true
+      docs_structure: suffix
+      languages:
+        - locale: en
+          default: true
+          name: English
+          build: true
+        - locale: fr
+          name: Français
+          build: true
+        - locale: nl
+          name: Nederlands
+          build: true
+          nav_translations:
+            Welcome: Welkom
+            Getting started: Aan de slag
+
   - print-site:
       add_to_navigation: false
       print_page_title: 'Print Book'
