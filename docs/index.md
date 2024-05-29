@@ -13,23 +13,23 @@ Since I am a huge fan of documentation in markdown or asciidoc I came up with th
 The only problem left was how to make those markdown files readable in an easy way like a book ? After some searching trying to look for a good solution I found [MkDocs](https://www.mkdocs.org). MkDocs is a Python-Markdown library that can convert everything to HTML and can be templated. So the problem was solved and a new book was born.
 
 
-# Who am I ?
+## Who am I ?
 
 My name is Patrik Uytterhoeven and I work for a Belgium company named Open-Future. I started at this company at Januari 2013 and that's
 when my journey started with Zabbix as well. They gave me the opportunity to build my experience and to get certified as Zabbix trainer.
 Since this year I am officially 10y Zabbix trainer. If you would like to follow one of my trainings feel free to register for a training at our website [www.open-future.be](https://www.open-future.be). Why would you follow a training if you can read this book for free are you now thinking? Because trainings just like the book explain you all the details on how to set up and do things but also give you valueable tips and feedback that you never get from a book. Books just can't cover everything.
 
 
-# What OS do I need ?
+## What OS do I need ?
 
 Since I work mostly with RHEL based systems and since I am convinced that RHEL is the better choice in Production environments I have chosen to focus on using one of the forks that is available for free. Zabbix is supported on Ubuntu, Debian, Suse, Raspberry .... and it can be compiled on any OS that is Unix based so it's almost impossible to cover them all. However the book is Opensource and in GIT so feel free to contribute the code for your favorite flavour :). I will use [Rocky Linux](https://rockylinux.org/) 9 in this book, but it should work for most of the other installations as well.
 
-# What version of Zabbix is used in this book ?
+## What version of Zabbix is used in this book ?
 
 Since we are almost at the release of Zabbix 7, I will focus on version 7 since it will be the new LTS. It should also apply to most other versions but of course there will be minor changes. In the future, if there is enough support from the community to update this book together, it would be great if we could build a book for every LTS version available.
 
 
-# How to use this book ?
+## How to use this book ?
 
 The book will try to cover all the topics, feel free to let me know if something is missing or feel free to make a pull request. 
 There is no need to start from page 1 and read the book till the end. Some people will be looking for basic knowledge others might want to skip to the fun part, so I want the book to be useful for everyone. Therefor I will try to explain as best as possible in every topic the exact steps needed to reproduce.
