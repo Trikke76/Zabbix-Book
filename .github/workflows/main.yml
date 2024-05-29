@@ -12,5 +12,5 @@ jobs:
       - uses: actions/setup-python@v4
         with:
           python-version: 3.x
-      - run: pip install mkdocs-material mkdocs-with-pdf weasyprint==54.3
+      - run: pip install mkdocs-material mkdocs-print-site-plugin
       - run: mkdocs gh-deploy --force

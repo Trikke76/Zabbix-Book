@@ -1,4 +1,4 @@
-### Passive proxy
+# Passive proxy
 
 Lets try to setup our ```passive proxy```.
 Things should be very simple just make sure you have a VM that you can use to install a proxy.
