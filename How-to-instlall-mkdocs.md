@@ -36,7 +36,8 @@ pip3 install mkdocs-material
 
 ## Install MkDocs extension with-pdf
 
-pip3 install mkdocs-with-pdf
+pip3 install mkdocs-print-site-plugin
+
 
 ## Build your site local and test it
 

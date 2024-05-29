@@ -1,7 +1,9 @@
 # Project information
-site_name: Zabbix Book
+site_name: Zabbix 7 Monitoring
 site_url: https://trikke76.github.io/Zabbix-Book
 site_author: Patrik Uytterhoeven
+site_description: 
+copyright: Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
 
 # Repository
 repo_name: trikke76
@@ -71,6 +73,7 @@ nav:
 theme:
    language: en
    name: material
+   custom_dir: docs/overrides
    font:
      text: Roboto
      code: Nunito
@@ -100,9 +103,10 @@ theme:
 plugins:
   - search
   - print-site:
-      add_to_navigation: true
-      print_page_title: 'Print Site'
-      add_print_site_banner: false
+      add_to_navigation: false
+      print_page_title: 'Print Book'
+      add_print_site_banner: true
+      print_site_banner_template: "docs/assets/templates/custom_banner.tpl"
       # Table of contents
       add_table_of_contents: true
       toc_title: 'Table of Contents'
@@ -117,46 +121,6 @@ plugins:
       include_css: true
       enabled: true
       exclude:
-#  - with-pdf: #add only if you like to build a pdf file
-#      author: Patrik Uytterhoeven
-#      copyright: Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
-#      #
-#      cover: true
-#      #back_cover: true
-#      cover_title: Zabbix 7 Monitoring
-#      cover_subtitle: Enterprise Monitoring With Zabbix
-#      custom_template_path: docs/assets/templates/custom_cover_page.tpl
-#      #
-#      #toc_title: TOC TITLE TEXT
-#      #heading_shift: false
-#      #toc_level: 3
-#      #ordered_chapter_level: 2
-#      #excludes_children:
-#      #    - 'release-notes/:upgrading'
-#      #    - 'release-notes/:changelog'
-#      #
-#      #exclude_pages:
-#      #    - 'bugs/'
-#      #    - 'appendix/contribute/'
-#      #convert_iframe:
-#      #    - src: IFRAME SRC
-#      #      img: POSTER IMAGE URL
-#      #      text: ALTERNATE TEXT
-#      #    - src: ...
-#      #two_columns_level: 3
-#      #
-#      #render_js: true
-#      #headless_chrome_path:
-#      #
-#      output_path: ../zabbix-7-book.pdf
-#      #enabled_if_env: ENABLE_PDF_EXPORT
-#      #
-#      #debug_html: true
-#      #show_anchors: true
-#      #verbose: true
-# alternative pdf solution https://github.com/orzih/mkdocs-with-pdf
-#  - page-to-pdf
-
 
 # Extensions
 markdown_extensions:
