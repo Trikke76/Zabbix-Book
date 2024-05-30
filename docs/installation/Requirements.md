@@ -23,11 +23,11 @@ For the setup you can choose to install all components on 1 server or every comp
 
 ## Basic OS configuration
 
-### firewall 
+### Firewall 
 
 It's important for our Zabbix server to have an OS that is well prepared before we start to install our monitoring tool. First we need to make sure our firewall is installed. 
 
-``# dnf install firewalld --now``
+```# dnf install firewalld --now```
 
 Our firewall is installed now, and we are ready to configure the needed ports. For our Zabbix server, we need to allow access to port 10051/tcp this is the port where our Zabbix trapper listens on for incoming data. So we need to open this port in our firewall to allow access to our Zabbix trapper.
 
@@ -42,7 +42,7 @@ or if the service is not known
 ///
 
 
-### timeserver
+### Timeserver
 
 Another thing we need to configure is the setup of timeserver and sync our Zabbix server to the timeserver by making use of an ntp client. This needs to be done for the Zabbix server but also for the devices we will monitor as time is very important for Zabbix. Imagine one of our hosts having a time zone that is wrong we could end up looking for a problem in Zabbix that happened 6h ago while it had happened maybe only 2h ago.
 

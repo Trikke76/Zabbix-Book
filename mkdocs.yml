@@ -119,7 +119,9 @@ plugins:
           nav_translations:
             Welcome: Welkom
             Getting started: Aan de slag
-
+            The basics: De basis
+            Problem detection: Probleem detectie
+ 
   - print-site:
       add_to_navigation: false
       print_page_title: 'Print Book'
