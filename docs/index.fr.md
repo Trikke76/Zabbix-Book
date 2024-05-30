@@ -1,6 +1,6 @@
-# What is this book about ?
+# De quoi parle ce livre ?
 
-Hi, welcome and thank you for your interest in my Zabbix book. I wrote the [Zabbix cookbook](https://www.packtpub.com/product/zabbix-cookbook/9781784397586) and co wrote with Richards [Zabbix 4 Network Monitoring](https://www.packtpub.com/product/zabbix-4-network-monitoring-third-edition/9781789340266) a few years ago for PackPub. 
+Bonjour, bienvenue et merci de votre intérêt pour mon livre Zabbix. J'ai écrit le [livre de recettes Zabbix](https://www.packtpub.com/product/zabbix-cookbook/9781784397586) et co-écrit avec Richards [Zabbix 4 Network Monitoring](https://www.packtpub.com/product/ zabbix-4-network-monitoring-third-edition/9781789340266) il y a quelques années pour PackPub.
 
 ![Zabbix cookbook](images/book1.png){width=200} ![Zabbix Network Monitoring 4](images/book2.png){width=200}
 
@@ -37,7 +37,7 @@ There is no need to start from page 1 and read the book till the end. Some peopl
 There will be moments in the book where you need to type some code, I will show the commands you need to type in a box just like here.
 
 ```
-# some command 
+## some command 
 ```
 
 Notes to some useful documentation will be added at the bottom of the page.
