@@ -102,7 +102,7 @@ plugins:
   - print-site:
       add_to_navigation: true
       print_page_title: 'Print Site'
-      add_print_site_banner: false
+      add_print_site_banner: true
       # Table of contents
       add_table_of_contents: true
       toc_title: 'Table of Contents'
@@ -117,6 +117,7 @@ plugins:
       include_css: true
       enabled: true
       exclude:
+
 #  - with-pdf: #add only if you like to build a pdf file
 #      author: Patrik Uytterhoeven
 #      copyright: Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
