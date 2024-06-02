@@ -39,9 +39,15 @@ firewall-cmd --add-port=623/tcp --permanent
 firewall-cmmd --reload
 ---
 
-
+???+ Note
+    It's good to know that IPMI is not free from security problems. Intel , Dell, HP , ... even encourage not to use it and we should not expect any updates on the IPMI specifications in the future. (See the documentation)[https://www.intel.com/content/www/us/en/products/docs/servers/ipmi/ipmi-home.html?wapkw=ipmi]
 
 ## Configure Zabbix to monitor an IPMI device
+
+Before we can start configuring items in Zabbix we need to configure the Zabbix server to start some IPMI pollers. This can be done in the ```zabbix_server.conf``` file.
+Zabbix relies on the OpenIPMI library to monitor IPMI. So to get things started let's edit ```/etc/zabbix/zabbix_server.conf``` and change the line ```# StartIPMIPollers=0```.
+
+
 ## Setting up an IPMI item
 ## Configure LLD with IPMI
 ## Monitor discrete sensors
