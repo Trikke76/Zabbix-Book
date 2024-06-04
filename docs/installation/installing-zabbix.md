@@ -21,8 +21,8 @@ For our setup, we will use 2 VM's, 1 VM with a Zabbix server and our Zabbix web 
 
 ## Installing the Zabbix Server
 
-Before you start to install your Zabbix server make sure the server is properly configure as we explained in our topic [Basic OS configuration before we start](#basic-os-configuration-before-we-start).
-Something else that is important in this case is that we need to disable SELinux. We will see later in chapter [Securing Zabbix](/Zabbix-Book/12-Securing%20Zabbix) how to do this properly. 
+Before you start to install your Zabbix server make sure the server is properly configure as we explained in our topic [Basic OS configuration before we start](Requirements.md).
+Something else that is important in this case is that we need to disable SELinux. We will see later in chapter [Securing Zabbix with SELinux](../security/securing-zabbix-selinux.md) how to do this properly. 
 We can check the status of SELinux with the command ```sestatus``` :
 
 ```
@@ -628,7 +628,7 @@ Password : zabbix
 
 If you like to secure the frontend with SSL then checkout the following topic
 
-[Securing Zabbix](../../security/securing-zabbix)
+[Securing Zabbix](../security/securing-zabbix.md)
 
 
 

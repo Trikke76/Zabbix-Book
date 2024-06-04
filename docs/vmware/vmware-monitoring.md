@@ -30,7 +30,7 @@ So for the setups with 1 VMware service we will set it to 2 and with instances w
 
 ## Configuration
 
-The first step is to create a new host. If you are unsure how to take a look at the topic [Zabbix hosts](../../configuration/zabbix-hosts/).
+The first step is to create a new host. If you are unsure how to take a look at the topic [Zabbix hosts](../configuration/zabbix-hosts.md).
 Only adding a ```Host name``` should be ok we don't need to configure any interfaces. Once this is done before you press ```Add``` go to the tab ```Macros```.
 
 ![VMWare hosts](image/vmware-host.png)

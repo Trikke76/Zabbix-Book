@@ -61,6 +61,7 @@ nav:
     - proxies/loadbalancing-proxies.md
   - 'Securing Zabbix':
     - security/securing-zabbix.md
+    - security/securing-zabbix-selinux.md
   - 'Maintaining Zabbix':
     - maintenance/maintaining-zabbix.md
   - 'Monitoring Windows':
@@ -112,6 +113,9 @@ plugins:
           build: true
         - locale: fr
           name: Français
+          build: true
+        - locale: it
+          name: Italian
           build: true
         - locale: nl
           name: Nederlands
