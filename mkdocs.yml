@@ -83,7 +83,7 @@ theme:
    features:
      - header.autohide
      - navigation.sections
-#     - navigation.instant
+#     - navigation.instant can't be used with i18n
      - navigation.expand
    palette:
      - scheme: default
@@ -114,6 +114,9 @@ plugins:
         - locale: fr
           name: Français
           build: true
+        - locale: de
+          name: German
+          build: true
         - locale: it
           name: Italian
           build: true
@@ -125,6 +128,28 @@ plugins:
             Getting started: Aan de slag
             The basics: De basis
             Problem detection: Probleem detectie
+        - locale: pt
+          name: Portuguese
+          build: true
+        - locale: es
+          name: Spanish
+          build: true
+        - locale: th
+          name: ภาษาไทย
+          build: true
+          nav_translations:
+            Welcome: ยินดีต้อนรับ
+            Getting started: การเริ่มต้น
+            The basics: พื้นฐาน
+            Problem detection: การตรวจจับปัญหา
+        - locale: zh
+          name: 中国人
+          build: true
+          nav_translations:
+            Welcome: 欢迎
+            Getting started: 入门
+            The basics: 基础
+            Problem detection: 问题检测
  
   - print-site:
       add_to_navigation: false
