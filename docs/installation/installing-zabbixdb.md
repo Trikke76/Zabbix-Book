@@ -1,5 +1,12 @@
 # Installing Zabbix DB Server
 
+In this chapter we will install our Zabbix database. Zabbix support a wide range of SQL databases but we will limit us to PostgreSQL, MariaDB and MySQL for now.
+There is also Oracle that is supported but support for Oracle is deprectated, Zabbix 7 will be the last version of Zabbix supporting Oracle as backend.
+In this Chapter we will explain how to install and configure every database on a seperate machine however you could also install it on your Zabbix server, there is no rule that forces you to install the DB on your Zabbix server or on a seperate server.
+
+For most setups a DB on a local machine will probably be enough to start with, just make sure the DB is on other disks then the OS. If later performance is an issue you can still move the DB to another server. Don't forget that local connections are faster then connections over TCP so there it's not always best to move the DB to it's own server it all depends on your needs.
+
+
 
 ## Installing Zabbix with MariaDB
 
