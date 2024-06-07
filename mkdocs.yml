@@ -47,6 +47,7 @@ nav:
     - websites/monitoring-websites.md
   - 'Monitoring SNMP, IPMI and JAVA':
     - extra-monitoring/SNMP-monitoring.md
+    - extra-monitoring/SNMP-traps-monitoring.md
     - extra-monitoring/JAVA-monitoring.md
     - extra-monitoring/IPMI-monitoring.md
   - 'Authentication':
