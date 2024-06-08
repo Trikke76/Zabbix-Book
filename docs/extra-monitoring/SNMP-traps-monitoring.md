@@ -48,6 +48,8 @@ Now that we know a bit more about snmptraps let's set it up and configure our Za
 ???+ warning
     At this moment Zabbix has loadbalancing for proxies implemented but there is no support for SNMP traps in this case. So only the active proxy will accept traps.
 
+## Configure SNMP traps on our system with snmptrapd
+
 First thing first we will have to open our firewall if we want to accept traps. Traps are being sent over UDP and arrive on port 162 so let's open a port.
 
 ```
@@ -55,10 +57,10 @@ First thing first we will have to open our firewall if we want to accept traps. 
 # firewall-cmd --reload
 ```
 
-Next we need to install the net-snmp-utils package and the net-snmp-perl package for our perl script to work.
+Next we need to install the net-snmp, net-snmp-utils package and the net-snmp-perl package for our perl script to work with snmptrapd.
 
 ```
-dnf install -y net-snmp-utils net-snmp-perl
+dnf install -y net-snmp net-snmp-utils net-snmp-perl
 ```
 
 Copy our zabbix_trap_receiver file to /usr/bin/ and make it executable
@@ -73,7 +75,10 @@ We can now configure ```snmptrapd```  and tell our server what traps it should a
 ```
 # vi /etc/snmp/snmptrapd.conf
 add the following line
-# authCommunity execute public perl do "/usr/bin/zabbix_trap_receiver.pl";
+```
+```
+authCommunity execute public
+perl do "/usr/bin/zabbix_trap_receiver.pl";
 ```
 
 This line will tell our ```snmptrapd``` to accept all the traps that are being sent to our device with the community string set as public. so please adapt it to your needs.
@@ -90,11 +95,17 @@ StartSNMPTrapper=1
 ```
 
 There is another parameter that we need to configure and that is ```SNMPTrapperFile=```. Same here make sure that the line is active by removing the `#` in front and poit to the location of the location where Zabbix can read the traps that are written by our perl script.
-If it's not the same then adapt the script or next line so that both files point to the same location: The perl script will write with trap information in this file and Zabbix server will look for this file to read the information.
+If it's not the same then adapt the script or zabbix_server.conf file so thqt in both files the location point to the same path: The perl script will write with trap information in this file and Zabbix server will look for this file to read the information.
 
 ```
-SNMPTrapperFile=/var/log/zabbix_traps.tmp
+SNMPTrapperFile=/var/log/snmptrap/snmptrap.log
 ```
+
+Make sure the folder exists
+```
+mkidr /var/log/snmptrap/
+```
+
 Once everything is done restart the Zabbix server so that it picks up the config changes.
 
 ```
@@ -103,20 +114,12 @@ Once everything is done restart the Zabbix server so that it picks up the config
 Also enable ```snmptrapd``` and make sure it starts at boot.
 
 ```
-# systemctl enable snmptrapd --nowl
+# systemctl enable snmptrapd --now
 ```
 
 There is one thing we need to do extra and that is to configure log rotate. Snmptrapd will sent traps to the ```/var/log/zabbix_traps.tmp``` file and the file weill keep growing and growing so we need to make sure logrotate will cleanup from time to time.
 
-First create a folder to archive everything
-
-```
-# mkdir -p /var/log/zabbix_traps_archive
-and add the correct permissions
-# chmod 770 /var/log/zabbix_traps_archive
-```
-
-Now create the logrotate config for our trap file
+Zabbix is not managing the trap file so we need to create the logrotate config for our trap file else it will keep growing over time
 
 ```
 # vi /etc/logrotate.d/zabbix_traps
@@ -125,67 +128,230 @@ Now create the logrotate config for our trap file
 Copy following content in to this file and adqpt to your own needs.
 
 ```
-/var/logs/zabbix_traps.tmp { 
+/var/log/snmptrap/snmptrap.log { 
    weekly 
    size 10M 
    compress 
    notifempty 
    dateext 
    dateformat -%Y%m%d 
-   olddir /var/log/zabbix_traps_archive 
+   olddir /var/log/snmptrap/
    maxage 365 
    rotate 10 
 } 
 ```
 
-## Create a trap item in Zabbix
+## Testing if traps are received
 
-## Testing the traps
-
-```
-- #snmptrap -v 1 -c public 127.0.0.1 '.1.3.6.1.6.3.1.1.5.4' '0.0.0.0' 6 33 '55' .1.3.6.1.6.3.1.1.5.4 s "eth0"`
-- # snmptrap -v 2c -c public localhost '' 1.3.6.1.4.1.8072.2.3.0.1 1.3.6.1.4.1.8072.2.3.2.1 i 123456
-```
-
-### Check that traps are received 
-
-After sending the traps have a look in ```/var/log/zabbix_traps.tmp```
-
-### Working with SNMPv3 Traps
-
-createUser -e <engineid> <user> SHA <key> AES <key>
-authUser log,execute <user>
-perl do "/usr/bin/zabbix_trap_receiver.pl";
-
-
-???+ tip
-    The PDU info can be removed from the zabbix_trap_reciever.pl in case you dont like it
-
-Remove or add the folowing lines in comment:
+To see if we can receive traps let's run a few tests on our system. In case things don't work as expected verify every step again 
+see that snmptrapd is calling the perl script on the correct location ,verify that your community names are correct, make sure snmptraps are active in the Zabbix server configureation.
+And in your perl script check that file will be written to the correct folder and that the script is executable.
 
 ```
-DU INFO:
-  notificationtype               TRAP
-  version                        0
-  receivedfrom                   UDP: [127.0.0.1]:41840->[127.0.0.1]
-  errorstatus                    0
+- # snmptrap -v 1 -c public 127.0.0.1 '.1.3.6.1.6.3.1.1.5.4' '0.0.0.0' 6 33 '55' .1.3.6.1.6.3.1.1.5.4 s "enp0s1"
+```
+If all goes well we should now see in our log file the trap 
+
+```
+# cat snmptrap.log
+
+2024-06-08T19:03:08+0200 ZBXTRAP 127.0.0.1
+PDU INFO:
   messageid                      0
-  community                      public
-  transactionid                  2
-  errorindex                     0
   requestid                      0
+  version                        0
+  community                      public
+  notificationtype               TRAP
+  errorstatus                    0
+  receivedfrom                   UDP: [127.0.0.1]:32790->[127.0.0.1]:162
+  errorindex                     0
+  transactionid                  5
 VARBINDS:
   DISMAN-EVENT-MIB::sysUpTimeInstance type=67 value=Timeticks: (55) 0:00:00.55
   SNMPv2-MIB::snmpTrapOID.0      type=6  value=OID: IF-MIB::linkUp.0.33
-  IF-MIB::linkUp                 type=4  value=STRING: "eth0"
+  IF-MIB::linkUp                 type=4  value=STRING: "enp0s1"
   SNMP-COMMUNITY-MIB::snmpTrapCommunity.0 type=4  value=STRING: "public"
   SNMPv2-MIB::snmpTrapEnterprise.0 type=6  value=OID: IF-MIB::linkUp
 ```
 
+We can now do the same for a snmp trap v2
 
 
+```
+- # snmptrap -v 2c -c public localhost '' 1.3.6.1.4.1.8072.2.3.0.1 1.3.6.1.4.1.8072.2.3.2.1 i 123456
+```
+
+This should return the following information
+
+```
+# cat snmptrap.log
+
+2024-06-08T19:03:08+0200 ZBXTRAP 127.0.0.1
+PDU INFO:
+  messageid                      0
+  requestid                      0
+  version                        0
+  community                      public
+  notificationtype               TRAP
+  errorstatus                    0
+  receivedfrom                   UDP: [127.0.0.1]:32790->[127.0.0.1]:162
+  errorindex                     0
+  transactionid                  5
+VARBINDS:
+  DISMAN-EVENT-MIB::sysUpTimeInstance type=67 value=Timeticks: (55) 0:00:00.55
+  SNMPv2-MIB::snmpTrapOID.0      type=6  value=OID: IF-MIB::linkUp.0.33
+  IF-MIB::linkUp                 type=4  value=STRING: "enp0s1"
+  SNMP-COMMUNITY-MIB::snmpTrapCommunity.0 type=4  value=STRING: "public"
+  SNMPv2-MIB::snmpTrapEnterprise.0 type=6  value=OID: IF-MIB::linkUp
+2024-06-08T19:05:31+0200 ZBXTRAP 127.0.0.1
+PDU INFO:
+  notificationtype               TRAP
+  community                      public
+  messageid                      0
+  requestid                      2002881661
+  version                        1
+  transactionid                  6
+  errorindex                     0
+  receivedfrom                   UDP: [127.0.0.1]:53810->[127.0.0.1]:162
+  errorstatus                    0
+VARBINDS:
+  DISMAN-EVENT-MIB::sysUpTimeInstance type=67 value=Timeticks: (218161) 0:36:21.61
+  SNMPv2-MIB::snmpTrapOID.0      type=6  value=OID: NET-SNMP-EXAMPLES-MIB::netSnmpExampleHeartbeatNotification
+  NET-SNMP-EXAMPLES-MIB::netSnmpExampleHeartbeatRate type=2  value=INTEGER: 123456
+```
+First trap has sent us the name of our networkcard the second trap has sent us the value `123456`.
+
+
+## Create a trap item in Zabbix
+
+So we have our traps working but there is still something missing. We don't see any traps yet in Zabbix.
+This is because we have not created an item yet. We still have to tell zabbix to look in our trap file for items that we like to monitor.
+
+Zabbix can monitor for specific items like for example the trap with the networkcard we just sent or in case we don't know what exact item will arrive Zabbix has also a fallback option. Let's create both items so that we have an idea how to do this.
+
+
+### Create a fallback item
+
+
+
+### Create a specific item
+
+Before we can create an item we have to add a ```SNMP``` host interface on our host. Go to ```Data collection``` -> ```Host``` click on the host where you would like to sent the trap to and add a ```SNMP``` host interface with the correct IP of your host. In my case I am sending a trap to the zabbix server with the loopback interface as the IP. This will be different for every host. Zabbix will look in your log file and match the IP in the log with the host in your Zabbix setup.
+
+Also for this to work you will have to disable ```SeLinux``` as it will block or Zabbix server from accessing the log file. So don't forget to fix this afterwards.
+to temporary disable run ```setenforce 0```.
+
+![host-interface-snmp](image/snmp-interface.png)
+
+
+Once you have added your SNMP interface go to ```Data collection``` -> ```Hosts``` and click on items behind the name of your hosts.
+Let's create or fallback item by clicking on ```Create item``` in the upper right corner.
+
+When you see the popup to create the new item we have to add a few things copy everything I will explain later what it does.
+
+Name : SNMP Fallback
+Type : SNMP trap
+Key : snmptrap.fallback
+Type of information : Numeric
+Host interface : <the snmp interface of your hosts>
+
+![snmp trap intem](image/snmp-trap-item.png)
+
+Go to the tab Preporcessing and fill in the following information for our Preprocessing setp 1:
+
+- Name: Regular expression 
+- Parameters: INTEGER:.(\d+)
+- after the parameter field there is another field here you can fill in : \1
+
+![snmp trap preprocessing](image/snmp-trap-preprocessing.png)
+
+So let us explain quick what we just filled in.
+The name is just the name that will be visible in our latest data page etc for our item. The type we have to select ```SNMP trap``` as we are monitoring for incoming SNMP traps.
+The key is freeform and needs to be unique so we just choose something that makes sense in this case ```snmptrap.fallback``` as this item is a catch all item.
+Type of information I have chosen numeric usually you will want to keep it as text. I have chosen numeric because with preprocessing I will extract a numeric value from our test trap.
+
+In the ```Preprocessing tab``` 
+We added a regular expression in Perl this expression will look for the line starting with ```INTEGER:``` and the numeric value behind it. by adding ( ) we created a group. the \1 is a selector for the number of groups we like to extract in this case we have only 1 group so we look for group 1
+
+Sent the following trap to your zabbix server and replace the IP with the IP of the hosts you have added. 
+```
+snmptrap -v 2c -c public 127.0.0.1 '' 1.3.6.1.4.1.8072.2.3.0.1 1.3.6.1.4.1.8072.2.3.2.1 i 123456
+```
+Just run the trap on your Zabbix server and have a look in the latest data page of your hosts
+Monitoring -> Latest data and fill the name in of your ```host``` in the ```Hosts``` field.
+In the ```Name``` field you can filter for fallback if there are too many items
+
+![snmp trap latestdata](image/snmp-trap-latestdata.png)
+
+Adding a specific SNMP trap item works exactly the same only here we dont use the item key ```snmptrap.fallback``` but the item key ```snmptrap[regex]```.
+So in our case it will be snmptrap[123456].
+
+Create the same item as before but don't add any Preprocessing rules this time.
+
+![snmp trap regex](image/snmp-trap-regex.png)
+
+Let's send the trap again and go to latest data to see what we have received this time.
+```
+snmptrap -v 2c -c public 127.0.0.1 '' 1.3.6.1.4.1.8072.2.3.0.1 1.3.6.1.4.1.8072.2.3.2.1 i 123456
+```
+
+![snmptrap-error](image/snmp-trap-error.png)
+
+It looks like something went wrong in latest data we got a warning. This warning as in the screenshot above can be seen when you go with your mouse over the ```i``` in red at the end of you item.
+
+So what happened here is that Zabbix looks for a regex in this case ```123456``` it has found in the trap the value ```123456``` and it will show us the complete trap.
+
+So we have 2 options here :
+
+- We can change the item it's ```type of information``` to ```Text``` and choose to see the whole trap.
+or 
+- We can add again a Preprocessing step like we did with our fallback and filter for the numbers ```123456```.
+
+Once this is done our items will work.
+
+
+
+## Working with SNMPv3 Traps
+
+If you like to use SNMPv3 devices and protect the traps that are being sent then this is also possible. It works like with SNMPv1 and v2 we just have to change the config in our snmptrapd config and add the following lines.
+
+```
+createUser -e <engineid> <user> SHA <key> AES <key>
+authUser log,execute <user>
+perl do "/usr/bin/zabbix_trap_receiver.pl";
+```
+This will make sure snmptrapd will catch our SNMPv3 traps and sent them to our perl script. 
+
+???+ Note
+    An engine ID should be unique for every device you can't have devices with the same ```engineid``` so for every device you will have to add a line in the config file.
+
+ 
+
+???+ tip
+    The PDU info can be removed from the zabbix_trap_reciever.pl in case you dont like it
+
+Remove the folowing lines in the perl script or add a ```#``` in front :
+```
+        # print the PDU info
+        print OUTPUT_FILE "PDU INFO:\n";
+        foreach my $key(keys(%pdu_info))
+        {
+                if ($pdu_info{$key} !~ /^[[:print:]]*$/)
+                {
+                        my $OctetAsHex = unpack('H*', $pdu_info{$key}); # convert octet string to hex
+                        $pdu_info{$key} = "0x$OctetAsHex";              # apply 0x prefix for consistency
+                }
+
+                printf OUTPUT_FILE "  %-30s %s\n", $key, $pdu_info{$key};
+        }
+```
 
 
 ## Some useful links
 
-https://www.unix.com/man-page/redhat/8/logrotate/
+- https://www.unix.com/man-page/redhat/8/logrotate/
+- https://www.netreo.com/blog/snmp-traps-definition-types-examples-best-practices/
+- https://www.zabbix.com/documentation/7.0/en/manual/config/items/itemtypes/snmptrap
+- https://net-snmp.sourceforge.io/wiki/index.php/TUT:Configuring_snmptrapd
+- https://net-snmp.sourceforge.io/wiki/index.php/TUT:Configuring_snmptrapd_to_receive_SNMPv3_notifications
+
