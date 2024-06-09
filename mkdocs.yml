@@ -71,6 +71,7 @@ nav:
     - api/zabbix-api.md
   - 'Zabbix Extras':
     - extras/modbus.md
+    - extras/contributors.md
 
 theme:
    language: en
