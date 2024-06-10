@@ -23,35 +23,11 @@ To change the password, do the following steps:
 
 Before we create new users, it's important to know that Zabbix has three user types that are built-in.
 
-<html>
-  <head>
-    <style>
-      thead th { text-align:left; background:grey; color:white}
-      tbody th { text-align:right; background: lightgrey; color:whitwhitee}
-    </style>
-  </head>
-<body>
-  <table>
-    <thead>
-      <tr>
-        <th>User type</th><th>Description</th>
-      </tr>
-    </thead>
-  <tbody>
-    <tr>
-      <th>Zabbix User</th><td>This is a normal user that only has read-only permissions if given. So there are no permissions assigned by default.</td>
-    </tr>
-    <tr>
-      <th>Zabbix Admin</th><td>A user with read/write permissions. Just like the Zabbix user, there are no permissions by default. However access can be denied to some groups.</td>
-    </tr>
-    <tr>
-      <th>Zabbix Super Admin</th><td>A user with group read/write permissions. The user will have read/write access to all host and template groups. Access can't be revoked by denying access to groups, like with a normal admin.</td>
-    </tr>
-      </tbody>
-    </table>
-  </body>
-</html>
-
+| User type 	| Description 	|
+| ---- 		| ---- 		|
+| Zabbix User	| This is a normal user that only has read-only permissions if given. So there are no permissions assigned by default. |
+| Zabbix Admin	| A user with read/write permissions. Just like the Zabbix user, there are no permissions by default. However access can be denied to some groups.|
+| Zabbix Super Admin | A user with group read/write permissions. The user will have read/write access to all host and template groups. Access can't be revoked by denying access to groups, like with a normal admin.|
 
 Besides these differences, these users also have different access rights to our menu. Let's have a closer look.
 
