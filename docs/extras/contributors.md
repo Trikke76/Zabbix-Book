@@ -5,4 +5,4 @@ Let me know if you don't see your name and have contributed to this book.
 
 - Bgmot - https://bgmot.com/
 - Jason Drummond - https://www.linkedin.com/in/jason-drummond/
-
+- David Moreau - https://github.com/david-moreau
