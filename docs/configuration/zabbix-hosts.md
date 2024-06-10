@@ -6,6 +6,20 @@ It can be a physical host, a virtual machine, an application, a device, or even 
 It's probably one of the first tasks that we will do as an Admin when we first login to Zabbix because we need a host if we would like to monitor some metrics.
 It's however, important to know that hosts cannot be created without being in a hostgroup. 
 
+In this chapter we will teach you:
+
+- How to add a host in Zabbix
+- Host configuration tabs
+    - IPMI
+    - Tags
+    - Macros
+    - Inventory
+    - Encryption
+
+
+
+## How to add a host in Zabbix
+
 With this said, let's see how to create our first host.
 
 Let's go to the menu on your ```left``` and select Data Collection -> Hosts.
@@ -64,7 +78,7 @@ The fields marked with a <span style="color:red"> *red* </span> asterisk <span s
   </body>
 </html>
 
-## Host menu details
+##  Host configuration tabs
 
 Before we add a host ourselves, there are a few things we need to know first.
 When we click on a host that we have already configured, there are a few things that we will notice.
@@ -118,7 +132,14 @@ tbody th { text-align:right; background: lightgrey; color:whitwhitee}
 ???+ Note
     We will cover IPMI in more detail later in the Chapter [IPMI Monitoring](../extra-monitoring/IPMI-monitoring.md)
 
-
 ### Tags
+ToDo
 
-To Do
+###  Macros
+ToDo
+
+###  Inventory
+ToDo
+
+###  Encryption
+ToDo
