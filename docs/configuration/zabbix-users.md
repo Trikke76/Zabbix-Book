@@ -37,193 +37,84 @@ Besides these differences, these users also have different access rights to our 
 
 This table gives an overview of all the permissions a Zabbix user, admin, and super admin have in the Zabbix menu:
 
-<html>
-<head>
-<style>
-thead th { text-align:left; background:grey; color:white; height: 20px }
-tbody th { text-align:center; background: lightgrey; color:whitwhitee }
-</style>
-</head>
-<body>
-<table>
-  <thead>
-    <tr>
-      <th> </th><th>Zabbix User</th><th>Zabbix Admin</th><th>Zabbix Super Admin</th>
-    </tr>
-  </thead>
-<tbody>
-  <thead>
-    <tr>
-      <th >Dashboards</th><td><center>&#9989;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
-    <tr>
-  </thead>
-  <thead>
-    <tr>
-      <th>Monitoring</th><td><center>&#9989;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
-    </tr>
-  </thead>
-    <tr>
-      <th>- Problems</th><td><center>&#9989;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
-    </tr>
-    <tr>
-      <th>- Hosts</th><td><center>&#9989;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
-    </tr>
-    <tr>
-      <th>- Latest data</th><td><center>&#9989;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
-    </tr>
-    <tr>
-      <th>- Maps</th><td><center>&#9989;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
-    </tr>
-    <tr>
-      <th>- Discovery</th><td><center>&#10060;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
-    </tr>
-  <thead>
-    <tr>
-      <th>Services</th><th><center>&#9989;</center></th><th><center>&#9989;</center></th><th><center>&#9989;</center></th>
-    </tr>
-  </thead>
-    <tr>
-      <th>- Services</th><td><center>&#9989;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
-    </tr>
-    <tr>
-      <th>- SLA</th><td><center>&#10060;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
-    </tr>
-    <tr>
-      <th>- SLA Report</th><td><center>&#9989;;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
-    </tr>
-  <thead>
-    <tr>
-      <th>Inventory</th><th><center>&#9989;</center></th><th><center>&#9989;</center></th><th><center>&#9989;</center></th>
-    </tr>
-  </thead>
-    <tr>
-      <th>- Overview</th><td><center>&#9989;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
-    </tr>
-    <tr>
-      <th>- Hosts</th><td><center>&#9989;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
-    </tr>
-  <thead>
-    <tr>
-      <th>Reports</th><th><center>&#9989;</center></th><th><center>&#9989;</center></th><th><center>&#9989;</center></th>
-    </tr>
-  </thead>
-    <tr>
-      <th>- System information</th><td><center>&#10060;</center></td><td><center>&#10060;</center></td><td><center>&#9989;</center></td>
-    </tr>
-    <tr>
-      <th>- Scheduled reports</th><td><center>&#10060;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
-    </tr>
-    <tr>
-      <th>- Availability report</th><td><center>&#9989;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
-    </tr>
-    <tr>
-      <th>- Triggers top 100</th><td><center>&#9989;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
-    </tr>
-    <tr>
-      <th>- Audit log</th><td><center>&#10060;</center></td><td><center>&#10060;</center></td><td><center>&#9989;</center></td>
-    </tr>
-    <tr>
-      <th>- Action log</th><td><center>&#10060;</center></td><td><center>&#10060;</center></td><td><center>&#9989;</center></td>
-    </tr>
-    <tr>
-      <th>- Notifications</th><td><center>&#10060;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
-    </tr>
-  <thead>
-    <tr>
-      <th>Data Collection</th><th><center>&#10060;</center></th><th><center>&#9989;</center></th><th><center>&#9989;</center></th>
-    </tr>
-  </thead>
-    <tr>
-      <th>- Template groups</th><td><center>&#10060;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
-    </tr>
-    <tr>
-      <th>- Host groups</th><td><center>&#10060;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
-    </tr>
-    <tr>
-      <th>- Templates</th><td><center>&#10060;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
-    </tr>
-    <tr>
-      <th>- Hosts</th><td><center>&#10060;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
-    </tr>
-    <tr>
-      <th>- Maintenance</th><td><center>&#10060;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
-    </tr>
-    <tr>
-      <th>- Event correlation</th><td><center>&#10060;</center></td><td><center>&#10060;</center></td><td><center>&#9989;</center></td>
-    </tr>
-    <tr>
-      <th>- Discovery</th><td><center>&#10060;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
-    </tr>
-  <thead>
-    <tr>
-      <th>Alerts</th><th><center>&#10060;</center></th><th><center>&#9989;</center></th><th><center>&#9989;</center></th>
-    </tr>
-  </thead>
-    <tr>
-      <th>- Trigger actions</th><td><center>&#10060;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
-    </tr>
-    <tr>
-      <th>- Service actions</th><td><center>&#10060;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
-    </tr>
-    <tr>
-      <th>- Autoregistration actions</th><td><center>&#10060;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
-    </tr>
-    <tr>
-      <th>- Internal actions</th><td><center>&#10060;</center></td><td><center>&#9989;</center></td><td><center>&#9989;</center></td>
-    </tr>
-    <tr>
-      <th>- Media types</th><td><center>&#10060;</center></td><td><center>&#10060;</center></td><td><center>&#9989;</center></td>
-    </tr>
-    <tr>
-      <th>- Scripts</th><td><center>&#10060;</center></td><td><center>&#10060;</center></td><td><center>&#9989;</center></td>
-    </tr>
-  <thead>
-    <tr>
-      <th>Users</th><th><center>&#10060;</center></th><th><center>&#10060;</center></th><th><center>&#9989;</center></th>
-    </tr>
-  </thead>
-    <tr>
-      <th>- User groups</th><td><center>&#10060;</center></td><td><center>&#10060;</center></td><td><center>&#9989;</center></td>
-    </tr>
-    <tr>
-      <th>- User roles</th><td><center>&#10060;</center></td><td><center>&#10060;</center></td><td><center>&#9989;</center></td>
-    </tr>
-    <tr>
-      <th>- Users</th><td><center>&#10060;</center></td><td><center>&#10060;</center></td><td><center>&#9989;</center></td>
-    </tr>
-    <tr>
-      <th>- Api tokens</th><td><center>&#10060;</center></td><td><center>&#10060;</center></td><td><center>&#9989;</center></td>
-    </tr>
-    <tr>
-      <th>- Authentication</th><td><center>&#10060;</center></td><td><center>&#10060;</center></td><td><center>&#9989;</center></td>
-    </tr>
-  <thead>
-    <tr>
-      <th>Administration</th><th><center>&#10060;</center></th><th><center>&#10060;</center></th><th><center>&#9989;</center></th>
-    </tr>
-  </thead>
-    <tr>
-      <th>- General</th><td><center>&#10060;</center></td><td><center>&#10060;</center></td><td><center>&#9989;</center></td>
-    </tr>
-    <tr>
-      <th>- Audit log</th><td><center>&#10060;</center></td><td><center>&#10060;</center></td><td><center>&#9989;</center></td>
-    </tr>
-    <tr>
-      <th>- Housekeeping</th><td><center>&#10060;</center></td><td><center>&#10060;</center></td><td><center>&#9989;</center></td>
-    </tr>
-    <tr>
-      <th>- Proxies</th><td><center>&#10060;</center></td><td><center>&#10060;</center></td><td><center>&#9989;</center></td>
-    </tr>
-    <tr>
-      <th>- Macros</th><td><center>&#10060;</center></td><td><center>&#10060;</center></td><td><center>&#9989;</center></td>
-    </tr>
-    <tr>
-      <th>- Queue</th><td><center>&#10060;</center></td><td><center>&#10060;</center></td><td><center>&#9989;</center></td>
-    </tr>
-  </tbody>
-</table>
-</body>
-</html>
+| 		| Zabbix User 	| Zabbix Admin	| Zabbix Super Admin 	|
+| :---- 	| :----:	| :----:	| :----:		|
+| Dashboards 	| &#9989;	| &#9989;	| &#9989;		|
+ 
+|               | Zabbix User   | Zabbix Admin  | Zabbix Super Admin    |
+| :----         | :----:        | :----:        | :----:                |
+| Monitoring	| &#9989;	| &#9989;	| &#9989;		|
+| - Problems	| &#9989;	| &#9989;	| &#9989;		|
+| - Hosts	| &#9989;	| &#9989;	| &#9989;		|
+| - Latest data | &#9989;	| &#9989;	| &#9989;		|
+| - Maps	| &#9989;	| &#9989;	| &#9989;		|
+| - Discovery 	| &#10060;	| &#9989;	| &#9989;		|
+
+|               | Zabbix User   | Zabbix Admin  | Zabbix Super Admin    |
+| :----         | :----:        | :----:        | :----:                |
+| Services	| &#9989;	| &#9989;	| &#9989;		|
+| - SLA		| &#10060;	| &#9989;	| &#9989;		|
+| - SLA Reports | &#9989;	| &#9989; 	| &#9989;		|
+
+|               | Zabbix User   | Zabbix Admin  | Zabbix Super Admin    |
+| :----         | :----:        | :----:        | :----:                |
+| Inventory	| &#9989;	| &#9989;	| &#9989;		|
+| - Overview	| &#9989;	| &#9989;	| &#9989;		|
+| - Hosts	| &#9989;	| &#9989;	| &#9989;		|
+
+|               	| Zabbix User   | Zabbix Admin  | Zabbix Super Admin    |
+| :----         	| :----:        | :----:        | :----:                |
+| Reports		| &#9989;	| &#9989;	| &#9989;		|
+| - System information	| &#10060;	| &#10060;	| &#9989;		|
+| - Scheduled reports	| &#10060;	| &#9989;	| &#9989;		|
+| - Availability report	| &#9989;	| &#9989;	| &#9989;		|
+| - Triggers top 100	| &#9989;	| &#9989;	| &#9989;		|
+| - Audit log		| &#10060;	| &#10060;	| &#9989;		|
+| - Action log		| &#10060; 	| &#10060;	| &#9989;		|
+| - Notifications 	| &#10060;	| &#9989;	| &#9989;		|
+
+|                       | Zabbix User   | Zabbix Admin  | Zabbix Super Admin    |
+| :----                 | :----:        | :----:        | :----:                |
+| Data Collection	| &#10060;	| &#9989;	| &#9989;		|	
+| - Template groups	| &#10060;	| &#9989;	| &#9989;               |
+| - Host groups		| &#10060;	| &#9989; 	| &#9989;               |
+| - Templates		| &#10060;	| &#9989;	| &#9989;               |
+| - Hosts		| &#10060;	| &#9989; 	| &#9989;               |
+| - Maintenance		| &#10060;	| &#9989;	| &#9989;               |
+| - Event correlation	| &#10060;	| &#10060;	| &#9989;               |
+| - Discovery		| &#10060;	| &#9989;	| &#9989;               |
+
+|                       | Zabbix User   | Zabbix Admin  | Zabbix Super Admin    |
+| :----                 | :----:        | :----:        | :----:                |
+| Alerts		| &#10060;	| &#9989;	| &#9989;		|
+| - Trigger actions	| &#10060;	| &#9989;	| &#9989;               |
+| - Service actions	| &#10060;	| &#9989;	| &#9989;               |
+| - Autoregistration actions | &#10060; | &#9989;	| &#9989;               |
+| - Internal actions	| &#10060;	| &#9989;	| &#9989;               |
+| - Media types		| &#10060;	| &#10060;	| &#9989;               |
+| - Scripts		| &#10060;	| &#10060;	| &#9989;               |
+
+
+|                       | Zabbix User   | Zabbix Admin  | Zabbix Super Admin    |
+| :----                 | :----:        | :----:        | :----:                |
+| Users			| &#10060;	|  &#10060;	| &#9989;               |
+| - User groups		| &#10060;      |  &#10060;     | &#9989;               |
+| - User roles		| &#10060;      |  &#10060;     | &#9989;               |
+| - Users		| &#10060;      |  &#10060;     | &#9989;               |
+| - Api tokens		| &#10060;      |  &#10060;     | &#9989;               |
+| - Authentication	| &#10060;      |  &#10060;     | &#9989;               |
+
+|                       | Zabbix User   | Zabbix Admin  | Zabbix Super Admin    |
+| :----                 | :----:        | :----:        | :----:                |
+| Administration	| &#10060;      |  &#10060;     | &#9989;               |
+| - General		| &#10060;      |  &#10060;     | &#9989;               |
+| - Audit log		| &#10060;      |  &#10060;     | &#9989;               |
+| - Housekeeping	| &#10060;      |  &#10060;     | &#9989;               |
+| - Proxies		| &#10060;      |  &#10060;     | &#9989;               |
+| - Macros		| &#10060;      |  &#10060;     | &#9989;               |
+| - Queue		| &#10060;      |  &#10060;     | &#9989;               |
+
+
 
 - An ```Admin``` user will have more rights than a regular user and will be able to make some configuration changes in Zabbix.
 - A ```Super Admin``` can access all parts of the menu. 

@@ -1,5 +1,8 @@
 # Installing Zabbix
 
+In this chapter we will cover the installation of our Zabbix server. 
+In the previous topic we already installed the DB now we will see how to install our Zabbix server and to connect it to our database. We will cover also possible design choices as Zabbix can be installed in a modular way.
+
 Before we can install Zabbix we first have to know how the design is. The Zabbix server has been build op modular based on 3 components.
 
 - The Zabbix server
@@ -16,6 +19,14 @@ The web server provides us with a front-end. Note that Zabbix has a API and that
 All these parts have to work together so as you can see in our image above. The Zabbix server needs to read the config and store the data in our database and the Zabbix front-end needs to be able to write the configuration in the database as well. The Zabbix front-end also needs to check the online status of our Zabbix server and needs to read some other information as well.
 
 For our setup, we will use 2 VM's, 1 VM with a Zabbix server and our Zabbix web server and another VM with our Zabbix database.
+
+
+In this chapter we will see how to :
+
+- Install the Zabbix server for MySQL/MariaDB
+- Install the Zabbix server for PostgreSQL
+- Install the Zabbix frontend with NginX
+- Install the Zabbix frontend with Apache
 
 
 
