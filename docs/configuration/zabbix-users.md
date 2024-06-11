@@ -324,36 +324,20 @@ A user always needs to be member of one or more ```User groups```. We will not s
 
 
 
-Zabbix has a few different rights we can use on group level, as we have seen above. To make it easier for you I add them again:
+Zabbix has a few different rights we can use on group level, as we have seen above.
+To make it easier for you I add them again:
 
-<html>
-  <head>
-    <style>
-      thead th { text-align:left; background:grey; color:white}
-      tbody th { text-align:right; background: lightgrey; color:whitwhitee}
-    </style>
-  </head>
-<body>
-  <table>
-    <thead>
-      <tr>
-        <th>Group rights</th><th>Zabbix User</th><th>Zabbix Admin</th><th>Zabbix Super Admin</th>
-      </tr>
-    </thead>
-  <tbody>
-    <tr>
-      <th>Read/Write</th><td>Read Only</td><td>Full</td><td>Full</td>
-    </tr>
-    <tr>
-      <th>Read only</th><td>Read Only</td><td>Read Only</td><td>Full</td>
-    </tr>
-    <tr>
-      <th>Deny</th><td>None</td><td>None</td><td>Full</td>
-    </tr>
-      </tbody>
-    </table>
-  </body>
-</html>
+
+| Group rights	| Zabbix User	| Zabbix Admin	| Zabbix Super Admin 	|
+| :----		| :----:	| :----:	| :----:		|
+| Read/Write	| Read Only	| Read/Write	| Read/Write		|
+| Read only	| Read Only	| Read Only	| Read/Write		|
+| Deny		| None		| None		| Read/Write		| 
+
+- Read Only : The user has only read access and cannot modify anything.
+- Read/Write : The user can see and edit.
+- Deny: There is not even the options to see any data
+
 
 When it comes to permissions in Zabbix groups, the highest level will win. 
 A user that has read and read-write rights on the same host will get read-write permissions. Except for Deny, Deny will always overrule.
