@@ -13,93 +13,94 @@ docs_dir: docs
 
 # Navigation
 nav:
-  - Welcome: 'index.md'
-  - 'Getting started':
-    - installation/Requirements.md
-    - installation/installing-zabbixdb.md
-    - installation/installing-zabbix.md
-    - installation/installing-zabbix-ha.md
-  - 'The basics':
-    - configuration/Dashboard.md
-    - configuration/zabbix-users.md
-    - configuration/zabbix-hosts.md
-    - configuration/zabbix-hostgroups.md
-    - configuration/zabbix-interfaces.md
-    - configuration/zabbix-templates.md
-    - configuration/zabbix-items.md
-    - configuration/zabbix-triggers.md
-    - configuration/zabbix-macros.md
-    - configuration/zabbix-dataflow.md
-    - configuration/zabbix-agent.md
-  - 'Problem detection':
-    - problems/zabbix-triggers.md
-  - 'Taking action when problems come':
-    - actions/zabbix-eventactions.md
-  - 'Managing permissions':
-    - permissions/managing-permissions.md
-  - 'Visualising Problems':
-     - visualising/Visualising-our-problems.md
-  - 'Automating configuration':
-    - automation/automating-configuration.md
-  - 'VMWare monitoring':
-    - vmware/vmware-monitoring.md
-  - 'Monitoring websites':
-    - websites/monitoring-websites.md
-  - 'Monitoring SNMP, IPMI and JAVA':
-    - extra-monitoring/SNMP-monitoring.md
-    - extra-monitoring/SNMP-traps-monitoring.md
-    - extra-monitoring/JAVA-monitoring.md
-    - extra-monitoring/IPMI-monitoring.md
-  - 'Authentication':
-    - authentication/zabbix-http.md
-    - authentication/zabbix-ldap.md
-    - authentication/zabbix-saml.md
-    - authentication/zabbix-mfa.md
-  - 'Monitoring with Proxies':
-    - proxies/installing-proxies.md
-    - proxies/active-proxy.md
-    - proxies/passive-proxy.md
-    - proxies/loadbalancing-proxies.md
-  - 'Securing Zabbix':
-    - security/securing-zabbix.md
-    - security/securing-zabbix-selinux.md
-  - 'Maintaining Zabbix':
-    - maintenance/maintaining-zabbix.md
-  - 'Monitoring Windows':
-    - windows/monitoring-windows.md
-  - 'Zabbix API':
-    - api/zabbix-api.md
-  - 'Zabbix Extras':
-    - extras/modbus.md
-    - extras/contributors.md
+  - Welcome: "index.md"
+  - "Getting started":
+      - installation/Requirements.md
+      - installation/installing-zabbixdb.md
+      - installation/installing-zabbix.md
+      - installation/installing-zabbix-ha.md
+  - "The basics":
+      - configuration/Dashboard.md
+      - configuration/zabbix-users.md
+      - configuration/zabbix-hosts.md
+      - configuration/zabbix-hostgroups.md
+      - configuration/zabbix-interfaces.md
+      - configuration/zabbix-templates.md
+      - configuration/zabbix-items.md
+      - configuration/zabbix-triggers.md
+      - configuration/zabbix-macros.md
+      - configuration/zabbix-dataflow.md
+  - "Data collection":
+      - data-collection/zabbix-agent.md
+  - "Problem detection":
+      - problems/zabbix-triggers.md
+  - "Taking action when problems come":
+      - actions/zabbix-eventactions.md
+  - "Managing permissions":
+      - permissions/managing-permissions.md
+  - "Visualising Problems":
+      - visualising/Visualising-our-problems.md
+  - "Automating configuration":
+      - automation/automating-configuration.md
+  - "VMWare monitoring":
+      - vmware/vmware-monitoring.md
+  - "Monitoring websites":
+      - websites/monitoring-websites.md
+  - "Monitoring SNMP, IPMI and JAVA":
+      - extra-monitoring/SNMP-monitoring.md
+      - extra-monitoring/SNMP-traps-monitoring.md
+      - extra-monitoring/JAVA-monitoring.md
+      - extra-monitoring/IPMI-monitoring.md
+  - "Authentication":
+      - authentication/zabbix-http.md
+      - authentication/zabbix-ldap.md
+      - authentication/zabbix-saml.md
+      - authentication/zabbix-mfa.md
+  - "Monitoring with Proxies":
+      - proxies/installing-proxies.md
+      - proxies/active-proxy.md
+      - proxies/passive-proxy.md
+      - proxies/loadbalancing-proxies.md
+  - "Securing Zabbix":
+      - security/securing-zabbix.md
+      - security/securing-zabbix-selinux.md
+  - "Maintaining Zabbix":
+      - maintenance/maintaining-zabbix.md
+  - "Monitoring Windows":
+      - windows/monitoring-windows.md
+  - "Zabbix API":
+      - api/zabbix-api.md
+  - "Zabbix Extras":
+      - extras/modbus.md
+      - extras/contributors.md
 
 theme:
-   language: en
-   name: material
-   custom_dir: docs/overrides
-   font:
-     text: Roboto
-     code: Nunito
-   icon:
-     logo: material/library
-   features:
-     - header.autohide
-     - navigation.sections
-#     - navigation.instant can't be used with i18n
-     - navigation.expand
-   palette:
-     - scheme: default
-       primary: blue
-       accent: blue
-       toggle:
-         icon: material/toggle-switch-off-outline
-         name: Switch to dark mode
-     - scheme: slate
-       primary: light blue
-       accent: light blue
-       toggle:
-         icon: material/toggle-switch
-         name: Switch to light mode
+  language: en
+  name: material
+  custom_dir: docs/overrides
+  font:
+    text: Roboto
+    code: Nunito
+  icon:
+    logo: material/library
+  features:
+    - header.autohide
+    - navigation.sections
+    #     - navigation.instant can't be used with i18n
+    - navigation.expand
+  palette:
+    - scheme: default
+      primary: blue
+      accent: blue
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to dark mode
+    - scheme: slate
+      primary: light blue
+      accent: light blue
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to light mode
 
 extra_css:
   - stylesheets/extra.css
@@ -155,15 +156,15 @@ plugins:
             Getting started: 入门
             The basics: 基础
             Problem detection: 问题检测
- 
+
   - print-site:
       add_to_navigation: false
-      print_page_title: 'Print Book'
+      print_page_title: "Print Book"
       add_print_site_banner: true
       print_site_banner_template: "docs/assets/templates/custom_banner.tpl"
       # Table of contents
       add_table_of_contents: true
-      toc_title: 'Table of Contents'
+      toc_title: "Table of Contents"
       toc_depth: 6
       # Content-related
       add_full_urls: false
