@@ -134,65 +134,21 @@ Zabbix passwords rely on a minimum length of 8 characters and also block a list 
 
 ![User Password policy](image/user-policy.png){ width=80% }
 
-
-<html>
-  <head>
-    <style>
-      thead th { text-align:left; background:grey; color:white}
-      tbody th { text-align:right; background: lightgrey; color:whitwhitee}
-    </style>
-  </head>
-<body>
-<table>
-  <thead>
-    <tr>
-      <th>Parameter</th><th>Description</th>
-      </tr>
-  </thead>
-<tbody>
-  <tr>
-    <th>Username</th><td>A unique name that will be used as username when we login.</td>
-  </tr>
-  <tr>
-    <th>Name</th><td>The users firstname this field is optional visible in acknowledgment information and notification recipient information if set.</td>
-  </tr>
-  <tr>
-    <th>Last Name</th><td>Users last name. Optional, this field is optional visible in acknowledgment information and notification recipient information if set.</td>
-  </tr>
-  <tr>
-    <th>Groups</th><td>Select what group the user will belong to. Atleast 1 group needs to be selected. This feeld will auto complete or you can press the '''Select''' button at the end of the field.</td>
-  </tr>
-  <tr>
-    <th>Password</th><td>There are 2 password fields they can only be used for internal authentication but more about this later. If the user has the Super admin role then clicking on the Change password button opens an additional field to entering the current (old) password. On a successful password change, the user for which the password was changed will be logged out of all active sessions.</td>
-  </tr>
-  <tr>
-    <th>Language</th><td>Language of the frontend. The php gettext extension is required for the translations to work. And the language needs to be configured on the system. See the chapter "Installing Zabbix" in case you forgot.</td>
-  </tr>
-  <tr>
-    <th>Timezone</th><td>Select the time zone per user or use the default timezone that is configured on the Zabbix server.</td>
-  </tr>
-  <tr>
-    <th>Theme</th><td>Here users can select their own look and feel by choosing one of the 4 themes provided by Zabbix or another custom made theme. Default will switch to the default theme chosen by the admin.</td>
-  </tr>
-  <tr>
-    <th>Auto-Login</th><td>Check this box so that the user will be remembered for 30 days. The browser must accept cookies for this to work.</td>
-  </tr>
-  <tr>
-    <th>Auto-Logout</th><td>Checking this box makes sure the user gets logged out automatically, after the set amount of seconds (minimum 90 seconds, maximum 1 day). Time suffixes are supported, e.g. 90s, 5m, 2h, 1d. Note that this option will not work if : <li>If the "Show warning if Zabbix server is down" global configuration option is enabled and Zabbix frontend is kept open.</li><li>When Monitoring menu pages perform background information refreshes.</li><li>If logging in with the Remember me for 30 days option checked.</li></td>
-  </tr>
-  <tr>
-    <th>Refresh</th><td>Set the refresh rate used for graphs, plain text data, etc. Can be set to 0 to disable. Time suffixes are supported. Ex: 90s, 5m, 1h.</td>
-  </tr>
-  <tr>
-    <th>Rows per page</th><td>Define how many rows per page will be displayed in lists.</td>
-  </tr>
-  <tr>
-    <th>URL(after login)</th><td>You can make Zabbix transfer the user to a specific URL after successful login. This can be useful for monitors in NOC team for example so you arrive on a specific dashboard that is maximised. You can make Zabbix transfer the user to a specific URL after successful login. This can be useful for monitors in NOC team for example so you arrive on a specific dashboard that is maximised.</td>
-  </tr>
-</tbody>
-</table>
-</body>
-</html>
+| Parameter 	| Description 	|
+| :----		| :----		|
+| Username	| A unique name that will be used as username when we login.	|
+| Name		| The users firstname this field is optional visible in acknowledgment information and notification recipient information if set. |
+| Last Name	| Users last name. Optional, this field is optional visible in acknowledgment information and notification recipient information if set.|
+| Groups	| Select what group the user will belong to. Atleast 1 group needs to be selected. This feeld will auto complete or you can press the '''Select''' button at the end of the field|
+| Password	| There are 2 password fields they can only be used for internal authentication but more about this later. If the user has the Super admin role then clicking on the Change password button opens an additional field to entering the current (old) password. On a successful password change, the user for which the password was changed will be logged out of all active sessions.|
+| Language	| Language of the frontend. The php gettext extension is required for the translations to work. And the language needs to be configured on the system. See the chapter "Installing Zabbix" in case you forgot.|
+| Timezone	| Select the time zone per user or use the default timezone that is configured on the Zabbix server.|
+| Theme		| Here users can select their own look and feel by choosing one of the 4 themes provided by Zabbix or another custom made theme. Default will switch to the default theme chosen by the admin.|
+| Auto-Login	| Check this box so that the user will be remembered for 30 days. The browser must accept cookies for this to work.|
+| Auto-Logout	| Checking this box makes sure the user gets logged out automatically, after the set amount of seconds (minimum 90 seconds, maximum 1 day). Time suffixes are supported, e.g. 90s, 5m, 2h, 1d. Note that this option will not work if : <li>If the "Show warning if Zabbix server is down" global configuration option is enabled and Zabbix frontend is kept open.</li><li>When Monitoring menu pages perform background information refreshes.</li><li>If logging in with the Remember me for 30 days option checked.</li>|
+| Refresh	| Set the refresh rate used for graphs, plain text data, etc. Can be set to 0 to disable. Time suffixes are supported. Ex: 90s, 5m, 1h.|
+| Rows per page	| Define how many rows per page will be displayed in lists.|
+| URL(after login)| You can make Zabbix transfer the user to a specific URL after successful login. This can be useful for monitors in NOC team for example so you arrive on a specific dashboard that is maximised. You can make Zabbix transfer the user to a specific URL after successful login. This can be useful for monitors in NOC team for example so you arrive on a specific dashboard that is maximised. |
 
 
 ### User Media
@@ -206,40 +162,15 @@ When pressing the ''' Add ''' button, we get a popup where we can select some in
 
 ![User Media popup](image/user-media-popup.png){ width=80% }
 
-<html>
-<head>
-<style>
-thead th { text-align:left; background:grey; color:white}
-tbody th { text-align:right; background: lightgrey; color:whitwhitee}
-</style>
-</head>
-<body>
-<table>
-<thead>
-<tr>
-<th>Parameter</th><th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<th>Type</th><td>A drop down list with the names of all media types. When a media type is disabled it will be in red.</td>
-</tr>
-<tr>
-<th>Send to</th><td>Here we can provide contact information. For an email media type it is possible to add several addresses by clicking on '''Add'''  below the address field. In this case, the notification will be sent to all email addresses provided. It's also possible to specify recipient name in the Send to field of the email recipient in a format 'Recipient name &lt;address1@company.com>'. Note that if a recipient name is provided, an email address should be wrapped in angle brackets (<>). UTF-8 characters in the name are supported, quoted pairs and comments are not. For example: John Doe &lt;manager@open-future.com> and manager@nycdatacenter.com are both valid formats. Incorrect examples: John Doe manager@open-future.com, %%"Zabbix\@\&lt;H(comment)Q\>" zabbix@company.com %%.<td>
-</tr>
-<tr>
-<th>when active</th><td>The time when media will be active from monday till sundat, 1-7 and the time from 00:00 till 24:00 for example only in weekends from 6 in the morning till 5 in the evening: 6-7,06-17:00i. This is based on the user his timezone</td>
-</tr>
-<tr>
-<th>Use if severity</th><td>A list of checkboxes from the severities you would like to recieve notifications from. Selected severities will be displayed in color. !! Read the warning below!!</td>
-</tr>
-<tr>
-<th>Status</th><td>Status of the media we have selected either enabled or disabled ( in use or not )</td>
-</tr>
-</tbody>
-</table>
-</body>
-</html>
+
+| Parameter	| Description		|
+| :----		| : ----		|
+| Type		| A drop down list with the names of all media types. When a media type is disabled it will be in red.|
+| Send to	| Here we can provide contact information. For an email media type it is possible to add several addresses by clicking on '''Add''' below the address field. In this case, the notification will be sent to all email addresses provided. It's also possible to specify recipient name in the Send to field of the email recipient in a format 'Recipient name <address1@company.com>'. Note that if a recipient name is provided, an email address should be wrapped in angle brackets (<>). UTF-8 characters in the name are supported, quoted pairs and comments are not. For example: John Doe <manager@open-future.com> and manager@nycdatacenter.com are both valid formats. Incorrect examples: John Doe manager@open-future.com, %%"Zabbix\@\<H(comment)Q\>" zabbix@company.com %%.|
+| when active	| The time when media will be active from monday till sundat, 1-7 and the time from 00:00 till 24:00 for example only in weekends from 6 in the morning till 5 in the evening: 6-7,06-17:00i. This is based on the user his timezone|
+| Use if severity |A list of checkboxes from the severities you would like to recieve notifications from. Selected severities will be displayed in color. !! Read the warning below!!|
+| Status	| Status of the media we have selected either enabled or disabled ( in use or not )|
+
 
 ???+ warning
     When selecting the different severity levels, be aware that you have to select ```Not classified``` if you want to receive notifications about non-trigger events, like internal events. For more information, check out [Event Sources](https://www.zabbix.com/documentation/7.0/en/manual/config/events/sources). This is something that is not obvious, and Zabbix documentation could be better at explaining this.
@@ -256,34 +187,12 @@ Choosing a ```User type``` is one thing; based on the ```User type``` we choose,
 
 Here is an overview of every user and his rights:
 
-<html>
-  <head>
-    <style>
-      thead th { text-align:left; background:grey; color:white}
-      tbody th { text-align:right; background: lightgrey; color:whitwhitee}
-    </style>
-  </head>
-<body>
-  <table>
-    <thead>
-      <tr>
-        <th>Group rights</th><th>Zabbix User</th><th>Zabbix Admin</th><th>Zabbix Super Admin</th>
-      </tr>
-    </thead>
-  <tbody>
-    <tr>
-      <th>Read/Write</th><td>Read Only</td><td>Full</td><td>Full</td>
-    </tr>
-    <tr>
-      <th>Read only</th><td>Read Only</td><td>Read Only</td><td>Full</td>
-    </tr>
-    <tr>
-      <th>Deny</th><td>None</td><td>None</td><td>Full</td>
-    </tr>
-      </tbody>
-    </table>
-  </body>
-</html>
+| Group rights 	| Zabbix User	| Zabbix Admin	| Zabbix Super Admin	|
+| :----		| :----		| :----		| :----			|
+| Read/Write	| Read Only	| Full		| Full			|
+| Read Only	| Read Only	| Read Only	| Full			|
+| Deny		| None		| None		| Full			|
+
 
 
 ???+ Note
