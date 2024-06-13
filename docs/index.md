@@ -15,7 +15,7 @@ The only problem left was how to make those markdown files readable in an easy w
 
 ## Who am I ?
 
-My name is Patrik Uytterhoeven and I work for a Belgium company named Open-Future. I started at this company at Januari 2013 and that's
+My name is Patrik Uytterhoeven and I work for a Belgium company named Open-Future. I started at this company at January 2013 and that's
 when my journey started with Zabbix as well. They gave me the opportunity to build my experience and to get certified as Zabbix trainer.
 Since this year I am officially 10y Zabbix trainer. If you would like to follow one of my trainings feel free to register for a training at our website [www.open-future.be](https://www.open-future.be). Why would you follow a training if you can read this book for free are you now thinking? Because trainings just like the book explain you all the details on how to set up and do things but also give you valueable tips and feedback that you never get from a book. Books just can't cover everything.
 
