@@ -19,6 +19,13 @@
 - If you like to translate a page then create a file with the same name as the original but add the country code before .md Ex : Requirements.md will become Requirements.nl.md. If you don't make screenshots with translations then use the same images in the image dir.
 - If you like to add new screenshots create a new folder image.<language code> Ex: image/ becomes image.nl/
 
+## How to write a topic
+
+- When you write a topic start with an introduction what the topic is about
+- Give an overview of the topics that you will cover
+- Add visuals if possible
+- Create a how to so that people see how they can do this 
+- place the images in a /image folder 
 
 
 
@@ -34,7 +41,7 @@
 - Webpage is ready for translation: :white_check_mark:
 - Webpage is translated : :checkered_flag:
 - Webpage has been updated after translation: :material-refresh:
-
+- Webpage is still not finished : :construction:
 
 
 | Webpage			| English          | French           | German           | Italian | Dutch | Portugese | Spanish | Thai | Chinese |
@@ -56,7 +63,7 @@
 |template			|                  |                  |                  |         |       |           |         |      |         |
 |Items				|                  |                  |                  |         |       |           |         |      |         |
 |Zabbix triggers		|                  |                  |                  |         |       |           |         |      |         |
-|Macros				|                  |                  |                  |         |       |           |         |      |         |
+|Macros				|:construction:    |:construction:    |                  |         |       |           |         |      |         |
 |Data Flow			|                  |                  |                  |         |       |           |         |      |         |
 |				|                  |                  |                  |         |       |           |         |      |         |
 |Data collection		|                  |                  |                  |         |       |           |         |      |         |
@@ -84,10 +91,10 @@
 |Monitoring websites		|                  |                  |                  |         |       |           |         |      |         |
 |				|                  |                  |                  |         |       |           |         |      |         |
 |Monitoring SNMP, IPMI and JAVA	|                  |                  |                  |         |       |           |         |      |         |
-|SNMP Monitoring		|                  |                  |                  |         |       |           |         |      |         |
+|SNMP Monitoring		|:construction:    |                  |                  |         |       |           |         |      |         |
 |SNMP trap monitoring		|                  |                  |                  |         |       |           |         |      |         |
 |JAVA monitoring		|                  |                  |                  |         |       |           |         |      |         |
-|IPMI Monitoring		|                  |                  |                  |         |       |           |         |      |         |
+|IPMI Monitoring		|:construction:    |                  |                  |         |       |           |         |      |         |
 |				|                  |                  |                  |         |       |           |         |      |         |
 |Authentication			|                  |                  |                  |         |       |           |         |      |         |
 |Authentication with HTTP	|                  |                  |                  |         |       |           |         |      |         |
