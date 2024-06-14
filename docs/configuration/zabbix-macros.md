@@ -1,8 +1,18 @@
 # Macros
 
 Macros are one of the concepts you need to understand in Zabbix. There are different types, and they make Zabbix more scalable and less static.
+In this topic we will explain the different types of macros and how to use them.
 
+We will cover:
 
+- Built-in macros
+- Function macros
+- User macros
+- Low-level discovery macros
+- Expression macro
+- User macro with context
+
+---
 
 ## Built-in macros
 
@@ -11,7 +21,7 @@ They correspond to Zabbix internal macros, they are represented using this notat
 For example, the `{HOST.HOST}` built-in macro can be used to retrieve the host in a trigger expression.
 or the macro `{HOST.IP}` which does the same thing but retrieves the IP of the host.
 
-
+---
 
 ## Function macros
 
@@ -26,6 +36,7 @@ The syntax of a macro function is as follows: `{macro.func(params)}`
 |[regsub](https://www.zabbix.com/documentation/7.0/en/manual/config/macros/macro_functions#regsub)|Substring extraction by a regular expression match (case-sensitive).|
 
 
+---
 
 ## User macros
 
@@ -59,12 +70,14 @@ In this screenshot we can see that there is a ```Global macro``` defined with a 
 However the effective vale is coming from our ```Host macro```.
 
 
+---
 
 ## Low-level discovery macros
 
 This type of macro is a little special, it is used in the case of [Low-level discovery](https://www.zabbix.com/documentation/7.0/en/manual/discovery/low_level_discovery) and is preceded by a **#** `{#MACRO}`, it is useful for variabilize the creation of a prototype item, prototype trigger or prototype host.
 
 
+---
 
 ## Expression macro
 
@@ -72,6 +85,7 @@ These macros are very specific, they are used exclusively in name graphs and in 
 `{?avg(/{HOST.HOST}/{ITEM.KEY},1h)}`
 
 
+---
 
 ## User macro with context
 
@@ -80,6 +94,7 @@ have a different threshold depending on ... the context, they use the syntax: `{
 You want to set the global threshold to 80%, but on a particular partition you want to increase the threshold to 90%. To do this, we'll use the context.
 
 
+---
 
 ### Example:
 
@@ -88,6 +103,7 @@ You want to set the global threshold to 80%, but on a particular partition you w
 
 In this example, all the mount points on our server will have a default threshold of 80% except for /tmp, which will have a custom threshold of 90%.
 
+---
 
 ## Some useful links
 

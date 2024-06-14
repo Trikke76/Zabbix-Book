@@ -1,8 +1,18 @@
 # Macros
 
 Les macros sont l'un des concepts que vous devez comprendre dans Zabbix. Il existe différents types et ils rendent Zabbix plus évolutif et moins statique.
+Dans cette rubrique, nous expliquerons les différents types de macros et comment les utiliser.
 
+Nous couvrirons :
 
+- Built-in macros
+- Function macros
+- User macros
+- Low-level discovery macros
+- Expression macro
+- User macro with context
+
+---
 
 ## Built-in macros
 
@@ -14,6 +24,7 @@ ou encore la macro `{HOST.IP}` qui fera la même chose mais en récupérant l'IP
 Lorsque vous souhaitez utilser une information interne de Zabbix, il y a de forte chance qu'une built-in macro existe.
 
 
+---
 
 ## Function macros
 
@@ -28,6 +39,7 @@ La syntaxe d'une fonction de macro est la suivante : `{macro.func(params)}`
 |[regsub](https://www.zabbix.com/documentation/7.0/en/manual/config/macros/macro_functions#regsub)|Substring extraction by a regular expression match (case-sensitive).|
 
 
+---
 
 ## User macros
 
@@ -58,12 +70,14 @@ C'est facile, alors écrasez une macro par accident pour résoudre ce problème.
 Dans cette capture d'écran, nous pouvons voir qu'il existe une ``macro globale``` définie avec une valeur de 100 et que nous avons la même macro au niveau du modèle qui remplace la valeur de la ```macro globale```. Cependant, la valeur effective provient de notre ```macro Host```.
 
 
+---
 
 ## Low-level discovery macros
 
 Ce type de macros est un peu spéciale, elles s'utilisent dans le cas d'une [Low-level discovery](https://www.zabbix.com/documentation/7.0/en/manual/discovery/low_level_discovery) et sont précédées d'un **#** `{#MACRO}`, elles sont utiles pour variabbilisés la création d'item prototype, de trigger prototype ou d'host prototype.
 
 
+---
 
 ## Expression macro
 
@@ -71,6 +85,7 @@ Ces macros sont très spécifiques, elles s'utilisent exclusivement dans les gra
 `{?avg(/{HOST.HOST}/{ITEM.KEY},1h)}`
 
 
+---
 
 ## User macro with context
 
@@ -85,6 +100,7 @@ _Exemple:_
 Dans cette exemple l'ensemble l'ensemble des points de montage de notre server auront comme seuil par défaut 80% sauf /tmp qui lui aura un seuil custom à 90%.
 
 
+---
 
 ## Some useful links
 
