@@ -8,24 +8,24 @@ This chapter is going to cover the basics we need to know when it comes to the Z
 With Zabbix 7 the user interface after logging in is a bit changed. Our menu on the left side of the screen has has a small overhaul. Let's dive into it.
 When we login into our Zabbix setup the first time with our Admin user we see a page like this where we have our ```main window``` in <font color='green'>green</font>  our ```main menu``` marked in <font color='red'>red</font> and our ```links``` marked in <font color='gold'>yellow</font>.
 
-![main view](image/main-window.png)
+![main view](image/interface/main-window.png)
 
 The main menu can be hidden by collapsing it completely or to reduce it to a set of small icons. 
 
 
 When we click on the button with the 2 arrows to the left:
 
-![Image title](image/small-menu.png/){ width="200" } 
+![Image title](image/interface/small-menu.png/){ width="200" } 
 
 You will see that the menu collapses to a set of small icons. Pressing ">>" will bring the ```main menu``` back to it's original state. Pressing the box with the arrow sticking out next to the "<<" button will hide the ```main menu``` completely.
 
-![Image title](image/hide-menu.png/){ width="200" }
+![Image title](image/interface/hide-menu.png/){ width="200" }
 
  To get the main menu back it's not too difficult we just look for the button on the left with three horizontal lines and click it. This will bring the menu back and clicking on the box with the arrow agian will bring the ```main menu``` back.
 
 Yet another way to make the screen bigger that is quit useful for monitors in NOK teams for example is the kiosk mode button. This one is however located on the left side of your screen and looks like 4 arrows pointing to every corner of the screen. Pressing this button will remove all the menus and leave only main window to focus on.
 
-![Image title](image/kiosk-menu.png/){ width="60" } ![Image title](image/exitkiosk-menu.png/){ width="60" }
+![Image title](image/interface/kiosk-menu.png/){ width="60" } ![Image title](image/exitkiosk-menu.png/){ width="60" }
 
 When wanting to leave the kios mode the button will be changed to 2 arrows poiting to the inside of the screen. Pressing this button will revert us back to the original state.
 
@@ -38,13 +38,15 @@ When wanting to leave the kios mode the button will be changed to 2 arrows poiti
     There are many other page parameters we can use. A full list can be found [here](https://www.zabbix.com/documentation/7.0/en/manual/web_interface/page_parameters)
 Zabbix also has a global search menu that we can use to find hosts, host groups and templates.
 
-![Image title](image/search-menu.png/){ width="200" }
+![Image title](image/interface/search-menu.png/){ width="200" }
 
 If we look in the search box for ```server``` you will see that we get an overview of all templates, host groups and hosts with the name ```server``` in it.
 
-![Image title](image/main-search.png/)
+![Image title](image/interface/main-search.png/)
 
 ---
+
+
 
 ## Main menu
 
@@ -62,6 +64,10 @@ Our main menu on the left consists of a few sections, 9 to be exact:
 | Users	|  User configuration like user roles, user groups, authentication, API tokes, ... |
 | Administration | The administration part containing all global settings, housekeeper, proxies, queue, ... |
 
+
+
+---
+
 ## Links menu
 
 Our last part the ```links``` part  contain a set of useful links that we can use:
@@ -77,13 +83,16 @@ Our last part the ```links``` part  contain a set of useful links that we can us
 
 There are still a few buttons that we need to cover on the right side of our screen
 
-![edit buttons](image/edit-dashboard.png/){ width=20% }
+![edit buttons](image/interface/edit-dashboard.png/){ width=20% }
 
 The edit button allows us to change our dashboard. This is something we will cover later.
 On the far left side there is a  "?" this will bring you to the Zabbix documentation page that explains everything about the dashboard.
 The button on the right side with the 3 horizontal lines is the one to share, rename, delete, ... our dashboards.
 
-![edit buttons](image/system-info.png/){ width=70% style="display: block; margin: 0 auto" }
+![edit buttons](image/interface/system-info.png/){ width=70% style="display: block; margin: 0 auto" }
+
+---
+
 
 ## System Information
 
@@ -105,6 +114,7 @@ There is also a box on the dashboard called ```System Information```. This widge
 ???+ Tip
     System information may display some additonal warnings like when your database doesnt have the correct character set or collation UTF-8. Also when the database you used is lower or higher then the recommended version or when there are misconfigurations on housekeeper or TimescaleDB. Another warning you can see is about database history tables that aren't upgraded or primary keys that have not been set. This is possible if you are coming from an older version before Zabbix 6 and never did the upgrade.
 
+---
 
 ## The main menu explained
 
@@ -112,7 +122,7 @@ It's important to know that we have so far seen our dashboard with the Admin use
 This means that the user has no restrictions. Zabbix works with 3 different levels of users we have the regular users, Zabbix Admin and Zabbix Super Admin users. Let's have a look
 
 
-![Menu by user](image/main-menu.png/){ width=20% }
+![Menu by user](image/interface/main-menu.png/){ width=20% }
 
 ```
 * A ```Zabbix User``` will only see the <font color='red'>red</font> part of our ```main menu``` and will only be able to see our collected data.
@@ -122,7 +132,7 @@ This means that the user has no restrictions. Zabbix works with 3 different leve
 
 ---
 
-![Menu by user](image/monitoring-menu.png){ width=20% }
+![Menu by user](image/interface/monitoring-menu.png){ width=20% }
 
 ```
 - Problems: This page will give us an overview of all the problems. With filter we can look at recent problems past problems and problems that are active now. There are many more filters tor drill down more.
@@ -134,7 +144,7 @@ This means that the user has no restrictions. Zabbix works with 3 different leve
 
 ---
 
-![Menu by user](image/services-menu.png){ width="20%" }
+![Menu by user](image/interface/services-menu.png){ width="20%" }
 
 ```
 - Services This page will give us a high level overview of all services configured in Zabbix.
@@ -144,7 +154,7 @@ This means that the user has no restrictions. Zabbix works with 3 different leve
 
 ---
 
-![Menu by user](image/inventory-menu.png){ width="20%" }
+![Menu by user](image/interface/inventory-menu.png){ width="20%" }
 
 ```
 - Overview: A place where we can watch all our iventory data that we have retrieved from our hosts.
@@ -153,7 +163,7 @@ This means that the user has no restrictions. Zabbix works with 3 different leve
 
 ---
 
-![Menu by user](image/reports-menu.png){ width="20%" }
+![Menu by user](image/interface/reports-menu.png){ width="20%" }
 
 ```
 - System information: System information is a summary of key Zabbix server and system data.
@@ -167,7 +177,7 @@ This means that the user has no restrictions. Zabbix works with 3 different leve
 
 ---
 
-![Menu by user](image/datacollection-menu.png){ width="20%" }
+![Menu by user](image/interface/datacollection-menu.png){ width="20%" }
 
 ```
 - Template groups: A place to logical group all templates together in different groups. Before it was mixed together with hosts in host groups.
@@ -181,7 +191,7 @@ This means that the user has no restrictions. Zabbix works with 3 different leve
 
 ---
 
-![Menu by user](image/alerts-menu.png){ width="20%" }
+![Menu by user](image/interface/alerts-menu.png){ width="20%" }
 
 ```
 - Actions:
@@ -191,7 +201,7 @@ This means that the user has no restrictions. Zabbix works with 3 different leve
 
 ---
 
-![Menu by user](image/users-menu.png){ width="20%" }
+![Menu by user](image/interface/users-menu.png){ width="20%" }
 
 ```
 - User groups:
@@ -202,7 +212,7 @@ This means that the user has no restrictions. Zabbix works with 3 different leve
 ```
 ---
 
-![Menu by user](image/administration-menu.png){ width="20%" }
+![Menu by user](image/interface/administration-menu.png){ width="20%" }
 
 ```
 - General: 
@@ -222,4 +232,4 @@ This means that the user has no restrictions. Zabbix works with 3 different leve
 
 
 ???+ Note
-    At time of writing there is no Dashboard import/export functionality in zabbix. So when upgrading dashboards need to be created for admin by hand. This should be fixed in 7 onces it comes out. If not feel free to track https://support.zabbix.com/browse/ZBXNEXT-5419
+    At time of writing there is no Dashboard import/export functionality in zabbix. So when upgrading dashboards it needs to be created by hand. It was on the roadmap for 7 but didnt made it so feel free to vote https://support.zabbix.com/browse/ZBXNEXT-5419
