@@ -1,22 +1,20 @@
 # Zabbix hosts
 
-To understand how Zabbix works, it's important to know that ```Hosts``` in Zabbix are a reference to anything we would like to monitor. 
+To understand how Zabbix works, it's important to know that ```Hosts``` in Zabbix are a reference to anything we would like to monitor.
 It can be a physical host, a virtual machine, an application, a device, or even just a dummy host used to calculate data from existing  hosts into something new.
 
 It's probably one of the first tasks that we will do as an Admin when we first login to Zabbix because we need a host if we would like to monitor some metrics.
-It's however, important to know that hosts cannot be created without being in a hostgroup. 
+It's however, important to know that hosts cannot be created without being in a hostgroup.
 
 In this chapter we will teach you:
 
 - How to add a host in Zabbix
 - Host configuration tabs
-    - IPMI
-    - Tags
-    - Macros
-    - Inventory
-    - Encryption
-
-
+  - IPMI
+  - Tags
+  - Macros
+  - Inventory
+  - Encryption
 
 ## How to add a host in Zabbix
 
@@ -78,7 +76,7 @@ The fields marked with a <span style="color:red"> *red* </span> asterisk <span s
   </body>
 </html>
 
-##  Host configuration tabs
+## Host configuration tabs
 
 Before we add a host ourselves, there are a few things we need to know first.
 When we click on a host that we have already configured, there are a few things that we will notice.
@@ -133,13 +131,36 @@ tbody th { text-align:right; background: lightgrey; color:whitwhitee}
     We will cover IPMI in more detail later in the Chapter [IPMI Monitoring](../extra-monitoring/IPMI-monitoring.md)
 
 ### Tags
-ToDo
 
-###  Macros
-ToDo
+The **Tags** tab allows you to define host-level [tags](https://www.zabbix.com/documentation/current/en/manual/config/tagging). Host-level tags are used to provide additional information about the host that can be used as a filter in the webUi.
 
-###  Inventory
-ToDo
+*example*:
 
-###  Encryption
-ToDo
+We add a `datacenter` tag to physical hosts servers to indicate the location of the server and thus make it easy to list all the servers present in this datacenter, impacted by incident.
+
+### Macros
+
+The **macros** tab allows you to define host-level [user macros](https://www.zabbix.com/documentation/current/en/manual/config/macros/user_macros.macr).
+Macros in Zabbix can be seen as variables that can be overloaded at will. You need to use and abuse them to make templates as reusable as possible.
+
+???+ Note
+    We will cover Macro in more detail later in the Chapter [Macros](./zabbix-macros.md)
+
+### Inventory
+
+The Inventory tab allows you to manually enter [inventory](https://www.zabbix.com/documentation/current/en/manual/config/hosts/inventory) information for the host. You can also select to enable Automatic inventory population, or disable inventory population for this host.
+
+### Encryption
+
+The **Encryption** tab allows you to configure [encrypted](https://www.zabbix.com/documentation/current/en/manual/encryption) connections with the host.
+Il est possible de configurer l'encryption entre le Zabbix proxy/Zabbix server.
+
+|Value|Description|
+|--|--|
+|no encryption|(default value) Unencrypted|
+|PSK| Using [pre-shared keys](https://www.zabbix.com/documentation/current/en/manual/encryption/using_pre_shared_keys)|
+|certificate|Using [certificates](https://www.zabbix.com/documentation/current/en/manual/encryption/using_certificates)|
+
+### Value Mapping
+
+The Value mapping tab allows to configure human-friendly representation of item data in [value mappings](https://www.zabbix.com/documentation/current/en/manual/config/items/mapping).

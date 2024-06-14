@@ -19,6 +19,13 @@
 - If you like to translate a page then create a file with the same name as the original but add the country code before .md Ex : Requirements.md will become Requirements.nl.md. If you don't make screenshots with translations then use the same images in the image dir.
 - If you like to add new screenshots create a new folder image.<language code> Ex: image/ becomes image.nl/
 
+## How to write a topic
+
+- When you write a topic start with an introduction what the topic is about
+- Give an overview of the topics that you will cover
+- Add visuals if possible
+- Create a how to so that people see how they can do this 
+- place the images in a /image folder 
 
 
 
@@ -34,7 +41,11 @@
 - Webpage is ready for translation: :white_check_mark:
 - Webpage is translated : :checkered_flag:
 - Webpage has been updated after translation: :material-refresh:
+- Webpage is still not finished : :construction:
 
+
+???+ Note
+    Please don't update this table this is for reference only when doing translations
 
 
 | Webpage			| English          | French           | German           | Italian | Dutch | Portugese | Spanish | Thai | Chinese |
@@ -50,17 +61,17 @@
 |The basics			|                  |                  |                  |         |       |           |         |      |         |
 |Zabbix Interface		|:white_check_mark:|                  |                  |         |       |           |         |      |         |
 |Zabbix Users & User groups	|:white_check_mark:|                  |                  |         |       |           |         |      |         |
-|Zabbix hosts			|                  |                  |                  |         |       |           |         |      |         |
-|Host groups			|                  |                  |                  |         |       |           |         |      |         |
-|Interfaces			|                  |                  |                  |         |       |           |         |      |         |
-|template			|                  |                  |                  |         |       |           |         |      |         |
+|Zabbix hosts			|:construction:    |                  |                  |         |       |           |         |      |         |
+|Host groups			|:white_check_mark:|                  |                  |         |       |           |         |      |         |
+|Interfaces			|:construction:    |                  |                  |         |       |           |         |      |         |
+|templates			|                  |                  |                  |         |       |           |         |      |         |
 |Items				|                  |                  |                  |         |       |           |         |      |         |
 |Zabbix triggers		|                  |                  |                  |         |       |           |         |      |         |
-|Macros				|                  |                  |                  |         |       |           |         |      |         |
+|Macros				|:white_check_mark:|:white_check_mark:|                  |         |       |           |         |      |         |
 |Data Flow			|                  |                  |                  |         |       |           |         |      |         |
 |				|                  |                  |                  |         |       |           |         |      |         |
 |Data collection		|                  |                  |                  |         |       |           |         |      |         |
-|Zabbix Agent			|                  |                  |                  |         |       |           |         |      |         |
+|Zabbix Agent			|:construction:    |                  |                  |         |       |           |         |      |         |
 |				|                  |                  |                  |         |       |           |         |      |         |
 |Problem detection		|                  |                  |                  |         |       |           |         |      |         |
 |Triggers			|                  |                  |                  |         |       |           |         |      |         |
@@ -85,24 +96,24 @@
 |				|                  |                  |                  |         |       |           |         |      |         |
 |Monitoring SNMP, IPMI and JAVA	|                  |                  |                  |         |       |           |         |      |         |
 |SNMP Monitoring		|                  |                  |                  |         |       |           |         |      |         |
-|SNMP trap monitoring		|                  |                  |                  |         |       |           |         |      |         |
+|SNMP trap monitoring		|:construction:    |                  |                  |         |       |           |         |      |         |
 |JAVA monitoring		|                  |                  |                  |         |       |           |         |      |         |
-|IPMI Monitoring		|                  |                  |                  |         |       |           |         |      |         |
+|IPMI Monitoring		|:construction:    |                  |                  |         |       |           |         |      |         |
 |				|                  |                  |                  |         |       |           |         |      |         |
 |Authentication			|                  |                  |                  |         |       |           |         |      |         |
 |Authentication with HTTP	|                  |                  |                  |         |       |           |         |      |         |
 |Authentication with LDAP	|                  |                  |                  |         |       |           |         |      |         |
 |Authentication with SAML	|                  |                  |                  |         |       |           |         |      |         |
-|Zabbix MFA support		|                  |                  |                  |         |       |           |         |      |         |
+|Zabbix MFA support		|:white_check_mark:|                  |                  |         |       |           |         |      |         |
 |				|                  |                  |                  |         |       |           |         |      |         |
 |Monitoring with Proxies	|                  |                  |                  |         |       |           |         |      |         |
 |Installing Proxies		|                  |                  |                  |         |       |           |         |      |         |
 |Active proxy			|                  |                  |                  |         |       |           |         |      |         |
 |Passive proxy			|                  |                  |                  |         |       |           |         |      |         |
-|Proxy loadbalancing		|                  |                  |                  |         |       |           |         |      |         |
+|Proxy loadbalancing		|:white_check_mark:|                  |                  |         |       |           |         |      |         |
 |				|                  |                  |                  |         |       |           |         |      |         |
 |Securing Zabbix		|                  |                  |                  |         |       |           |         |      |         |
-|Securing Zabbix Frontend	|                  |                  |                  |         |       |           |         |      |         |
+|Securing Zabbix Frontend	|:construction:    |                  |                  |         |       |           |         |      |         |
 |Securing Zabbix with SELinux	|                  |                  |                  |         |       |           |         |      |         |
 |				|                  |                  |                  |         |       |           |         |      |         |
 |Maintaining Zabbix		|                  |                  |                  |         |       |           |         |      |         |
@@ -113,3 +124,7 @@
 |				|                  |                  |                  |         |       |           |         |      |         |
 |Zabbix API			|                  |                  |                  |         |       |           |         |      |         |
 |Zabbix API			|                  |                  |                  |         |       |           |         |      |         |
+|                               |                  |                  |                  |         |       |           |         |      |         |
+|Zabbix extras                  |                  |                  |                  |         |       |           |         |      |         |
+|Modbus monitoring with Zabbix  |:white_check_mark:|                  |                  |         |       |           |         |      |         |
+|                               |                  |                  |                  |         |       |           |         |      |         |

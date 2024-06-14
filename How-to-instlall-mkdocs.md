@@ -55,3 +55,9 @@ python3 -m mkdocs serve
 ```
 python3 -m mkdocs build
 ```
+
+## Some guidlines
+
+Have a look at our page with guidlines when you like to contribute or translate pages.
+
+https://trikke76.github.io/Zabbix-Book/Guidlines-for-translations/
