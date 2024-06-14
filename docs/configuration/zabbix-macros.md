@@ -9,7 +9,6 @@ They correspond to Zabbix internal macros, they are represented using this notat
 For example, the `{HOST.HOST}` built-in macro can be used to retrieve the host in a trigger expression.
 or the macro `{HOST.IP}` which does the same thing but retrieves the IP of the host.
 
-When you wa
 
 ## [Function macros](https://www.zabbix.com/documentation/7.0/en/manual/config/macros/macro_functions)
 
@@ -31,22 +30,22 @@ They are always preceded by a **\$** and are noted thus: `{$MACRO}`.
 It is important to note that Zabbix prioritises user macros like this:
 
 1- host level macros (checked first)
-2- macros defined for first level templates of the host (i.e., templates linked directly to the host), sorted by template ID
-3- macros defined for second level templates of the host, sorted by template ID
-4- macros defined for third level templates of the host, sorted by template ID, etc.
+2- macros defined on first level templates of the host (i.e., templates linked directly to the host), sorted by template ID
+3- macros defined on the second level templates of the host, sorted by template ID
+4- macros defined on the third level templates of the host, sorted by template ID, etc.
 5- global macros (checked last)
 
-These macros can be used for many [endrois](https://www.zabbix.com/documentation/7.0/en/manual/appendix/macros/supported_by_location_user), they are commonly used to define a threshold and serve as a default value in a template that can be overloaded with host-level macros.
+These macros can be used in  many [locations](https://www.zabbix.com/documentation/7.0/en/manual/appendix/macros/supported_by_location_user), they are commonly used to define a threshold and serve as a default value in a template that can be overloaded with host-level macros.
 
-In order to have templates that are reusable and functional in a majority of situations, users macros must be abused.
+In order to have templates that are reusable and functional in the  majority of the situations, users macros must be used.
 
 ## [Low-level discovery macros](https://www.zabbix.com/documentation/7.0/en/manual/config/macros/lld_macros)
 
-This type of macro is a little special, it is used in the case of [Low-level discovery](https://www.zabbix.com/documentation/7.0/en/manual/discovery/low_level_discovery) and is preceded by a **#** `{#MACRO}`, it is useful for variabbilising the creation of a prototype item, prototype trigger or prototype host.
+This type of macro is a little special, it is used in the case of [Low-level discovery](https://www.zabbix.com/documentation/7.0/en/manual/discovery/low_level_discovery) and is preceded by a **#** `{#MACRO}`, it is useful for variabilize the creation of a prototype item, prototype trigger or prototype host.
 
 ## [Expression macro](https://www.zabbix.com/documentation/7.0/en/manual/config/macros/expression_macros)
 
-Ces macros sont très spécifiques, elles s'utilisent exclusivement dans les graphs name et dans les maps, elles utilisent la syntaxe suivantes: `{?EXPRESSION}`.
+These macros are very specific, they are used exclusively in name graphs and in maps, they use the following syntax: `{?EXPRESSION}`.
 `{?avg(/{HOST.HOST}/{ITEM.KEY},1h)}`
 
 ## [User macro with context](https://www.zabbix.com/documentation/7.0/en/manual/config/macros/user_macros_context)

@@ -1,6 +1,6 @@
 # Macros
 
-Macros are one of the concepts you need to understand in Zabbix. There are different types, and they make Zabbix more scalable and less static.
+Les macros sont l'un des concepts que vous devez comprendre dans Zabbix. Il existe différents types et ils rendent Zabbix plus évolutif et moins statique.
 
 ## [Built-in macros](https://www.zabbix.com/documentation/7.0/en/manual/appendix/macros/supported_by_location)
 
@@ -30,11 +30,11 @@ Elles sont toujours précédé d'un **\$** et se note ainsi: `{$MACRO}`.
 
 Il est important de noter que Zabbix priorise les user macros comme ceci:
 
-1- host level macros (checked first)
-2- macros defined for first level templates of the host (i.e., templates linked directly to the host), sorted by template ID
-3- macros defined for second level templates of the host, sorted by template ID
-4- macros defined for third level templates of the host, sorted by template ID, etc.
-5- global macros (checked last)
+1- macros au niveau de l'hôte (vérifié en premier).
+2- macros définies pour les modèles de premier niveau de l'hôte (c'est-à-dire les modèles liés directement à l'hôte), triées par ID de modèle.
+3- macros définies pour les modèles de deuxième niveau de l'hôte, triées par ID de modèle.
+4- macros définies pour les modèles de troisième niveau de l'hôte, triées par ID de modèle, etc.
+5- macros globales (vérifiées en dernier)
 
 Ces macros sont utilisable à beaucoup d'[endrois](https://www.zabbix.com/documentation/7.0/en/manual/appendix/macros/supported_by_location_user), elles servent courrament à définir un seuil et servent de valeur par défaut dans un template qu'on peut surcharger au niveau des host-level macro.
 
