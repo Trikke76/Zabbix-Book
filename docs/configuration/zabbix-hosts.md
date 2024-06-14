@@ -76,7 +76,7 @@ The fields marked with a <span style="color:red"> *red* </span> asterisk <span s
   </body>
 </html>
 
-##  Host configuration tabs
+## Host configuration tabs
 
 Before we add a host ourselves, there are a few things we need to know first.
 When we click on a host that we have already configured, there are a few things that we will notice.
