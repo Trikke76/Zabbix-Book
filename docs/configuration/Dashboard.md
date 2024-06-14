@@ -2,6 +2,7 @@
 
 This chapter is going to cover the basics we need to know when it comes to the Zabbix userinterface and the thing we need to know before we can start to fully dive into our monitoring tool. We will see how the userinteface works how to add a host, groups users, items ... so that we have a good understanding of the basics. This is something that is sometimes missed and can lead to frustrations not knowing why things don't work like we had expected them to work. So even if you are an advanced user it may be usefull to have a look into this chapter.
 
+---
 
 ### Overview of the interface
 
@@ -25,9 +26,9 @@ You will see that the menu collapses to a set of small icons. Pressing ">>" will
 
 Yet another way to make the screen bigger that is quit useful for monitors in NOK teams for example is the kiosk mode button. This one is however located on the left side of your screen and looks like 4 arrows pointing to every corner of the screen. Pressing this button will remove all the menus and leave only main window to focus on.
 
-![Image title](image/interface/kiosk-menu.png/){ width="60" } ![Image title](image/exitkiosk-menu.png/){ width="60" }
+![Image title](image/interface/kiosk-menu.png/){ width="60" } ![Image title](image/interface/exitkiosk-menu.png/){ width="60" }
 
-When wanting to leave the kios mode the button will be changed to 2 arrows poiting to the inside of the screen. Pressing this button will revert us back to the original state.
+When we want to leave the kios mode, the button will be changed to 2 arrows poiting to the inside of the screen. Pressing this button will revert us back to the original state.
 
 ???+ tip
     We can also enter and exit kiosk mode by making use of parameters in our Zabbix url: 
@@ -46,8 +47,6 @@ If we look in the search box for ```server``` you will see that we get an overvi
 
 ---
 
-
-
 ## Main menu
 
 Our main menu on the left consists of a few sections, 9 to be exact:
@@ -63,8 +62,6 @@ Our main menu on the left consists of a few sections, 9 to be exact:
 | Alert | The configuration of our media types, scripts and actions |
 | Users	|  User configuration like user roles, user groups, authentication, API tokes, ... |
 | Administration | The administration part containing all global settings, housekeeper, proxies, queue, ... |
-
-
 
 ---
 

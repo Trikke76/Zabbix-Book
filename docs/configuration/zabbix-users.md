@@ -252,7 +252,7 @@ The box is marked with an asterisk in front, so you need to select a user role f
 A user always needs to be member of one or more ```User groups```. We will not set any user rights directly on Users in Zabbix but we do this on User groups. So if a User needs the  permission to view or edit a host or a template then this is set on the ```User group``` wich has the permisson to view or edit a host or template group and never on a host or a template directly.
 
 
-![User Role box](image/group-permissions.png){ width=80% }
+![User Role box](image/zabbix-users/group-permissions.png){ width=80% }
 
 
 
