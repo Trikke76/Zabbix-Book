@@ -50,7 +50,7 @@ Elles sont toujours précédé d'un **\$** et se note ainsi: `{$MACRO}`.
 Il est important de noter que Zabbix priorise les user macros comme ceci:
 
 
-1. host level macros (checked first)
+1. macros au niveau du host (vérifiées en premier)
 2. macros définies dans les templates de 1er niveau (template directement lié au hos), trié par template ID
 3. macros définies dans les templates de 2eme niveau (template directement lié au hos), trié par template ID
 4. macros définies dans les templates de 3eme niveau (template directement lié au hos), trié par template ID
