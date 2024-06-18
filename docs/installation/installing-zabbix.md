@@ -28,7 +28,7 @@ In this chapter we will see how to :
 - Install the Zabbix frontend with NginX
 - Install the Zabbix frontend with Apache
 
-
+---
 
 ## Installing the Zabbix Server
 

@@ -1,9 +1,14 @@
 # Vereisten
 
-Zabbix heeft een reeks vereisten waaraan moet worden voldaan op hardwareniveau en softwareniveau. Deze vereisten kunnen in de loop van de tijd veranderen en zijn ook afhankelijk van de grootte van uw installatie en de software die u kiest.
-Dus voordat je metal gaat kopen of een willekeurige databaseversie installeert, bekijk de Zabbix-documentatie en controleer de nieuwste vereisten voor de versie die je wilt installeren. De nieuwste vereisten zijn [hier](https://www.zabbix.com/documentation/current/en/manual/installation/requirements) te vinden. Vergeet niet uw juiste *Zabbix*-versie uit de lijst te selecteren.
+Zabbix heeft een reeks vereisten waaraan moet worden voldaan op hardwareniveau en softwareniveau.
+Deze vereisten kunnen in de loop van de tijd veranderen en zijn ook afhankelijk van de grootte van uw installatie en de software die u kiest.
+Dus voordat je hardware gaat kopen of een willekeurige databaseversie installeert, bekijk de Zabbix-documentatie en controleer de nieuwste vereisten voor de versie die je wilt installeren.
+De nieuwste vereisten zijn [hier](https://www.zabbix.com/documentation/7.0t/en/manual/installation/requirements) te vinden.
+Vergeet niet uw juiste *Zabbix*-versie uit de lijst te selecteren.
 
-Als je niet van plan bent iets groots uit te voeren, alleen een kleine installatie of een testopstelling, zal Zabbix gelukkig werken op een systeem met 2cpu en 8G ram. Maar het hangt allemaal af van hoe groot je setup zal zijn en hoeveel items je gaat monitoren, triggers die je gaat creëren en hoe lang je die gegevens wilt bewaren. Mijn advies in de tijd van virtualisatie is dat je klein kunt beginnen en later meer kunt toevoegen.
+Als je niet van plan bent iets groots uit te voeren, alleen een kleine installatie of een testopstelling, zal Zabbix gelukkig werken op een systeem met 2cpu en 8G ram.
+Maar het hangt allemaal af van hoe groot je setup zal zijn en hoeveel items je gaat monitoren, triggers die je gaat creëren en hoe lang je die gegevens wilt bewaren.
+Mijn advies in de tijd van virtualisatie is dat je klein kunt beginnen en later meer kunt toevoegen.
 
 Voor de installatie kunt u ervoor kiezen om alle componenten op 1 server te installeren of elk component op een andere server. Maak voor het gebruiksgemak een paar aantekeningen voor uzelf:
 
@@ -16,6 +21,8 @@ Voor de installatie kunt u ervoor kiezen om alle componenten op 1 server te inst
 
 ???+ tip
     Terwijl zabbix streepjes "-" in zijn namen gebruikt wanneer we pakketten zoals zabbix-get of zabbix-sender moeten installeren, gebruiken de binaire bestanden "_". zoals zabbix_sender of zabbix_server. Dit kan natuurlijk variëren, afhankelijk van of u de pakketten uit de originele Zabbix-repository's gebruikt of niet. Houd er rekening mee dat het soms nogal verwarrend kan zijn en dat als u een pakket met een streepje installeert, het binaire bestand misschien met een onderstrepingsteken is.
+
+---
 
 ## Basisconfiguratie van het OS
 

@@ -25,6 +25,7 @@ I added the IP's that we will use here don't forgot to make notes of your own ip
     As you notice our DB is not HA this is not a Zabbix component you have to implement your own solution this can be a HA SAN or you DB in a HA cluster setup.
     The cluster setup of our DB is out of the scope and not related to Zabbix so we will not cover this here. 
 
+---
 
 ## Let's install our Postgres DB
 
@@ -195,6 +196,8 @@ Now lets have a look to our firewall rules to see if they are what we expected:
 
 Our database server is ready now to accept connections from our Zabbix server :). You can continue with the next task
 
+---
+
 
 ## Install our Zabbix Cluster
 
@@ -265,6 +268,9 @@ Now do the same on our other node(s)
 22304:20240309:155331.174 HA manager started in standby mode
 ```
 
+---
+
+
 ## Installing the frontends
 
 First things first before we can install and configure our webserver we need to install keepalived. 
@@ -273,6 +279,7 @@ Keepalived allows us to use a VIP for our frontends. Keepalived provides framewo
 ???+ info
     Some useful documentation on the subject you might like.
     https://www.redhat.com/sysadmin/advanced-keepalived and https://keepalived.readthedocs.io/en/latest/introduction.html
+
 
 
 ### Setup keepalived

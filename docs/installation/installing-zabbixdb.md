@@ -282,7 +282,7 @@ mariadb-access (active)
 Our database server is ready now to accept connections from our Zabbix server :).
 You can continue with the next task [Installing the Zabbix Server](installing-zabbix.md)
 
-
+---
 
 ## Installing Zabbix with MySQL
 
@@ -530,6 +530,7 @@ mysql-access (active)
 Our database server is ready now to accept connections from our Zabbix server :).
 You can continue with the next task [Installing the Zabbix Server](installing-zabbix.md)
 
+---
 
 ## Installing Zabbix with PostgreSQL
 

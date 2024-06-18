@@ -1,7 +1,9 @@
 # Requirements
 
-Zabbix has a set of requirements that need to be met on the hardware level and software level. These requirements can change over time and also depends on the size of your setup and the software you choose.
-So before you start buying metal or installing a random database version have a look at the Zabbix documentation and check the latest requirements for the version you want to install. The latest requirements can be found [here](https://www.zabbix.com/documentation/current/en/manual/installation/requirements). Don't forget to select your correct *Zabbix* version from the list.
+Zabbix has a set of requirements that need to be met on the hardware level and software level.
+These requirements can change over time and also depends on the size of your setup and the software you choose.
+So before you start buying metal or installing a random database version have a look at the Zabbix documentation and check the latest requirements for the version you want to install.
+The latest requirements can be found [here](https://www.zabbix.com/documentation/7.0/en/manual/installation/requirements). Don't forget to select your correct *Zabbix* version from the list.
 
 If you don't plan to run anything big just a small setup or a test setup Zabbix will run happy on a system with 2cpu and 8G ram. But all depends on how big your setup will be and how many items you will monitor, triggers you will create and for how long you want to keep that data. My advice in the days of Virtualization is you can start small and add more later.
 
@@ -15,11 +17,10 @@ For the setup you can choose to install all components on 1 server or every comp
 
 
 
-
-
-
 ???+ tip
     While zabbix uses dashes "-" in it's names when we need to install packages like zabbix-get or zabbix-sender  it's binaries use "_". like zabbix_sender or zabbix_server. This of course can vary depending if you use the packages from the original Zabbix repositories or not. Just be aaware that it's sometimes rather confusing and that if you installed somepackage with a dash that maybe the binary is with an underscore.
+
+---
 
 ## Basic OS configuration
 
@@ -58,6 +59,7 @@ Chrony should be installed now and enabled and running. This can be verified wit
 
 
 Once Chrony is installed we also need to setup our correct time zone. We can have a look first with 'timedatectl' to see how our time is configured 
+
 ```
 # timedatectl
                Local time: Thu 2023-11-16 15:09:14 UTC
