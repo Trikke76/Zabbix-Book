@@ -21,13 +21,15 @@
 
 ## How to write a topic
 
+- All is written in markdown , HTML is supported but try to avoid if not needed
+- Start the page with the Header #
 - When you write a topic start with an introduction what the topic is about
 - Give an overview of the topics that you will cover
-- Add visuals if possible
+- Add visuals if possible this explains better to people how things work
 - Create a how to so that people see how they can do this 
 - place the images in a /image folder 
-
-
+    - You can use the english screenshots in the image folder or create your own screenshots in local language use /image.<lang code> ex: /image.fr
+- Close every topic with --- this will draw a horizontal line 
 
 
 ## Translation Table 
@@ -45,7 +47,7 @@
 
 
 ???+ Note
-    Please don't update this table this is for reference only when doing translations
+    Please don't update this table this is for reference only when doing translations. I will maintain this table when I add new topics or merge changes.
 
 
 | Webpage			| English          | French           | German           | Italian | Dutch | Portugese | Spanish | Thai | Chinese |
