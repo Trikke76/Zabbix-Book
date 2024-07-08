@@ -114,10 +114,6 @@ plugins:
       fallback_to_default: true
       docs_structure: suffix
       languages:
-        - locale: en
-          default: true
-          name: English
-          build: true
         - locale: fr
           name: Français
           build: true
@@ -157,6 +153,10 @@ plugins:
             Getting started: 入门
             The basics: 基础
             Problem detection: 问题检测
+        - locale: en
+          default: true
+          name: English
+          build: true
 
   - print-site:
       add_to_navigation: false
