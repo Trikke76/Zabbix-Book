@@ -35,7 +35,6 @@ The syntax of a macro function is as follows: `{macro.func(params)}`
 |[iregsub](https://www.zabbix.com/documentation/7.0/en/manual/config/macros/macro_functions#iregsub)|Substring extraction by a regular expression match (case-insensitive).|
 |[regsub](https://www.zabbix.com/documentation/7.0/en/manual/config/macros/macro_functions#regsub)|Substring extraction by a regular expression match (case-sensitive).|
 
-
 ---
 
 ## User macros
@@ -66,9 +65,8 @@ This makes it easy to see if you have this macro defined already and if it will 
 
 ![macro inheritance](image/macros/inherited-macros.png)
 
-In this screenshot we can see that there is a ```Global macro``` defined with a value of 100 and that we have the the same macro on Template level that overrides the value of the ```Global macro```.
-However the effective vale is coming from our ```Host macro```.
-
+In this screenshot we can see that there is a `Global macro` defined with a value of 100 and that we have the the same macro on Template level that overrides the value of the `Global macro`.
+However the effective vale is coming from our `Host macro`.
 
 ---
 
@@ -76,14 +74,12 @@ However the effective vale is coming from our ```Host macro```.
 
 This type of macro is a little special, it is used in the case of [Low-level discovery](https://www.zabbix.com/documentation/7.0/en/manual/discovery/low_level_discovery) and is preceded by a **#** `{#MACRO}`, it is useful for variabilize the creation of a prototype item, prototype trigger or prototype host.
 
-
 ---
 
 ## Expression macro
 
 These macros are very specific, they are used exclusively in name graphs and in maps, they use the following syntax: `{?EXPRESSION}`.
 `{?avg(/{HOST.HOST}/{ITEM.KEY},1h)}`
-
 
 ---
 
@@ -93,10 +89,9 @@ There's one last subject concerning macros, and it's not the least important: ve
 have a different threshold depending on ... the context, they use the syntax: `{$MACRO: "static text"}`
 You want to set the global threshold to 80%, but on a particular partition you want to increase the threshold to 90%. To do this, we'll use the context.
 
-
 ---
 
-### Example:
+### Example
 
 - {$LOW_SPACE_LIMIT}: 80
 - {$LOW_SPACE_LIMIT:/tmp}:90
