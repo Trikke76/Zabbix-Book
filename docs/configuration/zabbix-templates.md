@@ -30,7 +30,8 @@ A template is simply a name and a one or more template groups.
 
 ![New template](image/zabbix-templates/menu-create-template.png)
 
-__Tips:__: Suffix the technonology name with the type of item used `by Zabbix agent`, `by SNMP`, ...
+???+ tip
+   Suffix the technonology name with the type of item used `by Zabbix agent`, `by SNMP`, ...
 
 Template groups is like hostgroup, it's use for classify template and apply rights.
 
