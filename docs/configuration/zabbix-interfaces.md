@@ -1,6 +1,7 @@
 # Interfaces
 
-When setting up your host, if you want to monitor him, you will quickly need to specify an IP address or a FQDN.
+When setting up your host, if you want to monitor him, you will quickly need
+to specify an IP address or a FQDN.
 
 This configuration is located in the interface section of the create host view.
 
@@ -16,16 +17,21 @@ After clicking add, a drop-down menu will ask you to select the type of interfac
 |JMX|Allows monitoring of Java applications through JMX counters|
 |IPMI|Allows monitoring of IPMI through items of type|
 
-All types of interfaces need same information, IP or DNS and port number. If you want to use DNSremember to click on the button DNS in `Connect to`.
+All types of interfaces need same information, IP or DNS and port number.
+If you want to use DNSremember to click on the button DNS in `Connect to`.
 
 SNMP interface need four more informations:
 
-* SNMP version, depend of snmp version configured on the host
-* SNMP Community, depend of snmp community configured on the host
-* Max repetition count, necessary for [native SNMP bulk requests](https://www.zabbix.com/documentation/current/en/manual/config/items/itemtypes/snmp) Note that setting this value too high may cause the SNMP agent check timeout.
-* Mark the Use combined requests checkbox to allow [combined processing](https://www.zabbix.com/documentation/6.4/en/manual/config/items/itemtypes/snmp?hl=Count#internal-workings-of-combined-processing) of SNMP requests (not related to native SNMP bulk requests)
+* SNMP version, depends on the snmp version configured on the host
+* SNMP Community, depend on the snmp community configured on the host.
+* Max repetition count, necessary for [native SNMP bulk requests](https://www.zabbix.com/documentation/current/en/manual/config/items/itemtypes/snmp)
+  Note that setting this value too high may cause the SNMP agent check timeout.
+* Mark the Use combined requests checkbox to allow
+  [combined processing](https://www.zabbix.com/documentation/6.4/en/manual/config/items/itemtypes/snmp?hl=Count#internal-workings-of-combined-processing)
+  of SNMP requests (not related to native SNMP bulk requests)
 
-You can create several interfaces on a host, which may or may not be identical. If more than one interface of a type exists, you can define the default interface (which will be used by default by all items on the host)
+You can create several interfaces on a host, which may or may not be identical.
+If more than one interface of a type exists, you can define the default interface (which will be used by default by all items on the host)
 
 ???+ Note
     We will cover IPMI in more detail later in the Chapter [IPMI Monitoring](../extra-monitoring/IPMI-monitoring.md)
