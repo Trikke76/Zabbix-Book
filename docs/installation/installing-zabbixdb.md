@@ -1,30 +1,85 @@
 # Installing Zabbix DB Server
 
-In this chapter we will install our Zabbix database. Zabbix support a wide range of SQL databases but we will limit us to PostgreSQL, MariaDB and MySQL for now.
-There is also Oracle that is supported but support for Oracle is deprectated, Zabbix 7 will be the last version of Zabbix supporting Oracle as backend.
-In this Chapter we will explain how to install and configure every database on a seperate machine however you could also install it on your Zabbix server, there is no rule that forces you to install the DB on your Zabbix server or on a seperate server.
+This chapter focuses on the installation of the Zabbix database. While Zabbix supports
+various SQL databases, we will concentrate on three primary options:
+PostgreSQL, MariaDB, and MySQL.
+It's worth noting that Oracle is also supported, but its support is deprecated.
+Zabbix 7 will be the final version supporting Oracle as a backend.
 
-For most setups a DB on a local machine will probably be enough to start with, just make sure the DB is on other disks then the OS. If later performance is an issue you can still move the DB to another server. Don't forget that local connections are faster then connections over TCP so there it's not always best to move the DB to it's own server it all depends on your needs.
+We will outline the installation and configuration process for each database on
+a separate machine.
+However, it's important to understand that there's no strict requirement to
+install the database on a separate server from your Zabbix server.
+The choice between local and remote database installation depends on your specific
+needs and infrastructure.
+
+For most initial setups, a locally installed database will likely suffice.
+When opting for local installation, follow these best practices:
+
+- Ensure the database is stored on separate disks from the operating system.
+- Monitor performance as your system grows.
+- Be prepared to migrate the database to a separate server if performance issues arise.
+
+???+ note
+    Local connections are typically faster than connections over TCP.
+    Therefore, moving the database to its own server isn't always the optimal solution.
+    The best configuration depends on your specific requirements and system architecture.
 
 
+When deciding between local and remote database installation, consider the
+following factors:
+
+1. **System Resources:** Evaluate whether your Zabbix server has sufficient resources
+to handle both the application and database workload.
+2. **Network Latency:** Assess the impact of network latency on database queries
+if opting for a remote installation.
+3. **Scalability:** Consider future growth and the potential need for dedicated
+database hardware.
+4. **Backup and Maintenance:** Determine if separate database installation
+simplifies your backup and maintenance procedures.
+
+In the following sections, we'll dive into the installation and configuration
+processes for PostgreSQL, MariaDB, and MySQL.
+Each section will provide step-by-step instructions to ensure a smooth setup,
+regardless of whether you choose local or remote installation.
+
+---
 
 ## Installing Zabbix with MariaDB
 
+To begin the installation process for the MariaDB server, the first step involves
+manually creating a repository configuration file.
+This file, `mariadb.repo`, must be placed in the `/etc/yum.repos.d/` directory.
+The repository file will allow your package manager to locate and install the
+necessary MariaDB components.
 
-Let us start with the installation of the MariaDB server, you need to create a MariaDB repository configuration file `mariadb.repo` manually in the following path `/etc/yum.repos.d/`.
-To create a MariaDB repository file, you can use the following command.
+To create the MariaDB repository file, execute the following command in your terminal:
 
+---
 
-### Add the MariaDB repo
+### Add the MariaDB repository
 
+```bash
+# sudo nano /etc/yum.repos.d/mariadb.repo
 ```
+
+This will open a text editor where you can input the repository configuration details.
+Once the repository is configured, you can proceed with the installation of
+MariaDB using your package manager.
+
+```bash
 # vi /etc/yum.repos.d/mariadb.repo
 ```
 
-The above command will create a new repository file, Once it is created, you need to add the following configuration into the file.
-Make sure your version, in this case 10.11, is supported by Zabbix by looking at the latest [requirements](https://www.zabbix.com/documentation/current/en/manual/installation/requirements) for your version. 
+The above command will open a new file, allowing you to define the repository
+configuration. After the file is created, you'll need to add the following
+content to configure the MariaDB repository.
+Ensure that the version specified, in this case, `10.11`, is supported by Zabbix
+by reviewing the latest version [requirements](https://www.zabbix.com/documentation/current/en/manual/installation/requirements) for your specific Zabbix deployment.
 
-```
+Here’s the configuration you need to add:
+
+```ini
 # MariaDB 10.11 RedHatEnterpriseLinux repository list - created 2023-11-01 14:20 UTC
 # https://mariadb.org/download/
 [mariadb]
@@ -35,43 +90,75 @@ baseurl = https://mirror.23m.com/mariadb/yum/10.11/rhel/$releasever/$basearch
 # gpgkey = https://rpm.mariadb.org/RPM-GPG-KEY-MariaDB
 gpgkey = https://mirror.23m.com/mariadb/yum/RPM-GPG-KEY-MariaDB
 gpgcheck = 1
-
-
 ```
-Lets update our OS first with the latest patches
 
-```
+After saving the file, ensure that everything is properly set up and that your
+MariaDB version is compatible with your Zabbix version to avoid potential
+integration issues.
+
+Before proceeding with the MariaDB installation, it’s a best practice to ensure
+your operating system is up-to-date with the latest patches and security fixes.
+This will help maintain system stability and compatibility with the software
+you're about to install.
+
+To update your OS, run the following command:
+
+```bash
 # dnf update -y
 ```
+
+This command will automatically fetch and install the latest updates available
+for your system, applying security patches, performance improvements, and bug fixes.
+Once the update process is complete, you can move forward with the MariaDB installation.
+
 ### Install the MariaDB database
 
-Now we are ready to install our MariaDB database.
+With the operating system updated and the MariaDB repository configured, you are
+now ready to install the MariaDB server and client packages.
+This will provide the necessary components to run and manage your database.
 
-```
+To install the MariaDB server and client, execute the following command:
+
+```bash
 # dnf install MariaDB-server MariaDB-client
 ```
 
-We are now ready to enable and start or MariaDB database.
-```
+This command will download and install both the server and client packages,
+enabling you to set up, configure, and interact with your MariaDB database.
+Once the installation is complete, you can proceed to start and configure
+the MariaDB service.
+
+Now that MariaDB is installed, we need to enable the service to start automatically
+upon boot and start it immediately. Use the following command to accomplish this:
+
+```bash
 # systemctl enable mariadb --now
 ```
-Once the installation is complete, you can verify the version of the MariaDB server by using the following command:
 
-```
+This command will both enable and start the MariaDB service.
+Once the service is running, you can verify that the installation was successful
+by checking the version of MariaDB using the following command:
+
+```bash
 # mysql -V
 ```
 
-The output should look like this:
+The expected output should resemble this:
 
-```
-mysql  Ver 15.1 Distrib 10.11.6-MariaDB, for Linux (x86_64) using  EditLine wrapper
+```bash
+mysql  Ver 15.1 Distrib 10.11.6-MariaDB, for Linux (x86_64) using EditLine wrapper
 ```
 
-And when we ask the status of our MariaDB server we should get an output like this:
+To ensure that the MariaDB service is running properly, you can check its status
+with the following command:
 
-```
+```bash
 # systemctl status mariadb
+```
 
+You should see an output similar to this, indicating that the MariaDB service is active and running:
+
+```bash
 ● mariadb.service - MariaDB 10.11.6 database server
      Loaded: loaded (/usr/lib/systemd/system/mariadb.service; enabled; preset: disabled)
     Drop-In: /etc/systemd/system/mariadb.service.d
@@ -87,16 +174,22 @@ And when we ask the status of our MariaDB server we should get an output like th
       Tasks: 9 (limit: 12344)
      Memory: 206.8M
         CPU: 187ms
-
-
 ```
+
+This confirms that your MariaDB server is up and running, ready for further configuration.
+
+---
+
 ### Securing the MariaDB database
 
-It's time to secure our database by removing the test database and user and set our own root password.  Run the command `mariadb-secure-installation`, you should get the following output.
+To enhance the security of your MariaDB server, it's essential to remove
+unnecessary test databases, anonymous users, and set a root password.
+This can be done using the mariadb-secure-installation script, which provides 
+a step-by-step guide to securing your database.
 
-```
+Run the following command:
 
-
+```bash
 # mariadb-secure-installation
 
 NOTE: RUNNING ALL PARTS OF THIS SCRIPT IS RECOMMENDED FOR ALL MariaDB
@@ -165,59 +258,156 @@ installation should now be secure.
 
 Thanks for using MariaDB!
 ```
-### Create the Zabbix database 
 
-```
+The mariadb-secure-installation script will guide you through several key steps:
+
+1. Set a root password if one isn't already set.
+2. Remove anonymous users.
+3. Disallow remote root logins.
+4. Remove the test database.
+5. Reload the privilege tables to ensure the changes take effect.
+
+Once complete, your MariaDB instance will be significantly more secure.
+
+---
+
+### Create the Zabbix database
+
+With MariaDB now set up and secured, we can move on to creating the database for Zabbix.
+This database will store all the necessary data related to your Zabbix server,
+including configuration information and monitoring data.
+
+Follow these steps to create the Zabbix database:
+
+-  Log in to the MariaDB shell as the root user:
+
+You'll be prompted to enter the root password that you set during the
+mariadb-secure-installation process.
+
+```bash
 # mysql -uroot -p
-password
+```
 
+- Create the Zabbix database:
+
+Once you're logged into the MariaDB shell, run the following command to create
+a database for Zabbix:
+
+```sql
 MariaDB [(none)]> CREATE DATABASE zabbix CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;
+```
+
+This command creates a new database named zabbix with the UTF-8 character set,
+which is required for Zabbix.
+
+- Create a dedicated user for Zabbix and grant the necessary privileges:
+Next, you need to create a user that Zabbix will use to access the database.
+Replace password with a strong password of your choice.
+
+```sql
 MariaDB [(none)]> CREATE USER 'zabbix-web'@'<zabbix server ip>' IDENTIFIED BY '<password>';
 MariaDB [(none)]> CREATE USER 'zabbix-srv'@'<zabbix server ip>' IDENTIFIED BY '<password>';
 MariaDB [(none)]> GRANT ALL PRIVILEGES ON zabbix.* TO 'zabbix-srv'@'<zabbix server ip>';
 MariaDB [(none)]> GRANT SELECT, UPDATE, DELETE, INSERT ON zabbix.* TO 'zabbix-web'@'<zabbix server ip>';
-MariaDB [(none)]> SET GLOBAL log_bin_trust_function_creators = 1;
-MariaDB [(none)]> QUIT
-
+MariaDB [(none)]> FLUSH PRIVILEGES;
 ```
 
-???+ warning 
-    "The Zabbix documentation explicitly mentions that deterministic triggers need to be created during the import of schema. On MySQL and MariaDB, this requires GLOBAL log_bin_trust_function_creators = 1 to be set if binary logging is enabled and there is no superuser privileges and log_bin_trust_function_creators = 1 is not set in MySQL configuration file."
+This creates new users for zabbix-web and zabbix-srv, grants them  access to the
+zabbix database, and ensures that the privileges are applied immediately.
 
+- In some cases, especially when setting up Zabbix with MariaDB, you might
+encounter issues related to stored functions and triggers if binary logging is
+enabled.
+
+To address this, you need to set the log_bin_trust_function_creators option to 1
+in the MariaDB configuration file.
+This allows non-root users to create stored functions and triggers without
+requiring SUPER privileges, which are restricted when binary logging is enabled.
+
+```sql
+MariaDB [(none)]> SET GLOBAL log_bin_trust_function_creators = 1;
+MariaDB [(none)]> QUIT
+```
+
+At this point, your Zabbix database is ready, and you can proceed with configuring
+the Zabbix server to connect to the database.
+
+???+ warning
+    In the Zabbix documentation, it is explicitly stated that **deterministic
+    triggers** need to be created during the schema import.
+    On MySQL and MariaDB systems, this requires setting `GLOBAL log_bin_trust_function_creators = 1`
+    if binary logging is enabled, and you lack superuser privileges.
+
+    If the `log_bin_trust_function_creators` option is not set in the MySQL
+    configuration file, it will block the creation of these triggers during
+    schema import. This is essential because, without superuser access, non-root
+    users cannot create triggers or stored functions unless this setting is applied.
+
+    To summarize:
+
+    - **Binary logging enabled:** If binary logging is enabled and the user does
+    not have superuser privileges, the creation of necessary Zabbix triggers will
+    fail unless `log_bin_trust_function_creators = 1` is set.
+    - **Solution:** Add `log_bin_trust_function_creators = 1` to the `[mysqld]` 
+    section in your MySQL/MariaDB configuration file or temporarily set it at
+    runtime with `SET GLOBAL log_bin_trust_function_creators = 1` if you have
+    sufficient permissions.
+
+    This ensures that Zabbix can successfully create the required triggers during
+    schema import without encountering privilege-related errors.
+
+---
 
 ### Add the Zabbix repository and populate the DB
 
-```
+```bash
 # rpm -Uvh https://repo.zabbix.com/zabbix/6.5/rocky/9/x86_64/zabbix-release-6.5-2.el9.noarch.rpm
 # dnf clean all
 # dnf install zabbix-sql-scripts
 ```
+
 Upload the data from zabbix (db structure, images, user, ... )
 
-```
+```bash
 # zcat /usr/share/zabbix-sql-scripts/mysql/server.sql.gz | mysql --default-character-set=utf8mb4 -uroot -p zabbix
 ```
 
 ???+ warning
-    "Depending on the speed of your hardware or VM this can take a few seconds upto a few minutes so please don't cancel just sit and wait for the prompt."
+    Depending on the speed of your hardware or virtual machine, the process may
+    take anywhere from a few seconds to several minutes. Please be patient and
+    avoid canceling the operation; just wait for the prompt to appear.
 
 Log back into your MariaDB Database as root
 
-```
+```bash
 # mysql -uroot -p
 ```
-Remove the global parameter again as its not needed anymore and also for security reasons.
 
-```
+Once the import of the Zabbix schema is complete and you no longer need the
+`log_bin_trust_function_creators` global parameter, it is a good practice to
+remove it for security reasons.
+
+To revert the change and set the global parameter back to `0`, use the following
+command in the MariaDB shell:
+
+```sql
 MariaDB [(none)]> SET GLOBAL log_bin_trust_function_creators = 0;
 Query OK, 0 rows affected (0.001 sec)
 ```
 
+This command will disable the setting, ensuring that the server's security posture
+remains robust.
+
+---
+
 ### Configure the firewall
 
-One last thing we need to do is open the firewall and allow incoming connections for the MariaDB database from our Zabbix server because at the moment we dont accept any connections yet.
+Configuring Firewall Rules for MariaDB Access
+To complete our database setup, we need to configure the firewall to allow incoming
+connections for the MariaDB database from our Zabbix server. Currently, no
+connections are accepted. Let's examine the current firewall configuration:
 
-```
+```bash
 # firewall-cmd --list-all
 public (active)
   target: default
@@ -235,34 +425,55 @@ public (active)
   rich rules:
 ```
 
-First we will create an appropriate zone for our MariaDB and open port 3306/tcp but only for the ip from our Zabbix server.
+To securely allow MariaDB access, we'll create a dedicated zone and open port 3306/tcp
+only for the Zabbix server's IP address:
 
-```
+- Create a new firewall zone for MariaDB:
+
+```bash
 # firewall-cmd --new-zone=mariadb-access --permanent
 success
+```
 
+- Reload the firewall to apply changes:
+
+```bash
 # firewall-cmd --reload
 success
+```
 
+- Verify the new zone has been added:
+
+```bash
 # firewall-cmd --get-zones
 block dmz drop external home internal mariadb-access nm-shared public trusted work
+```
 
+- Add the Zabbix server's IP to the new zone:
+
+```bash
 # firewall-cmd --zone=mariadb-access --add-source=<zabbix-serverip> --permanent
+```
 
+- Open port 3306/tcp in the new zone:
+
+```bash
 success
 # firewall-cmd --zone=mariadb-access --add-port=3306/tcp  --permanent
+```
 
+- Reload the firewall again to apply the latest changes:
+
+```bash
 success
 # firewall-cmd --reload
 ```
 
-Now lets have a look to our firewall rules to see if they are what we expected:
+To verify the new firewall rules, inspect the mariadb-access zone:
 
-```
+```bash
 # firewall-cmd --zone=mariadb-access --list-all
-```
 
-```
 mariadb-access (active)
   target: default
   icmp-block-inversion: no
@@ -278,50 +489,101 @@ mariadb-access (active)
   icmp-blocks:
   rich rules:
 ```
-
-Our database server is ready now to accept connections from our Zabbix server :).
-You can continue with the next task [Installing the Zabbix Server](installing-zabbix.md)
+With these configurations in place, the database server is now ready to accept
+connections from the Zabbix server. You can proceed with the next
+task: [Installing the Zabbix Server](installing-zabbix.md)
 
 ---
 
 ## Installing Zabbix with MySQL
 
+Before proceeding with the MySQL server installation, it's crucial to set up the
+appropriate MySQL repository. This ensures that we install the correct version
+compatible with our Zabbix implementation.
 
-Let us start with the installation of the MySQL server, you need to create a MySQL repository first so that we can install the proper files for our MySQL server
-It's alwqys best to check the Zabbix [documentation](https://www.zabbix.com/documentation/current/en/manual/installation/requirements) to see what version is supported so you don't install a version that is not supported or is not supported anymore.
+- Verify Supported MySQL Versions Prior to installation, consult the official Zabbix
+[documentation](https://www.zabbix.com/documentation/current/en/manual/installation/requirements)
+to confirm the supported MySQL versions. This step is critical for several reasons:
+
+- **Compatibility**: Ensures that the MySQL version works seamlessly with your
+Zabbix installation.
+- **Support**: Avoids installing versions that are no longer supported or maintained.
+- **Performance**: Guarantees optimal performance and utilization of features
+specific to Zabbix requirements.
+
+- Create MySQL Repository
+To install the proper MySQL server files, you need to add the official MySQL
+repository to your system. This process typically involves the following steps:
+a. Download the MySQL repository configuration file.
+b. Add the repository to your system's package manager.
+c. Update the package manager's cache to recognize the new repository.
+The exact commands for these steps may vary depending on your operating system
+and the specific MySQL version required for your Zabbix installation.
+
+- Prepare for Installation
+Once the repository is set up and you've confirmed the appropriate MySQL version,
+you'll be ready to proceed with the actual installation of the MySQL server.
+
+By following these preliminary steps, you ensure a smooth installation process and
+avoid potential compatibility issues down the line. The next section will cover
+the actual installation procedure for the MySQL server.
+
+[documentation](https://www.zabbix.com/documentation/current/en/manual/installation/requirements)
+to see what version is supported so you don't install a version that is not
+supported or is not supported anymore.
+
+---
 
 ### Add the MySQL repo
 
 Run the following command to install the MySQL repo for version 8.0
 
-```# dnf -y install https://dev.mysql.com/get/mysql80-community-release-el9-1.noarch.rpm```
+`# dnf -y install https://dev.mysql.com/get/mysql80-community-release-el9-1.noarch.rpm`
 
 ???+ note
-    "If you install this on RedHat 8 and higher or alternatives like CentOS, Rocky or Alma 8 then you need to disable the mysql module by running 'module disable mysql'."
+    "If you install this on RedHat 8 and higher or alternatives like CentOS, Rocky or Alma 8 then you need to disable the OS provided MySQL module by running 'module disable mysql'."
 
 Let's update our OS first with the latest patches
 
-```# dnf update -y```
+```bash
+# dnf update -y
+```
 
-#### Installing the MySQL database
+This command will automatically fetch and install the latest updates available
+for your system, applying security patches, performance improvements, and bug fixes.
+Once the update process is complete, you can move forward with the MariaDB installation.
 
-```# dnf -y install mysql-community-server ```
+---
 
-We are now ready to enable and start or MySQL database.
+### Installing the MySQL database
 
-```# systemctl enable mysqld --now```
+With the operating system updated and the MySQL repository configured, you are
+now ready to install the MySQL server and client packages. 
+This will provide the necessary components to run and manage your database.
+
+To install the MySQL server, execute the following command:
+
+`# dnf -y install mysql-community-server`
+
+Now that MySQL is installed, we need to enable the service to start automatically
+upon boot and start it immediately. Use the following command to accomplish this:
+
+```bash
+# systemctl enable mysqld --now
+```
 
 Once the installation is complete, you can verify the version of the MySQL server by using the following command:
 
-```# mysql -V```
+`# mysql -V`
 
 The output should look like this:
 
-```mysql  Ver 8.0.35 for Linux on x86_64 (MySQL Community Server - GPL)```
+`mysql  Ver 8.0.35 for Linux on x86_64 (MySQL Community Server - GPL)`
 
-And when we ask the status of our MariaDB server we should get an output like this:
+To ensure that the MySQL service is running properly, you can check its status
+with the following command:
 
-```
+```bash
 # systemctl status mysqld
 
 ● mysqld.service - MySQL Server
@@ -341,26 +603,40 @@ And when we ask the status of our MariaDB server we should get an output like th
 Nov 20 22:15:43 mysql-db systemd[1]: Starting MySQL Server...
 Nov 20 22:15:51 mysql-db systemd[1]: Started MySQL Server.
 ```
+
+---
+
 ### Securing the MySQL database
 
-MySQL will secure our database with a random root password that is generated when we install the database. First thing we need to do is replace it with our own password. To find what the password is we need to read the log file with the followin command:
+MySQL will secure our database with a random root password that is generated when
+we install the database. First thing we need to do is replace it with our own password.
+To find what the password is we need to read the log file with the following command:
 
-```# grep 'temporary password' /var/log/mysqld.log```
-
-Change the root password as soon as possible by logging in with the generated, temporary password and set a custom password for the superuser account:
+```bash
+# grep 'temporary password' /var/log/mysqld.log
 ```
+
+Change the root password as soon as possible by logging in with the generated,
+temporary password and set a custom password for the superuser account:
+
+```bash
 # mysql -uroot -p
 ```
-```
+
+```sql
 mysql> ALTER USER 'root'@'localhost' IDENTIFIED BY '<my mysql password>';
 mysql> quit
 ```
-Next we can run the command mysql_secure_installation, you should get the following output:
+To enhance the security of your MySQL server, it's essential to remove unnecessary
+test databases, anonymous users, and set a root password.
+This can be done using the mysql-secure-installation script, which provides a
+step-by-step guide to securing your database.
 
 ???+ note
-    "There is no need to reset the root password for MySQL again as we have reset it already. The next step is optional but recommended."
+    "There is no need to reset the root password for MySQL again as we have reset
+    it already. The next step is optional but recommended."
 
-```
+```bash
 # mysql_secure_installation
 
 Securing the MySQL server deployment.
@@ -414,58 +690,153 @@ Success.
 
 All done!
 ```
-Let's create our DB users and the correct permissions in the database:
 
-```mysql -uroot -p```
+The mysql-secure-installation script will guide you through several key steps:
 
+1. Set a root password if one isn't already set.
+2. Remove anonymous users.
+3. Disallow remote root logins.
+4. Remove the test database.
+5. Reload the privilege tables to ensure the changes take effect.
+
+Once complete, your MySQL instance will be significantly more secure.
+
+---
+
+### Create the Zabbix databases
+
+With MySQL now set up and secured, we can move on to creating the database for Zabbix.
+This database will store all the necessary data related to your Zabbix server,
+including configuration information and monitoring data.
+
+Follow these steps to create the Zabbix database:
+
+1. Log in to the MySQL shell as the root user:
+
+```bash
+# mysql -u root -p
 ```
+
+You'll be prompted to enter the root password that you set during the
+mysql-secure-installation process.
+
+Once you're logged into the MySQL shell, run the following command to create
+a database for Zabbix:
+```sql
 mysql> CREATE DATABASE zabbix CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;
+```
+This command creates a new database named zabbix with the UTF-8 character set,
+which is required for Zabbix.
+
+- Create a dedicated user for Zabbix and grant the necessary privileges:
+Next, you need to create a user that Zabbix will use to access the database.
+Replace password with a strong password of your choice.
+
+```sql
 mysql> CREATE USER 'zabbix-web'@'<zabbix server ip>' IDENTIFIED BY '<password>';
 mysql> CREATE USER 'zabbix-srv'@'<zabbix server ip>' IDENTIFIED BY '<password>';
 mysql> GRANT ALL PRIVILEGES ON zabbix.* TO 'zabbix-srv'@'<zabbix server ip>';
 mysql> GRANT SELECT, UPDATE, DELETE, INSERT ON zabbix.* TO 'zabbix-web'@'<zabbix server ip>';
+mysql> FLUSH PRIVILEGES;
+```
+
+This creates new users for zabbix-web and zabbix-srv, grants them  access to the
+zabbix database, and ensures that the privileges are applied immediately.
+
+- In some cases, especially when setting up Zabbix with MariaDB, you might
+encounter issues related to stored functions and triggers if binary logging is
+enabled.
+
+To address this, you need to set the log_bin_trust_function_creators option to 1
+in the MariaDB configuration file.
+This allows non-root users to create stored functions and triggers without
+requiring SUPER privileges, which are restricted when binary logging is enabled.
+
+```sql
 mysql> SET GLOBAL log_bin_trust_function_creators = 1;
 mysql> QUIT
 ```
 
+At this point, your Zabbix database is ready, and you can proceed with configuring
+the Zabbix server to connect to the database.
+
 ???+ warning
-    "The Zabbix documentation explicitly mentions that deterministic triggers need to be created during the import of schema. On MySQL and MariaDB, this requires GLOBAL log_bin_trust_function_creators = 1 to be set if binary logging is enabled and there is no superuser privileges and log_bin_trust_function_creators = 1 is not set in MySQL configuration file."
+    In the Zabbix documentation, it is explicitly stated that **deterministic
+    triggers** need to be created during the schema import.
+    On MySQL and MariaDB systems, this requires setting `GLOBAL log_bin_trust_function_creators = 1`
+    if binary logging is enabled, and you lack superuser privileges.
 
-### Add the Zabbix repository and populate the DB
+    If the `log_bin_trust_function_creators` option is not set in the MySQL
+    configuration file, it will block the creation of these triggers during
+    schema import. This is essential because, without superuser access, non-root
+    users cannot create triggers or stored functions unless this setting is applied.
 
-```
+    To summarize:
+
+    - **Binary logging enabled:** If binary logging is enabled and the user does
+    not have superuser privileges, the creation of necessary Zabbix triggers will
+    fail unless `log_bin_trust_function_creators = 1` is set.
+    - **Solution:** Add `log_bin_trust_function_creators = 1` to the `[mysqld]`
+    section in your MySQL/MariaDB configuration file or temporarily set it at
+    runtime with `SET GLOBAL log_bin_trust_function_creators = 1` if you have
+    sufficient permissions.
+
+    This ensures that Zabbix can successfully create the required triggers during
+    schema import without encountering privilege-related errors.
+
+---
+
+### Add the Zabbix repository and populate the MySQL DB
+
+```bash
 # rpm -Uvh https://repo.zabbix.com/zabbix/6.5/rocky/9/x86_64/zabbix-release-6.5-2.el9.noarch.rpm
 # dnf clean all
 # dnf install zabbix-sql-scripts
-
 ```
+
 Now let;s upload the data from zabbix (db structure, images, user, ... )
 
-```
+```bash
 # zcat /usr/share/zabbix-sql-scripts/mysql/server.sql.gz | mysql --default-character-set=utf8mb4 -uroot -p zabbix
 Enter password:
 ```
 
 ???+ warning
-    "Depending on the speed of your hardware or VM this can take a few seconds upto a few minutes so please don't cancel just sit and wait for the prompt."
+    Depending on the speed of your hardware or virtual machine, the process may
+    take anywhere from a few seconds to several minutes. Please be patient and
+    avoid canceling the operation; just wait for the prompt to appear.
 
-```
 Log back into your MySQL Database as root
 
+```bash
 # mysql -uroot -p
 ```
 
-Remove the global parameter again as its not needed anymore and also for security reasons.
+Once the import of the Zabbix schema is complete and you no longer need the
+`log_bin_trust_function_creators` global parameter, it is a good practice to
+remove it for security reasons.
 
-```
+To revert the change and set the global parameter back to `0`, use the following
+command in the MariaDB shell:
+
+```sql
 mysql> SET GLOBAL log_bin_trust_function_creators = 0;
-Query OK, 0 rows affected, 1 warning (0.00 sec)
+Query OK, 0 rows affected (0.001 sec)
 ```
+
+This command will disable the setting, ensuring that the server's security posture
+remains robust.
+
+---
 
 ### Configure the firewall
-One last thing we need to do is open the firewall and allow incoming connections from our Zabbix server to our MySQL database because at the moment we dont accept any connections yet.
 
-```
+Configuring Firewall Rules for MySQL Access
+To complete our database setup, we need to configure the firewall to allow incoming
+connections for the MySQL database from our Zabbix server. Currently, no
+connections are accepted. Let's examine the current firewall configuration:
+
+```bash
 # firewall-cmd --list-all
 public (active)
   target: default
@@ -483,34 +854,56 @@ public (active)
   rich rules:
 ```
 
-First we will create an appropriate zone for our MySQL Database and open port 3306/tcp but only for the IP from our Zabbix server. This way no one unallowed is able to connect.
+To securely allow MySQL access, we'll create a dedicated zone and open port 3306/tcp
+only for the Zabbix server's IP address:
 
-```
+- Create a new firewall zone for MariaDB:
+
+```bash
 # firewall-cmd --new-zone=mysql-access --permanent
 success
+```
+- Reload the firewall to apply changes:
 
+```bash
 # firewall-cmd --reload
 success
+```
 
+- Verify the new zone has been added:
+
+```bash
 # firewall-cmd --get-zones
 block dmz drop external home internal mysql-access nm-shared public trusted work
+```
 
+- Add the Zabbix server's IP to the new zone:
+
+```bash
 # firewall-cmd --zone=mysql-access --add-source=<zabbix-serverip> --permanent
+```
 
+- Open port 3306/tcp in the new zone:
+
+```bash
 success
 # firewall-cmd --zone=mysql-access --add-port=3306/tcp  --permanent
+```
 
+- Reload the firewall again to apply the latest changes:
+
+```bash
 success
 # firewall-cmd --reload
 ```
 
-Now lets have a look to our firewall rules to see if they are what we expected:
+To verify the new firewall rules, inspect the mysql-access zone:
 
-```
+```bash
 # firewall-cmd --list-all --zone=mysql-access
 ```
 
-```
+```bash
 mysql-access (active)
   target: default
   icmp-block-inversion: no
@@ -527,8 +920,9 @@ mysql-access (active)
   rich rules:
 ```
 
-Our database server is ready now to accept connections from our Zabbix server :).
-You can continue with the next task [Installing the Zabbix Server](installing-zabbix.md)
+With these configurations in place, the database server is now ready to accept
+connections from the Zabbix server. You can proceed with the next
+task: [Installing the Zabbix Server](installing-zabbix.md)
 
 ---
 
@@ -562,7 +956,7 @@ sudo systemctl enable postgresql-16 --now
 As i told you PostgreSQL works a bit different then MySQL or MariaDB and this applies aswell to how we manage access permissions. Postgres works with a file with the name pg_hba.conf where we have to tell who can access our database from where and what encryption is used for the password. So let's edit this file to allow our frontend and zabbix server to access the database.
 
 ???+ note
-    "Client authentication is configured by a configuration file with the name ```pg_hba.conf```. HBA here stands for host based authentication. For more information feel free to check the [PostgreSQL documentation](https://www.postgresql.org/docs/current/auth-pg-hba-conf.html)."
+"Client authentication is configured by a configuration file with the name `pg_hba.conf`. HBA here stands for host based authentication. For more information feel free to check the [PostgreSQL documentation](https://www.postgresql.org/docs/current/auth-pg-hba-conf.html)."
 
 Add the following lines, the order here is important.
 
@@ -572,31 +966,31 @@ Add the following lines, the order here is important.
 
 ```
 # "local" is for Unix domain socket connections only
-local   zabbix          zabbix-srv                              	scram-sha-256
-local   all             all                                     	peer
+local   zabbix          zabbix-srv                               scram-sha-256
+local   all             all                                      peer
 # IPv4 local connections:
-host    zabbix          zabbix-srv      <ip from zabbix server/24>	scram-sha-256
-host    zabbix          zabbix-web      <ip from zabbix server/24>	scram-sha-256
-host    all             all             127.0.0.1/32            	scram-sha-256
+host    zabbix          zabbix-srv      <ip from zabbix server/24> scram-sha-256
+host    zabbix          zabbix-web      <ip from zabbix server/24> scram-sha-256
+host    all             all             127.0.0.1/32             scram-sha-256
 ```
+
 After we changed the pg_hba file don't forget to restart postgres else the settings will not be applied. But before we restart let us also edit the file postgresql.conf and allow our database to listen on our network interface for incomming connections from the zabbix server. Postgresql will standard only allow connections from the socket.
 
 ```
 # vi /var/lib/pgsql/16/data/postgresql.conf
 ```
+
 and replace the line with listen_addresses so that PostgreSQL will listen on all interfaces and not only on our localhost.
 
 ```
 #listen_addresses = 'localhost' with  listen_addresses = '*'
 ```
 
-When done restart the PostgreSQL cluster and see if it comes back online in case of an error check the ```pg_hba.conf``` file you just edited for typos.
+When done restart the PostgreSQL cluster and see if it comes back online in case of an error check the `pg_hba.conf` file you just edited for typos.
 
 ```
 # systemctl restart postgresql-16
 ```
-
-
 
 For our Zabbix server we need to create tables in the database for this we need ot install the Zabbix repository like we did for our Zabbix server and install the Zabbix package containing all the database tables images icons, ....
 
@@ -610,11 +1004,12 @@ For our Zabbix server we need to create tables in the database for this we need 
 Now we are ready to create our Zabbix users for the server and the frontend:
 
 ```
-# su - postgres 
+# su - postgres
 # createuser --pwprompt zabbix-srv
 Enter password for new role: <server-password>
 Enter it again: <server-password>
-``` 
+```
+
 Let's do the same for our frontend let's create a user to connect to the database:
 
 ```
@@ -635,13 +1030,15 @@ We are now ready to create our database zabbix. Become user postgres again and r
 # su - postgres
 # createdb -E Unicode -O zabbix-srv  zabbix
 ```
+
 Let's verify that we are really connected to the database with the correct session.
 Login from the Postgres shell on the zabbix database
 
 ```
 # psql -d zabbix -U zabbix-srv
 ```
-Make sure we are logged in with our correct user ```zabbix-srv```.
+
+Make sure we are logged in with our correct user `zabbix-srv`.
 
 ```
 zabbix=> SELECT session_user, current_user;
@@ -651,10 +1048,10 @@ zabbix=> SELECT session_user, current_user;
 (1 row)
 ```
 
-PostgreSQL works a bit different then MySQL or MariaDB when it comes to almost everything :) One of the things that it has that MySQL not has are for example shemas. If you like to know more about it i can recommend [this](https://hevodata.com/learn/postgresql-schema/#schema)  URI. It explains in detail what it is and why we need it. But in short ...  In PostgreSQL schema enables a multi-user environment that allows multiple users to access the same database without interference. Schemas are important when several users use the application and access the database in their way or when various applications utilize the same database. There is a standard schema that you can use but the better way is to create our own schema.
+PostgreSQL works a bit different then MySQL or MariaDB when it comes to almost everything :) One of the things that it has that MySQL not has are for example shemas. If you like to know more about it i can recommend [this](https://hevodata.com/learn/postgresql-schema/#schema) URI. It explains in detail what it is and why we need it. But in short ... In PostgreSQL schema enables a multi-user environment that allows multiple users to access the same database without interference. Schemas are important when several users use the application and access the database in their way or when various applications utilize the same database. There is a standard schema that you can use but the better way is to create our own schema.
 
 ???+ note
-    "There is a standard schema ```public``` that you can use but the better way is to create our own schema this was if later something else is installed next to the Zabbix database it will be easier to create users with only access to the newly created database tables."
+"There is a standard schema `public` that you can use but the better way is to create our own schema this was if later something else is installed next to the Zabbix database it will be easier to create users with only access to the newly created database tables."
 
 ```
 zabbix=> CREATE SCHEMA zabbix_server AUTHORIZATION "zabbix-srv";
@@ -670,14 +1067,15 @@ zabbix=> \dn
 
 
 ```
-Now we have our DB ready with correct permissions for user ```zabbix-srv``` but not yet for our user ```zabbix-web```. Let's fix this first and give the rights to connect to our schema.
+
+Now we have our DB ready with correct permissions for user `zabbix-srv` but not yet for our user `zabbix-web`. Let's fix this first and give the rights to connect to our schema.
 
 ```
 zabbix=# GRANT USAGE ON SCHEMA zabbix_server TO "zabbix-web";
 GRANT
 ```
 
-The user ```zabbix-web``` has now the rights to connect to our schema but cannot to anything yet lets fix this but also don't give too many rights.
+The user `zabbix-web` has now the rights to connect to our schema but cannot to anything yet lets fix this but also don't give too many rights.
 
 ```
 zabbix=# GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA zabbix_server TO "zabbix-web";
@@ -687,14 +1085,12 @@ GRANT
 ```
 
 There we go both users are created with the correct permissons.
-We are now ready to populate the database with the Zabbix table structures etc ... log back in as user postgres and run the following commands 
-
+We are now ready to populate the database with the Zabbix table structures etc ... log back in as user postgres and run the following commands
 
 Let's upload the Zabbix SQL file we extracted earlier to populate our database with the needed schemas images users etc ...
 
 ???+ warning
-    "Depending on the speed of your hardware or VM this can take a few seconds upto a few minutes so please don't cancel just sit and wait for the prompt."
-
+"Depending on the speed of your hardware or VM this can take a few seconds upto a few minutes so please don't cancel just sit and wait for the prompt."
 
 ```
 zabbix=# \i /usr/share/zabbix-sql-scripts/postgresql/server.sql
@@ -711,7 +1107,7 @@ zabbix=#
 ```
 
 ???+ note
-    "If the import fails with ```psql:/usr/share/zabbix-sql-scripts/postgresql/server.sql:7: ERROR:  no schema has been selected to create in```  then you probably made an error in the line where you set the search path."
+"If the import fails with `psql:/usr/share/zabbix-sql-scripts/postgresql/server.sql:7: ERROR:  no schema has been selected to create in` then you probably made an error in the line where you set the search path."
 
 Lets verify that our tables are properly created with the correct permissions
 
@@ -736,8 +1132,7 @@ zabbix=# \dt
 ```
 
 ???+ note
-    "If you are like me and don't like to set the search path every time you logon with the user zabbix-srv to the correct search path you can run the following SQL. ```zabbix=> alter role "zabbix-srv" set search_path = "$user", public, zabbix_server ;```"
-
+"If you are like me and don't like to set the search path every time you logon with the user zabbix-srv to the correct search path you can run the following SQL. `zabbix=> alter role "zabbix-srv" set search_path = "$user", public, zabbix_server ;`"
 
 If you are ready you can exit the database and return as user root.
 
@@ -814,4 +1209,3 @@ postgresql-access (active)
 
 Our database server is ready now to accept connections from our Zabbix server :).
 You can continue with the next task [Installing the Zabbix Server](installing-zabbix.md)
-
