@@ -191,11 +191,11 @@ excludepkgs=zabbix*
 ```
 
 ???+ tip
-    It's considered bad practice to keep the EPEL repository enabled all the time,
-    as it may cause conflicts by unintentionally overwriting or installing
-    unwanted packages. Instead, it's safer to enable the repository only when needed,
-    by using the following command during installations: `dnf install --enablerepo=epel <package-name>`
-    This ensures that EPEL is only enabled when explicitly required.
+It's considered bad practice to keep the EPEL repository enabled all the time,
+as it may cause conflicts by unintentionally overwriting or installing
+unwanted packages. Instead, it's safer to enable the repository only when needed,
+by using the following command during installations: `dnf install --enablerepo=epel <package-name>`
+This ensures that EPEL is only enabled when explicitly required.
 
 Next, we will install the Zabbix repository on our operating system.
 After adding the Zabbix repository, it is recommended to perform a repository
@@ -210,18 +210,18 @@ You can do this by running:
 This will refresh the repository metadata and prepare the system for Zabbix installation.
 
 ???+ note
-    A repository in Linux is a configuration that allows you to access and install
-    software packages. You can think of it like an "app store" where you find and
-    download software from a trusted source, in this case, the Zabbix repository.
-    Many repositories are available, but it's important to only add those you trust.
-    The safest practice is to stick to the repositories provided by your
-    operating system and only add additional ones when you're sure they are both
-    trusted and necessary.
+A repository in Linux is a configuration that allows you to access and install
+software packages. You can think of it like an "app store" where you find and
+download software from a trusted source, in this case, the Zabbix repository.
+Many repositories are available, but it's important to only add those you trust.
+The safest practice is to stick to the repositories provided by your
+operating system and only add additional ones when you're sure they are both
+trusted and necessary.
 
     For our installation, the Zabbix repository is provided by the vendor itself,
     making it a trusted source. Another popular and safe repository for
     RedHat-based systems is EPEL (Extra Packages for Enterprise Linux), which is
-    commonly used in enterprise environments. 
+    commonly used in enterprise environments.
     However, always exercise caution when adding new repositories to ensure
     system security and stability.
 
@@ -286,14 +286,14 @@ In this example:
 Make sure the settings reflect your environment's database configuration.
 
 ???+ Note
-    The Zabbix server configuration file offers an option to include additional
-    configuration files for custom parameters. For a production environment, it's
-    often best to avoid altering the original configuration file directly.
-    Instead, you can create and include a separate configuration file for any
-    additional or modified parameters.
-    This approach ensures that your original configuration file remains untouched,
-    which is particularly useful when performing upgrades or managing
-    configurations with tools like Ansible, Puppet, or SaltStack.
+The Zabbix server configuration file offers an option to include additional
+configuration files for custom parameters. For a production environment, it's
+often best to avoid altering the original configuration file directly.
+Instead, you can create and include a separate configuration file for any
+additional or modified parameters.
+This approach ensures that your original configuration file remains untouched,
+which is particularly useful when performing upgrades or managing
+configurations with tools like Ansible, Puppet, or SaltStack.
 
 To enable this feature, remove the `#` from the line:
 
@@ -421,6 +421,7 @@ a reboot
              ├─1149 "/usr/sbin/zabbix_server: poller #3 [got 0 values in 0.000015 sec, idle 1 sec]"
              ├─1150 "/usr/sbin/zabbix_server: poller #4 [got 0 values in 0.000010 sec, idle 1 sec]"
 ```
+
 This concludes our chapter on installing and configuring the Zabbix server with
 MySQL.
 Next, we will proceed with configuring the front-end.
@@ -493,20 +494,20 @@ In this example:
 Make sure the settings reflect your environment's database configuration.
 
 ???+ Note
-    The Zabbix server configuration file offers an option to include additional
-    configuration files for custom parameters. For a production environment,
-    it's often best to avoid altering the original configuration file directly.
-    Instead, you can create and include a separate configuration file for any
-    additional or modified parameters. This approach ensures that your original
-    configuration file remains untouched, which is particularly useful when performing
-    upgrades or managing configurations with tools like Ansible, Puppet, or SaltStack.
-    To enable this feature, remove the # from the line:
-    `# Include=/usr/local/etc/zabbix_server.conf.d/*.conf`
-    Then, ensure the path `/usr/local/etc/zabbix_server.conf.d/` exists and
-    create a custom configuration file in this directory.
-    This file should be readable by the `zabbix` user. By doing so, you can add
-    or modify parameters without modifying the default configuration file,
-    making system management and upgrades smoother.
+The Zabbix server configuration file offers an option to include additional
+configuration files for custom parameters. For a production environment,
+it's often best to avoid altering the original configuration file directly.
+Instead, you can create and include a separate configuration file for any
+additional or modified parameters. This approach ensures that your original
+configuration file remains untouched, which is particularly useful when performing
+upgrades or managing configurations with tools like Ansible, Puppet, or SaltStack.
+To enable this feature, remove the # from the line:
+`# Include=/usr/local/etc/zabbix_server.conf.d/*.conf`
+Then, ensure the path `/usr/local/etc/zabbix_server.conf.d/` exists and
+create a custom configuration file in this directory.
+This file should be readable by the `zabbix` user. By doing so, you can add
+or modify parameters without modifying the default configuration file,
+making system management and upgrades smoother.
 
 With the Zabbix server configuration updated to connect to your database,
 you can now start and enable the Zabbix server service. Run the following command
@@ -808,11 +809,11 @@ When we return now to our frontend we are able to select the Chinese language.
 ![Zabbix Welcome page](image/zabbix-locales-chinese.png)
 
 ???+ note
-    If your preferred language is not available in the Zabbix front-end,
-    don't worry—it simply means that the translation is either incomplete or not
-    yet available.
-    Zabbix is an open-source project that relies on community contributions for
-    translations, so you can help improve it by contributing your own translations.
+If your preferred language is not available in the Zabbix front-end,
+don't worry—it simply means that the translation is either incomplete or not
+yet available.
+Zabbix is an open-source project that relies on community contributions for
+translations, so you can help improve it by contributing your own translations.
 
     Visit the translation page at [https://translate.zabbix.com/](https://translate.zabbix.com/)
     to assist with the translation efforts. Once your translation is complete and reviewed,
@@ -830,14 +831,14 @@ However, if everything is in order, you should be able to proceed by clicking **
 On the next page, you'll configure the database connection parameters:
 
 1. **Select the Database Type**: Choose either `MySQL` or `PostgreSQL` depending
-on your setup.
+   on your setup.
 2. **Enter the Database Host**: Provide the IP address or DNS name of your
-database server. Use port `3306` for MariaDB/MySQL or `5432` for PostgreSQL.
+   database server. Use port `3306` for MariaDB/MySQL or `5432` for PostgreSQL.
 3. **Enter the Database Name**: Specify the name of your database. In our case,
-it is `zabbix`. If you are using PostgreSQL, you will also need to provide
-the schema name, which is `zabbix_server` in our case.
+   it is `zabbix`. If you are using PostgreSQL, you will also need to provide
+   the schema name, which is `zabbix_server` in our case.
 4. **Enter the Database User**: Input the database user created for the web front-end,
-such as `zabbix-web`. Enter the corresponding password for this user.
+   such as `zabbix-web`. Enter the corresponding password for this user.
 
 Ensure that the **Database TLS encryption** option is not selected, and then click **Next step** to proceed.
 
@@ -847,18 +848,18 @@ You're almost finished with the setup! The final steps involve:
 
 1. **Assigning an Instance Name**: Choose a descriptive name for your Zabbix instance.
 2. **Selecting the Timezone**: Choose the timezone that matches your location or
-your preferred time zone for the Zabbix interface.
+   your preferred time zone for the Zabbix interface.
 3. **Setting the Default Time Format**: Select the default time format you prefer
-to use.
+   to use.
 
 Once these settings are configured, you can complete the setup and proceed with
 any final configuration steps as needed.
 
 ???+ note
-    It’s a good practice to set your Zabbix server to the UTC timezone,
-    especially when managing systems across multiple timezones. Using UTC helps
-    ensure consistency in time-sensitive actions and events, as the server’s
-    timezone is often used for calculating and displaying time-related information.
+It’s a good practice to set your Zabbix server to the UTC timezone,
+especially when managing systems across multiple timezones. Using UTC helps
+ensure consistency in time-sensitive actions and events, as the server’s
+timezone is often used for calculating and displaying time-related information.
 
 ![Zabbix Welcome page](image/zabbix-summary.png)
 
@@ -874,9 +875,10 @@ We are now ready to login :
 Login : Admin
 Password : zabbix
 
-If you like to secure the frontend with SSL then checkout the following topic
-
-[Securing Zabbix](../security/securing-zabbix.md)
+This concludes our topic on setting up the Zabbix server. If you're interested
+in securing your front-end, I recommend checking out the topic
+[Securing Zabbix](../security/securing-zabbix.md) for additional guidance
+and best practices.
 
 ---
 
@@ -892,6 +894,7 @@ to install the packages needed for our frontend to install:
 or if you used PostgreSQL
 # dnf install zabbix-apache-conf zabbix-web-pgsql
 ```
+
 This command will install the front-end packages along with the required
 dependencies for Nginx or Apache, depending on your web server choice.
 If you are installing the front-end on a different server, make sure to execute
@@ -1010,11 +1013,11 @@ When we return now to our frontend we are able to select the Chinese language.
 ![Zabbix Welcome page](image/zabbix-locales-chinese.png)
 
 ???+ note
-    If your preferred language is not available in the Zabbix front-end,
-    don't worry—it simply means that the translation is either incomplete or not
-    yet available.
-    Zabbix is an open-source project that relies on community contributions for
-    translations, so you can help improve it by contributing your own translations.
+If your preferred language is not available in the Zabbix front-end,
+don't worry—it simply means that the translation is either incomplete or not
+yet available.
+Zabbix is an open-source project that relies on community contributions for
+translations, so you can help improve it by contributing your own translations.
 
     Visit the translation page at `https://translate.zabbix.com/` to assist with
     the translation efforts. Once your translation is complete and reviewed,
@@ -1032,14 +1035,14 @@ if everything is in order, you should be able to proceed by clicking **Next**.
 On the next page, you'll configure the database connection parameters:
 
 1. **Select the Database Type**: Choose either MySQL or PostgreSQL depending on
-your setup.
+   your setup.
 2. **Enter the Database Host**: Provide the IP address or DNS name of your database
-server. Use port 3306 for MariaDB/MySQL or 5432 for PostgreSQL.
+   server. Use port 3306 for MariaDB/MySQL or 5432 for PostgreSQL.
 3. **Enter the Database Name**: Specify the name of your database. In our case,
-it is zabbix. If you are using PostgreSQL, you will also need to provide the
-schema name, which is zabbix_server in our case.
+   it is zabbix. If you are using PostgreSQL, you will also need to provide the
+   schema name, which is zabbix_server in our case.
 4. **Enter the Database User**: Input the database user created for the web front-end,
-such as zabbix-web. Enter the corresponding password for this user.
+   such as zabbix-web. Enter the corresponding password for this user.
 
 Ensure that the **Database TLS** encryption option is not selected, and then
 click **Next** step to proceed.
@@ -1050,19 +1053,19 @@ You're almost finished with the setup! The final steps involve:
 
 1. **Assigning an Instance Name**: Choose a descriptive name for your Zabbix instance.
 2. **Selecting the Timezone**: Choose the timezone that matches your location or
-your preferred time zone for the Zabbix interface.
+   your preferred time zone for the Zabbix interface.
 3. **Setting the Default Time Format**: Select the default time format you
-prefer to use.
+   prefer to use.
 
 Once these settings are configured, you can complete the setup and proceed with
 any final configuration steps as needed.
 
 ???+ note
-    It’s a good practice to set your Zabbix server to the UTC timezone,
-    especially when managing systems across multiple timezones.
-    Using UTC helps ensure consistency in time-sensitive actions and events,
-    as the server’s timezone is often used for calculating and displaying
-    time-related information.
+It’s a good practice to set your Zabbix server to the UTC timezone,
+especially when managing systems across multiple timezones.
+Using UTC helps ensure consistency in time-sensitive actions and events,
+as the server’s timezone is often used for calculating and displaying
+time-related information.
 
 ![Zabbix Welcome page](image/zabbix-summary.png)
 
@@ -1103,6 +1106,7 @@ Don't forget to restart the `httpd` service
 # systemctl restart httpd
 ```
 
-If you like to secure the frontend with SSL then checkout the following topic
-
-[Securing Zabbix](../security/securing-zabbix.md)
+This concludes our topic on setting up the Zabbix server. If you're interested
+in securing your front-end, I recommend checking out the topic
+[Securing Zabbix](../security/securing-zabbix.md) for additional guidance
+and best practices.
