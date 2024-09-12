@@ -25,7 +25,6 @@ When opting for local installation, follow these best practices:
     Therefore, moving the database to its own server isn't always the optimal solution.
     The best configuration depends on your specific requirements and system architecture.
 
-
 When deciding between local and remote database installation, consider the
 following factors:
 
@@ -184,7 +183,7 @@ This confirms that your MariaDB server is up and running, ready for further conf
 
 To enhance the security of your MariaDB server, it's essential to remove
 unnecessary test databases, anonymous users, and set a root password.
-This can be done using the mariadb-secure-installation script, which provides 
+This can be done using the mariadb-secure-installation script, which provides
 a step-by-step guide to securing your database.
 
 Run the following command:
@@ -279,7 +278,7 @@ including configuration information and monitoring data.
 
 Follow these steps to create the Zabbix database:
 
--  Log in to the MariaDB shell as the root user:
+- Log in to the MariaDB shell as the root user:
 
 You'll be prompted to enter the root password that you set during the
 mariadb-secure-installation process.
@@ -489,6 +488,7 @@ mariadb-access (active)
   icmp-blocks:
   rich rules:
 ```
+
 With these configurations in place, the database server is now ready to accept
 connections from the Zabbix server. You can proceed with the next
 task: [Installing the Zabbix Server](installing-zabbix.md)
@@ -558,7 +558,7 @@ Once the update process is complete, you can move forward with the MariaDB insta
 ### Installing the MySQL database
 
 With the operating system updated and the MySQL repository configured, you are
-now ready to install the MySQL server and client packages. 
+now ready to install the MySQL server and client packages.
 This will provide the necessary components to run and manage your database.
 
 To install the MySQL server, execute the following command:
@@ -627,6 +627,7 @@ temporary password and set a custom password for the superuser account:
 mysql> ALTER USER 'root'@'localhost' IDENTIFIED BY '<my mysql password>';
 mysql> quit
 ```
+
 To enhance the security of your MySQL server, it's essential to remove unnecessary
 test databases, anonymous users, and set a root password.
 This can be done using the mysql-secure-installation script, which provides a
@@ -722,9 +723,11 @@ mysql-secure-installation process.
 
 Once you're logged into the MySQL shell, run the following command to create
 a database for Zabbix:
+
 ```sql
 mysql> CREATE DATABASE zabbix CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;
 ```
+
 This command creates a new database named zabbix with the UTF-8 character set,
 which is required for Zabbix.
 
@@ -863,6 +866,7 @@ only for the Zabbix server's IP address:
 # firewall-cmd --new-zone=mysql-access --permanent
 success
 ```
+
 - Reload the firewall to apply changes:
 
 ```bash
@@ -953,18 +957,23 @@ sudo systemctl enable postgresql-16 --now
 
 ### Securing the PostgreSQL database
 
-As i told you PostgreSQL works a bit different then MySQL or MariaDB and this applies aswell to how we manage access permissions. Postgres works with a file with the name pg_hba.conf where we have to tell who can access our database from where and what encryption is used for the password. So let's edit this file to allow our frontend and zabbix server to access the database.
+As you've pointed out, PostgreSQL handles access permissions differently from
+MySQL and MariaDB. PostgreSQL relies on a file called pg_hba.conf to manage who
+can access the database, from where, and what encryption method is used for authentication.
 
 ???+ note
-"Client authentication is configured by a configuration file with the name `pg_hba.conf`. HBA here stands for host based authentication. For more information feel free to check the [PostgreSQL documentation](https://www.postgresql.org/docs/current/auth-pg-hba-conf.html)."
+    Client authentication in PostgreSQL is configured through the pg_hba.conf file,
+    where "HBA" stands for Host-Based Authentication. This file specifies which
+    users can access the database, from which hosts, and how they are authenticated.
+    For further details, you can refer to the official [PostgreSQL documentation](https://www.postgresql.org/docs/current/auth-pg-hba-conf.html)."
 
 Add the following lines, the order here is important.
 
-```
+```bash
 # vi /var/lib/pgsql/16/data/pg_hba.conf
 ```
 
-```
+```sql
 # "local" is for Unix domain socket connections only
 local   zabbix          zabbix-srv                               scram-sha-256
 local   all             all                                      peer
@@ -974,73 +983,107 @@ host    zabbix          zabbix-web      <ip from zabbix server/24> scram-sha-256
 host    all             all             127.0.0.1/32             scram-sha-256
 ```
 
-After we changed the pg_hba file don't forget to restart postgres else the settings will not be applied. But before we restart let us also edit the file postgresql.conf and allow our database to listen on our network interface for incomming connections from the zabbix server. Postgresql will standard only allow connections from the socket.
+After we changed the pg_hba file don't forget to restart postgres else the settings
+will not be applied.
+But before we restart let us also edit the file postgresql.conf and allow our database
+to listen on our network interface for incomming connections from the zabbix server.
+Postgresql will standard only allow connections from the socket.
 
-```
+```bash
 # vi /var/lib/pgsql/16/data/postgresql.conf
 ```
 
-and replace the line with listen_addresses so that PostgreSQL will listen on all interfaces and not only on our localhost.
+To configure PostgreSQL to listen on all network interfaces, you need to modify
+the `postgresql.conf` file. Locate the following line:
 
-```
-#listen_addresses = 'localhost' with  listen_addresses = '*'
+```bash
+#listen_addresses = 'localhost'
 ```
 
-When done restart the PostgreSQL cluster and see if it comes back online in case of an error check the `pg_hba.conf` file you just edited for typos.
+Replace it with:
 
+```bash
+listen_addresses = '*'
 ```
+
+This will enable PostgreSQL to accept connections from any network interface,
+not just the local machine. After making this change, restart the PostgreSQL
+service to apply the new settings:
+
+```bash
 # systemctl restart postgresql-16
 ```
 
-For our Zabbix server we need to create tables in the database for this we need ot install the Zabbix repository like we did for our Zabbix server and install the Zabbix package containing all the database tables images icons, ....
+If the service fails to restart, review the `pg_hba.conf` file for any syntax errors,
+as incorrect entries here may prevent PostgreSQL from starting.
 
-### Add the Zabbix repository and populate the DB
+Next, to prepare your PostgreSQL instance for Zabbix, you’ll need to create the
+necessary database tables. Begin by installing the Zabbix repository, as you did
+for the Zabbix server.
+Then, install the appropriate Zabbix package that contains the predefined tables,
+images, icons, and other database elements needed for the Zabbix application.
 
-```
+---
+
+### Add the Zabbix repository and populate the PgSQL DB
+
+To begin, add the Zabbix repository to your system by running the following commands:
+
+```bash
 # dnf install https://repo.zabbix.com/zabbix/6.0/rhel/9/x86_64/zabbix-release-6.0-4.el9.noarch.rpm -y
 # dnf install zabbix-sql-scripts -y
 ```
 
-Now we are ready to create our Zabbix users for the server and the frontend:
+With the necessary packages installed, you are now ready to create the Zabbix
+users for both the server and frontend.
 
-```
+First, switch to the `postgres` user and create the Zabbix server database user:
+
+```bash
 # su - postgres
 # createuser --pwprompt zabbix-srv
 Enter password for new role: <server-password>
 Enter it again: <server-password>
 ```
 
-Let's do the same for our frontend let's create a user to connect to the database:
+Next, create the Zabbix frontend user, which will be used to connect to the database:
 
-```
+```bash
 # createuser --pwprompt zabbix-web
 Enter password for new role: <frontend-password>
 Enter it again: <frontend-password>
 ```
 
-Next we have to unzip the database schema files. Run as user root followin command::
+After creating the users, you need to prepare the database schema. As the root user,
+unzip the necessary schema files by running the following command:
 
-```
+```bash
 # gzip -d /usr/share/zabbix-sql-scripts/postgresql/server.sql.gz
 ```
 
-We are now ready to create our database zabbix. Become user postgres again and run next command to create the database as our user zabbix-srv:
+This will extract the database schema required for the Zabbix server.
 
-```
+Now that the users are created, the next step is to create the Zabbix database.
+First, switch to the `postgres` user and execute the following command to
+create the database with the owner set to `zabbix-srv`:
+
+```bash
 # su - postgres
-# createdb -E Unicode -O zabbix-srv  zabbix
+# createdb -E Unicode -O zabbix-srv zabbix
 ```
 
-Let's verify that we are really connected to the database with the correct session.
-Login from the Postgres shell on the zabbix database
+Once the database is created, you should verify the connection and ensure that
+the correct user session is active. To do this, log into the `zabbix` database
+using the `zabbix-srv` user:
 
-```
+```bash
 # psql -d zabbix -U zabbix-srv
 ```
 
-Make sure we are logged in with our correct user `zabbix-srv`.
+After logging in, run the following SQL query to confirm that both the `session_user`
+and `current_user` are set to `zabbix-srv`:
 
-```
+```sql
 zabbix=> SELECT session_user, current_user;
  session_user | current_user
 --------------+--------------
@@ -1048,15 +1091,75 @@ zabbix=> SELECT session_user, current_user;
 (1 row)
 ```
 
-PostgreSQL works a bit different then MySQL or MariaDB when it comes to almost everything :) One of the things that it has that MySQL not has are for example shemas. If you like to know more about it i can recommend [this](https://hevodata.com/learn/postgresql-schema/#schema) URI. It explains in detail what it is and why we need it. But in short ... In PostgreSQL schema enables a multi-user environment that allows multiple users to access the same database without interference. Schemas are important when several users use the application and access the database in their way or when various applications utilize the same database. There is a standard schema that you can use but the better way is to create our own schema.
+If the output matches, you are successfully connected to the database with the correct user.
+
+We are now ready to create our database zabbix. Become user postgres again and
+run next command to create the database as our user zabbix-srv:
+
+```bash
+# su - postgres
+# createdb -E Unicode -O zabbix-srv  zabbix
+```
+
+Let's verify that we are really connected to the database with the correct session.
+Login from the Postgres shell on the zabbix database
+
+```bash
+# psql -d zabbix -U zabbix-srv
+```
+
+Make sure we are logged in with our correct user `zabbix-srv`.
+
+```sql
+zabbix=> SELECT session_user, current_user;
+ session_user | current_user
+--------------+--------------
+ zabbix-srv   | zabbix-srv
+(1 row)
+```
+
+PostgreSQL indeed differs significantly from MySQL or MariaDB in several aspects,
+and one of the key features that sets it apart is its use of schemas. Unlike MySQL,
+where databases are more standalone, PostgreSQL's schema system provides a structured,
+multi-user environment within a single database.
+
+Schemas act as logical containers within a database, enabling multiple users or
+applications to access and manage data independently without conflicts.
+This feature is especially valuable in environments where several users or
+applications need to interact with the same database concurrently. Each user or
+application can have its own schema, preventing accidental interference with each
+other’s data.
 
 ???+ note
-"There is a standard schema `public` that you can use but the better way is to create our own schema this was if later something else is installed next to the Zabbix database it will be easier to create users with only access to the newly created database tables."
+    PostgreSQL comes with a default schema, typically called `public`, but it's
+    generallya best practice to create custom schemas to better organize and
+    separate database objects, especially in complex or multi-user environments.
 
-```
+    For more in-depth information, I recommend checking out the detailed guide
+    at [this URI](https://hevodata.com/learn/postgresql-schema/#schema), which
+    explains the benefits and use cases for schemas in PostgreSQL.
+
+To finalize the database setup for Zabbix, we need to configure schema permissions
+for both the `zabbix-srv` and `zabbix-web` users.
+
+First, we create a custom schema named `zabbix_server` and assign ownership to
+the `zabbix-srv` user:
+
+```sql
 zabbix=> CREATE SCHEMA zabbix_server AUTHORIZATION "zabbix-srv";
 CREATE SCHEMA
-zabbix=> set search_path to "zabbix_server";
+```
+
+Next, we set the search path to the `zabbix_server` schema so that it's the
+default for the current session:
+
+```sql
+zabbix=> SET search_path TO "zabbix_server";
+```
+
+To confirm the schema setup, you can list the existing schemas:
+
+```sql
 zabbix=> \dn
           List of schemas
      Name      |       Owner
@@ -1064,148 +1167,243 @@ zabbix=> \dn
  public        | pg_database_owner
  zabbix_server | zabbix-srv
 (2 rows)
-
-
 ```
 
-Now we have our DB ready with correct permissions for user `zabbix-srv` but not yet for our user `zabbix-web`. Let's fix this first and give the rights to connect to our schema.
+At this point, the `zabbix-srv` user has full access to the schema, but the
+`zabbix-web` user still needs appropriate permissions to connect and interact
+with the database. First, we grant `USAGE` privileges on the schema to allow
+`zabbix-web` to connect:
 
-```
+```sql
 zabbix=# GRANT USAGE ON SCHEMA zabbix_server TO "zabbix-web";
 GRANT
 ```
 
-The user `zabbix-web` has now the rights to connect to our schema but cannot to anything yet lets fix this but also don't give too many rights.
+However, `zabbix-web` still cannot perform any operations on the tables or
+sequences. To allow basic data interaction without giving too many privileges,
+grant the following permissions:
 
-```
+- For tables: `SELECT`, `INSERT`, `UPDATE`, and `DELETE`.
+- For sequences: `SELECT` and `UPDATE`.
+
+```sql
 zabbix=# GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA zabbix_server TO "zabbix-web";
 GRANT
+```
+
+```sql
 zabbix=# GRANT SELECT, UPDATE ON ALL SEQUENCES IN SCHEMA zabbix_server TO "zabbix-web";
 GRANT
 ```
 
-There we go both users are created with the correct permissons.
-We are now ready to populate the database with the Zabbix table structures etc ... log back in as user postgres and run the following commands
+Now, the `zabbix-web` user has appropriate access to interact with the schema
+while maintaining security by limiting permissions to essential operations.
 
-Let's upload the Zabbix SQL file we extracted earlier to populate our database with the needed schemas images users etc ...
+With the users and permissions set up correctly, you can now populate the database
+with the Zabbix schema and other required elements. Follow these steps:
 
-???+ warning
-"Depending on the speed of your hardware or VM this can take a few seconds upto a few minutes so please don't cancel just sit and wait for the prompt."
+1. **Log in as the `postgres` user** if you are not already:
 
-```
-zabbix=# \i /usr/share/zabbix-sql-scripts/postgresql/server.sql
-CREATE TABLE
-CREATE INDEX
-...
-...
-INSERT 0 1
-INSERT 0 1
-INSERT 0 1
-INSERT 0 1
-COMMIT
-zabbix=#
-```
+   ```bash
+   # su - postgres
+   ```
+
+2. **Connect to the Zabbix database** and run the SQL script to create the necessar
+y tables and insert initial data. Enter the `psql` shell for the `zabbix` database:
+
+   ```bash
+   # psql -d zabbix -U zabbix-srv
+   ```
+
+3. **Execute the SQL file** to populate the database. Run the following command
+in the `psql` shell:
+
+   ```sql
+   zabbix=# \i /usr/share/zabbix-sql-scripts/postgresql/server.sql
+   ```
+
+   **Warning:** Depending on your hardware or VM performance, this process can
+   take anywhere from a few seconds to several minutes.
+   Please be patient and avoid canceling the operation.
+
+4. **Monitor the progress** as the script runs. You will see output similar to:
+
+   ```plaintext
+   CREATE TABLE
+   CREATE INDEX
+   ...
+   ...
+   INSERT 0 1
+   INSERT 0 1
+   INSERT 0 1
+   INSERT 0 1
+   COMMIT
+   ```
+
+   Once the script completes and you return to the `zabbix=#` prompt, the database
+   should be successfully populated with all the required tables, schemas, images,
+   and other elements needed for Zabbix.
 
 ???+ note
-"If the import fails with `psql:/usr/share/zabbix-sql-scripts/postgresql/server.sql:7: ERROR:  no schema has been selected to create in` then you probably made an error in the line where you set the search path."
+    If you encounter the following error during the SQL import:
+    ```vbnet
+    psql:/usr/share/zabbix-sql-scripts/postgresql/server.sql:7: ERROR: no schema has been selected to create in
+    ```
+    It indicates that the search_path setting might not have been correctly applied.
+    This setting is crucial because it specifies the schema where the tables and
+    other objects should be created.
+    By correctly setting the search path, you ensure that the SQL script will
+    create tables and other objects in the intended schema.
 
-Lets verify that our tables are properly created with the correct permissions
+To ensure that the Zabbix tables were created successfully and have the correct
+permissions, you can verify the table list and their ownership using the
+`psql` command:
 
-```
-zabbix=# \dt
-                        List of relations
-    Schema     |            Name            | Type  |   Owner
----------------+----------------------------+-------+------------
- zabbix_server | acknowledges               | table | zabbix-srv
- zabbix_server | actions                    | table | zabbix-srv
- zabbix_server | alerts                     | table | zabbix-srv
- zabbix_server | auditlog                   | table | zabbix-srv
- zabbix_server | autoreg_host               | table | zabbix-srv
+- **List the Tables**: Use the following command to list all tables in the `zabbix_server` schema:
+
+   ```sql
+   zabbix=# \dt
+   ```
+
+   You should see a list of tables with their schema, name, type, and owner. For example:
+
+```bash
+Schema         | Name                       | Type  | Owner
+----------------+----------------------------+-------+------------
+zabbix_server  | acknowledges               | table | zabbix-srv
+zabbix_server  | actions                    | table | zabbix-srv
+zabbix_server  | alerts                     | table | zabbix-srv
+zabbix_server  | auditlog                   | table | zabbix-srv
+zabbix_server  | autoreg_host               | table | zabbix-srv
 ...
-...
- zabbix_server | usrgrp                     | table | zabbix-srv
- zabbix_server | valuemap                   | table | zabbix-srv
- zabbix_server | valuemap_mapping           | table | zabbix-srv
- zabbix_server | widget                     | table | zabbix-srv
- zabbix_server | widget_field               | table | zabbix-srv
+zabbix_server  | usrgrp                      | table | zabbix-srv
+zabbix_server  | valuemap                    | table | zabbix-srv
+zabbix_server  | valuemap_mapping            | table | zabbix-srv
+zabbix_server  | widget                      | table | zabbix-srv
+zabbix_server  | widget_field                | table | zabbix-srv
 (173 rows)
 ```
 
+- **Verify Permissions**: Confirm that the `zabbix-srv` user owns the tables and
+has the necessary permissions. You can check permissions for specific tables
+using the `\dp` command:
+
+   ```sql
+   zabbix=# \dp zabbix_server.*
+   ```
+
+   This will display the access privileges for all tables in the `zabbix_server`
+   schema. Ensure that `zabbix-srv` has the required privileges.
+
+If everything looks correct, your tables are properly created and the `zabbix-srv`
+user has the appropriate ownership and permissions. If you need to adjust any
+permissions, you can do so using the `GRANT` commands as needed.
+
 ???+ note
-"If you are like me and don't like to set the search path every time you logon with the user zabbix-srv to the correct search path you can run the following SQL. `zabbix=> alter role "zabbix-srv" set search_path = "$user", public, zabbix_server ;`"
+    If you prefer not to set the search path manually each time you log in as the
+    `zabbix-srv` user, you can configure PostgreSQL to automatically use the desired
+    search path. Run the following SQL command to set the default search path for
+    the `zabbix-srv` role:
+
+    ```sql
+    zabbix=> ALTER ROLE "zabbix-srv" SET search_path = "$user", public, zabbix_server;
+    ```
+
+    This command ensures that every time the `zabbix-srv` user connects to the
+    database, the `search_path` is automatically set to include `$user`, `public`,
+    and `zabbix_server`.
 
 If you are ready you can exit the database and return as user root.
 
-```
+```bash
 zabbix=>  \q
 # exit
 ```
 
 ### Configure the firewall
 
-One last thing we need to do is open the firewall and allow incoming connections for the PostgreSQL database from our Zabbix server because at the moment we dont accept any connections yet.
+To allow incoming connections to the PostgreSQL database from your Zabbix server,
+follow these steps to configure the firewall:
 
-```
-# firewall-cmd --list-all
-public (active)
-  target: default
-  icmp-block-inversion: no
-  interfaces: enp0s3 enp0s8
-  sources:
-  services: cockpit dhcpv6-client  ssh
-  ports:
-  protocols:
-  forward: yes
-  masquerade: no
-  forward-ports:
-  source-ports:
-  icmp-blocks:
-  rich rules:
-```
+1. **Check Current Firewall Configuration**: Verify the current settings to ensure
+the firewall is active and no PostgreSQL-related rules are present:
 
-First we will create an appropriate zone for our PostgreSQL DB and open port 5432/tcp but only for the ip from our Zabbix server.
+   ```bash
+   # firewall-cmd --list-all
+   ```
 
-```
-# firewall-cmd --new-zone=postgresql-access --permanent
-success
+2. **Create a New Zone for PostgreSQL**: Define a new firewall zone specifically
+for PostgreSQL access:
 
-# firewall-cmd --reload
-success
+   ```bash
+   # firewall-cmd --new-zone=postgresql-access --permanent
+   success
+   ```
 
-# firewall-cmd --get-zones
-block dmz drop external home internal nm-shared postgresql-access public trusted work
+3. **Reload Firewall Configuration**: Apply the changes made to the firewall configuration:
 
-# firewall-cmd --zone=postgresql-access--add-source=<zabbix-serverip> --permanent
+   ```bash
+   # firewall-cmd --reload
+   success
+   ```
 
-success
-# firewall-cmd --zone=postgresql-access --add-port=5432/tcp  --permanent
+4. **Verify New Zones**: Check that the new `postgresql-access` zone has been created:
 
-success
-# firewall-cmd --reload
-```
+   ```bash
+   # firewall-cmd --get-zones
+   block dmz drop external home internal nm-shared postgresql-access public trusted work
+   ```
 
-Now lets have a look to our firewall rules to see if they are what we expected:
+5. **Allow Zabbix Server IP**: Add the IP address of your Zabbix server to the
+new `postgresql-access` zone to permit incoming connections:
 
-```
-# firewall-cmd --zone=postgresql-access --list-all
-```
+   ```bash
+   # firewall-cmd --zone=postgresql-access --add-source=<zabbix-serverip> --permanent
+   success
+   ```
 
-```
-postgresql-access (active)
-  target: default
-  icmp-block-inversion: no
-  interfaces:
-  sources: 192.168.56.18
-  services:
-  ports: 5432/tcp
-  protocols:
-  forward: no
-  masquerade: no
-  forward-ports:
-  source-ports:
-  icmp-blocks:
-  rich rules:
-```
+6. **Open PostgreSQL Port**: Open port `5432/tcp` for the PostgreSQL service within
+the `postgresql-access` zone:
 
-Our database server is ready now to accept connections from our Zabbix server :).
+   ```bash
+   # firewall-cmd --zone=postgresql-access --add-port=5432/tcp --permanent
+   success
+   ```
+
+7. **Reload Firewall Configuration Again**: Apply the new rules to the firewall:
+
+   ```bash
+   # firewall-cmd --reload
+   ```
+
+8. **Verify the Firewall Rules**: Ensure that the new rules are correctly applied
+by listing the configurations for the `postgresql-access` zone:
+
+   ```bash
+   # firewall-cmd --zone=postgresql-access --list-all
+   ```
+
+   You should see output similar to:
+
+   ```bash
+   postgresql-access (active)
+     target: default
+     icmp-block-inversion: no
+     interfaces:
+     sources: 192.168.56.18
+     services:
+     ports: 5432/tcp
+     protocols:
+     forward: no
+     masquerade: no
+     forward-ports:
+     source-ports:
+     icmp-blocks:
+     rich rules:
+   ```
+
+With these steps, the firewall will be configured to allow incoming connections to
+the PostgreSQL database from your Zabbix server on port `5432/tcp`.
+
+This concludes our chapter.
 You can continue with the next task [Installing the Zabbix Server](installing-zabbix.md)
