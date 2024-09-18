@@ -1,66 +1,113 @@
 # Requirements
 
-Zabbix has a set of requirements that need to be met on the hardware level and software level.
-These requirements can change over time and also depends on the size of your setup and the software you choose.
-So before you start buying metal or installing a random database version have a look at the Zabbix documentation and check the latest requirements for the version you want to install.
-The latest requirements can be found [here](https://www.zabbix.com/documentation/7.0/en/manual/installation/requirements). Don't forget to select your correct *Zabbix* version from the list.
+Zabbix has specific hardware and software requirements that must be met,
+and these requirements may change over time. They also depend on the size of your
+setup and the software stack you select.
+Before purchasing hardware or installing a database version, it's essential to
+consult the Zabbix documentation for the most up-to-date requirements for the
+version you plan to install.
+You can find the latest requirements [here](https://www.zabbix.com/documentation/7.0/en/manual/installation/requirements).
+Make sure to select the correct Zabbix version from the list.
 
-If you don't plan to run anything big just a small setup or a test setup Zabbix will run happy on a system with 2cpu and 8G ram. But all depends on how big your setup will be and how many items you will monitor, triggers you will create and for how long you want to keep that data. My advice in the days of Virtualization is you can start small and add more later.
+For smaller or test setups, Zabbix can comfortably run on a system with 2 CPUs
+and 8 GB of RAM. However, your setup size, the number of items you monitor,
+the triggers you create, and how long you plan to retain data will impact
+resource requirements.
+In today’s virtualized environments, my advice is to start small and scale up
+as needed.
 
-For the setup you can choose to install all components on 1 server or every component on a different server. For the ease of use just make a few notes for yourself:.
+You can install all components (Zabbix server, database, web server) on a single
+machine or distribute them across multiple servers.
+For simplicity, take note of the server details:
 
-| server 		| ip 	|
-|:---- 			| :----	|
-| zabbix server 	|	|
-| database server 	|	|
-| web server		|	|
-
-
+| Component       | IP Address |
+| :-------------- | :--------- |
+| Zabbix Server   |            |
+| Database Server |            |
+| Web Server      |            |
 
 ???+ tip
-    While zabbix uses dashes "-" in it's names when we need to install packages like zabbix-get or zabbix-sender  it's binaries use "_". like zabbix_sender or zabbix_server. This of course can vary depending if you use the packages from the original Zabbix repositories or not. Just be aaware that it's sometimes rather confusing and that if you installed somepackage with a dash that maybe the binary is with an underscore.
+    Zabbix package names often use dashes (`-`) in their names, such as `zabbix-get`
+or `zabbix-sender`, but the binaries themselves may use underscores (`_`),
+like `zabbix_sender` or `zabbix_server`. This naming discrepancy can sometimes
+be confusing, particularly if you are using packages from non-official Zabbix
+repositories.
+Always check if a binary uses a dash or an underscore when troubleshooting.
 
 ---
 
-## Basic OS configuration
+## Basic OS Configuration
 
-### Firewall 
+### Firewall
 
-It's important for our Zabbix server to have an OS that is well prepared before we start to install our monitoring tool. First we need to make sure our firewall is installed. 
+Before installing Zabbix, it's essential to properly prepare the operating system.
+The first step is to ensure that the firewall is installed and configured.
 
-```# dnf install firewalld --now```
+To install and enable the firewall, run the following command:
 
-Our firewall is installed now, and we are ready to configure the needed ports. For our Zabbix server, we need to allow access to port 10051/tcp this is the port where our Zabbix trapper listens on for incoming data. So we need to open this port in our firewall to allow access to our Zabbix trapper.
+```bash
+# dnf install firewalld --now
+```
 
-```# firewall-cmd --add-service=Zabbix-server --permanent```
+Once installed, you can configure the necessary ports.
+For Zabbix, we need to allow access to port `10051/tcp`, which is where the
+Zabbix trapper listens for incoming data. Use the following command to open
+this port in the firewall:
 
-or if the service is not known
+```bash
+# firewall-cmd --add-service=Zabbix-server --permanent
+```
 
-```# firewall-cmd --add-port=10051/tcp --permanent```
+If the service is not recognized, you can manually specify the port:
+
+```bash
+# firewall-cmd --add-port=10051/tcp --permanent
+```
 
 /// note | firewalld
-"Firewalld is the replacement of iptables in Redhat and allows us to make changes available immediately without the need to restart a service. It's possible that your distribution is not using [Firewalld](https://www.firewalld.org) in this case you have to look to the documentation of your OS."
+"Firewalld is the replacement for iptables in RHEL-based systems and allows
+changes to take effect immediately without needing to restart the service.
+If your distribution does not use [Firewalld](https://www.firewalld.org),
+refer to your OS documentation for the appropriate firewall configuration steps."
 ///
 
+---
 
-### Timeserver
+### Time Server
 
-Another thing we need to configure is the setup of timeserver and sync our Zabbix server to the timeserver by making use of an ntp client. This needs to be done for the Zabbix server but also for the devices we will monitor as time is very important for Zabbix. Imagine one of our hosts having a time zone that is wrong we could end up looking for a problem in Zabbix that happened 6h ago while it had happened maybe only 2h ago.
+Another crucial step is configuring the time server and syncing the Zabbix server
+using an NTP client.
+Accurate time synchronization is vital for Zabbix, both for the server and the
+devices it monitors.
+If one of the hosts has an incorrect time zone, it could lead to confusion, such
+as investigating an issue in Zabbix that appears to have happened hours earlier
+than it actually did.
 
-```# dnf install chronyd --now```
+To install Chrony, an NTP client, use the following command:
 
-Chrony should be installed now and enabled and running. This can be verified with the command:
+```bash
+# dnf install chronyd --now
+```
 
-```# systemctl status chronyd```
+Once installed, you can verify that Chrony is enabled and running by checking
+its status:
+
+```bash
+# systemctl status chronyd
+```
 
 /// note | dnf
-"dnf is a packagemanager from RedHat you need to replace dnf with your correct packagemanager like zyper, apt, yum, ... chrony is a replacement for ntpd and does a better job being faster and more accurate. If your OS does not support [chrony](https://chrony-project.org/) then maybe ntpd is still available."
+"dnf is a package manager used in Red Hat-based systems. If you're using another
+distribution, replace `dnf` with your appropriate package manager, such as `zyper`,
+`apt`, or `yum`. Chrony is a modern replacement for `ntpd`, offering faster and
+more accurate time synchronization.
+If your OS does not support [Chrony](https://chrony-project.org/), consider using
+`ntpd` instead."
 ///
 
+Once Chrony is installed, the next step is to ensure the correct time zone is set. You can view your current time configuration using the `timedatectl` command:
 
-Once Chrony is installed we also need to setup our correct time zone. We can have a look first with 'timedatectl' to see how our time is configured 
-
-```
+```bash
 # timedatectl
                Local time: Thu 2023-11-16 15:09:14 UTC
            Universal time: Thu 2023-11-16 15:09:14 UTC
@@ -71,34 +118,37 @@ System clock synchronized: yes
           RTC in local TZ: no
 ```
 
-Make sure that the service cronyd is active, see above on how to do if you missed it.
-We can choose the correct time zone from a list that we can lookup with the following command:
+Ensure that the Chrony service is active (refer to the previous steps if needed).
+To set the correct time zone, first, you can list all available time zones with
+the following command:
 
-```
-# timedatectl list-time zones
+```bash
+# timedatectl list-timezones
 ```
 
-This will give us a list with all available time zones. Choose the one closest to you.
-```
+This will display a list of time zones, from which you can select the one closest
+to your location, for example:
+
+```bash
 Africa/Abidjan
 Africa/Accra
-
 ...
-
 Pacific/Tongatapu
 Pacific/Wake
 Pacific/Wallis
 UTC
 ```
 
-We can now configure our correct time zone with the following command:
+Once you've identified your time zone, configure it using the following command:
 
-```
-timedatectl set-time zone Europe/Brussels
+```bash
+# timedatectl set-timezone Europe/Brussels
 ```
 
-When we look again we should see our time zone properly configured.
-```
+To verify that the time zone has been configured correctly, use the `timedatectl`
+command again:
+
+```bash
 # timedatectl
                Local time: Thu 2023-11-16 16:13:35 CET
            Universal time: Thu 2023-11-16 15:13:35 UTC
@@ -110,13 +160,26 @@ System clock synchronized: yes
 ```
 
 ???+ note
-    "Some people like to install all servers in the UTC time zone so that all server logs are in the same time zone when having servers all over the world. Zabbix supports user based time zone settings so it's possible to keep the time zone in UTC on the server and then add the correct time zone in the user interface if you like."
+    Some administrators prefer installing all servers in the UTC time zone to
+    ensure that server logs across global deployments are synchronized.
+    Zabbix supports user-based time zone settings, which allows the server to
+    remain in UTC while individual users can adjust the time zone via the
+    interface if needed.
 
+---
 
-We can test if Chrony is syncronizing with the correct timeservers as well by running the command chronyc
+### Verifying Chrony Synchronization
 
-```
+To ensure that Chrony is synchronizing with the correct time servers, you can
+run the following command:
+
+```bash
 # chronyc
+```
+
+The output should resemble:
+
+```bash
 chrony version 4.2
 Copyright (C) 1997-2003, 2007, 2009-2021 Richard P. Curnow and others
 chrony comes with ABSOLUTELY NO WARRANTY.  This is free software, and
@@ -126,10 +189,15 @@ GNU General Public License version 2 for details.
 chronyc>
 ```
 
-Then we type ```sources```
+Once inside the Chrony prompt, type the following to check the sources:
 
-```
+```bash
 chronyc> sources
+```
+
+Example output:
+
+```bash
 MS Name/IP address         Stratum Poll Reach LastRx Last sample
 ===============================================================================
 ^- 51-15-20-83.rev.poneytel>     2   9   377   354   +429us[ +429us] +/-  342ms
@@ -138,40 +206,57 @@ MS Name/IP address         Stratum Poll Reach LastRx Last sample
 ^* leontp1.office.panq.nl        1  10   377   904  +6806ns[ +171us] +/- 2336us
 ```
 
-Here we can see that we are using a bunch of ntp servers that are not in our own country so we better swicht to some timeservers in our local country or if we have a timeserver in our company we could use this one. We can find some local timeservers here : [https://www.ntppool.org/](https://www.ntpool.org)
+In this example, the NTP servers in use are located outside your local region.
+It is recommended to switch to time servers in your country or, if available,
+to a dedicated company time server. You can find local NTP servers
+[here](https://www.ntppool.org/).
 
-To change this we have to edit our config file "/etc/chrony.conf" and replace the existing ntp server with our local one 
+---
 
-```
+### Updating Time Servers
+
+To update the time servers, modify the `/etc/chrony.conf` file. Replace the existing
+NTP server with one closer to your location.
+
+Example of the current configuration:
+
+```bash
 # Use public servers from the pool.ntp.org project.
 # Please consider joining the pool (http://www.pool.ntp.org/join.html).
 pool 2.centos.pool.ntp.org iburst
 ```
 
-And change it to a local server:
+Change it to a local time server:
 
-```
+```bash
 # Use public servers from the pool.ntp.org project.
 # Please consider joining the pool (http://www.pool.ntp.org/join.html).
 pool be.pool.ntp.org iburst
 ```
 
-Don't forget to restart the ntpd client of course.
+After making this change, restart the Chrony service to apply the new configuration:
 
-```
+```bash
 # systemctl restart chronyd
 ```
 
-When we look again we will see that we are now using our local timeservers.
+### Verifying Updated Time Servers
 
-```
+Check the time sources again to ensure that the new local servers are in use:
+
+```bash
 chronyc> sources
+```
 
+Example of expected output with local servers:
+
+```bash
 MS Name/IP address         Stratum Poll Reach LastRx Last sample
 ===============================================================================
 ^- ntp1.unix-solutions.be        2   6    17    43   -375us[ -676us] +/-   28ms
 ^* ntp.devrandom.be              2   6    17    43   -579us[ -880us] +/- 2877us
 ^+ time.cloudflare.com           3   6    17    43   +328us[  +27us] +/- 2620us
-^+ time.cloudflare.com           3   6    17    43   +218us[  -83us] +/- 2815us
+^+ time.cloudflare.com           3   6    17    43
 ```
 
+This confirms that the system is now using local time servers.
