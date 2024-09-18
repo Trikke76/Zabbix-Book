@@ -1,74 +1,131 @@
 # What is this book about ?
 
-Hi, welcome and thank you for your interest in my Zabbix book. I wrote the [Zabbix cookbook](https://www.packtpub.com/product/zabbix-cookbook/9781784397586) and co wrote with Richards [Zabbix 4 Network Monitoring](https://www.packtpub.com/product/zabbix-4-network-monitoring-third-edition/9781789340266) a few years ago for PackPub. 
+Welcome, and thank you for your interest in this Zabbix guide.
 
-![Zabbix cookbook](images/book1.png){width=200} ![Zabbix Network Monitoring 4](images/book2.png){width=200}
+In the past, I authored the [Zabbix Cookbook](https://www.packtpub.com/product/zabbix-cookbook/9781784397586)
+and co-authored [Zabbix 4 Network Monitoring](https://www.packtpub.com/product/zabbix-4-network-monitoring-third-edition/9781789340266)
+with Richards, both published by Packt.
 
-The cookbook the first of it's kind probably outdated and will be replaced by the [Zabbix 7 IT Infrastructure Monitoring Cookbook](https://www.packtpub.com/product/zabbix-7-it-infrastructure-monitoring-cookbook-third-edition/9781801078320), written by Brian and Nathan, 2 people I like a lot to work with and can higly recommend. There are many more books available from Packt about Zabbix a complete overview can be found here [Zabbix books at pack](https://www.packtpub.com/search?query=zabbix). Or if you like to find some non English books Amazon has some books form Packt and other Publishers in Chinese, Spanish and maybe some other languages as well. [Other books](https://www.amazon.com/s?k=zabbix&crid=3G0JRTVTKS7YU&sprefix=zabbix+%2Caps%2C167&ref=nb_sb_noss_2)
+![Zabbix Cookbook](images/book1.png){width=200} ![Zabbix 4 Network Monitoring](images/book2.png){width=200}
 
-As Zabbix is an opensource product and making money out of the books was never my intention, it got me thinking how to do things different.
-How to make a new book without using a publisher like I had done before.
-After a while, I came up with the idea to make a book that would be free and that would be updated when new versions came out.
-Since I am a huge fan of documentation in markdown or asciidoc I came up with the idea to share the book in git and use markdown.
-The only problem left was how to make those markdown files readable in an easy way like a book ? After some searching trying to look for a good solution I found [MkDocs](https://www.mkdocs.org). MkDocs is a Python-Markdown library that can convert everything to HTML and can be templated. So the problem was solved and a new book was born.
+The _Zabbix Cookbook_ was one of the first comprehensive resources for Zabbix users,
+though it's now somewhat outdated. It has since been succeeded by the
+[Zabbix 7 IT Infrastructure Monitoring Cookbook](https://www.packtpub.com/product/zabbix-7-it-infrastructure-monitoring-cookbook-third-edition/9781801078320),
+written by Brian and Nathan—two individuals I highly recommend and enjoy
+collaborating with.
 
+Packt offers a wide range of other Zabbix-related books.
+You can browse the full collection
+[here](https://www.packtpub.com/search?query=zabbix). Additionally,
+for those looking for non-English titles, Amazon provides Zabbix books in languages
+such as Chinese, Spanish, and more, published by Packt and other publishers.
+Find them [here](https://www.amazon.com/s?k=zabbix&crid=3G0JRTVTKS7YU&sprefix=zabbix+%2Caps%2C167&ref=nb_sb_noss_2).
 
-## Who am I ?
+As Zabbix is an open-source product, my goal was never to make money from the
+books I wrote.
+This led me to reflect on how I could approach things differently.
+I wanted to create a book that would be freely available and updated with each
+new version of Zabbix.
 
-My name is Patrik Uytterhoeven and I work for a Belgium company named Open-Future. I started at this company at January 2013 and that's
-when my journey started with Zabbix as well. They gave me the opportunity to build my experience and to get certified as Zabbix trainer.
-Since this year I am officially 10y Zabbix trainer. If you would like to follow one of my trainings feel free to register for a training at our website [www.open-future.be](https://www.open-future.be). Why would you follow a training if you can read this book for free are you now thinking? Because trainings just like the book explain you all the details on how to set up and do things but also give you valueable tips and feedback that you never get from a book. Books just can't cover everything.
+Being a strong advocate of documentation in Markdown or AsciiDoc, I decided to
+share the book in a Git repository, using Markdown as the format.
+The only challenge left was how to present those Markdown files in a reader-friendly
+way, like a traditional book.
+After some research, I discovered [MkDocs](https://www.mkdocs.org), a Python-based
+library that converts Markdown files into HTML and can be templated.
+With MkDocs, the problem was solved, and a new book was born.
 
+## Who Am I?
 
-## What OS do I need ?
+My name is Patrik Uytterhoeven, and I work for a Belgian company called Open-Future.
+I joined Open-Future in January 2013, and that's when my journey with Zabbix began.
+The company provided me with the opportunity to grow my expertise and become a
+certified Zabbix trainer. As of this year, I’ve been a Zabbix trainer for 10 years.
 
-Since I work mostly with RHEL based systems and since I am convinced that RHEL is the better choice in Production environments I have chosen to focus on using one of the forks that is available for free. Zabbix is supported on Ubuntu, Debian, Suse, Raspberry .... and it can be compiled on any OS that is Unix based so it's almost impossible to cover them all. However the book is Opensource and in GIT so feel free to contribute the code for your favorite flavour :). I will use [Rocky Linux](https://rockylinux.org/) 9 in this book, but it should work for most of the other installations as well.
+If you're interested in attending one of my trainings, you can register at [www.open-future.be](https://www.open-future.be).
+You might wonder, "Why take a training if I can read this book for free?"
+While books provide extensive information on setup and configuration,
+trainings offer valuable insights, tips, and feedback that you won’t find easy
+in a book. Books simply can't cover every detail.
 
-## What version of Zabbix is used in this book ?
+## What Operating System Do I Need?
 
-Since we are almost at the release of Zabbix 7, I will focus on version 7 since it will be the new LTS. It should also apply to most other versions but of course there will be minor changes. In the future, if there is enough support from the community to update this book together, it would be great if we could build a book for every LTS version available.
+As someone who primarily works with RHEL-based systems,
+I believe RHEL is the optimal choice for production environments. For this reason,
+I’ve chosen to focus on one of its free forks. Zabbix is supported on Ubuntu,
+Debian, SUSE, Raspberry Pi, and other systems, and it can be compiled on any
+Unix-based OS. However, it's nearly impossible to cover every OS in this book.
+Since the book is open-source and hosted on Git, feel free to contribute code
+for your preferred distribution!
+In this book, I will use [Rocky Linux](https://rockylinux.org/) 9,
+but the instructions should apply to most other installations as well.
 
+## What Version of Zabbix Is Used in This Book?
 
-## How to use this book ?
+This book focuses on Zabbix 7.0, as it is the latest LTS (Long Term Support)
+release.
+Most of the content will be relevant to other versions, though minor changes
+may exist. In the future, if the community supports updating this book,
+it would be fantastic to create a version for every LTS release.
 
-The book will try to cover all the topics, feel free to let me know if something is missing or feel free to make a pull request. 
-There is no need to start from page 1 and read the book till the end. Some people will be looking for basic knowledge others might want to skip to the fun part, so I want the book to be useful for everyone. Therefor I will try to explain as best as possible in every topic the exact steps needed to reproduce.
- 
-There will be moments in the book where you need to type some code, I will show the commands you need to type in a box just like here.
+## How to Use This Book
 
-```
-# some command 
+This book is designed to cover a wide range of topics.
+If you feel something is missing, please reach out or make a pull request.
+
+You don’t need to start at page one and read through to the end.
+Some readers may seek basic knowledge, while others might want to skip directly
+to more advanced topics.
+I aim to make this book useful for everyone by providing detailed explanations
+and clear steps for each topic.
+
+Throughout the book, you'll encounter code snippets. These will be presented
+in code blocks like the one below:
+
+```bash
+# sudo yum install zabbix-server-mysql
 ```
 
 Notes to some useful documentation will be added at the bottom of the page.
-
 
 Here is a simple footnote[^1]. With some additional text after it.
 
 [^1]: My reference.
 
-
-In case there is some important information to share I will add notes in the documentation like can be seen here :
+In case there is some important information to share I will add notes in the
+documentation like can be seen here :
 
 ???+ note
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et euismod nulla. Curabitur feugiat, tortor non consequat finibus, justo purus auctor massa, nec semper lorem quam in massa.
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et euismod nulla.
+    Curabitur feugiat, tortor non consequat finibus, justo purus auctor massa,
+    nec semper lorem quam in massa.
 
 ???+ info
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et euismod nulla. Curabitur feugiat, tortor non consequat finibus, justo purus auctor massa, nec semper lorem quam in massa.
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et euismod nulla.
+    Curabitur feugiat, tortor non consequat finibus, justo purus auctor massa,
+    nec semper lorem quam in massa.
 
 ???+ tip
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et euismod nulla. Curabitur feugiat, tortor non consequat finibus, justo purus auctor massa, nec semper lorem quam in massa.
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et euismod nulla.
+    Curabitur feugiat, tortor non consequat finibus, justo purus auctor massa,
+    nec semper lorem quam in massa.
 
 ???+ question
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et euismod nulla. Curabitur feugiat, tortor non consequat finibus, justo purus auctor massa, nec semper lorem quam in massa.
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et euismod nulla.
+    Curabitur feugiat, tortor non consequat finibus, justo purus auctor massa,
+    nec semper lorem quam in massa.
 
 ???+ warning
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et euismod nulla. Curabitur feugiat, tortor non consequat finibus, justo purus auctor massa, nec semper lorem quam in massa.
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et euismod nulla.
+    Curabitur feugiat, tortor non consequat finibus, justo purus auctor massa,
+    nec semper lorem quam in massa.
 
 ???+ bug
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et euismod nulla. Curabitur feugiat, tortor non consequat finibus, justo purus auctor massa, nec semper lorem quam in massa.
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et euismod nulla.
+    Curabitur feugiat, tortor non consequat finibus, justo purus auctor massa,
+    nec semper lorem quam in massa.
 
 ???+ example
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et euismod nulla. Curabitur feugiat, tortor non consequat finibus, justo purus auctor massa, nec semper lorem quam in massa.
-
-
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et euismod nulla.
+    Curabitur feugiat, tortor non consequat finibus, justo purus auctor massa,
+    nec semper lorem quam in massa.
