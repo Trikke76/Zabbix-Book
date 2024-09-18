@@ -1,0 +1,3894 @@
+
+<!doctype html>
+<html lang="pt" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="An open-source Zabbix book">
+      
+      
+        <meta name="author" content="Patrik Uytterhoeven and all github contributors">
+      
+      
+        <link rel="canonical" href="https://trikke76.github.io/Zabbix-Book/pt/installation/installing-zabbixdb/">
+      
+      
+        <link rel="prev" href="../Requirements/">
+      
+      
+        <link rel="next" href="../installing-zabbix/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.35">
+    
+    
+      
+        <title>Installing Zabbix DB Server - Zabbix 7 Monitoring</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.35f28582.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CNunito:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Nunito"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings1.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings2.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings3.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings4.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings5.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings6.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-material.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings1.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings2.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings3.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings4.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings5.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings6.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-material.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings1.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings2.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings3.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings4.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings5.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings6.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-material.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings1.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings2.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings3.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings4.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings5.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings6.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-material.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings1.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings2.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings3.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings4.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings5.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings6.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-material.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings1.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings2.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings3.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings4.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings5.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings6.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-material.css">
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#installing-zabbix-db-server" class="md-skip">
+          Ir para o conteúdo
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
+            
+            
+    
+    
+    
+        <div class="gmc-announce">
+            Esta página ainda não foi traduzida para o português, portanto é exibida em inglês.
+            <a href="/gmc/pt/contribute/#translations">Apoie-nos e traduza!</a>
+        </div>
+    
+    
+    <script>
+        const gGMC_SELECT_VERSION = "Selecione a versão";
+        const gGMC_TRANSLATE_CTA = "Apoie-nos e traduza!";
+        const gGMC_PAGE_LOCALE = "pt";
+        const gGMC_FILE_LOCALE = "en";
+        const gGMC_TRANSLATE_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16.5 12c0-.68-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2 0 .37-.03.73-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10C6.47 2 2 6.5 2 12s4.5 10 10 10c.59 0 1.16-.06 1.72-.16A5.9 5.9 0 0 1 13 19c0-.29.03-.57.07-.85-.32.63-.67 1.24-1.07 1.81-.83-1.2-1.5-2.53-1.91-3.96h3.72a5.95 5.95 0 0 1 2.59-2.4c.06-.53.1-1.06.1-1.6M12 4.03c.83 1.2 1.5 2.54 1.91 3.97h-3.82c.41-1.43 1.08-2.77 1.91-3.97M4.26 14C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2s.06 1.34.14 2zm.82 2H8c.35 1.25.8 2.45 1.4 3.56A8 8 0 0 1 5.08 16M8 8H5.08A7.92 7.92 0 0 1 9.4 4.44C8.8 5.55 8.35 6.75 8 8m6.34 6H9.66c-.1-.66-.16-1.32-.16-2s.06-1.35.16-2h4.68c.09.65.16 1.32.16 2s-.07 1.34-.16 2m.25-9.56c1.84.63 3.37 1.9 4.33 3.56h-2.95a15.7 15.7 0 0 0-1.38-3.56M23 18v2h-3v3h-2v-3h-3v-2h3v-3h2v3z"/></svg>';
+    </script>
+    
+    
+
+          </div>
+          
+        </aside>
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabeçalho">
+    <a href="../../" title="Zabbix 7 Monitoring" class="md-header__button md-logo" aria-label="Zabbix 7 Monitoring" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Zabbix 7 Monitoring
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Installing Zabbix DB Server
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="light-blue" data-md-color-accent="light-blue"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Selecione o idioma">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="../../../fr/installation/installing-zabbixdb/" hreflang="fr" class="md-select__link">
+              Français
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../../de/installation/installing-zabbixdb/" hreflang="de" class="md-select__link">
+              German
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../../it/installation/installing-zabbixdb/" hreflang="it" class="md-select__link">
+              Italian
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../../nl/installation/installing-zabbixdb/" hreflang="nl" class="md-select__link">
+              Nederlands
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="pt" class="md-select__link">
+              Portuguese
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../../es/installation/installing-zabbixdb/" hreflang="es" class="md-select__link">
+              Spanish
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../../th/installation/installing-zabbixdb/" hreflang="th" class="md-select__link">
+              ภาษาไทย
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../../zh/installation/installing-zabbixdb/" hreflang="zh" class="md-select__link">
+              中国人
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../../installation/installing-zabbixdb/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Buscar" placeholder="Buscar" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Pesquisar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpar" aria-label="Limpar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando a pesquisa
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/trikke76/Zabbix-Book" title="Ir ao repositório" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    trikke76
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegação" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../" title="Zabbix 7 Monitoring" class="md-nav__button md-logo" aria-label="Zabbix 7 Monitoring" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Zabbix 7 Monitoring
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/trikke76/Zabbix-Book" title="Ir ao repositório" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    trikke76
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Welcome
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Getting started
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Getting started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Requirements/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Requirements
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Installing Zabbix DB Server
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Installing Zabbix DB Server
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#installing-zabbix-with-mariadb" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installing Zabbix with MariaDB
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installing Zabbix with MariaDB">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#add-the-mariadb-repository" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add the MariaDB repository
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#install-the-mariadb-database" class="md-nav__link">
+    <span class="md-ellipsis">
+      Install the MariaDB database
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#securing-the-mariadb-database" class="md-nav__link">
+    <span class="md-ellipsis">
+      Securing the MariaDB database
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-the-zabbix-database" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create the Zabbix database
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-the-zabbix-repository-and-populate-the-db" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add the Zabbix repository and populate the DB
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configure-the-firewall" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configure the firewall
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installing-zabbix-with-mysql" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installing Zabbix with MySQL
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installing Zabbix with MySQL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#add-the-mysql-repo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add the MySQL repo
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#installing-the-mysql-database" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installing the MySQL database
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#securing-the-mysql-database" class="md-nav__link">
+    <span class="md-ellipsis">
+      Securing the MySQL database
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-the-zabbix-databases" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create the Zabbix databases
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-the-zabbix-repository-and-populate-the-mysql-db" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add the Zabbix repository and populate the MySQL DB
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configure-the-firewall_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configure the firewall
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installing-zabbix-with-postgresql" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installing Zabbix with PostgreSQL
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installing Zabbix with PostgreSQL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#add-the-postgresql-repo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add the PostgreSQL repo
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#securing-the-postgresql-database" class="md-nav__link">
+    <span class="md-ellipsis">
+      Securing the PostgreSQL database
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-the-zabbix-repository-and-populate-the-pgsql-db" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add the Zabbix repository and populate the PgSQL DB
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configure-the-firewall_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configure the firewall
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installing-zabbix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Installing Zabbix
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installing-zabbix-ha/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Configure Zabbix HA
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    The basics
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            The basics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/Dashboard/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Zabbix Interface
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/zabbix-users/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Zabbix Users &amp; User groups
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/zabbix-hosts/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Zabbix hosts
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/zabbix-hostgroups/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Host groups
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/zabbix-interfaces/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Interfaces
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/zabbix-templates/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Templates
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/zabbix-items/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Items
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/zabbix-triggers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Zabbix triggers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/zabbix-macros/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Macros
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/zabbix-dataflow/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Flow
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Data collection
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Data collection
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data-collection/zabbix-agent/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Zabbix Agent
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Problem detection
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Problem detection
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../problems/zabbix-triggers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Triggers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Taking action when problems come
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Taking action when problems come
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../actions/zabbix-eventactions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Event based Actions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Managing permissions
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Managing permissions
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../permissions/managing-permissions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Managing Permissions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Visualising Problems
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Visualising Problems
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../visualising/Visualising-our-problems/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Visualising our problems
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Automating configuration
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Automating configuration
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../automation/automating-configuration/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Automating configuration
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    VMWare monitoring
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            VMWare monitoring
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../vmware/vmware-monitoring/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    VMware monitoring with Zabbix
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Monitoring websites
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            Monitoring websites
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../websites/monitoring-websites/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring websites
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Monitoring SNMP, IPMI and JAVA
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            Monitoring SNMP, IPMI and JAVA
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extra-monitoring/SNMP-monitoring/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SNMP Monitoring
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extra-monitoring/SNMP-traps-monitoring/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SNMP trap monitoring
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extra-monitoring/JAVA-monitoring/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JAVA monitoring
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extra-monitoring/IPMI-monitoring/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IPMI Monitoring
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Authentication
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            Authentication
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../authentication/zabbix-http/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Authentication with HTTP
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../authentication/zabbix-ldap/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Authentication with LDAP
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../authentication/zabbix-saml/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Authentication with SAML
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../authentication/zabbix-mfa/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Zabbix MFA support
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_14" >
+        
+          
+          <label class="md-nav__link" for="__nav_14" id="__nav_14_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Monitoring with Proxies
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_14_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_14">
+            <span class="md-nav__icon md-icon"></span>
+            Monitoring with Proxies
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../proxies/installing-proxies/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Installing Proxies
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../proxies/active-proxy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Active proxy
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../proxies/passive-proxy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Passive proxy
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../proxies/loadbalancing-proxies/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Proxy loadbalancing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_15" >
+        
+          
+          <label class="md-nav__link" for="__nav_15" id="__nav_15_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Securing Zabbix
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_15_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_15">
+            <span class="md-nav__icon md-icon"></span>
+            Securing Zabbix
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../security/securing-zabbix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Securing Zabbix Frontend
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../security/securing-zabbix-selinux/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Securing Zabbix with SELinux
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_16" >
+        
+          
+          <label class="md-nav__link" for="__nav_16" id="__nav_16_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Maintaining Zabbix
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_16_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_16">
+            <span class="md-nav__icon md-icon"></span>
+            Maintaining Zabbix
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../maintenance/maintaining-zabbix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Maintaining Zabbix
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_17" >
+        
+          
+          <label class="md-nav__link" for="__nav_17" id="__nav_17_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Monitoring Windows
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_17_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_17">
+            <span class="md-nav__icon md-icon"></span>
+            Monitoring Windows
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../windows/monitoring-windows/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Windows
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_18" >
+        
+          
+          <label class="md-nav__link" for="__nav_18" id="__nav_18_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Zabbix API
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_18_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_18">
+            <span class="md-nav__icon md-icon"></span>
+            Zabbix API
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/zabbix-api/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Zabbix API
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_19" >
+        
+          
+          <label class="md-nav__link" for="__nav_19" id="__nav_19_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Zabbix Extras
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_19_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_19">
+            <span class="md-nav__icon md-icon"></span>
+            Zabbix Extras
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extras/modbus/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Modbus monitoring with Zabbix.
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extras/contributors/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Contributors
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Guidlines-for-translations/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Translation and Guidlines
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#installing-zabbix-with-mariadb" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installing Zabbix with MariaDB
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installing Zabbix with MariaDB">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#add-the-mariadb-repository" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add the MariaDB repository
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#install-the-mariadb-database" class="md-nav__link">
+    <span class="md-ellipsis">
+      Install the MariaDB database
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#securing-the-mariadb-database" class="md-nav__link">
+    <span class="md-ellipsis">
+      Securing the MariaDB database
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-the-zabbix-database" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create the Zabbix database
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-the-zabbix-repository-and-populate-the-db" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add the Zabbix repository and populate the DB
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configure-the-firewall" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configure the firewall
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installing-zabbix-with-mysql" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installing Zabbix with MySQL
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installing Zabbix with MySQL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#add-the-mysql-repo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add the MySQL repo
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#installing-the-mysql-database" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installing the MySQL database
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#securing-the-mysql-database" class="md-nav__link">
+    <span class="md-ellipsis">
+      Securing the MySQL database
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-the-zabbix-databases" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create the Zabbix databases
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-the-zabbix-repository-and-populate-the-mysql-db" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add the Zabbix repository and populate the MySQL DB
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configure-the-firewall_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configure the firewall
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installing-zabbix-with-postgresql" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installing Zabbix with PostgreSQL
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installing Zabbix with PostgreSQL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#add-the-postgresql-repo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add the PostgreSQL repo
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#securing-the-postgresql-database" class="md-nav__link">
+    <span class="md-ellipsis">
+      Securing the PostgreSQL database
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-the-zabbix-repository-and-populate-the-pgsql-db" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add the Zabbix repository and populate the PgSQL DB
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configure-the-firewall_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configure the firewall
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+
+
+    <a href="../../../print_page/" title="Print Site" class="md-content__button md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 3H6v4h12m1 5a1 1 0 0 1-1-1 1 1 0 0 1 1-1 1 1 0 0 1 1 1 1 1 0 0 1-1 1m-3 7H8v-5h8m3-6H5a3 3 0 0 0-3 3v6h4v4h12v-4h4v-6a3 3 0 0 0-3-3"/></svg>
+    </a>
+
+
+
+                  
+
+  
+  
+
+
+<h1 id="installing-zabbix-db-server">Installing Zabbix DB Server<a class="headerlink" href="#installing-zabbix-db-server" title="Permanent link">&para;</a></h1>
+<p>This chapter focuses on the installation of the Zabbix database. While Zabbix supports
+various SQL databases, we will concentrate on three primary options:
+PostgreSQL, MariaDB, and MySQL.
+It's worth noting that Oracle is also supported, but its support is deprecated.
+Zabbix 7 will be the final version supporting Oracle as a backend.</p>
+<p>We will outline the installation and configuration process for each database on
+a separate machine.
+However, it's important to understand that there's no strict requirement to
+install the database on a separate server from your Zabbix server.
+The choice between local and remote database installation depends on your specific
+needs and infrastructure.</p>
+<p>For most initial setups, a locally installed database will likely suffice.
+When opting for local installation, follow these best practices:</p>
+<ul>
+<li>Ensure the database is stored on separate disks from the operating system.</li>
+<li>Monitor performance as your system grows.</li>
+<li>Be prepared to migrate the database to a separate server if performance issues arise.</li>
+</ul>
+<details class="note" open="open">
+<summary>Note</summary>
+<p>Local connections are typically faster than connections over TCP.
+Therefore, moving the database to its own server isn't always the optimal solution.
+The best configuration depends on your specific requirements and system architecture.</p>
+</details>
+<p>When deciding between local and remote database installation, consider the
+following factors:</p>
+<ol>
+<li><strong>System Resources:</strong> Evaluate whether your Zabbix server has sufficient resources
+to handle both the application and database workload.</li>
+<li><strong>Network Latency:</strong> Assess the impact of network latency on database queries
+if opting for a remote installation.</li>
+<li><strong>Scalability:</strong> Consider future growth and the potential need for dedicated
+database hardware.</li>
+<li><strong>Backup and Maintenance:</strong> Determine if separate database installation
+simplifies your backup and maintenance procedures.</li>
+</ol>
+<p>In the following sections, we'll dive into the installation and configuration
+processes for PostgreSQL, MariaDB, and MySQL.
+Each section will provide step-by-step instructions to ensure a smooth setup,
+regardless of whether you choose local or remote installation.</p>
+<hr />
+<h2 id="installing-zabbix-with-mariadb">Installing Zabbix with MariaDB<a class="headerlink" href="#installing-zabbix-with-mariadb" title="Permanent link">&para;</a></h2>
+<p>To begin the installation process for the MariaDB server, the first step involves
+manually creating a repository configuration file.
+This file, <code>mariadb.repo</code>, must be placed in the <code>/etc/yum.repos.d/</code> directory.
+The repository file will allow your package manager to locate and install the
+necessary MariaDB components.</p>
+<p>To create the MariaDB repository file, execute the following command in your terminal:</p>
+<hr />
+<h3 id="add-the-mariadb-repository">Add the MariaDB repository<a class="headerlink" href="#add-the-mariadb-repository" title="Permanent link">&para;</a></h3>
+<pre><code class="language-bash"># sudo nano /etc/yum.repos.d/mariadb.repo
+</code></pre>
+<p>This will open a text editor where you can input the repository configuration details.
+Once the repository is configured, you can proceed with the installation of
+MariaDB using your package manager.</p>
+<pre><code class="language-bash"># vi /etc/yum.repos.d/mariadb.repo
+</code></pre>
+<p>The above command will open a new file, allowing you to define the repository
+configuration. After the file is created, you'll need to add the following
+content to configure the MariaDB repository.
+Ensure that the version specified, in this case, <code>10.11</code>, is supported by Zabbix
+by reviewing the latest version <a href="https://www.zabbix.com/documentation/current/en/manual/installation/requirements">requirements</a> for your specific Zabbix deployment.</p>
+<p>Here’s the configuration you need to add:</p>
+<pre><code class="language-ini"># MariaDB 10.11 RedHatEnterpriseLinux repository list - created 2023-11-01 14:20 UTC
+# https://mariadb.org/download/
+[mariadb]
+name = MariaDB
+# rpm.mariadb.org is a dynamic mirror if your preferred mirror goes offline. See https://mariadb.org/mirrorbits/ for details.
+# baseurl = https://rpm.mariadb.org/10.11/rhel/$releasever/$basearch
+baseurl = https://mirror.23m.com/mariadb/yum/10.11/rhel/$releasever/$basearch
+# gpgkey = https://rpm.mariadb.org/RPM-GPG-KEY-MariaDB
+gpgkey = https://mirror.23m.com/mariadb/yum/RPM-GPG-KEY-MariaDB
+gpgcheck = 1
+</code></pre>
+<p>After saving the file, ensure that everything is properly set up and that your
+MariaDB version is compatible with your Zabbix version to avoid potential
+integration issues.</p>
+<p>Before proceeding with the MariaDB installation, it’s a best practice to ensure
+your operating system is up-to-date with the latest patches and security fixes.
+This will help maintain system stability and compatibility with the software
+you're about to install.</p>
+<p>To update your OS, run the following command:</p>
+<pre><code class="language-bash"># dnf update -y
+</code></pre>
+<p>This command will automatically fetch and install the latest updates available
+for your system, applying security patches, performance improvements, and bug fixes.
+Once the update process is complete, you can move forward with the MariaDB installation.</p>
+<h3 id="install-the-mariadb-database">Install the MariaDB database<a class="headerlink" href="#install-the-mariadb-database" title="Permanent link">&para;</a></h3>
+<p>With the operating system updated and the MariaDB repository configured, you are
+now ready to install the MariaDB server and client packages.
+This will provide the necessary components to run and manage your database.</p>
+<p>To install the MariaDB server and client, execute the following command:</p>
+<pre><code class="language-bash"># dnf install MariaDB-server MariaDB-client
+</code></pre>
+<p>This command will download and install both the server and client packages,
+enabling you to set up, configure, and interact with your MariaDB database.
+Once the installation is complete, you can proceed to start and configure
+the MariaDB service.</p>
+<p>Now that MariaDB is installed, we need to enable the service to start automatically
+upon boot and start it immediately. Use the following command to accomplish this:</p>
+<pre><code class="language-bash"># systemctl enable mariadb --now
+</code></pre>
+<p>This command will both enable and start the MariaDB service.
+Once the service is running, you can verify that the installation was successful
+by checking the version of MariaDB using the following command:</p>
+<pre><code class="language-bash"># mysql -V
+</code></pre>
+<p>The expected output should resemble this:</p>
+<pre><code class="language-bash">mysql  Ver 15.1 Distrib 10.11.6-MariaDB, for Linux (x86_64) using EditLine wrapper
+</code></pre>
+<p>To ensure that the MariaDB service is running properly, you can check its status
+with the following command:</p>
+<pre><code class="language-bash"># systemctl status mariadb
+</code></pre>
+<p>You should see an output similar to this, indicating that the MariaDB service is active and running:</p>
+<pre><code class="language-bash">● mariadb.service - MariaDB 10.11.6 database server
+     Loaded: loaded (/usr/lib/systemd/system/mariadb.service; enabled; preset: disabled)
+    Drop-In: /etc/systemd/system/mariadb.service.d
+             └─migrated-from-my.cnf-settings.conf
+     Active: active (running) since Sat 2023-11-18 19:19:36 CET; 2min 13s ago
+       Docs: man:mariadbd(8)
+             https://mariadb.com/kb/en/library/systemd/
+    Process: 41986 ExecStartPre=/bin/sh -c systemctl unset-environment _WSREP_START_POSITION (code=exited, status=0/SUCCESS)
+    Process: 41987 ExecStartPre=/bin/sh -c [ ! -e /usr/bin/galera_recovery ] &amp;&amp; VAR= ||   VAR=`cd /usr/bin/..; /usr/bin/galera_recovery`; [ $? -eq 0 ]   &amp;&amp; systemctl set-environment _WSREP_START&gt;
+    Process: 42006 ExecStartPost=/bin/sh -c systemctl unset-environment _WSREP_START_POSITION (code=exited, status=0/SUCCESS)
+   Main PID: 41995 (mariadbd)
+     Status: &quot;Taking your SQL requests now...&quot;
+      Tasks: 9 (limit: 12344)
+     Memory: 206.8M
+        CPU: 187ms
+</code></pre>
+<p>This confirms that your MariaDB server is up and running, ready for further configuration.</p>
+<hr />
+<h3 id="securing-the-mariadb-database">Securing the MariaDB database<a class="headerlink" href="#securing-the-mariadb-database" title="Permanent link">&para;</a></h3>
+<p>To enhance the security of your MariaDB server, it's essential to remove
+unnecessary test databases, anonymous users, and set a root password.
+This can be done using the mariadb-secure-installation script, which provides
+a step-by-step guide to securing your database.</p>
+<p>Run the following command:</p>
+<pre><code class="language-bash"># mariadb-secure-installation
+
+NOTE: RUNNING ALL PARTS OF THIS SCRIPT IS RECOMMENDED FOR ALL MariaDB
+      SERVERS IN PRODUCTION USE!  PLEASE READ EACH STEP CAREFULLY!
+
+In order to log into MariaDB to secure it, we'll need the current
+password for the root user. If you've just installed MariaDB, and
+haven't set the root password yet, you should just press enter here.
+
+Enter current password for root (enter for none):
+OK, successfully used password, moving on...
+
+Setting the root password or using the unix_socket ensures that nobody
+can log into the MariaDB root user without the proper authorisation.
+
+You already have your root account protected, so you can safely answer 'n'.
+
+Switch to unix_socket authentication [Y/n] n
+ ... skipping.
+
+You already have your root account protected, so you can safely answer 'n'.
+
+Change the root password? [Y/n] y
+New password:
+Re-enter new password:
+Password updated successfully!
+Reloading privilege tables..
+ ... Success!
+
+
+By default, a MariaDB installation has an anonymous user, allowing anyone
+to log into MariaDB without having to have a user account created for
+them.  This is intended only for testing, and to make the installation
+go a bit smoother.  You should remove them before moving into a
+production environment.
+
+Remove anonymous users? [Y/n] y
+ ... Success!
+
+Normally, root should only be allowed to connect from 'localhost'.  This
+ensures that someone cannot guess at the root password from the network.
+
+Disallow root login remotely? [Y/n] y
+ ... Success!
+
+By default, MariaDB comes with a database named 'test' that anyone can
+access.  This is also intended only for testing, and should be removed
+before moving into a production environment.
+
+Remove test database and access to it? [Y/n] y
+ - Dropping test database...
+ ... Success!
+ - Removing privileges on test database...
+ ... Success!
+
+Reloading the privilege tables will ensure that all changes made so far
+will take effect immediately.
+
+Reload privilege tables now? [Y/n] y
+ ... Success!
+
+Cleaning up...
+
+All done!  If you've completed all of the above steps, your MariaDB
+installation should now be secure.
+
+Thanks for using MariaDB!
+</code></pre>
+<p>The mariadb-secure-installation script will guide you through several key steps:</p>
+<ol>
+<li>Set a root password if one isn't already set.</li>
+<li>Remove anonymous users.</li>
+<li>Disallow remote root logins.</li>
+<li>Remove the test database.</li>
+<li>Reload the privilege tables to ensure the changes take effect.</li>
+</ol>
+<p>Once complete, your MariaDB instance will be significantly more secure.</p>
+<hr />
+<h3 id="create-the-zabbix-database">Create the Zabbix database<a class="headerlink" href="#create-the-zabbix-database" title="Permanent link">&para;</a></h3>
+<p>With MariaDB now set up and secured, we can move on to creating the database for Zabbix.
+This database will store all the necessary data related to your Zabbix server,
+including configuration information and monitoring data.</p>
+<p>Follow these steps to create the Zabbix database:</p>
+<ul>
+<li>Log in to the MariaDB shell as the root user:</li>
+</ul>
+<p>You'll be prompted to enter the root password that you set during the
+mariadb-secure-installation process.</p>
+<pre><code class="language-bash"># mysql -uroot -p
+</code></pre>
+<ul>
+<li>Create the Zabbix database:</li>
+</ul>
+<p>Once you're logged into the MariaDB shell, run the following command to create
+a database for Zabbix:</p>
+<pre><code class="language-sql">MariaDB [(none)]&gt; CREATE DATABASE zabbix CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;
+</code></pre>
+<p>This command creates a new database named zabbix with the UTF-8 character set,
+which is required for Zabbix.</p>
+<ul>
+<li>Create a dedicated user for Zabbix and grant the necessary privileges:
+Next, you need to create a user that Zabbix will use to access the database.
+Replace password with a strong password of your choice.</li>
+</ul>
+<pre><code class="language-sql">MariaDB [(none)]&gt; CREATE USER 'zabbix-web'@'&lt;zabbix server ip&gt;' IDENTIFIED BY '&lt;password&gt;';
+MariaDB [(none)]&gt; CREATE USER 'zabbix-srv'@'&lt;zabbix server ip&gt;' IDENTIFIED BY '&lt;password&gt;';
+MariaDB [(none)]&gt; GRANT ALL PRIVILEGES ON zabbix.* TO 'zabbix-srv'@'&lt;zabbix server ip&gt;';
+MariaDB [(none)]&gt; GRANT SELECT, UPDATE, DELETE, INSERT ON zabbix.* TO 'zabbix-web'@'&lt;zabbix server ip&gt;';
+MariaDB [(none)]&gt; FLUSH PRIVILEGES;
+</code></pre>
+<p>This creates new users for zabbix-web and zabbix-srv, grants them  access to the
+zabbix database, and ensures that the privileges are applied immediately.</p>
+<ul>
+<li>In some cases, especially when setting up Zabbix with MariaDB, you might
+encounter issues related to stored functions and triggers if binary logging is
+enabled.</li>
+</ul>
+<p>To address this, you need to set the log_bin_trust_function_creators option to 1
+in the MariaDB configuration file.
+This allows non-root users to create stored functions and triggers without
+requiring SUPER privileges, which are restricted when binary logging is enabled.</p>
+<pre><code class="language-sql">MariaDB [(none)]&gt; SET GLOBAL log_bin_trust_function_creators = 1;
+MariaDB [(none)]&gt; QUIT
+</code></pre>
+<p>At this point, your Zabbix database is ready, and you can proceed with configuring
+the Zabbix server to connect to the database.</p>
+<details class="warning" open="open">
+<summary>Warning</summary>
+<p>In the Zabbix documentation, it is explicitly stated that <strong>deterministic
+triggers</strong> need to be created during the schema import.
+On MySQL and MariaDB systems, this requires setting <code>GLOBAL log_bin_trust_function_creators = 1</code>
+if binary logging is enabled, and you lack superuser privileges.</p>
+<p>If the <code>log_bin_trust_function_creators</code> option is not set in the MySQL
+configuration file, it will block the creation of these triggers during
+schema import. This is essential because, without superuser access, non-root
+users cannot create triggers or stored functions unless this setting is applied.</p>
+<p>To summarize:</p>
+<ul>
+<li><strong>Binary logging enabled:</strong> If binary logging is enabled and the user does
+not have superuser privileges, the creation of necessary Zabbix triggers will
+fail unless <code>log_bin_trust_function_creators = 1</code> is set.</li>
+<li><strong>Solution:</strong> Add <code>log_bin_trust_function_creators = 1</code> to the <code>[mysqld]</code> 
+section in your MySQL/MariaDB configuration file or temporarily set it at
+runtime with <code>SET GLOBAL log_bin_trust_function_creators = 1</code> if you have
+sufficient permissions.</li>
+</ul>
+<p>This ensures that Zabbix can successfully create the required triggers during
+schema import without encountering privilege-related errors.</p>
+</details>
+<hr />
+<h3 id="add-the-zabbix-repository-and-populate-the-db">Add the Zabbix repository and populate the DB<a class="headerlink" href="#add-the-zabbix-repository-and-populate-the-db" title="Permanent link">&para;</a></h3>
+<pre><code class="language-bash"># rpm -Uvh https://repo.zabbix.com/zabbix/6.5/rocky/9/x86_64/zabbix-release-6.5-2.el9.noarch.rpm
+# dnf clean all
+# dnf install zabbix-sql-scripts
+</code></pre>
+<p>Upload the data from zabbix (db structure, images, user, ... )</p>
+<pre><code class="language-bash"># zcat /usr/share/zabbix-sql-scripts/mysql/server.sql.gz | mysql --default-character-set=utf8mb4 -uroot -p zabbix
+</code></pre>
+<details class="warning" open="open">
+<summary>Warning</summary>
+<p>Depending on the speed of your hardware or virtual machine, the process may
+take anywhere from a few seconds to several minutes. Please be patient and
+avoid canceling the operation; just wait for the prompt to appear.</p>
+</details>
+<p>Log back into your MariaDB Database as root</p>
+<pre><code class="language-bash"># mysql -uroot -p
+</code></pre>
+<p>Once the import of the Zabbix schema is complete and you no longer need the
+<code>log_bin_trust_function_creators</code> global parameter, it is a good practice to
+remove it for security reasons.</p>
+<p>To revert the change and set the global parameter back to <code>0</code>, use the following
+command in the MariaDB shell:</p>
+<pre><code class="language-sql">MariaDB [(none)]&gt; SET GLOBAL log_bin_trust_function_creators = 0;
+Query OK, 0 rows affected (0.001 sec)
+</code></pre>
+<p>This command will disable the setting, ensuring that the server's security posture
+remains robust.</p>
+<hr />
+<h3 id="configure-the-firewall">Configure the firewall<a class="headerlink" href="#configure-the-firewall" title="Permanent link">&para;</a></h3>
+<p>Configuring Firewall Rules for MariaDB Access
+To complete our database setup, we need to configure the firewall to allow incoming
+connections for the MariaDB database from our Zabbix server. Currently, no
+connections are accepted. Let's examine the current firewall configuration:</p>
+<pre><code class="language-bash"># firewall-cmd --list-all
+public (active)
+  target: default
+  icmp-block-inversion: no
+  interfaces: enp0s3 enp0s8
+  sources:
+  services: cockpit dhcpv6-client  ssh
+  ports:
+  protocols:
+  forward: yes
+  masquerade: no
+  forward-ports:
+  source-ports:
+  icmp-blocks:
+  rich rules:
+</code></pre>
+<p>To securely allow MariaDB access, we'll create a dedicated zone and open port 3306/tcp
+only for the Zabbix server's IP address:</p>
+<ul>
+<li>Create a new firewall zone for MariaDB:</li>
+</ul>
+<pre><code class="language-bash"># firewall-cmd --new-zone=mariadb-access --permanent
+success
+</code></pre>
+<ul>
+<li>Reload the firewall to apply changes:</li>
+</ul>
+<pre><code class="language-bash"># firewall-cmd --reload
+success
+</code></pre>
+<ul>
+<li>Verify the new zone has been added:</li>
+</ul>
+<pre><code class="language-bash"># firewall-cmd --get-zones
+block dmz drop external home internal mariadb-access nm-shared public trusted work
+</code></pre>
+<ul>
+<li>Add the Zabbix server's IP to the new zone:</li>
+</ul>
+<pre><code class="language-bash"># firewall-cmd --zone=mariadb-access --add-source=&lt;zabbix-serverip&gt; --permanent
+</code></pre>
+<ul>
+<li>Open port 3306/tcp in the new zone:</li>
+</ul>
+<pre><code class="language-bash">success
+# firewall-cmd --zone=mariadb-access --add-port=3306/tcp  --permanent
+</code></pre>
+<ul>
+<li>Reload the firewall again to apply the latest changes:</li>
+</ul>
+<pre><code class="language-bash">success
+# firewall-cmd --reload
+</code></pre>
+<p>To verify the new firewall rules, inspect the mariadb-access zone:</p>
+<pre><code class="language-bash"># firewall-cmd --zone=mariadb-access --list-all
+
+mariadb-access (active)
+  target: default
+  icmp-block-inversion: no
+  interfaces:
+  sources: &lt;ip from zabbix-server&gt;
+  services:
+  ports: 3306/tcp
+  protocols:
+  forward: no
+  masquerade: no
+  forward-ports:
+  source-ports:
+  icmp-blocks:
+  rich rules:
+</code></pre>
+<p>With these configurations in place, the database server is now ready to accept
+connections from the Zabbix server. You can proceed with the next
+task: <a href="../installing-zabbix/">Installing the Zabbix Server</a></p>
+<hr />
+<h2 id="installing-zabbix-with-mysql">Installing Zabbix with MySQL<a class="headerlink" href="#installing-zabbix-with-mysql" title="Permanent link">&para;</a></h2>
+<p>Before proceeding with the MySQL server installation, it's crucial to set up the
+appropriate MySQL repository. This ensures that we install the correct version
+compatible with our Zabbix implementation.</p>
+<ul>
+<li>
+<p>Verify Supported MySQL Versions Prior to installation, consult the official Zabbix
+<a href="https://www.zabbix.com/documentation/current/en/manual/installation/requirements">documentation</a>
+to confirm the supported MySQL versions. This step is critical for several reasons:</p>
+</li>
+<li>
+<p><strong>Compatibility</strong>: Ensures that the MySQL version works seamlessly with your
+Zabbix installation.</p>
+</li>
+<li><strong>Support</strong>: Avoids installing versions that are no longer supported or maintained.</li>
+<li>
+<p><strong>Performance</strong>: Guarantees optimal performance and utilization of features
+specific to Zabbix requirements.</p>
+</li>
+<li>
+<p>Create MySQL Repository
+To install the proper MySQL server files, you need to add the official MySQL
+repository to your system. This process typically involves the following steps:
+a. Download the MySQL repository configuration file.
+b. Add the repository to your system's package manager.
+c. Update the package manager's cache to recognize the new repository.
+The exact commands for these steps may vary depending on your operating system
+and the specific MySQL version required for your Zabbix installation.</p>
+</li>
+<li>
+<p>Prepare for Installation
+Once the repository is set up and you've confirmed the appropriate MySQL version,
+you'll be ready to proceed with the actual installation of the MySQL server.</p>
+</li>
+</ul>
+<p>By following these preliminary steps, you ensure a smooth installation process and
+avoid potential compatibility issues down the line. The next section will cover
+the actual installation procedure for the MySQL server.</p>
+<p><a href="https://www.zabbix.com/documentation/current/en/manual/installation/requirements">documentation</a>
+to see what version is supported so you don't install a version that is not
+supported or is not supported anymore.</p>
+<hr />
+<h3 id="add-the-mysql-repo">Add the MySQL repo<a class="headerlink" href="#add-the-mysql-repo" title="Permanent link">&para;</a></h3>
+<p>Run the following command to install the MySQL repo for version 8.0</p>
+<p><code># dnf -y install https://dev.mysql.com/get/mysql80-community-release-el9-1.noarch.rpm</code></p>
+<details class="note" open="open">
+<summary>Note</summary>
+<p>"If you install this on RedHat 8 and higher or alternatives like CentOS, Rocky or Alma 8 then you need to disable the OS provided MySQL module by running 'module disable mysql'."</p>
+</details>
+<p>Let's update our OS first with the latest patches</p>
+<pre><code class="language-bash"># dnf update -y
+</code></pre>
+<p>This command will automatically fetch and install the latest updates available
+for your system, applying security patches, performance improvements, and bug fixes.
+Once the update process is complete, you can move forward with the MariaDB installation.</p>
+<hr />
+<h3 id="installing-the-mysql-database">Installing the MySQL database<a class="headerlink" href="#installing-the-mysql-database" title="Permanent link">&para;</a></h3>
+<p>With the operating system updated and the MySQL repository configured, you are
+now ready to install the MySQL server and client packages.
+This will provide the necessary components to run and manage your database.</p>
+<p>To install the MySQL server, execute the following command:</p>
+<p><code># dnf -y install mysql-community-server</code></p>
+<p>Now that MySQL is installed, we need to enable the service to start automatically
+upon boot and start it immediately. Use the following command to accomplish this:</p>
+<pre><code class="language-bash"># systemctl enable mysqld --now
+</code></pre>
+<p>Once the installation is complete, you can verify the version of the MySQL server by using the following command:</p>
+<p><code># mysql -V</code></p>
+<p>The output should look like this:</p>
+<p><code>mysql  Ver 8.0.35 for Linux on x86_64 (MySQL Community Server - GPL)</code></p>
+<p>To ensure that the MySQL service is running properly, you can check its status
+with the following command:</p>
+<pre><code class="language-bash"># systemctl status mysqld
+
+● mysqld.service - MySQL Server
+     Loaded: loaded (/usr/lib/systemd/system/mysqld.service; enabled; preset: disabled)
+     Active: active (running) since Mon 2023-11-20 22:15:51 CET; 1min 15s ago
+       Docs: man:mysqld(8)
+             http://dev.mysql.com/doc/refman/en/using-systemd.html
+    Process: 44947 ExecStartPre=/usr/bin/mysqld_pre_systemd (code=exited, status=0/SUCCESS)
+   Main PID: 45012 (mysqld)
+     Status: &quot;Server is operational&quot;
+      Tasks: 37 (limit: 12344)
+     Memory: 448.3M
+        CPU: 4.073s
+     CGroup: /system.slice/mysqld.service
+             └─45012 /usr/sbin/mysqld
+
+Nov 20 22:15:43 mysql-db systemd[1]: Starting MySQL Server...
+Nov 20 22:15:51 mysql-db systemd[1]: Started MySQL Server.
+</code></pre>
+<hr />
+<h3 id="securing-the-mysql-database">Securing the MySQL database<a class="headerlink" href="#securing-the-mysql-database" title="Permanent link">&para;</a></h3>
+<p>MySQL will secure our database with a random root password that is generated when
+we install the database. First thing we need to do is replace it with our own password.
+To find what the password is we need to read the log file with the following command:</p>
+<pre><code class="language-bash"># grep 'temporary password' /var/log/mysqld.log
+</code></pre>
+<p>Change the root password as soon as possible by logging in with the generated,
+temporary password and set a custom password for the superuser account:</p>
+<pre><code class="language-bash"># mysql -uroot -p
+</code></pre>
+<pre><code class="language-sql">mysql&gt; ALTER USER 'root'@'localhost' IDENTIFIED BY '&lt;my mysql password&gt;';
+mysql&gt; quit
+</code></pre>
+<p>To enhance the security of your MySQL server, it's essential to remove unnecessary
+test databases, anonymous users, and set a root password.
+This can be done using the mysql-secure-installation script, which provides a
+step-by-step guide to securing your database.</p>
+<details class="note" open="open">
+<summary>Note</summary>
+<p>"There is no need to reset the root password for MySQL again as we have reset
+it already. The next step is optional but recommended."</p>
+</details>
+<pre><code class="language-bash"># mysql_secure_installation
+
+Securing the MySQL server deployment.
+
+Enter password for user root:
+The 'validate_password' component is installed on the server.
+The subsequent steps will run with the existing configuration
+of the component.
+Using existing password for root.
+
+Estimated strength of the password: 100
+Change the password for root ? ((Press y|Y for Yes, any other key for No) : n
+
+ ... skipping.
+By default, a MySQL installation has an anonymous user,
+allowing anyone to log into MySQL without having to have
+a user account created for them. This is intended only for
+testing, and to make the installation go a bit smoother.
+You should remove them before moving into a production
+environment.
+
+Remove anonymous users? (Press y|Y for Yes, any other key for No) : y
+Success.
+
+
+Normally, root should only be allowed to connect from
+'localhost'. This ensures that someone cannot guess at
+the root password from the network.
+
+Disallow root login remotely? (Press y|Y for Yes, any other key for No) : y
+Success.
+
+By default, MySQL comes with a database named 'test' that
+anyone can access. This is also intended only for testing,
+and should be removed before moving into a production
+environment.
+
+
+Remove test database and access to it? (Press y|Y for Yes, any other key for No) : y
+ - Dropping test database...
+Success.
+
+ - Removing privileges on test database...
+Success.
+
+Reloading the privilege tables will ensure that all changes
+made so far will take effect immediately.
+
+Reload privilege tables now? (Press y|Y for Yes, any other key for No) : y
+Success.
+
+All done!
+</code></pre>
+<p>The mysql-secure-installation script will guide you through several key steps:</p>
+<ol>
+<li>Set a root password if one isn't already set.</li>
+<li>Remove anonymous users.</li>
+<li>Disallow remote root logins.</li>
+<li>Remove the test database.</li>
+<li>Reload the privilege tables to ensure the changes take effect.</li>
+</ol>
+<p>Once complete, your MySQL instance will be significantly more secure.</p>
+<hr />
+<h3 id="create-the-zabbix-databases">Create the Zabbix databases<a class="headerlink" href="#create-the-zabbix-databases" title="Permanent link">&para;</a></h3>
+<p>With MySQL now set up and secured, we can move on to creating the database for Zabbix.
+This database will store all the necessary data related to your Zabbix server,
+including configuration information and monitoring data.</p>
+<p>Follow these steps to create the Zabbix database:</p>
+<ol>
+<li>Log in to the MySQL shell as the root user:</li>
+</ol>
+<pre><code class="language-bash"># mysql -u root -p
+</code></pre>
+<p>You'll be prompted to enter the root password that you set during the
+mysql-secure-installation process.</p>
+<p>Once you're logged into the MySQL shell, run the following command to create
+a database for Zabbix:</p>
+<pre><code class="language-sql">mysql&gt; CREATE DATABASE zabbix CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;
+</code></pre>
+<p>This command creates a new database named zabbix with the UTF-8 character set,
+which is required for Zabbix.</p>
+<ul>
+<li>Create a dedicated user for Zabbix and grant the necessary privileges:
+Next, you need to create a user that Zabbix will use to access the database.
+Replace password with a strong password of your choice.</li>
+</ul>
+<pre><code class="language-sql">mysql&gt; CREATE USER 'zabbix-web'@'&lt;zabbix server ip&gt;' IDENTIFIED BY '&lt;password&gt;';
+mysql&gt; CREATE USER 'zabbix-srv'@'&lt;zabbix server ip&gt;' IDENTIFIED BY '&lt;password&gt;';
+mysql&gt; GRANT ALL PRIVILEGES ON zabbix.* TO 'zabbix-srv'@'&lt;zabbix server ip&gt;';
+mysql&gt; GRANT SELECT, UPDATE, DELETE, INSERT ON zabbix.* TO 'zabbix-web'@'&lt;zabbix server ip&gt;';
+mysql&gt; FLUSH PRIVILEGES;
+</code></pre>
+<p>This creates new users for zabbix-web and zabbix-srv, grants them  access to the
+zabbix database, and ensures that the privileges are applied immediately.</p>
+<ul>
+<li>In some cases, especially when setting up Zabbix with MariaDB, you might
+encounter issues related to stored functions and triggers if binary logging is
+enabled.</li>
+</ul>
+<p>To address this, you need to set the log_bin_trust_function_creators option to 1
+in the MariaDB configuration file.
+This allows non-root users to create stored functions and triggers without
+requiring SUPER privileges, which are restricted when binary logging is enabled.</p>
+<pre><code class="language-sql">mysql&gt; SET GLOBAL log_bin_trust_function_creators = 1;
+mysql&gt; QUIT
+</code></pre>
+<p>At this point, your Zabbix database is ready, and you can proceed with configuring
+the Zabbix server to connect to the database.</p>
+<details class="warning" open="open">
+<summary>Warning</summary>
+<p>In the Zabbix documentation, it is explicitly stated that <strong>deterministic
+triggers</strong> need to be created during the schema import.
+On MySQL and MariaDB systems, this requires setting <code>GLOBAL log_bin_trust_function_creators = 1</code>
+if binary logging is enabled, and you lack superuser privileges.</p>
+<p>If the <code>log_bin_trust_function_creators</code> option is not set in the MySQL
+configuration file, it will block the creation of these triggers during
+schema import. This is essential because, without superuser access, non-root
+users cannot create triggers or stored functions unless this setting is applied.</p>
+<p>To summarize:</p>
+<ul>
+<li><strong>Binary logging enabled:</strong> If binary logging is enabled and the user does
+not have superuser privileges, the creation of necessary Zabbix triggers will
+fail unless <code>log_bin_trust_function_creators = 1</code> is set.</li>
+<li><strong>Solution:</strong> Add <code>log_bin_trust_function_creators = 1</code> to the <code>[mysqld]</code>
+section in your MySQL/MariaDB configuration file or temporarily set it at
+runtime with <code>SET GLOBAL log_bin_trust_function_creators = 1</code> if you have
+sufficient permissions.</li>
+</ul>
+<p>This ensures that Zabbix can successfully create the required triggers during
+schema import without encountering privilege-related errors.</p>
+</details>
+<hr />
+<h3 id="add-the-zabbix-repository-and-populate-the-mysql-db">Add the Zabbix repository and populate the MySQL DB<a class="headerlink" href="#add-the-zabbix-repository-and-populate-the-mysql-db" title="Permanent link">&para;</a></h3>
+<pre><code class="language-bash"># rpm -Uvh https://repo.zabbix.com/zabbix/6.5/rocky/9/x86_64/zabbix-release-6.5-2.el9.noarch.rpm
+# dnf clean all
+# dnf install zabbix-sql-scripts
+</code></pre>
+<p>Now let;s upload the data from zabbix (db structure, images, user, ... )</p>
+<pre><code class="language-bash"># zcat /usr/share/zabbix-sql-scripts/mysql/server.sql.gz | mysql --default-character-set=utf8mb4 -uroot -p zabbix
+Enter password:
+</code></pre>
+<details class="warning" open="open">
+<summary>Warning</summary>
+<p>Depending on the speed of your hardware or virtual machine, the process may
+take anywhere from a few seconds to several minutes. Please be patient and
+avoid canceling the operation; just wait for the prompt to appear.</p>
+</details>
+<p>Log back into your MySQL Database as root</p>
+<pre><code class="language-bash"># mysql -uroot -p
+</code></pre>
+<p>Once the import of the Zabbix schema is complete and you no longer need the
+<code>log_bin_trust_function_creators</code> global parameter, it is a good practice to
+remove it for security reasons.</p>
+<p>To revert the change and set the global parameter back to <code>0</code>, use the following
+command in the MariaDB shell:</p>
+<pre><code class="language-sql">mysql&gt; SET GLOBAL log_bin_trust_function_creators = 0;
+Query OK, 0 rows affected (0.001 sec)
+</code></pre>
+<p>This command will disable the setting, ensuring that the server's security posture
+remains robust.</p>
+<hr />
+<h3 id="configure-the-firewall_1">Configure the firewall<a class="headerlink" href="#configure-the-firewall_1" title="Permanent link">&para;</a></h3>
+<p>Configuring Firewall Rules for MySQL Access
+To complete our database setup, we need to configure the firewall to allow incoming
+connections for the MySQL database from our Zabbix server. Currently, no
+connections are accepted. Let's examine the current firewall configuration:</p>
+<pre><code class="language-bash"># firewall-cmd --list-all
+public (active)
+  target: default
+  icmp-block-inversion: no
+  interfaces: enp0s3 enp0s8
+  sources:
+  services: cockpit dhcpv6-client  ssh
+  ports:
+  protocols:
+  forward: yes
+  masquerade: no
+  forward-ports:
+  source-ports:
+  icmp-blocks:
+  rich rules:
+</code></pre>
+<p>To securely allow MySQL access, we'll create a dedicated zone and open port 3306/tcp
+only for the Zabbix server's IP address:</p>
+<ul>
+<li>Create a new firewall zone for MariaDB:</li>
+</ul>
+<pre><code class="language-bash"># firewall-cmd --new-zone=mysql-access --permanent
+success
+</code></pre>
+<ul>
+<li>Reload the firewall to apply changes:</li>
+</ul>
+<pre><code class="language-bash"># firewall-cmd --reload
+success
+</code></pre>
+<ul>
+<li>Verify the new zone has been added:</li>
+</ul>
+<pre><code class="language-bash"># firewall-cmd --get-zones
+block dmz drop external home internal mysql-access nm-shared public trusted work
+</code></pre>
+<ul>
+<li>Add the Zabbix server's IP to the new zone:</li>
+</ul>
+<pre><code class="language-bash"># firewall-cmd --zone=mysql-access --add-source=&lt;zabbix-serverip&gt; --permanent
+</code></pre>
+<ul>
+<li>Open port 3306/tcp in the new zone:</li>
+</ul>
+<pre><code class="language-bash">success
+# firewall-cmd --zone=mysql-access --add-port=3306/tcp  --permanent
+</code></pre>
+<ul>
+<li>Reload the firewall again to apply the latest changes:</li>
+</ul>
+<pre><code class="language-bash">success
+# firewall-cmd --reload
+</code></pre>
+<p>To verify the new firewall rules, inspect the mysql-access zone:</p>
+<pre><code class="language-bash"># firewall-cmd --list-all --zone=mysql-access
+</code></pre>
+<pre><code class="language-bash">mysql-access (active)
+  target: default
+  icmp-block-inversion: no
+  interfaces:
+  sources: &lt;ip from the zabbix-server&gt;
+  services:
+  ports: 3306/tcp
+  protocols:
+  forward: no
+  masquerade: no
+  forward-ports:
+  source-ports:
+  icmp-blocks:
+  rich rules:
+</code></pre>
+<p>With these configurations in place, the database server is now ready to accept
+connections from the Zabbix server. You can proceed with the next
+task: <a href="../installing-zabbix/">Installing the Zabbix Server</a></p>
+<hr />
+<h2 id="installing-zabbix-with-postgresql">Installing Zabbix with PostgreSQL<a class="headerlink" href="#installing-zabbix-with-postgresql" title="Permanent link">&para;</a></h2>
+<p>For our DB setup with PostgreSQL we need to add our PostgreSQL repository first to the system. As of writing PostgreSQL 13-16 are supported but best is to have a look before you install it as new versions may be supported and older maybe unsupported both by Zabbix and PostgreSQL. Usually it's a good idea to go with the latest version that is supported by Zabbix. Zabbix also supports the extension TimescaleDB this is someting we will talk later about. As you will see the setup from PostgreSQL is very different from MySQL not only the installation but also securing the DB.</p>
+<p>The table of compatibility can be found <a href="https://docs.timescale.com/self-hosted/latest/upgrades/upgrade-pg/">here</a>.</p>
+<h3 id="add-the-postgresql-repo">Add the PostgreSQL repo<a class="headerlink" href="#add-the-postgresql-repo" title="Permanent link">&para;</a></h3>
+<p>So let us start first setting up our PostgreSQL repository with the folowing commands.</p>
+<pre><code># Install the repository RPM:
+sudo dnf install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-9-x86_64/pgdg-redhat-repo-latest.noarch.rpm
+
+# Disable the built-in PostgreSQL module:
+sudo dnf -qy module disable postgresql
+
+# Install PostgreSQL:
+sudo dnf install -y postgresql16-server
+
+# Initialize the database and enable automatic start:
+sudo /usr/pgsql-16/bin/postgresql-16-setup initdb
+sudo systemctl enable postgresql-16 --now
+</code></pre>
+<h3 id="securing-the-postgresql-database">Securing the PostgreSQL database<a class="headerlink" href="#securing-the-postgresql-database" title="Permanent link">&para;</a></h3>
+<p>As you've pointed out, PostgreSQL handles access permissions differently from
+MySQL and MariaDB. PostgreSQL relies on a file called pg_hba.conf to manage who
+can access the database, from where, and what encryption method is used for authentication.</p>
+<details class="note" open="open">
+<summary>Note</summary>
+<p>Client authentication in PostgreSQL is configured through the pg_hba.conf file,
+where "HBA" stands for Host-Based Authentication. This file specifies which
+users can access the database, from which hosts, and how they are authenticated.
+For further details, you can refer to the official <a href="https://www.postgresql.org/docs/current/auth-pg-hba-conf.html">PostgreSQL documentation</a>."</p>
+</details>
+<p>Add the following lines, the order here is important.</p>
+<pre><code class="language-bash"># vi /var/lib/pgsql/16/data/pg_hba.conf
+</code></pre>
+<pre><code class="language-sql"># &quot;local&quot; is for Unix domain socket connections only
+local   zabbix          zabbix-srv                               scram-sha-256
+local   all             all                                      peer
+# IPv4 local connections:
+host    zabbix          zabbix-srv      &lt;ip from zabbix server/24&gt; scram-sha-256
+host    zabbix          zabbix-web      &lt;ip from zabbix server/24&gt; scram-sha-256
+host    all             all             127.0.0.1/32             scram-sha-256
+</code></pre>
+<p>After we changed the pg_hba file don't forget to restart postgres else the settings
+will not be applied.
+But before we restart let us also edit the file postgresql.conf and allow our database
+to listen on our network interface for incomming connections from the zabbix server.
+Postgresql will standard only allow connections from the socket.</p>
+<pre><code class="language-bash"># vi /var/lib/pgsql/16/data/postgresql.conf
+</code></pre>
+<p>To configure PostgreSQL to listen on all network interfaces, you need to modify
+the <code>postgresql.conf</code> file. Locate the following line:</p>
+<pre><code class="language-bash">#listen_addresses = 'localhost'
+</code></pre>
+<p>Replace it with:</p>
+<pre><code class="language-bash">listen_addresses = '*'
+</code></pre>
+<p>This will enable PostgreSQL to accept connections from any network interface,
+not just the local machine. After making this change, restart the PostgreSQL
+service to apply the new settings:</p>
+<pre><code class="language-bash"># systemctl restart postgresql-16
+</code></pre>
+<p>If the service fails to restart, review the <code>pg_hba.conf</code> file for any syntax errors,
+as incorrect entries here may prevent PostgreSQL from starting.</p>
+<p>Next, to prepare your PostgreSQL instance for Zabbix, you’ll need to create the
+necessary database tables. Begin by installing the Zabbix repository, as you did
+for the Zabbix server.
+Then, install the appropriate Zabbix package that contains the predefined tables,
+images, icons, and other database elements needed for the Zabbix application.</p>
+<hr />
+<h3 id="add-the-zabbix-repository-and-populate-the-pgsql-db">Add the Zabbix repository and populate the PgSQL DB<a class="headerlink" href="#add-the-zabbix-repository-and-populate-the-pgsql-db" title="Permanent link">&para;</a></h3>
+<p>To begin, add the Zabbix repository to your system by running the following commands:</p>
+<pre><code class="language-bash"># dnf install https://repo.zabbix.com/zabbix/6.0/rhel/9/x86_64/zabbix-release-6.0-4.el9.noarch.rpm -y
+# dnf install zabbix-sql-scripts -y
+</code></pre>
+<p>With the necessary packages installed, you are now ready to create the Zabbix
+users for both the server and frontend.</p>
+<p>First, switch to the <code>postgres</code> user and create the Zabbix server database user:</p>
+<pre><code class="language-bash"># su - postgres
+# createuser --pwprompt zabbix-srv
+Enter password for new role: &lt;server-password&gt;
+Enter it again: &lt;server-password&gt;
+</code></pre>
+<p>Next, create the Zabbix frontend user, which will be used to connect to the database:</p>
+<pre><code class="language-bash"># createuser --pwprompt zabbix-web
+Enter password for new role: &lt;frontend-password&gt;
+Enter it again: &lt;frontend-password&gt;
+</code></pre>
+<p>After creating the users, you need to prepare the database schema. As the root user,
+unzip the necessary schema files by running the following command:</p>
+<pre><code class="language-bash"># gzip -d /usr/share/zabbix-sql-scripts/postgresql/server.sql.gz
+</code></pre>
+<p>This will extract the database schema required for the Zabbix server.</p>
+<p>Now that the users are created, the next step is to create the Zabbix database.
+First, switch to the <code>postgres</code> user and execute the following command to
+create the database with the owner set to <code>zabbix-srv</code>:</p>
+<pre><code class="language-bash"># su - postgres
+# createdb -E Unicode -O zabbix-srv zabbix
+</code></pre>
+<p>Once the database is created, you should verify the connection and ensure that
+the correct user session is active. To do this, log into the <code>zabbix</code> database
+using the <code>zabbix-srv</code> user:</p>
+<pre><code class="language-bash"># psql -d zabbix -U zabbix-srv
+</code></pre>
+<p>After logging in, run the following SQL query to confirm that both the <code>session_user</code>
+and <code>current_user</code> are set to <code>zabbix-srv</code>:</p>
+<pre><code class="language-sql">zabbix=&gt; SELECT session_user, current_user;
+ session_user | current_user
+--------------+--------------
+ zabbix-srv   | zabbix-srv
+(1 row)
+</code></pre>
+<p>If the output matches, you are successfully connected to the database with the correct user.</p>
+<p>We are now ready to create our database zabbix. Become user postgres again and
+run next command to create the database as our user zabbix-srv:</p>
+<pre><code class="language-bash"># su - postgres
+# createdb -E Unicode -O zabbix-srv  zabbix
+</code></pre>
+<p>Let's verify that we are really connected to the database with the correct session.
+Login from the Postgres shell on the zabbix database</p>
+<pre><code class="language-bash"># psql -d zabbix -U zabbix-srv
+</code></pre>
+<p>Make sure we are logged in with our correct user <code>zabbix-srv</code>.</p>
+<pre><code class="language-sql">zabbix=&gt; SELECT session_user, current_user;
+ session_user | current_user
+--------------+--------------
+ zabbix-srv   | zabbix-srv
+(1 row)
+</code></pre>
+<p>PostgreSQL indeed differs significantly from MySQL or MariaDB in several aspects,
+and one of the key features that sets it apart is its use of schemas. Unlike MySQL,
+where databases are more standalone, PostgreSQL's schema system provides a structured,
+multi-user environment within a single database.</p>
+<p>Schemas act as logical containers within a database, enabling multiple users or
+applications to access and manage data independently without conflicts.
+This feature is especially valuable in environments where several users or
+applications need to interact with the same database concurrently. Each user or
+application can have its own schema, preventing accidental interference with each
+other’s data.</p>
+<details class="note" open="open">
+<summary>Note</summary>
+<p>PostgreSQL comes with a default schema, typically called <code>public</code>, but it's
+generallya best practice to create custom schemas to better organize and
+separate database objects, especially in complex or multi-user environments.</p>
+<p>For more in-depth information, I recommend checking out the detailed guide
+at <a href="https://hevodata.com/learn/postgresql-schema/#schema">this URI</a>, which
+explains the benefits and use cases for schemas in PostgreSQL.</p>
+</details>
+<p>To finalize the database setup for Zabbix, we need to configure schema permissions
+for both the <code>zabbix-srv</code> and <code>zabbix-web</code> users.</p>
+<p>First, we create a custom schema named <code>zabbix_server</code> and assign ownership to
+the <code>zabbix-srv</code> user:</p>
+<pre><code class="language-sql">zabbix=&gt; CREATE SCHEMA zabbix_server AUTHORIZATION &quot;zabbix-srv&quot;;
+CREATE SCHEMA
+</code></pre>
+<p>Next, we set the search path to the <code>zabbix_server</code> schema so that it's the
+default for the current session:</p>
+<pre><code class="language-sql">zabbix=&gt; SET search_path TO &quot;zabbix_server&quot;;
+</code></pre>
+<p>To confirm the schema setup, you can list the existing schemas:</p>
+<pre><code class="language-sql">zabbix=&gt; \dn
+          List of schemas
+     Name      |       Owner
+---------------+-------------------
+ public        | pg_database_owner
+ zabbix_server | zabbix-srv
+(2 rows)
+</code></pre>
+<p>At this point, the <code>zabbix-srv</code> user has full access to the schema, but the
+<code>zabbix-web</code> user still needs appropriate permissions to connect and interact
+with the database. First, we grant <code>USAGE</code> privileges on the schema to allow
+<code>zabbix-web</code> to connect:</p>
+<pre><code class="language-sql">zabbix=# GRANT USAGE ON SCHEMA zabbix_server TO &quot;zabbix-web&quot;;
+GRANT
+</code></pre>
+<p>However, <code>zabbix-web</code> still cannot perform any operations on the tables or
+sequences. To allow basic data interaction without giving too many privileges,
+grant the following permissions:</p>
+<ul>
+<li>For tables: <code>SELECT</code>, <code>INSERT</code>, <code>UPDATE</code>, and <code>DELETE</code>.</li>
+<li>For sequences: <code>SELECT</code> and <code>UPDATE</code>.</li>
+</ul>
+<pre><code class="language-sql">zabbix=# GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA zabbix_server TO &quot;zabbix-web&quot;;
+GRANT
+</code></pre>
+<pre><code class="language-sql">zabbix=# GRANT SELECT, UPDATE ON ALL SEQUENCES IN SCHEMA zabbix_server TO &quot;zabbix-web&quot;;
+GRANT
+</code></pre>
+<p>Now, the <code>zabbix-web</code> user has appropriate access to interact with the schema
+while maintaining security by limiting permissions to essential operations.</p>
+<p>With the users and permissions set up correctly, you can now populate the database
+with the Zabbix schema and other required elements. Follow these steps:</p>
+<ol>
+<li><strong>Log in as the <code>postgres</code> user</strong> if you are not already:</li>
+</ol>
+<p><code>bash
+   # su - postgres</code></p>
+<ol>
+<li><strong>Connect to the Zabbix database</strong> and run the SQL script to create the necessar
+y tables and insert initial data. Enter the <code>psql</code> shell for the <code>zabbix</code> database:</li>
+</ol>
+<p><code>bash
+   # psql -d zabbix -U zabbix-srv</code></p>
+<ol>
+<li><strong>Execute the SQL file</strong> to populate the database. Run the following command
+in the <code>psql</code> shell:</li>
+</ol>
+<p><code>sql
+   zabbix=# \i /usr/share/zabbix-sql-scripts/postgresql/server.sql</code></p>
+<p><strong>Warning:</strong> Depending on your hardware or VM performance, this process can
+   take anywhere from a few seconds to several minutes.
+   Please be patient and avoid canceling the operation.</p>
+<ol>
+<li><strong>Monitor the progress</strong> as the script runs. You will see output similar to:</li>
+</ol>
+<p><code>plaintext
+   CREATE TABLE
+   CREATE INDEX
+   ...
+   ...
+   INSERT 0 1
+   INSERT 0 1
+   INSERT 0 1
+   INSERT 0 1
+   COMMIT</code></p>
+<p>Once the script completes and you return to the <code>zabbix=#</code> prompt, the database
+   should be successfully populated with all the required tables, schemas, images,
+   and other elements needed for Zabbix.</p>
+<details class="note" open="open">
+<summary>Note</summary>
+<p>If you encounter the following error during the SQL import:
+<code>vbnet
+psql:/usr/share/zabbix-sql-scripts/postgresql/server.sql:7: ERROR: no schema has been selected to create in</code>
+It indicates that the search_path setting might not have been correctly applied.
+This setting is crucial because it specifies the schema where the tables and
+other objects should be created.
+By correctly setting the search path, you ensure that the SQL script will
+create tables and other objects in the intended schema.</p>
+</details>
+<p>To ensure that the Zabbix tables were created successfully and have the correct
+permissions, you can verify the table list and their ownership using the
+<code>psql</code> command:</p>
+<ul>
+<li><strong>List the Tables</strong>: Use the following command to list all tables in the <code>zabbix_server</code> schema:</li>
+</ul>
+<p><code>sql
+   zabbix=# \dt</code></p>
+<p>You should see a list of tables with their schema, name, type, and owner. For example:</p>
+<pre><code class="language-bash">Schema         | Name                       | Type  | Owner
+----------------+----------------------------+-------+------------
+zabbix_server  | acknowledges               | table | zabbix-srv
+zabbix_server  | actions                    | table | zabbix-srv
+zabbix_server  | alerts                     | table | zabbix-srv
+zabbix_server  | auditlog                   | table | zabbix-srv
+zabbix_server  | autoreg_host               | table | zabbix-srv
+...
+zabbix_server  | usrgrp                      | table | zabbix-srv
+zabbix_server  | valuemap                    | table | zabbix-srv
+zabbix_server  | valuemap_mapping            | table | zabbix-srv
+zabbix_server  | widget                      | table | zabbix-srv
+zabbix_server  | widget_field                | table | zabbix-srv
+(173 rows)
+</code></pre>
+<ul>
+<li><strong>Verify Permissions</strong>: Confirm that the <code>zabbix-srv</code> user owns the tables and
+has the necessary permissions. You can check permissions for specific tables
+using the <code>\dp</code> command:</li>
+</ul>
+<p><code>sql
+   zabbix=# \dp zabbix_server.*</code></p>
+<p>This will display the access privileges for all tables in the <code>zabbix_server</code>
+   schema. Ensure that <code>zabbix-srv</code> has the required privileges.</p>
+<p>If everything looks correct, your tables are properly created and the <code>zabbix-srv</code>
+user has the appropriate ownership and permissions. If you need to adjust any
+permissions, you can do so using the <code>GRANT</code> commands as needed.</p>
+<details class="note" open="open">
+<summary>Note</summary>
+<p>If you prefer not to set the search path manually each time you log in as the
+<code>zabbix-srv</code> user, you can configure PostgreSQL to automatically use the desired
+search path. Run the following SQL command to set the default search path for
+the <code>zabbix-srv</code> role:</p>
+<p><code>sql
+zabbix=&gt; ALTER ROLE "zabbix-srv" SET search_path = "$user", public, zabbix_server;</code></p>
+<p>This command ensures that every time the <code>zabbix-srv</code> user connects to the
+database, the <code>search_path</code> is automatically set to include <code>$user</code>, <code>public</code>,
+and <code>zabbix_server</code>.</p>
+</details>
+<p>If you are ready you can exit the database and return as user root.</p>
+<pre><code class="language-bash">zabbix=&gt;  \q
+# exit
+</code></pre>
+<h3 id="configure-the-firewall_2">Configure the firewall<a class="headerlink" href="#configure-the-firewall_2" title="Permanent link">&para;</a></h3>
+<p>To allow incoming connections to the PostgreSQL database from your Zabbix server,
+follow these steps to configure the firewall:</p>
+<ol>
+<li><strong>Check Current Firewall Configuration</strong>: Verify the current settings to ensure
+the firewall is active and no PostgreSQL-related rules are present:</li>
+</ol>
+<p><code>bash
+   # firewall-cmd --list-all</code></p>
+<ol>
+<li><strong>Create a New Zone for PostgreSQL</strong>: Define a new firewall zone specifically
+for PostgreSQL access:</li>
+</ol>
+<p><code>bash
+   # firewall-cmd --new-zone=postgresql-access --permanent
+   success</code></p>
+<ol>
+<li><strong>Reload Firewall Configuration</strong>: Apply the changes made to the firewall configuration:</li>
+</ol>
+<p><code>bash
+   # firewall-cmd --reload
+   success</code></p>
+<ol>
+<li><strong>Verify New Zones</strong>: Check that the new <code>postgresql-access</code> zone has been created:</li>
+</ol>
+<p><code>bash
+   # firewall-cmd --get-zones
+   block dmz drop external home internal nm-shared postgresql-access public trusted work</code></p>
+<ol>
+<li><strong>Allow Zabbix Server IP</strong>: Add the IP address of your Zabbix server to the
+new <code>postgresql-access</code> zone to permit incoming connections:</li>
+</ol>
+<p><code>bash
+   # firewall-cmd --zone=postgresql-access --add-source=&lt;zabbix-serverip&gt; --permanent
+   success</code></p>
+<ol>
+<li><strong>Open PostgreSQL Port</strong>: Open port <code>5432/tcp</code> for the PostgreSQL service within
+the <code>postgresql-access</code> zone:</li>
+</ol>
+<p><code>bash
+   # firewall-cmd --zone=postgresql-access --add-port=5432/tcp --permanent
+   success</code></p>
+<ol>
+<li><strong>Reload Firewall Configuration Again</strong>: Apply the new rules to the firewall:</li>
+</ol>
+<p><code>bash
+   # firewall-cmd --reload</code></p>
+<ol>
+<li><strong>Verify the Firewall Rules</strong>: Ensure that the new rules are correctly applied
+by listing the configurations for the <code>postgresql-access</code> zone:</li>
+</ol>
+<p><code>bash
+   # firewall-cmd --zone=postgresql-access --list-all</code></p>
+<p>You should see output similar to:</p>
+<p><code>bash
+   postgresql-access (active)
+     target: default
+     icmp-block-inversion: no
+     interfaces:
+     sources: 192.168.56.18
+     services:
+     ports: 5432/tcp
+     protocols:
+     forward: no
+     masquerade: no
+     forward-ports:
+     source-ports:
+     icmp-blocks:
+     rich rules:</code></p>
+<p>With these steps, the firewall will be configured to allow incoming connections to
+the PostgreSQL database from your Zabbix server on port <code>5432/tcp</code>.</p>
+<p>This concludes our chapter.
+You can continue with the next task <a href="../installing-zabbix/">Installing the Zabbix Server</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["header.autohide", "navigation.sections", "navigation.expand"], "search": "../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "search.result.more.one": "Mais 1 nesta p\u00e1gina", "search.result.more.other": "Mais # nesta p\u00e1gina", "search.result.none": "Nenhum resultado encontrado", "search.result.one": "1 resultado encontrado", "search.result.other": "# resultados encontrados", "search.result.placeholder": "Digite para iniciar a busca", "search.result.term.missing": "Ausente", "select.version": "Selecione a vers\u00e3o"}}</script>
+    
+    
+    
+    
+      <script src="../../../assets/javascripts/bundle.56dfad97.min.js"></script>
+      
+        <script src="../../../js/print-site.js"></script>
+      
+        <script src="../../../js/print-site.js"></script>
+      
+        <script src="../../../js/print-site.js"></script>
+      
+        <script src="../../../js/print-site.js"></script>
+      
+        <script src="../../../js/print-site.js"></script>
+      
+        <script src="../../../js/print-site.js"></script>
+      
+    
+    
+        
+            
+            
+        
+		
+		
+    
+
+  </body>
+</html>

@@ -1,0 +1,3406 @@
+
+<!doctype html>
+<html lang="pt" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="An open-source Zabbix book">
+      
+      
+        <meta name="author" content="Patrik Uytterhoeven and all github contributors">
+      
+      
+        <link rel="canonical" href="https://trikke76.github.io/Zabbix-Book/pt/installation/installing-zabbix/">
+      
+      
+        <link rel="prev" href="../installing-zabbixdb/">
+      
+      
+        <link rel="next" href="../installing-zabbix-ha/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.35">
+    
+    
+      
+        <title>Installing Zabbix - Zabbix 7 Monitoring</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.35f28582.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CNunito:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Nunito"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings1.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings2.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings3.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings4.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings5.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings6.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-material.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings1.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings2.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings3.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings4.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings5.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings6.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-material.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings1.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings2.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings3.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings4.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings5.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings6.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-material.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings1.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings2.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings3.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings4.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings5.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings6.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-material.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings1.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings2.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings3.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings4.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings5.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings6.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-material.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings1.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings2.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings3.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings4.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings5.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings6.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-material.css">
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#installing-zabbix" class="md-skip">
+          Ir para o conteúdo
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
+            
+            
+    
+    
+    
+        <div class="gmc-announce">
+            Esta página ainda não foi traduzida para o português, portanto é exibida em inglês.
+            <a href="/gmc/pt/contribute/#translations">Apoie-nos e traduza!</a>
+        </div>
+    
+    
+    <script>
+        const gGMC_SELECT_VERSION = "Selecione a versão";
+        const gGMC_TRANSLATE_CTA = "Apoie-nos e traduza!";
+        const gGMC_PAGE_LOCALE = "pt";
+        const gGMC_FILE_LOCALE = "en";
+        const gGMC_TRANSLATE_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16.5 12c0-.68-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2 0 .37-.03.73-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10C6.47 2 2 6.5 2 12s4.5 10 10 10c.59 0 1.16-.06 1.72-.16A5.9 5.9 0 0 1 13 19c0-.29.03-.57.07-.85-.32.63-.67 1.24-1.07 1.81-.83-1.2-1.5-2.53-1.91-3.96h3.72a5.95 5.95 0 0 1 2.59-2.4c.06-.53.1-1.06.1-1.6M12 4.03c.83 1.2 1.5 2.54 1.91 3.97h-3.82c.41-1.43 1.08-2.77 1.91-3.97M4.26 14C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2s.06 1.34.14 2zm.82 2H8c.35 1.25.8 2.45 1.4 3.56A8 8 0 0 1 5.08 16M8 8H5.08A7.92 7.92 0 0 1 9.4 4.44C8.8 5.55 8.35 6.75 8 8m6.34 6H9.66c-.1-.66-.16-1.32-.16-2s.06-1.35.16-2h4.68c.09.65.16 1.32.16 2s-.07 1.34-.16 2m.25-9.56c1.84.63 3.37 1.9 4.33 3.56h-2.95a15.7 15.7 0 0 0-1.38-3.56M23 18v2h-3v3h-2v-3h-3v-2h3v-3h2v3z"/></svg>';
+    </script>
+    
+    
+
+          </div>
+          
+        </aside>
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabeçalho">
+    <a href="../../" title="Zabbix 7 Monitoring" class="md-header__button md-logo" aria-label="Zabbix 7 Monitoring" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Zabbix 7 Monitoring
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Installing Zabbix
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="light-blue" data-md-color-accent="light-blue"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Selecione o idioma">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="../../../fr/installation/installing-zabbix/" hreflang="fr" class="md-select__link">
+              Français
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../../de/installation/installing-zabbix/" hreflang="de" class="md-select__link">
+              German
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../../it/installation/installing-zabbix/" hreflang="it" class="md-select__link">
+              Italian
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../../nl/installation/installing-zabbix/" hreflang="nl" class="md-select__link">
+              Nederlands
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="pt" class="md-select__link">
+              Portuguese
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../../es/installation/installing-zabbix/" hreflang="es" class="md-select__link">
+              Spanish
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../../th/installation/installing-zabbix/" hreflang="th" class="md-select__link">
+              ภาษาไทย
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../../zh/installation/installing-zabbix/" hreflang="zh" class="md-select__link">
+              中国人
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../../installation/installing-zabbix/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Buscar" placeholder="Buscar" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Pesquisar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpar" aria-label="Limpar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando a pesquisa
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/trikke76/Zabbix-Book" title="Ir ao repositório" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    trikke76
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegação" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../" title="Zabbix 7 Monitoring" class="md-nav__button md-logo" aria-label="Zabbix 7 Monitoring" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Zabbix 7 Monitoring
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/trikke76/Zabbix-Book" title="Ir ao repositório" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    trikke76
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Welcome
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Getting started
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Getting started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Requirements/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Requirements
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installing-zabbixdb/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Installing Zabbix DB Server
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Installing Zabbix
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Installing Zabbix
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#installing-the-zabbix-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installing the Zabbix Server
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installing the Zabbix Server">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#adding-the-zabbix-repository" class="md-nav__link">
+    <span class="md-ellipsis">
+      Adding the Zabbix repository
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installing-the-zabbix-server-for-mysqlmariadb" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installing the Zabbix server for MySQL/MariaDB
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installing-the-zabbix-server-for-postgresql" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installing the Zabbix server for PostgreSQL
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installing-zabbix-frontend-with-nginx" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installing Zabbix frontend with Nginx
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installing-zabbix-frontend-with-apache" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installing Zabbix frontend with Apache
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installing-zabbix-ha/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Configure Zabbix HA
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    The basics
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            The basics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/Dashboard/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Zabbix Interface
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/zabbix-users/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Zabbix Users &amp; User groups
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/zabbix-hosts/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Zabbix hosts
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/zabbix-hostgroups/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Host groups
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/zabbix-interfaces/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Interfaces
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/zabbix-templates/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Templates
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/zabbix-items/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Items
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/zabbix-triggers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Zabbix triggers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/zabbix-macros/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Macros
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/zabbix-dataflow/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Flow
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Data collection
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Data collection
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data-collection/zabbix-agent/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Zabbix Agent
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Problem detection
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Problem detection
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../problems/zabbix-triggers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Triggers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Taking action when problems come
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Taking action when problems come
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../actions/zabbix-eventactions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Event based Actions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Managing permissions
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Managing permissions
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../permissions/managing-permissions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Managing Permissions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Visualising Problems
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Visualising Problems
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../visualising/Visualising-our-problems/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Visualising our problems
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Automating configuration
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Automating configuration
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../automation/automating-configuration/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Automating configuration
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    VMWare monitoring
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            VMWare monitoring
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../vmware/vmware-monitoring/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    VMware monitoring with Zabbix
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Monitoring websites
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            Monitoring websites
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../websites/monitoring-websites/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring websites
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Monitoring SNMP, IPMI and JAVA
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            Monitoring SNMP, IPMI and JAVA
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extra-monitoring/SNMP-monitoring/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SNMP Monitoring
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extra-monitoring/SNMP-traps-monitoring/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SNMP trap monitoring
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extra-monitoring/JAVA-monitoring/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JAVA monitoring
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extra-monitoring/IPMI-monitoring/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IPMI Monitoring
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Authentication
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            Authentication
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../authentication/zabbix-http/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Authentication with HTTP
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../authentication/zabbix-ldap/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Authentication with LDAP
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../authentication/zabbix-saml/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Authentication with SAML
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../authentication/zabbix-mfa/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Zabbix MFA support
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_14" >
+        
+          
+          <label class="md-nav__link" for="__nav_14" id="__nav_14_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Monitoring with Proxies
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_14_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_14">
+            <span class="md-nav__icon md-icon"></span>
+            Monitoring with Proxies
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../proxies/installing-proxies/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Installing Proxies
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../proxies/active-proxy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Active proxy
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../proxies/passive-proxy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Passive proxy
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../proxies/loadbalancing-proxies/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Proxy loadbalancing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_15" >
+        
+          
+          <label class="md-nav__link" for="__nav_15" id="__nav_15_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Securing Zabbix
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_15_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_15">
+            <span class="md-nav__icon md-icon"></span>
+            Securing Zabbix
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../security/securing-zabbix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Securing Zabbix Frontend
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../security/securing-zabbix-selinux/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Securing Zabbix with SELinux
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_16" >
+        
+          
+          <label class="md-nav__link" for="__nav_16" id="__nav_16_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Maintaining Zabbix
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_16_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_16">
+            <span class="md-nav__icon md-icon"></span>
+            Maintaining Zabbix
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../maintenance/maintaining-zabbix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Maintaining Zabbix
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_17" >
+        
+          
+          <label class="md-nav__link" for="__nav_17" id="__nav_17_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Monitoring Windows
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_17_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_17">
+            <span class="md-nav__icon md-icon"></span>
+            Monitoring Windows
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../windows/monitoring-windows/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Windows
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_18" >
+        
+          
+          <label class="md-nav__link" for="__nav_18" id="__nav_18_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Zabbix API
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_18_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_18">
+            <span class="md-nav__icon md-icon"></span>
+            Zabbix API
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/zabbix-api/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Zabbix API
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_19" >
+        
+          
+          <label class="md-nav__link" for="__nav_19" id="__nav_19_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Zabbix Extras
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_19_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_19">
+            <span class="md-nav__icon md-icon"></span>
+            Zabbix Extras
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extras/modbus/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Modbus monitoring with Zabbix.
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extras/contributors/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Contributors
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Guidlines-for-translations/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Translation and Guidlines
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#installing-the-zabbix-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installing the Zabbix Server
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installing the Zabbix Server">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#adding-the-zabbix-repository" class="md-nav__link">
+    <span class="md-ellipsis">
+      Adding the Zabbix repository
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installing-the-zabbix-server-for-mysqlmariadb" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installing the Zabbix server for MySQL/MariaDB
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installing-the-zabbix-server-for-postgresql" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installing the Zabbix server for PostgreSQL
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installing-zabbix-frontend-with-nginx" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installing Zabbix frontend with Nginx
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installing-zabbix-frontend-with-apache" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installing Zabbix frontend with Apache
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+
+
+    <a href="../../../print_page/" title="Print Site" class="md-content__button md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 3H6v4h12m1 5a1 1 0 0 1-1-1 1 1 0 0 1 1-1 1 1 0 0 1 1 1 1 1 0 0 1-1 1m-3 7H8v-5h8m3-6H5a3 3 0 0 0-3 3v6h4v4h12v-4h4v-6a3 3 0 0 0-3-3"/></svg>
+    </a>
+
+
+
+                  
+
+  
+  
+
+
+<h1 id="installing-zabbix">Installing Zabbix<a class="headerlink" href="#installing-zabbix" title="Permanent link">&para;</a></h1>
+<p>In this chapter, we will walk through the process of installing the Zabbix server.
+In the previous section, we covered the installation of the database.
+Now, we will proceed with installing the Zabbix server and connecting it
+to the previously set up database.
+Additionally, we will explore various design options,
+as Zabbix supports a modular installation approach.</p>
+<p>Before beginning the installation, it is important to understand the architecture
+of Zabbix.
+The Zabbix server is structured in a modular fashion, composed of three
+main components, which we will discuss in detail.</p>
+<ul>
+<li>The Zabbix server</li>
+<li>The Zabbix web server</li>
+<li>The Zabbix database</li>
+</ul>
+<p><img alt="Zabbix Server Setup" src="../../../installation/image/zabbix-server.png" width="80%" /></p>
+<p>All of these components can either be installed on a single server or distributed
+across three separate servers.
+The core of the system is the Zabbix server, often referred to as the "brain."
+This component is responsible for processing trigger calculations and sending alerts.
+The database serves as the storage for the Zabbix server’s configuration and all
+the data it collects.
+The web server provides the user interface (front-end) for interacting with
+the system.
+It is important to note that the Zabbix API is part of the front-end
+component, not the Zabbix server itself.</p>
+<p>These components must function together seamlessly, as illustrated in the
+diagram above.
+The Zabbix server must read configurations and store monitoring data in the
+database, while the front-end needs access to read and write configuration data.
+Furthermore, the front-end must be able to check the status of the Zabbix server
+and retrieve additional necessary information to ensure smooth operation.</p>
+<p>For our setup, we will be using two virtual machines (VMs):
+one VM will host both the Zabbix server and the Zabbix web front-end, while the
+second VM will host the Zabbix database.</p>
+<p>In this chapter, we will cover the following topics:</p>
+<ul>
+<li>Installing the Zabbix server for MySQL/MariaDB</li>
+<li>Installing the Zabbix server for PostgreSQL</li>
+<li>Installing the Zabbix front-end with NginX</li>
+<li>Installing the Zabbix front-end with Apache</li>
+</ul>
+<p>Each section will guide you through the steps for setting up these components in
+a way that aligns with your specific configuration.</p>
+<hr />
+<h2 id="installing-the-zabbix-server">Installing the Zabbix Server<a class="headerlink" href="#installing-the-zabbix-server" title="Permanent link">&para;</a></h2>
+<p>Before proceeding with the installation of your Zabbix server, ensure that the
+server is properly configured, as outlined in the previous section, <a href="../Requirements/">Basic OS configuration</a>.</p>
+<p>Another critical step at this stage is disabling SELinux, which can interfere
+with the installation and operation of Zabbix.
+We will revisit SELinux in the chapter <a href="../../security/securing-zabbix-selinux/">Securing Zabbix with SELinux</a>
+to learn how to configure it securely.</p>
+<p>To check the current status of SELinux, you can use the following command: <code>sestatus</code></p>
+<pre><code class="language-bash"># sestatus
+SELinux status:                 enabled
+SELinuxfs mount:                /sys/fs/selinux
+SELinux root directory:         /etc/selinux
+Loaded policy name:             targeted
+Current mode:                   enforcing
+Mode from config file:          enforcing
+Policy MLS status:              enabled
+Policy deny_unknown status:     allowed
+Memory protection checking:     actual (secure)
+Max kernel policy version:      33
+</code></pre>
+<p>As shown, the system is currently in enforcing mode.
+To temporarily disable SELinux, you can run the following command: <code>setenforce 0</code></p>
+<pre><code class="language-bash"># setenforce 0
+# sestatus
+
+SELinux status:                 enabled
+SELinuxfs mount:                /sys/fs/selinux
+SELinux root directory:         /etc/selinux
+Loaded policy name:             targeted
+Current mode:                   permissive
+Mode from config file:          enforcing
+Policy MLS status:              enabled
+Policy deny_unknown status:     allowed
+Memory protection checking:     actual (secure)
+Max kernel policy version:      33
+</code></pre>
+<p>Now, as you can see, the mode is switched to permissive.
+However, this change is not persistent across reboots.
+To make it permanent, you need to modify the SELinux configuration file located
+at <code>/etc/selinux/config</code>. Open the file and replace <code>enforcing</code> with <code>permissive</code>.</p>
+<p>Alternatively, you can achieve the same result more easily by running the
+following command:</p>
+<pre><code class="language-bash">sed -i 's/SELINUX=enforcing/SELINUX=permissive/g' /etc/selinux/config
+</code></pre>
+<p>This line will alter the config file for you.
+So when we run <code>sestatus</code> again we will see that we are in <code>permissive</code> mode and
+that our config file is also in <code>permissive</code> mode.</p>
+<p>We can verify this with our <code>cat</code> commando.</p>
+<pre><code class="language-bash"># cat /etc/selinux/config
+
+# This file controls the state of SELinux on the system.
+# SELINUX= can take one of these three values:
+#     enforcing - SELinux security policy is enforced.
+#     permissive - SELinux prints warnings instead of enforcing.
+#     disabled - No SELinux policy is loaded.
+# See also:
+# https://docs.fedoraproject.org/en-US/quick-docs/getting-started-with-selinux/#getting-started-with-selinux-selinux-states-and-modes
+#
+# NOTE: In earlier Fedora kernel builds, SELINUX=disabled would also
+# fully disable SELinux during boot. If you need a system with SELinux
+# fully disabled instead of SELinux running with no policy loaded, you
+# need to pass selinux=0 to the kernel command line. You can use grubby
+# to persistently set the bootloader to boot with selinux=0:
+#
+#    grubby --update-kernel ALL --args selinux=0
+#
+# To revert back to SELinux enabled:
+#
+#    grubby --update-kernel ALL --remove-args selinux
+#
+SELINUX=permissive
+# SELINUXTYPE= can take one of these three values:
+#     targeted - Targeted processes are protected,
+#     minimum - Modification of targeted policy. Only selected processes are protected.
+#     mls - Multi Level Security protection.
+SELINUXTYPE=targeted
+</code></pre>
+<p>And we can also verify it with our commando <code>setstatus</code></p>
+<pre><code class="language-bash"># sestatus
+
+SELinux status:                 enabled
+SELinuxfs mount:                /sys/fs/selinux
+SELinux root directory:         /etc/selinux
+Loaded policy name:             targeted
+Current mode:                   permissive
+Mode from config file:          permissive
+Policy MLS status:              enabled
+Policy deny_unknown status:     allowed
+Memory protection checking:     actual (secure)
+Max kernel policy version:      33
+</code></pre>
+<hr />
+<h3 id="adding-the-zabbix-repository">Adding the Zabbix repository<a class="headerlink" href="#adding-the-zabbix-repository" title="Permanent link">&para;</a></h3>
+<p>From the <a href="https://www.zabbix.com/download">Zabbix Download page</a>, select the
+appropriate Zabbix version you wish to install.
+In this case, we will be using <code>Zabbix 7.0 LTS</code>. Additionally, ensure you choose
+the correct OS distribution for your environment, which will be Rocky Linux 9
+in our case for this setup but RHEL 9 or AlmaLinux 9 are fine too.</p>
+<p>We will be installing the Zabbix Server along with NGINX as the web server
+for the front-end.
+Make sure to download the relevant packages for your chosen configuration.</p>
+<p><img alt="Zabbix Server Setup" src="../../../installation/image/zabbix-download.png" /></p>
+<p>Our first step is to disable the Zabbix packages provided by the EPEL repository,
+if it's installed on your system.
+To do this, edit the <code>/etc/yum.repos.d/epel.repo</code> file and add the following
+statement to disable the EPEL repository by default:</p>
+<pre><code class="language-ini">[epel]
+...
+excludepkgs=zabbix*
+</code></pre>
+<details class="tip" open="open">
+<summary>Tip</summary>
+</details>
+<p>It's considered bad practice to keep the EPEL repository enabled all the time,
+as it may cause conflicts by unintentionally overwriting or installing
+unwanted packages. Instead, it's safer to enable the repository only when needed,
+by using the following command during installations: <code>dnf install --enablerepo=epel &lt;package-name&gt;</code>
+This ensures that EPEL is only enabled when explicitly required.</p>
+<p>Next, we will install the Zabbix repository on our operating system.
+After adding the Zabbix repository, it is recommended to perform a repository
+cleanup to remove old cache files and ensure the repository metadata is up to date.
+You can do this by running:</p>
+<pre><code class="language-bash">&gt; rpm -Uvh https://repo.zabbix.com/zabbix/7.0/rhel/9/x86_64/zabbix-release-6.5-2.el9.noarch.rpm
+&gt; dnf clean all
+</code></pre>
+<p>This will refresh the repository metadata and prepare the system for Zabbix installation.</p>
+<details class="note" open="open">
+<summary>Note</summary>
+</details>
+<p>A repository in Linux is a configuration that allows you to access and install
+software packages. You can think of it like an "app store" where you find and
+download software from a trusted source, in this case, the Zabbix repository.
+Many repositories are available, but it's important to only add those you trust.
+The safest practice is to stick to the repositories provided by your
+operating system and only add additional ones when you're sure they are both
+trusted and necessary.</p>
+<div class="highlight"><pre><span></span><code>For our installation, the Zabbix repository is provided by the vendor itself,
+making it a trusted source. Another popular and safe repository for
+RedHat-based systems is EPEL (Extra Packages for Enterprise Linux), which is
+commonly used in enterprise environments.
+However, always exercise caution when adding new repositories to ensure
+system security and stability.
+</code></pre></div>
+<hr />
+<h2 id="installing-the-zabbix-server-for-mysqlmariadb">Installing the Zabbix server for MySQL/MariaDB<a class="headerlink" href="#installing-the-zabbix-server-for-mysqlmariadb" title="Permanent link">&para;</a></h2>
+<p>Now that we’ve added the Zabbix repository with the necessary software,
+we are ready to install both the Zabbix server and the web server.
+Keep in mind that the web server doesn’t need to be installed on the same machine
+as the Zabbix server; they can be hosted on separate systems if desired.</p>
+<p>To install the Zabbix server and the web server components for MySQL/MariaDB,
+run the following command:</p>
+<pre><code class="language-bash">dnf install zabbix-server-mysql zabbix-web-mysql
+</code></pre>
+<p>After successfully installing the Zabbix server and frontend packages, we need
+to configure the Zabbix server to connect to the database.
+This requires modifying the Zabbix server configuration file.
+Open the <code>/etc/zabbix/zabbix_server.conf</code> file and update the following lines
+to match your database configuration:</p>
+<pre><code class="language-ini">DBHost=&lt;database-host&gt;
+DBName=&lt;database-name&gt;
+DBUser=&lt;database-user&gt;
+DBPassword=&lt;database-password&gt;
+</code></pre>
+<p>Replace <code>&lt;database-host&gt;</code>, <code>&lt;database-name&gt;</code>, <code>&lt;database-user&gt;</code>,
+and <code>&lt;database-password&gt;</code> with the appropriate values for your setup.
+This ensures that the Zabbix server can communicate with your database.</p>
+<p>Ensure that there is no # (comment symbol) in front of the configuration parameters,
+as Zabbix will treat lines beginning with # as comments, ignoring them during execution.
+Additionally, double-check for duplicate configuration lines;
+if there are multiple lines with the same parameter, Zabbix will use the value
+from the last occurrence.</p>
+<p>For our setup, the configuration will look like this:</p>
+<pre><code class="language-ini"># vi /etc/zabbix/zabbix_server.conf
+
+DBHost=&lt;ip or dns of your MariaDB server&gt;
+DBName=zabbix
+DBUser=zabbix-srv
+DBPassword=&lt;your super secret password&gt;
+DBPort=3306
+</code></pre>
+<p>In this example:</p>
+<ul>
+<li>DBHost refers to the host where your database is running (use localhost if it's on the same machine).</li>
+<li>DBName is the name of the Zabbix database.</li>
+<li>DBUser is the database user.</li>
+<li>DBPassword is the password for the database user.</li>
+</ul>
+<p>Make sure the settings reflect your environment's database configuration.</p>
+<details class="note" open="open">
+<summary>Note</summary>
+</details>
+<p>The Zabbix server configuration file offers an option to include additional
+configuration files for custom parameters. For a production environment, it's
+often best to avoid altering the original configuration file directly.
+Instead, you can create and include a separate configuration file for any
+additional or modified parameters.
+This approach ensures that your original configuration file remains untouched,
+which is particularly useful when performing upgrades or managing
+configurations with tools like Ansible, Puppet, or SaltStack.</p>
+<p>To enable this feature, remove the <code>#</code> from the line:</p>
+<pre><code class="language-ini"># Include=/usr/local/etc/zabbix_server.conf.d/*.conf
+</code></pre>
+<div class="highlight"><pre><span></span><code>Then, ensure the path `/usr/local/etc/zabbix_server.conf.d/` exists and
+create a custom configuration file in this directory.
+This file should be readable by the `zabbix` user. By doing so, you can add
+or modify parameters without modifying the default configuration file,
+making system management and upgrades smoother.
+</code></pre></div>
+<p>With the Zabbix server configuration updated to connect to your database,
+you can now start and enable the Zabbix server service. Run the following command
+to enable the Zabbix server and ensure it starts automatically on boot:</p>
+<pre><code class="language-bash">systemctl enable zabbix-server --now`
+</code></pre>
+<p>This command will start the Zabbix server service immediately and configure
+it to launch on system startup.</p>
+<p>To verify that the Zabbix server is running correctly, check the log file for
+any messages.
+You can view the latest entries in the Zabbix server log file using:</p>
+<pre><code class="language-bash">tail /var/log/zabbix/zabbix_server.log
+</code></pre>
+<p>Look for messages indicating that the server has started successfully.
+If there are any issues, the log file will provide details to help with troubleshooting.</p>
+<pre><code class="language-bash">  1123:20231120:110604.440 Starting Zabbix Server. Zabbix 7.0.0alpha7 (revision 60de6a81aca).
+  1123:20231120:110604.440 ****** Enabled features ******
+  1123:20231120:110604.440 SNMP monitoring:           YES
+  1123:20231120:110604.440 IPMI monitoring:           YES
+  1123:20231120:110604.440 Web monitoring:            YES
+  1123:20231120:110604.440 VMware monitoring:         YES
+  1123:20231120:110604.440 SMTP authentication:       YES
+  1123:20231120:110604.440 ODBC:                      YES
+  1123:20231120:110604.440 SSH support:               YES
+  1123:20231120:110604.440 IPv6 support:              YES
+  1123:20231120:110604.440 TLS support:               YES
+  1123:20231120:110604.440 ******************************
+  1123:20231120:110604.440 using configuration file: /etc/zabbix/zabbix_server.conf
+  1123:20231120:110604.470 current database version (mandatory/optional): 06050143/06050143
+  1123:20231120:110604.470 required mandatory version: 06050143
+  1124:20231120:110604.490 starting HA manager
+  1124:20231120:110604.507 HA manager started in active mode
+  1123:20231120:110604.508 server #0 started [main process]
+  1126:20231120:110604.509 server #2 started [configuration syncer #1]
+  1125:20231120:110604.510 server #1 started [service manager #1]
+  1133:20231120:110604.841 server #9 started [lld worker #1]
+  1132:20231120:110604.841 server #8 started [lld manager #1]
+  1134:20231120:110604.841 server #10 started [lld worker #2]
+</code></pre>
+<p>If there was an error and the server was not able to connect to the database you
+would see something like this in the server log file :</p>
+<pre><code> 10773:20231118:213248.570 Starting Zabbix Server. Zabbix 7.0.0alpha7 (revision 60de6a81aca).
+ 10773:20231118:213248.570 ****** Enabled features ******
+ 10773:20231118:213248.570 SNMP monitoring:           YES
+ 10773:20231118:213248.570 IPMI monitoring:           YES
+ 10773:20231118:213248.570 Web monitoring:            YES
+ 10773:20231118:213248.570 VMware monitoring:         YES
+ 10773:20231118:213248.570 SMTP authentication:       YES
+ 10773:20231118:213248.570 ODBC:                      YES
+ 10773:20231118:213248.570 SSH support:               YES
+ 10773:20231118:213248.570 IPv6 support:              YES
+ 10773:20231118:213248.570 TLS support:               YES
+ 10773:20231118:213248.570 ******************************
+ 10773:20231118:213248.570 using configuration file: /etc/zabbix/zabbix_server.conf
+ 10773:20231118:213248.574 [Z3001] connection to database 'zabbix' failed: [2002] Can't connect to server on 'xxx.xxx.xxx.xxx' (115)
+ 10773:20231118:213248.574 database is down: reconnecting in 10 seconds
+ 10773:20231118:213258.579 [Z3001] connection to database 'zabbix' failed: [2002] Can't connect to server on 'xxx.xxx.xxx.xxx' (115)
+ 10773:20231118:213258.579 database is down: reconnecting in 10 seconds
+</code></pre>
+<p>Let's check the Zabbix server service to see if it's enabled so that it survives
+a reboot</p>
+<pre><code class="language-bash"># systemctl status zabbix-server
+
+● zabbix-server.service - Zabbix Server
+     Loaded: loaded (/usr/lib/systemd/system/zabbix-server.service; enabled; preset: disabled)
+     Active: active (running) since Mon 2023-11-20 11:06:04 CET; 1h 2min ago
+   Main PID: 1123 (zabbix_server)
+      Tasks: 59 (limit: 12344)
+     Memory: 52.6M
+        CPU: 20.399s
+     CGroup: /system.slice/zabbix-server.service
+             ├─1123 /usr/sbin/zabbix_server -c /etc/zabbix/zabbix_server.conf
+             ├─1124 &quot;/usr/sbin/zabbix_server: ha manager&quot;
+             ├─1125 &quot;/usr/sbin/zabbix_server: service manager #1 [processed 0 events, updated 0 event tags, deleted 0 problems, synced 0 service updates, idle 5.008686 sec during 5.016382 sec]&quot;
+             ├─1126 &quot;/usr/sbin/zabbix_server: configuration syncer [synced configuration in 0.092797 sec, idle 10 sec]&quot;
+             ├─1127 &quot;/usr/sbin/zabbix_server: alert manager #1 [sent 0, failed 0 alerts, idle 5.027620 sec during 5.027828 sec]&quot;
+             ├─1128 &quot;/usr/sbin/zabbix_server: alerter #1 started&quot;
+             ├─1129 &quot;/usr/sbin/zabbix_server: alerter #2 started&quot;
+             ├─1130 &quot;/usr/sbin/zabbix_server: alerter #3 started&quot;
+             ├─1131 &quot;/usr/sbin/zabbix_server: preprocessing manager #1 [queued 1, processed 2 values, idle 5.490312 sec during 5.490555 sec]&quot;
+             ├─1132 &quot;/usr/sbin/zabbix_server: lld manager #1 [processed 1 LLD rules, idle 5.028973sec during 5.029123 sec]&quot;
+             ├─1133 &quot;/usr/sbin/zabbix_server: lld worker #1 [processed 1 LLD rules, idle 60.060180 sec during 60.085009 sec]&quot;
+             ├─1134 &quot;/usr/sbin/zabbix_server: lld worker #2 [processed 1 LLD rules, idle 60.065526 sec during 60.095165 sec]&quot;
+             ├─1135 &quot;/usr/sbin/zabbix_server: housekeeper [deleted 0 hist/trends, 0 items/triggers, 0 events, 0 sessions, 0 alarms, 0 audit items, 0 autoreg_host, 0 records in 0.019108 sec, idle for 1 hour(s)]&quot;
+             ├─1136 &quot;/usr/sbin/zabbix_server: timer #1 [updated 0 hosts, suppressed 0 events in 0.002856 sec, idle 59 sec]&quot;
+             ├─1137 &quot;/usr/sbin/zabbix_server: http poller #1 [got 0 values in 0.000059 sec, idle 5 sec]&quot;
+             ├─1138 &quot;/usr/sbin/zabbix_server: discovery manager #1 [processing 0 rules, 0.000000% of queue used, 0 unsaved checks]&quot;
+             ├─1139 &quot;/usr/sbin/zabbix_server: history syncer #1 [processed 0 values, 0 triggers in 0.000036 sec, idle 1 sec]&quot;
+             ├─1140 &quot;/usr/sbin/zabbix_server: history syncer #2 [processed 1 values, 0 triggers in 0.005016 sec, idle 1 sec]&quot;
+             ├─1141 &quot;/usr/sbin/zabbix_server: history syncer #3 [processed 0 values, 0 triggers in 0.000031 sec, idle 1 sec]&quot;
+             ├─1142 &quot;/usr/sbin/zabbix_server: history syncer #4 [processed 0 values, 0 triggers in 0.000014 sec, idle 1 sec]&quot;
+             ├─1143 &quot;/usr/sbin/zabbix_server: escalator #1 [processed 0 escalations in 0.005587 sec, idle 3 sec]&quot;
+             ├─1144 &quot;/usr/sbin/zabbix_server: proxy poller #1 [exchanged data with 0 proxies in 0.000010 sec, idle 5 sec]&quot;
+             ├─1145 &quot;/usr/sbin/zabbix_server: self-monitoring [processed data in 0.000016 sec, idle 1 sec]&quot;
+             ├─1146 &quot;/usr/sbin/zabbix_server: task manager [processed 0 task(s) in 0.002511 sec, idle 5 sec]&quot;
+             ├─1147 &quot;/usr/sbin/zabbix_server: poller #1 [got 0 values in 0.000009 sec, idle 1 sec]&quot;
+             ├─1148 &quot;/usr/sbin/zabbix_server: poller #2 [got 1 values in 0.000232 sec, idle 1 sec]&quot;
+             ├─1149 &quot;/usr/sbin/zabbix_server: poller #3 [got 0 values in 0.000015 sec, idle 1 sec]&quot;
+             ├─1150 &quot;/usr/sbin/zabbix_server: poller #4 [got 0 values in 0.000010 sec, idle 1 sec]&quot;
+</code></pre>
+<p>This concludes our chapter on installing and configuring the Zabbix server with
+MySQL.
+Next, we will proceed with configuring the front-end.
+You can choose to follow the instructions for either:</p>
+<ul>
+<li><a href="#installing-zabbix-frontend-with-nginx">Installing Zabbix frontend with Nginx</a></li>
+<li><a href="#installing-zabbix-frontend-with-apache">Installing Zabbix frontend with Apache</a></li>
+</ul>
+<p>Each guide will walk you through setting up the web interface for Zabbix based
+on your preferred web server.</p>
+<hr />
+<h2 id="installing-the-zabbix-server-for-postgresql">Installing the Zabbix server for PostgreSQL<a class="headerlink" href="#installing-the-zabbix-server-for-postgresql" title="Permanent link">&para;</a></h2>
+<p>Now that we’ve added the Zabbix repository with the necessary software,
+we are ready to install both the Zabbix server and the web server.
+Keep in mind that the web server doesn’t need to be installed on the same machine
+as the Zabbix server; they can be hosted on separate systems if desired.</p>
+<p>To install the Zabbix server and the web server components for PostgreSQL,
+run the following command:</p>
+<p><code>dnf install zabbix-server-pgsql zabbix-web-pgsql</code></p>
+<p>After successfully installing the Zabbix server and frontend packages,
+we need to configure the Zabbix server to connect to the database.
+This requires modifying the Zabbix server configuration file.
+Open the <code>/etc/zabbix/zabbix_server.conf</code> file and update the following lines
+to match your database configuration:</p>
+<pre><code class="language-ini">DBHost=&lt;ip or dns of your PostgreSQL server&gt;
+DBName=&lt;the name of your database&gt;
+DBSchema=&lt;our PostgreSQL schema name&gt;
+DBUser=&lt;the user that will connect to the database&gt;
+DBPassword=&lt;your super secret password&gt;
+</code></pre>
+<p>Replace <database-host>, <database-name>, <database-user>, and <database-password>
+with the appropriate values for your setup. This ensures that the Zabbix server
+can communicate with your database.</p>
+<p>Ensure that there is no # (comment symbol) in front of the configuration parameters,
+as Zabbix will treat lines beginning with # as comments, ignoring them during execution.
+Additionally, double-check for duplicate configuration lines;
+if there are multiple lines with the same parameter, Zabbix will use the value
+from the last occurrence.</p>
+<p>For our setup, the configuration will look like this:</p>
+<pre><code class="language-bash"># vi /etc/zabbix/zabbix_server.conf
+
+DBHost=&lt;ip or dns of your MariaDB server&gt;
+DBName=zabbix
+DBSchema=zabbix_server
+DBUser=zabbix-srv
+DBPassword=&lt;your super secret password&gt;
+DBPort=5432
+</code></pre>
+<p>In this example:</p>
+<ul>
+<li>DBHost refers to the host where your database is running (use localhost if it's on the same machine).</li>
+<li>DBName is the name of the Zabbix database.</li>
+<li>DBUser is the database user.</li>
+<li>DBPassword is the password for the database user.</li>
+</ul>
+<p>Make sure the settings reflect your environment's database configuration.</p>
+<details class="note" open="open">
+<summary>Note</summary>
+</details>
+<p>The Zabbix server configuration file offers an option to include additional
+configuration files for custom parameters. For a production environment,
+it's often best to avoid altering the original configuration file directly.
+Instead, you can create and include a separate configuration file for any
+additional or modified parameters. This approach ensures that your original
+configuration file remains untouched, which is particularly useful when performing
+upgrades or managing configurations with tools like Ansible, Puppet, or SaltStack.
+To enable this feature, remove the # from the line:
+<code># Include=/usr/local/etc/zabbix_server.conf.d/*.conf</code>
+Then, ensure the path <code>/usr/local/etc/zabbix_server.conf.d/</code> exists and
+create a custom configuration file in this directory.
+This file should be readable by the <code>zabbix</code> user. By doing so, you can add
+or modify parameters without modifying the default configuration file,
+making system management and upgrades smoother.</p>
+<p>With the Zabbix server configuration updated to connect to your database,
+you can now start and enable the Zabbix server service. Run the following command
+to enable the Zabbix server and ensure it starts automatically on boot:</p>
+<p><code>systemctl enable zabbix-server --now</code></p>
+<p>This command will start the Zabbix server service immediately and configure it
+to launch on system startup.
+To verify that the Zabbix server is running correctly, check the log file for
+any messages. You can view the latest entries in the Zabbix server log file using:</p>
+<p><code>tail /var/log/zabbix/zabbix_server.log</code></p>
+<p>Look for messages indicating that the server has started successfully. If there are any issues, the log file will provide details to help with troubleshooting.</p>
+<pre><code class="language-bash">  1123:20231120:110604.440 Starting Zabbix Server. Zabbix 7.0.0alpha7 (revision 60de6a81aca).
+  1123:20231120:110604.440 ****** Enabled features ******
+  1123:20231120:110604.440 SNMP monitoring:           YES
+  1123:20231120:110604.440 IPMI monitoring:           YES
+  1123:20231120:110604.440 Web monitoring:            YES
+  1123:20231120:110604.440 VMware monitoring:         YES
+  1123:20231120:110604.440 SMTP authentication:       YES
+  1123:20231120:110604.440 ODBC:                      YES
+  1123:20231120:110604.440 SSH support:               YES
+  1123:20231120:110604.440 IPv6 support:              YES
+  1123:20231120:110604.440 TLS support:               YES
+  1123:20231120:110604.440 ******************************
+  1123:20231120:110604.440 using configuration file: /etc/zabbix/zabbix_server.conf
+  1123:20231120:110604.470 current database version (mandatory/optional): 06050143/06050143
+  1123:20231120:110604.470 required mandatory version: 06050143
+  1124:20231120:110604.490 starting HA manager
+  1124:20231120:110604.507 HA manager started in active mode
+  1123:20231120:110604.508 server #0 started [main process]
+  1126:20231120:110604.509 server #2 started [configuration syncer #1]
+  1125:20231120:110604.510 server #1 started [service manager #1]
+  1133:20231120:110604.841 server #9 started [lld worker #1]
+  1132:20231120:110604.841 server #8 started [lld manager #1]
+  1134:20231120:110604.841 server #10 started [lld worker #2]
+</code></pre>
+<p>If there was an error and the server was not able to connect to the database
+you would see something like this in the server log file :</p>
+<pre><code class="language-bash"> 10773:20231118:213248.570 Starting Zabbix Server. Zabbix 7.0.0alpha7 (revision 60de6a81aca).
+ 10773:20231118:213248.570 ****** Enabled features ******
+ 10773:20231118:213248.570 SNMP monitoring:           YES
+ 10773:20231118:213248.570 IPMI monitoring:           YES
+ 10773:20231118:213248.570 Web monitoring:            YES
+ 10773:20231118:213248.570 VMware monitoring:         YES
+ 10773:20231118:213248.570 SMTP authentication:       YES
+ 10773:20231118:213248.570 ODBC:                      YES
+ 10773:20231118:213248.570 SSH support:               YES
+ 10773:20231118:213248.570 IPv6 support:              YES
+ 10773:20231118:213248.570 TLS support:               YES
+ 10773:20231118:213248.570 ******************************
+ 10773:20231118:213248.570 using configuration file: /etc/zabbix/zabbix_server.conf
+ 10773:20231118:213248.574 [Z3001] connection to database 'zabbix' failed: [2002] Can't connect to server on 'xxx.xxx.xxx.xxx' (115)
+ 10773:20231118:213248.574 database is down: reconnecting in 10 seconds
+ 10773:20231118:213258.579 [Z3001] connection to database 'zabbix' failed: [2002] Can't connect to server on 'xxx.xxx.xxx.xxx' (115)
+ 10773:20231118:213258.579 database is down: reconnecting in 10 seconds
+</code></pre>
+<p>Let's check the Zabbix server service to see if it's enabled so that it
+survives a reboot</p>
+<pre><code># systemctl status zabbix-server
+</code></pre>
+<pre><code class="language-bash">● zabbix-server.service - Zabbix Server
+     Loaded: loaded (/usr/lib/systemd/system/zabbix-server.service; enabled; preset: disabled)
+     Active: active (running) since Mon 2023-11-20 11:06:04 CET; 1h 2min ago
+   Main PID: 1123 (zabbix_server)
+      Tasks: 59 (limit: 12344)
+     Memory: 52.6M
+        CPU: 20.399s
+     CGroup: /system.slice/zabbix-server.service
+             ├─1123 /usr/sbin/zabbix_server -c /etc/zabbix/zabbix_server.conf
+             ├─1124 &quot;/usr/sbin/zabbix_server: ha manager&quot;
+             ├─1125 &quot;/usr/sbin/zabbix_server: service manager #1 [processed 0 events, updated 0 event tags, deleted 0 problems, synced 0 service updates, idle 5.008686 sec during 5.016382 sec]&quot;
+             ├─1126 &quot;/usr/sbin/zabbix_server: configuration syncer [synced configuration in 0.092797 sec, idle 10 sec]&quot;
+             ├─1127 &quot;/usr/sbin/zabbix_server: alert manager #1 [sent 0, failed 0 alerts, idle 5.027620 sec during 5.027828 sec]&quot;
+             ├─1128 &quot;/usr/sbin/zabbix_server: alerter #1 started&quot;
+             ├─1129 &quot;/usr/sbin/zabbix_server: alerter #2 started&quot;
+             ├─1130 &quot;/usr/sbin/zabbix_server: alerter #3 started&quot;
+             ├─1131 &quot;/usr/sbin/zabbix_server: preprocessing manager #1 [queued 1, processed 2 values, idle 5.490312 sec during 5.490555 sec]&quot;
+             ├─1132 &quot;/usr/sbin/zabbix_server: lld manager #1 [processed 1 LLD rules, idle 5.028973sec during 5.029123 sec]&quot;
+             ├─1133 &quot;/usr/sbin/zabbix_server: lld worker #1 [processed 1 LLD rules, idle 60.060180 sec during 60.085009 sec]&quot;
+             ├─1134 &quot;/usr/sbin/zabbix_server: lld worker #2 [processed 1 LLD rules, idle 60.065526 sec during 60.095165 sec]&quot;
+             ├─1135 &quot;/usr/sbin/zabbix_server: housekeeper [deleted 0 hist/trends, 0 items/triggers, 0 events, 0 sessions, 0 alarms, 0 audit items, 0 autoreg_host, 0 records in 0.019108 sec, idle for 1 hour(s)]&quot;
+             ├─1136 &quot;/usr/sbin/zabbix_server: timer #1 [updated 0 hosts, suppressed 0 events in 0.002856 sec, idle 59 sec]&quot;
+             ├─1137 &quot;/usr/sbin/zabbix_server: http poller #1 [got 0 values in 0.000059 sec, idle 5 sec]&quot;
+             ├─1138 &quot;/usr/sbin/zabbix_server: discovery manager #1 [processing 0 rules, 0.000000% of queue used, 0 unsaved checks]&quot;
+             ├─1139 &quot;/usr/sbin/zabbix_server: history syncer #1 [processed 0 values, 0 triggers in 0.000036 sec, idle 1 sec]&quot;
+             ├─1140 &quot;/usr/sbin/zabbix_server: history syncer #2 [processed 1 values, 0 triggers in 0.005016 sec, idle 1 sec]&quot;
+             ├─1141 &quot;/usr/sbin/zabbix_server: history syncer #3 [processed 0 values, 0 triggers in 0.000031 sec, idle 1 sec]&quot;
+             ├─1142 &quot;/usr/sbin/zabbix_server: history syncer #4 [processed 0 values, 0 triggers in 0.000014 sec, idle 1 sec]&quot;
+             ├─1143 &quot;/usr/sbin/zabbix_server: escalator #1 [processed 0 escalations in 0.005587 sec, idle 3 sec]&quot;
+             ├─1144 &quot;/usr/sbin/zabbix_server: proxy poller #1 [exchanged data with 0 proxies in 0.000010 sec, idle 5 sec]&quot;
+             ├─1145 &quot;/usr/sbin/zabbix_server: self-monitoring [processed data in 0.000016 sec, idle 1 sec]&quot;
+             ├─1146 &quot;/usr/sbin/zabbix_server: task manager [processed 0 task(s) in 0.002511 sec, idle 5 sec]&quot;
+             ├─1147 &quot;/usr/sbin/zabbix_server: poller #1 [got 0 values in 0.000009 sec, idle 1 sec]&quot;
+             ├─1148 &quot;/usr/sbin/zabbix_server: poller #2 [got 1 values in 0.000232 sec, idle 1 sec]&quot;
+             ├─1149 &quot;/usr/sbin/zabbix_server: poller #3 [got 0 values in 0.000015 sec, idle 1 sec]&quot;
+             ├─1150 &quot;/usr/sbin/zabbix_server: poller #4 [got 0 values in 0.000010 sec, idle 1 sec]&quot;
+</code></pre>
+<p>This concludes our chapter on installing and configuring the Zabbix server with PostgreSQL.
+Next, we will proceed with configuring the front-end.
+You can choose to follow the instructions for either:</p>
+<ul>
+<li><a href="#installing-zabbix-frontend-with-nginx">Installing Zabbix frontend with Nginx</a></li>
+<li><a href="#installing-zabbix-frontend-with-apache">Installing Zabbix frontend with Apache</a></li>
+</ul>
+<p>Each guide will walk you through setting up the web interface for Zabbix based
+on your preferred web server.</p>
+<hr />
+<h2 id="installing-zabbix-frontend-with-nginx">Installing Zabbix frontend with Nginx<a class="headerlink" href="#installing-zabbix-frontend-with-nginx" title="Permanent link">&para;</a></h2>
+<p>Before configuring the front-end, you need to install the necessary packages.
+If the Zabbix front-end is hosted on the same server as the Zabbix server,
+you can install the required packages with the following command:</p>
+<pre><code class="language-bash"># dnf install zabbix-nginx-conf and zabbix-web-mysql
+or if you used PostgreSQL
+# dnf install zabbix-web-pgsql
+</code></pre>
+<p>This command will install the front-end packages along with the required dependencies
+for Nginx or Apache, depending on your web server choice.
+If you are installing the front-end on a different server, make sure to execute
+this command on that specific machine.</p>
+<p>If you don't remember how to add the repository, have a look at <a href="#adding-the-zabbix-repository">Adding the Zabbix repository</a></p>
+<p>First thing we have to do is alter the Nginx configuration file so that we don't
+use the standard config.</p>
+<pre><code class="language-bash">vi /etc/nginx/nginx.conf
+</code></pre>
+<p>In this config look for the followin block that starts with :</p>
+<pre><code>    server {
+        listen       80;
+        listen       [::]:80;
+        server_name  _;
+        root         /usr/share/nginx/html;
+
+        # Load configuration files for the default server block.
+        include /etc/nginx/default.d/*.conf;
+</code></pre>
+<p>And place the following lines in comment:</p>
+<pre><code>    server {
+#        listen       80;
+#        listen       [::]:80;
+#        server_name  _;
+#        root         /usr/share/nginx/html;
+</code></pre>
+<p>We now have to alter the Zabbix configuration file so that it matches our setup. Edit the following file:</p>
+<pre><code>vi /etc/nginx/conf.d/zabbix.conf
+</code></pre>
+<pre><code>server {
+        listen          8080;
+        server_name     example.com;
+
+        root    /usr/share/zabbix;
+
+        index   index.php;
+</code></pre>
+<p>Replace the first 2 lines with the correct port and domain for your frontend in case you don't have a domain you can replace server<em>name with</em>; like in the exaple below:</p>
+<pre><code>server {
+#        listen          8080;
+#        server_name     example.com;
+        listen          80;
+        server_name     _;
+
+        root    /usr/share/zabbix;
+
+        index   index.php;
+</code></pre>
+<p>We are now ready to start our websever and enable it so that it comes online after a reboot.</p>
+<pre><code>systemctl enable php-fpm --now
+systemctl enable nginx --now
+</code></pre>
+<p>Let's verify if the service is properly started and enabled so that it survives our reboot next time.</p>
+<pre><code># systemctl status nginx
+
+● nginx.service - The nginx HTTP and reverse proxy server
+     Loaded: loaded (/usr/lib/systemd/system/nginx.service; enabled; preset: disabled)
+    Drop-In: /usr/lib/systemd/system/nginx.service.d
+             └─php-fpm.conf
+     Active: active (running) since Mon 2023-11-20 11:42:18 CET; 30min ago
+   Main PID: 1206 (nginx)
+      Tasks: 2 (limit: 12344)
+     Memory: 4.8M
+        CPU: 38ms
+     CGroup: /system.slice/nginx.service
+             ├─1206 &quot;nginx: master process /usr/sbin/nginx&quot;
+             └─1207 &quot;nginx: worker process&quot;
+
+Nov 20 11:42:18 zabbix-srv systemd[1]: Starting The nginx HTTP and reverse proxy server...
+Nov 20 11:42:18 zabbix-srv nginx[1204]: nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+Nov 20 11:42:18 zabbix-srv nginx[1204]: nginx: configuration file /etc/nginx/nginx.conf test is successful
+Nov 20 11:42:18 zabbix-srv systemd[1]: Started The nginx HTTP and reverse proxy server.
+</code></pre>
+<p>The service is running and enabled so there is only 1 thing left to do before we can start the configuration in the GUI and that is to configure our firewall to allow incoming communication to the webserver.</p>
+<pre><code>firewall-cmd --add-service=http --permanent
+firewall-cmd --reload
+</code></pre>
+<p>Open your browser and go to the url or ip of your frontend :</p>
+<pre><code>http://&lt;ip or dns of the zabbix frontend server&gt;/
+</code></pre>
+<p>If all goes well you should be greeted with a Zabbix welcome page.
+In case you have an error check the configuration again or have a look at the nginx log file :</p>
+<p><code>/var/log/nginx/error.log</code></p>
+<p>or run</p>
+<p><code>journalctl -xe</code></p>
+<p>This should help you in locating the errors you made.</p>
+<p>When you point your browser to the correct URL you should be greeted with a page like here :</p>
+<p><img alt="Zabbix Welcome page" src="../../../installation/image/zabbix-welcome.png" width="800" /></p>
+<p>As you see there is only a limited list of local translations available on our Zabbix frontend to choose from</p>
+<p><img alt="Zabbix Welcome page" src="../../../installation/image/zabbix-locales.png" width="800" /></p>
+<p>What if we want to install Chinese as language or another language from the list ?
+Run the next command to get a list of all locales available for your OS.</p>
+<p><code>dnf list glibc-langpack-*</code></p>
+<p>This will give you a list like</p>
+<pre><code>Installed Packages
+glibc-langpack-en.x86_64
+Available Packages
+glibc-langpack-aa.x86_64
+...
+
+glibc-langpack-zu.x86_64
+</code></pre>
+<p>Let's search for our Chinese locale to see if it is available. As you can see the code starts with zh</p>
+<pre><code># dnf list glibc-langpack-* | grep zh
+glibc-langpack-zh.x86_64
+glibc-langpack-lzh.x86_64
+</code></pre>
+<p>The command returns us 2 lines but as we have seen that the code was zh_CN we only have to install the first package.</p>
+<pre><code># dnf install glibc-langpack-zh.x86_64 -y
+</code></pre>
+<p>When we return now to our frontend we are able to select the Chinese language.</p>
+<p><img alt="Zabbix Welcome page" src="../../../installation/image/zabbix-locales-chinese.png" /></p>
+<details class="note" open="open">
+<summary>Note</summary>
+</details>
+<p>If your preferred language is not available in the Zabbix front-end,
+don't worry—it simply means that the translation is either incomplete or not
+yet available.
+Zabbix is an open-source project that relies on community contributions for
+translations, so you can help improve it by contributing your own translations.</p>
+<div class="highlight"><pre><span></span><code>Visit the translation page at [https://translate.zabbix.com/](https://translate.zabbix.com/)
+to assist with the translation efforts. Once your translation is complete and reviewed,
+it will be included in the next minor patch version of Zabbix.
+Your contributions help make Zabbix more accessible and improve the overall
+user experience for everyone.
+</code></pre></div>
+<p>When you're satisfied with the available translations, click <strong>Next</strong>.
+You will then be taken to a screen to verify that all prerequisites are met.
+If any prerequisites are not fulfilled, address those issues first.
+However, if everything is in order, you should be able to proceed by clicking <strong>Next</strong>.</p>
+<p><img alt="Zabbix Welcome page" src="../../../installation/image/pre-requisites.png" /></p>
+<p>On the next page, you'll configure the database connection parameters:</p>
+<ol>
+<li><strong>Select the Database Type</strong>: Choose either <code>MySQL</code> or <code>PostgreSQL</code> depending
+   on your setup.</li>
+<li><strong>Enter the Database Host</strong>: Provide the IP address or DNS name of your
+   database server. Use port <code>3306</code> for MariaDB/MySQL or <code>5432</code> for PostgreSQL.</li>
+<li><strong>Enter the Database Name</strong>: Specify the name of your database. In our case,
+   it is <code>zabbix</code>. If you are using PostgreSQL, you will also need to provide
+   the schema name, which is <code>zabbix_server</code> in our case.</li>
+<li><strong>Enter the Database User</strong>: Input the database user created for the web front-end,
+   such as <code>zabbix-web</code>. Enter the corresponding password for this user.</li>
+</ol>
+<p>Ensure that the <strong>Database TLS encryption</strong> option is not selected, and then click <strong>Next step</strong> to proceed.</p>
+<p><img alt="Zabbix Welcome page" src="../../../installation/image/db-connection.png" /></p>
+<p>You're almost finished with the setup! The final steps involve:</p>
+<ol>
+<li><strong>Assigning an Instance Name</strong>: Choose a descriptive name for your Zabbix instance.</li>
+<li><strong>Selecting the Timezone</strong>: Choose the timezone that matches your location or
+   your preferred time zone for the Zabbix interface.</li>
+<li><strong>Setting the Default Time Format</strong>: Select the default time format you prefer
+   to use.</li>
+</ol>
+<p>Once these settings are configured, you can complete the setup and proceed with
+any final configuration steps as needed.</p>
+<details class="note" open="open">
+<summary>Note</summary>
+</details>
+<p>It’s a good practice to set your Zabbix server to the UTC timezone,
+especially when managing systems across multiple timezones. Using UTC helps
+ensure consistency in time-sensitive actions and events, as the server’s
+timezone is often used for calculating and displaying time-related information.</p>
+<p><img alt="Zabbix Welcome page" src="../../../installation/image/zabbix-summary.png" /></p>
+<p>After clicking <strong>Next step</strong> again, you'll be taken to a page confirming that
+the configuration was successful. Click <strong>Finish</strong> to complete the setup process.</p>
+<p><img alt="Zabbix Welcome page" src="../../../installation/image/zabbix-succcess.png" /></p>
+<p>We are now ready to login :</p>
+<p><img alt="Zabbix Welcome page" src="../../../installation/image/zabbix-login.png" /></p>
+<p>Login : Admin
+Password : zabbix</p>
+<p>This concludes our topic on setting up the Zabbix server. If you're interested
+in securing your front-end, I recommend checking out the topic
+<a href="../../security/securing-zabbix/">Securing Zabbix</a> for additional guidance
+and best practices.</p>
+<hr />
+<h2 id="installing-zabbix-frontend-with-apache">Installing Zabbix frontend with Apache<a class="headerlink" href="#installing-zabbix-frontend-with-apache" title="Permanent link">&para;</a></h2>
+<p>Before we can configure our frontend we need to install our package first.
+If you run the frontend on the same server as the Zabbix server then there is
+nothing else you have to do you can just run the following command on your server
+to install the packages needed for our frontend to install:</p>
+<pre><code class="language-bash"># dnf install zabbix-apache-conf zabbix-web-mysql
+or if you used PostgreSQL
+# dnf install zabbix-apache-conf zabbix-web-pgsql
+</code></pre>
+<p>This command will install the front-end packages along with the required
+dependencies for Nginx or Apache, depending on your web server choice.
+If you are installing the front-end on a different server, make sure to execute
+this command on that specific machine.</p>
+<p>If you don't remember how to add the repository, have a look at <a href="#adding-the-zabbix-repository">Adding the Zabbix repository</a></p>
+<p>We are now ready to start our websever and enable it so that it comes online after a reboot.</p>
+<pre><code class="language-bash">systemctl enable php-fpm --now
+systemctl enable httpd --now
+</code></pre>
+<p>Let's verify if the service is properly started and enabled so that it survives
+our reboot next time.</p>
+<pre><code class="language-bash"># systemctl status httpd
+</code></pre>
+<pre><code class="language-bash">● httpd.service - The Apache HTTP Server
+     Loaded: loaded (/usr/lib/systemd/system/httpd.service; enabled; preset: disabled)
+    Drop-In: /usr/lib/systemd/system/httpd.service.d
+             └─php-fpm.conf
+     Active: active (running) since Mon 2024-03-04 08:50:17 CET; 7min ago
+       Docs: man:httpd.service(8)
+   Main PID: 690 (httpd)
+     Status: &quot;Total requests: 96; Idle/Busy workers 100/0;Requests/sec: 0.213; Bytes served/sec: 560 B/sec&quot;
+      Tasks: 278 (limit: 22719)
+     Memory: 39.6M
+        CPU: 1.132s
+     CGroup: /system.slice/httpd.service
+             ├─ 690 /usr/sbin/httpd -DFOREGROUND
+             ├─ 736 /usr/sbin/httpd -DFOREGROUND
+             ├─ 737 /usr/sbin/httpd -DFOREGROUND
+             ├─ 738 /usr/sbin/httpd -DFOREGROUND
+             ├─ 739 /usr/sbin/httpd -DFOREGROUND
+             └─4534 /usr/sbin/httpd -DFOREGROUND
+
+Mar 04 08:50:17 localhost.localdomain systemd[1]: Starting The Apache HTTP Server...
+Mar 04 08:50:17 localhost.localdomain httpd[690]: AH00558: httpd: Could not reliably determine the server's fully qualified domain name, using localhost.localdomain. Set th&gt;
+Mar 04 08:50:17 localhost.localdomain httpd[690]: Server configured, listening on: port 80
+Mar 04 08:50:17 localhost.localdomain systemd[1]: Started The Apache HTTP Server.x
+</code></pre>
+<p>The service is running and enabled so there is only 1 thing left to do before
+we can start the configuration in the GUI and that is to configure our firewall
+to allow incoming communication to the webserver.</p>
+<pre><code class="language-bash"># firewall-cmd --add-service=http --permanent
+# firewall-cmd --reload
+</code></pre>
+<p>Open your browser and go to the url or ip of your frontend :</p>
+<pre><code class="language-bash">http://&lt;ip or dns of the zabbix frontend server&gt;/zabbix/
+</code></pre>
+<p>If all goes well you should be greeted with a Zabbix welcome page.
+In case you have an error check the configuration again or have a look at the Apache log file :</p>
+<p><code>/var/log/httpd/error_log</code></p>
+<p>or run</p>
+<p><code>journalctl -xe</code></p>
+<p>This should help you in locating the errors you made.</p>
+<p><img alt="Zabbix Welcome page" src="../../../installation/image/zabbix-welcome.png" width="800" /></p>
+<p>As you see there is only a limited list of local translations available on our
+Zabbix frontend to choose from</p>
+<p><img alt="Zabbix Welcome page" src="../../../installation/image/zabbix-locales.png" width="800" /></p>
+<p>What if we want to install Chinese as language or another language from the list ?
+Run the next command to get a list of all locales available for your OS.</p>
+<p><code>dnf list glibc-langpack-*</code></p>
+<p>This will give you a list like</p>
+<pre><code class="language-bash">Installed Packages
+glibc-langpack-en.x86_64
+Available Packages
+glibc-langpack-aa.x86_64
+...
+
+glibc-langpack-zu.x86_64
+</code></pre>
+<p>Let's search for our Chinese locale to see if it is available. As you can see the
+code starts with zh</p>
+<pre><code class="language-bash"># dnf list glibc-langpack-* | grep zh
+glibc-langpack-zh.x86_64
+glibc-langpack-lzh.x86_64
+</code></pre>
+<p>The command returns us 2 lines but as we have seen that the code was zh_CN we
+only have to install the first package.</p>
+<pre><code># dnf install glibc-langpack-zh.x86_64 -y
+</code></pre>
+<p>When we return now to our frontend we are able to select the Chinese language.</p>
+<p><img alt="Zabbix Welcome page" src="../../../installation/image/zabbix-locales-chinese.png" /></p>
+<details class="note" open="open">
+<summary>Note</summary>
+</details>
+<p>If your preferred language is not available in the Zabbix front-end,
+don't worry—it simply means that the translation is either incomplete or not
+yet available.
+Zabbix is an open-source project that relies on community contributions for
+translations, so you can help improve it by contributing your own translations.</p>
+<div class="highlight"><pre><span></span><code>Visit the translation page at `https://translate.zabbix.com/` to assist with
+the translation efforts. Once your translation is complete and reviewed,
+it will be included in the next minor patch version of Zabbix.
+Your contributions help make Zabbix more accessible and improve the overall
+user experience for everyone.
+</code></pre></div>
+<p>When you're satisfied with the available translations, click <strong>Next</strong>.
+You will then be taken to a screen to verify that all prerequisites are met.
+If any prerequisites are not fulfilled, address those issues first. However,
+if everything is in order, you should be able to proceed by clicking <strong>Next</strong>.</p>
+<p><img alt="Zabbix Welcome page" src="../../../installation/image/pre-requisites.png" /></p>
+<p>On the next page, you'll configure the database connection parameters:</p>
+<ol>
+<li><strong>Select the Database Type</strong>: Choose either MySQL or PostgreSQL depending on
+   your setup.</li>
+<li><strong>Enter the Database Host</strong>: Provide the IP address or DNS name of your database
+   server. Use port 3306 for MariaDB/MySQL or 5432 for PostgreSQL.</li>
+<li><strong>Enter the Database Name</strong>: Specify the name of your database. In our case,
+   it is zabbix. If you are using PostgreSQL, you will also need to provide the
+   schema name, which is zabbix_server in our case.</li>
+<li><strong>Enter the Database User</strong>: Input the database user created for the web front-end,
+   such as zabbix-web. Enter the corresponding password for this user.</li>
+</ol>
+<p>Ensure that the <strong>Database TLS</strong> encryption option is not selected, and then
+click <strong>Next</strong> step to proceed.</p>
+<p><img alt="Zabbix Welcome page" src="../../../installation/image/db-connection.png" /></p>
+<p>You're almost finished with the setup! The final steps involve:</p>
+<ol>
+<li><strong>Assigning an Instance Name</strong>: Choose a descriptive name for your Zabbix instance.</li>
+<li><strong>Selecting the Timezone</strong>: Choose the timezone that matches your location or
+   your preferred time zone for the Zabbix interface.</li>
+<li><strong>Setting the Default Time Format</strong>: Select the default time format you
+   prefer to use.</li>
+</ol>
+<p>Once these settings are configured, you can complete the setup and proceed with
+any final configuration steps as needed.</p>
+<details class="note" open="open">
+<summary>Note</summary>
+</details>
+<p>It’s a good practice to set your Zabbix server to the UTC timezone,
+especially when managing systems across multiple timezones.
+Using UTC helps ensure consistency in time-sensitive actions and events,
+as the server’s timezone is often used for calculating and displaying
+time-related information.</p>
+<p><img alt="Zabbix Welcome page" src="../../../installation/image/zabbix-summary.png" /></p>
+<p>After clicking <strong>Next step</strong> again, you'll be taken to a page confirming that the
+configuration was successful. Click <strong>Finish</strong> to complete the setup process.</p>
+<p><img alt="Zabbix Welcome page" src="../../../installation/image/zabbix-succcess.png" /></p>
+<p>We are now ready to login :</p>
+<p><img alt="Zabbix Welcome page" src="../../../installation/image/zabbix-login.png" /></p>
+<p>Login : Admin
+Password : zabbix</p>
+<p>In case you are like me and don't like the /zabbix path at the end of you url then
+there is an easy way to remove this.
+Edit you <code>httpd</code> config file and add the lines below and replace it with
+your own domain:</p>
+<pre><code class="language-bash"># vi /etc/httpd/conf/httpd.conf
+</code></pre>
+<pre><code class="language-bash">NameVirtualHost 172.1.11.21:80
+
+&lt;VirtualHost &quot;your ip or dns&quot;:80&gt;
+  ServerName zabbixserver.mydomain.org
+  ServerAlias zabbixserver
+  DocumentRoot /usr/share/zabbix
+&lt;/VirtualHost&gt;
+</code></pre>
+<p>Don't forget to restart the <code>httpd</code> service</p>
+<pre><code class="language-bash"># systemctl restart httpd
+</code></pre>
+<p>This concludes our topic on setting up the Zabbix server. If you're interested
+in securing your front-end, I recommend checking out the topic
+<a href="../../security/securing-zabbix/">Securing Zabbix</a> for additional guidance
+and best practices.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["header.autohide", "navigation.sections", "navigation.expand"], "search": "../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "search.result.more.one": "Mais 1 nesta p\u00e1gina", "search.result.more.other": "Mais # nesta p\u00e1gina", "search.result.none": "Nenhum resultado encontrado", "search.result.one": "1 resultado encontrado", "search.result.other": "# resultados encontrados", "search.result.placeholder": "Digite para iniciar a busca", "search.result.term.missing": "Ausente", "select.version": "Selecione a vers\u00e3o"}}</script>
+    
+    
+    
+    
+      <script src="../../../assets/javascripts/bundle.56dfad97.min.js"></script>
+      
+        <script src="../../../js/print-site.js"></script>
+      
+        <script src="../../../js/print-site.js"></script>
+      
+        <script src="../../../js/print-site.js"></script>
+      
+        <script src="../../../js/print-site.js"></script>
+      
+        <script src="../../../js/print-site.js"></script>
+      
+        <script src="../../../js/print-site.js"></script>
+      
+    
+    
+        
+            
+            
+        
+		
+		
+    
+
+  </body>
+</html>

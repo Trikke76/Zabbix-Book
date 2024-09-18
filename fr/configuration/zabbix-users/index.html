@@ -1,0 +1,3353 @@
+
+<!doctype html>
+<html lang="fr" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="An open-source Zabbix book">
+      
+      
+        <meta name="author" content="Patrik Uytterhoeven and all github contributors">
+      
+      
+        <link rel="canonical" href="https://trikke76.github.io/Zabbix-Book/fr/configuration/zabbix-users/">
+      
+      
+        <link rel="prev" href="../Dashboard/">
+      
+      
+        <link rel="next" href="../zabbix-hosts/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.35">
+    
+    
+      
+        <title>Zabbix Users & User groups - Zabbix 7 Monitoring</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.35f28582.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CNunito:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Nunito"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings1.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings2.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings3.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings4.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings5.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings6.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-material.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings1.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings2.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings3.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings4.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings5.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings6.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-material.css">
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#zabbix-users-user-groups" class="md-skip">
+          Aller au contenu
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
+            
+            
+    
+    
+    
+        <div class="gmc-announce">
+            Cette page n'a pas encore été traduite en Francais, elle est donc affichée en anglais.
+            <a href="/gmc/fr/contribute/#translations">Soutenez-nous et traduisez !</a>
+        </div>
+    
+    
+    <script>
+        const gGMC_SELECT_VERSION = "Sélectionner la version";
+        const gGMC_TRANSLATE_CTA = "Soutenez-nous et traduisez !";
+        const gGMC_PAGE_LOCALE = "fr";
+        const gGMC_FILE_LOCALE = "en";
+        const gGMC_TRANSLATE_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16.5 12c0-.68-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2 0 .37-.03.73-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10C6.47 2 2 6.5 2 12s4.5 10 10 10c.59 0 1.16-.06 1.72-.16A5.9 5.9 0 0 1 13 19c0-.29.03-.57.07-.85-.32.63-.67 1.24-1.07 1.81-.83-1.2-1.5-2.53-1.91-3.96h3.72a5.95 5.95 0 0 1 2.59-2.4c.06-.53.1-1.06.1-1.6M12 4.03c.83 1.2 1.5 2.54 1.91 3.97h-3.82c.41-1.43 1.08-2.77 1.91-3.97M4.26 14C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2s.06 1.34.14 2zm.82 2H8c.35 1.25.8 2.45 1.4 3.56A8 8 0 0 1 5.08 16M8 8H5.08A7.92 7.92 0 0 1 9.4 4.44C8.8 5.55 8.35 6.75 8 8m6.34 6H9.66c-.1-.66-.16-1.32-.16-2s.06-1.35.16-2h4.68c.09.65.16 1.32.16 2s-.07 1.34-.16 2m.25-9.56c1.84.63 3.37 1.9 4.33 3.56h-2.95a15.7 15.7 0 0 0-1.38-3.56M23 18v2h-3v3h-2v-3h-3v-2h3v-3h2v3z"/></svg>';
+    </script>
+    
+    
+
+          </div>
+          
+        </aside>
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="En-tête">
+    <a href="../../" title="Zabbix 7 Monitoring" class="md-header__button md-logo" aria-label="Zabbix 7 Monitoring" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Zabbix 7 Monitoring
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Zabbix Users &amp; User groups
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="light-blue" data-md-color-accent="light-blue"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Sélectionner la langue">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="fr" class="md-select__link">
+              Français
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../../de/configuration/zabbix-users/" hreflang="de" class="md-select__link">
+              German
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../../it/configuration/zabbix-users/" hreflang="it" class="md-select__link">
+              Italian
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../../nl/configuration/zabbix-users/" hreflang="nl" class="md-select__link">
+              Nederlands
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../../pt/configuration/zabbix-users/" hreflang="pt" class="md-select__link">
+              Portuguese
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../../es/configuration/zabbix-users/" hreflang="es" class="md-select__link">
+              Spanish
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../../th/configuration/zabbix-users/" hreflang="th" class="md-select__link">
+              ภาษาไทย
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../../zh/configuration/zabbix-users/" hreflang="zh" class="md-select__link">
+              中国人
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../../configuration/zabbix-users/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Rechercher" placeholder="Rechercher" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Recherche">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Effacer" aria-label="Effacer" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initialisation de la recherche
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/trikke76/Zabbix-Book" title="Aller au dépôt" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    trikke76
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../" title="Zabbix 7 Monitoring" class="md-nav__button md-logo" aria-label="Zabbix 7 Monitoring" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Zabbix 7 Monitoring
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/trikke76/Zabbix-Book" title="Aller au dépôt" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    trikke76
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Welcome
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Getting started
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Getting started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/Requirements/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Requirements
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/installing-zabbixdb/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Installing Zabbix DB Server
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/installing-zabbix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Installing Zabbix
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/installing-zabbix-ha/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Configure Zabbix HA
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    The basics
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            The basics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Dashboard/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Zabbix Interface
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Zabbix Users &amp; User groups
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Zabbix Users &amp; User groups
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#changing-the-zabbix-super-admin-password" class="md-nav__link">
+    <span class="md-ellipsis">
+      Changing the Zabbix super admin password
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zabbix-user-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Zabbix User types
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-a-new-user-in-zabbix" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creating a new User in Zabbix
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Creating a new User in Zabbix">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#strengthen-the-zabbix-password-policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Strengthen the Zabbix password policy.
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-media" class="md-nav__link">
+    <span class="md-ellipsis">
+      User Media
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-permissions" class="md-nav__link">
+    <span class="md-ellipsis">
+      User permissions
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#user-roles" class="md-nav__link">
+    <span class="md-ellipsis">
+      User Roles
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#user-groups" class="md-nav__link">
+    <span class="md-ellipsis">
+      User Groups
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="User Groups">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#user-groups-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      User Groups Overview
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lets-do-this-together" class="md-nav__link">
+    <span class="md-ellipsis">
+      Let's do this together:
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Let's do this together:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lets-try-out-tags" class="md-nav__link">
+    <span class="md-ellipsis">
+      Let's try out tags
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../zabbix-hosts/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Zabbix hosts
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../zabbix-hostgroups/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Host groups
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../zabbix-interfaces/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Interfaces
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../zabbix-templates/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Templates
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../zabbix-items/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Items
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../zabbix-triggers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Zabbix triggers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../zabbix-macros/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Macros
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../zabbix-dataflow/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Flow
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Data collection
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Data collection
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data-collection/zabbix-agent/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Zabbix Agent
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Problem detection
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Problem detection
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../problems/zabbix-triggers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Triggers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Taking action when problems come
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Taking action when problems come
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../actions/zabbix-eventactions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Event based Actions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Managing permissions
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Managing permissions
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../permissions/managing-permissions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Managing Permissions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Visualising Problems
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Visualising Problems
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../visualising/Visualising-our-problems/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Visualising our problems
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Automating configuration
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Automating configuration
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../automation/automating-configuration/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Automating configuration
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    VMWare monitoring
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            VMWare monitoring
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../vmware/vmware-monitoring/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    VMware monitoring with Zabbix
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Monitoring websites
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            Monitoring websites
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../websites/monitoring-websites/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring websites
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Monitoring SNMP, IPMI and JAVA
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            Monitoring SNMP, IPMI and JAVA
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extra-monitoring/SNMP-monitoring/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SNMP Monitoring
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extra-monitoring/SNMP-traps-monitoring/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SNMP trap monitoring
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extra-monitoring/JAVA-monitoring/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JAVA monitoring
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extra-monitoring/IPMI-monitoring/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IPMI Monitoring
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Authentication
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            Authentication
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../authentication/zabbix-http/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Authentication with HTTP
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../authentication/zabbix-ldap/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Authentication with LDAP
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../authentication/zabbix-saml/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Authentication with SAML
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../authentication/zabbix-mfa/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Zabbix MFA support
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_14" >
+        
+          
+          <label class="md-nav__link" for="__nav_14" id="__nav_14_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Monitoring with Proxies
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_14_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_14">
+            <span class="md-nav__icon md-icon"></span>
+            Monitoring with Proxies
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../proxies/installing-proxies/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Installing Proxies
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../proxies/active-proxy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Active proxy
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../proxies/passive-proxy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Passive proxy
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../proxies/loadbalancing-proxies/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Proxy loadbalancing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_15" >
+        
+          
+          <label class="md-nav__link" for="__nav_15" id="__nav_15_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Securing Zabbix
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_15_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_15">
+            <span class="md-nav__icon md-icon"></span>
+            Securing Zabbix
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../security/securing-zabbix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Securing Zabbix Frontend
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../security/securing-zabbix-selinux/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Securing Zabbix with SELinux
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_16" >
+        
+          
+          <label class="md-nav__link" for="__nav_16" id="__nav_16_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Maintaining Zabbix
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_16_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_16">
+            <span class="md-nav__icon md-icon"></span>
+            Maintaining Zabbix
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../maintenance/maintaining-zabbix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Maintaining Zabbix
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_17" >
+        
+          
+          <label class="md-nav__link" for="__nav_17" id="__nav_17_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Monitoring Windows
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_17_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_17">
+            <span class="md-nav__icon md-icon"></span>
+            Monitoring Windows
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../windows/monitoring-windows/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Windows
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_18" >
+        
+          
+          <label class="md-nav__link" for="__nav_18" id="__nav_18_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Zabbix API
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_18_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_18">
+            <span class="md-nav__icon md-icon"></span>
+            Zabbix API
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/zabbix-api/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Zabbix API
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_19" >
+        
+          
+          <label class="md-nav__link" for="__nav_19" id="__nav_19_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Zabbix Extras
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_19_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_19">
+            <span class="md-nav__icon md-icon"></span>
+            Zabbix Extras
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extras/modbus/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Modbus monitoring with Zabbix.
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extras/contributors/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Contributors
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Guidlines-for-translations/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Translation and Guidlines
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#changing-the-zabbix-super-admin-password" class="md-nav__link">
+    <span class="md-ellipsis">
+      Changing the Zabbix super admin password
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zabbix-user-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Zabbix User types
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-a-new-user-in-zabbix" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creating a new User in Zabbix
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Creating a new User in Zabbix">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#strengthen-the-zabbix-password-policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Strengthen the Zabbix password policy.
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-media" class="md-nav__link">
+    <span class="md-ellipsis">
+      User Media
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-permissions" class="md-nav__link">
+    <span class="md-ellipsis">
+      User permissions
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#user-roles" class="md-nav__link">
+    <span class="md-ellipsis">
+      User Roles
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#user-groups" class="md-nav__link">
+    <span class="md-ellipsis">
+      User Groups
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="User Groups">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#user-groups-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      User Groups Overview
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lets-do-this-together" class="md-nav__link">
+    <span class="md-ellipsis">
+      Let's do this together:
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Let's do this together:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lets-try-out-tags" class="md-nav__link">
+    <span class="md-ellipsis">
+      Let's try out tags
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+
+
+    <a href="../../../print_page/" title="Print Site" class="md-content__button md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 3H6v4h12m1 5a1 1 0 0 1-1-1 1 1 0 0 1 1-1 1 1 0 0 1 1 1 1 1 0 0 1-1 1m-3 7H8v-5h8m3-6H5a3 3 0 0 0-3 3v6h4v4h12v-4h4v-6a3 3 0 0 0-3-3"/></svg>
+    </a>
+
+
+
+                  
+
+  
+  
+
+
+<h1 id="zabbix-users-user-groups">Zabbix Users &amp; User groups<a class="headerlink" href="#zabbix-users-user-groups" title="Permanent link">&para;</a></h1>
+<p>Now that we know how the Zabbix dashboard is build up our first task will be to create a user. In case you missed it the standard Zabbix (yes the capital Z here is eeded to login.) user is Admin and has the password zabbix so we need to change this ASAP. 
+The most confusing part is probably that the user Admin in zabbix is actually a <code>super admin</code> but more about that later.
+In this topic we will cover:</p>
+<ul>
+<li>Changing the Zabbix super admin password</li>
+<li>Zabbix User types</li>
+<li>Creating a new User in Zabbix</li>
+<li>Strengthen the Zabbix password policy.</li>
+<li>User Media</li>
+<li>User permissions</li>
+<li>User Roles</li>
+<li>User Groups</li>
+<li>User Groups Overview</li>
+</ul>
+<hr />
+<h2 id="changing-the-zabbix-super-admin-password">Changing the Zabbix super admin password<a class="headerlink" href="#changing-the-zabbix-super-admin-password" title="Permanent link">&para;</a></h2>
+<p>In our menu on the right side of the screen, click the <code>Users</code> section, and then choose <code>users</code>. As you can see here in the screenshot.</p>
+<p><img alt="user menu" src="../../../configuration/image/zabbix-users/users-menu.png" width="20%" /></p>
+<p>You will now see a list of all the users that are created on the system when installing a new Zabbix instance. Here you will always see a list of all users that are configured on the system.</p>
+<p><img alt="user list" src="../../../configuration/image/zabbix-users/users-list.png" width="90%" /></p>
+<p>To change the password, do the following steps:
+- Click user <code>Admin</code>
+- Click on the button <code>Change password</code>.
+- Fill in the current password, <code>zabbix</code>
+- Fill in the new password twice and press <code>Update</code> at the bottom of the page.</p>
+<hr />
+<h2 id="zabbix-user-types">Zabbix User types<a class="headerlink" href="#zabbix-user-types" title="Permanent link">&para;</a></h2>
+<p>Before we create new users, it's important to know that Zabbix has three user types that are built-in.</p>
+<table>
+<thead>
+<tr>
+<th>User type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Zabbix User</td>
+<td>This is a normal user that only has read-only permissions if given. So there are no permissions assigned by default.</td>
+</tr>
+<tr>
+<td>Zabbix Admin</td>
+<td>A user with read/write permissions. Just like the Zabbix user, there are no permissions by default. However access can be denied to some groups.</td>
+</tr>
+<tr>
+<td>Zabbix Super Admin</td>
+<td>A user with group read/write permissions. The user will have read/write access to all host and template groups. Access can't be revoked by denying access to groups, like with a normal admin.</td>
+</tr>
+</tbody>
+</table>
+<p>Besides these differences, these users also have different access rights to our menu. Let's have a closer look.</p>
+<ul>
+<li>A normal user will only see a part of our menu on the left. Also, some sub-sections of the menu will not be visible. An <code>Admin</code> user will have more rights than a regular user and will be able to make some configuration changes in Zabbix. A <code>Super Admin</code> user will have unlimted right and see every part of the menu. The only way to limit a <code>Super Admin</code> will be by making use of roles. Something we cover later.</li>
+<li>An <code>Admin</code> user will have more rights than a regular user and will be able to make some configuration changes in Zabbix.</li>
+<li>A <code>Super Admin</code> can access all parts of the menu. </li>
+</ul>
+<p>This table gives an overview of all the permissions a Zabbix user, admin, and super admin have in the Zabbix menu:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: center;">Zabbix User</th>
+<th style="text-align: center;">Zabbix Admin</th>
+<th style="text-align: center;">Zabbix Super Admin</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Dashboards</td>
+<td style="text-align: center;">&#9989;</td>
+<td style="text-align: center;">&#9989;</td>
+<td style="text-align: center;">&#9989;</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: center;">Zabbix User</th>
+<th style="text-align: center;">Zabbix Admin</th>
+<th style="text-align: center;">Zabbix Super Admin</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Monitoring</td>
+<td style="text-align: center;">&#9989;</td>
+<td style="text-align: center;">&#9989;</td>
+<td style="text-align: center;">&#9989;</td>
+</tr>
+<tr>
+<td style="text-align: left;">- Problems</td>
+<td style="text-align: center;">&#9989;</td>
+<td style="text-align: center;">&#9989;</td>
+<td style="text-align: center;">&#9989;</td>
+</tr>
+<tr>
+<td style="text-align: left;">- Hosts</td>
+<td style="text-align: center;">&#9989;</td>
+<td style="text-align: center;">&#9989;</td>
+<td style="text-align: center;">&#9989;</td>
+</tr>
+<tr>
+<td style="text-align: left;">- Latest data</td>
+<td style="text-align: center;">&#9989;</td>
+<td style="text-align: center;">&#9989;</td>
+<td style="text-align: center;">&#9989;</td>
+</tr>
+<tr>
+<td style="text-align: left;">- Maps</td>
+<td style="text-align: center;">&#9989;</td>
+<td style="text-align: center;">&#9989;</td>
+<td style="text-align: center;">&#9989;</td>
+</tr>
+<tr>
+<td style="text-align: left;">- Discovery</td>
+<td style="text-align: center;">&#10060;</td>
+<td style="text-align: center;">&#9989;</td>
+<td style="text-align: center;">&#9989;</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: center;">Zabbix User</th>
+<th style="text-align: center;">Zabbix Admin</th>
+<th style="text-align: center;">Zabbix Super Admin</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Services</td>
+<td style="text-align: center;">&#9989;</td>
+<td style="text-align: center;">&#9989;</td>
+<td style="text-align: center;">&#9989;</td>
+</tr>
+<tr>
+<td style="text-align: left;">- SLA</td>
+<td style="text-align: center;">&#10060;</td>
+<td style="text-align: center;">&#9989;</td>
+<td style="text-align: center;">&#9989;</td>
+</tr>
+<tr>
+<td style="text-align: left;">- SLA Reports</td>
+<td style="text-align: center;">&#9989;</td>
+<td style="text-align: center;">&#9989;</td>
+<td style="text-align: center;">&#9989;</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: center;">Zabbix User</th>
+<th style="text-align: center;">Zabbix Admin</th>
+<th style="text-align: center;">Zabbix Super Admin</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Inventory</td>
+<td style="text-align: center;">&#9989;</td>
+<td style="text-align: center;">&#9989;</td>
+<td style="text-align: center;">&#9989;</td>
+</tr>
+<tr>
+<td style="text-align: left;">- Overview</td>
+<td style="text-align: center;">&#9989;</td>
+<td style="text-align: center;">&#9989;</td>
+<td style="text-align: center;">&#9989;</td>
+</tr>
+<tr>
+<td style="text-align: left;">- Hosts</td>
+<td style="text-align: center;">&#9989;</td>
+<td style="text-align: center;">&#9989;</td>
+<td style="text-align: center;">&#9989;</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: center;">Zabbix User</th>
+<th style="text-align: center;">Zabbix Admin</th>
+<th style="text-align: center;">Zabbix Super Admin</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Reports</td>
+<td style="text-align: center;">&#9989;</td>
+<td style="text-align: center;">&#9989;</td>
+<td style="text-align: center;">&#9989;</td>
+</tr>
+<tr>
+<td style="text-align: left;">- System information</td>
+<td style="text-align: center;">&#10060;</td>
+<td style="text-align: center;">&#10060;</td>
+<td style="text-align: center;">&#9989;</td>
+</tr>
+<tr>
+<td style="text-align: left;">- Scheduled reports</td>
+<td style="text-align: center;">&#10060;</td>
+<td style="text-align: center;">&#9989;</td>
+<td style="text-align: center;">&#9989;</td>
+</tr>
+<tr>
+<td style="text-align: left;">- Availability report</td>
+<td style="text-align: center;">&#9989;</td>
+<td style="text-align: center;">&#9989;</td>
+<td style="text-align: center;">&#9989;</td>
+</tr>
+<tr>
+<td style="text-align: left;">- Triggers top 100</td>
+<td style="text-align: center;">&#9989;</td>
+<td style="text-align: center;">&#9989;</td>
+<td style="text-align: center;">&#9989;</td>
+</tr>
+<tr>
+<td style="text-align: left;">- Audit log</td>
+<td style="text-align: center;">&#10060;</td>
+<td style="text-align: center;">&#10060;</td>
+<td style="text-align: center;">&#9989;</td>
+</tr>
+<tr>
+<td style="text-align: left;">- Action log</td>
+<td style="text-align: center;">&#10060;</td>
+<td style="text-align: center;">&#10060;</td>
+<td style="text-align: center;">&#9989;</td>
+</tr>
+<tr>
+<td style="text-align: left;">- Notifications</td>
+<td style="text-align: center;">&#10060;</td>
+<td style="text-align: center;">&#9989;</td>
+<td style="text-align: center;">&#9989;</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: center;">Zabbix User</th>
+<th style="text-align: center;">Zabbix Admin</th>
+<th style="text-align: center;">Zabbix Super Admin</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Data Collection</td>
+<td style="text-align: center;">&#10060;</td>
+<td style="text-align: center;">&#9989;</td>
+<td style="text-align: center;">&#9989;</td>
+</tr>
+<tr>
+<td style="text-align: left;">- Template groups</td>
+<td style="text-align: center;">&#10060;</td>
+<td style="text-align: center;">&#9989;</td>
+<td style="text-align: center;">&#9989;</td>
+</tr>
+<tr>
+<td style="text-align: left;">- Host groups</td>
+<td style="text-align: center;">&#10060;</td>
+<td style="text-align: center;">&#9989;</td>
+<td style="text-align: center;">&#9989;</td>
+</tr>
+<tr>
+<td style="text-align: left;">- Templates</td>
+<td style="text-align: center;">&#10060;</td>
+<td style="text-align: center;">&#9989;</td>
+<td style="text-align: center;">&#9989;</td>
+</tr>
+<tr>
+<td style="text-align: left;">- Hosts</td>
+<td style="text-align: center;">&#10060;</td>
+<td style="text-align: center;">&#9989;</td>
+<td style="text-align: center;">&#9989;</td>
+</tr>
+<tr>
+<td style="text-align: left;">- Maintenance</td>
+<td style="text-align: center;">&#10060;</td>
+<td style="text-align: center;">&#9989;</td>
+<td style="text-align: center;">&#9989;</td>
+</tr>
+<tr>
+<td style="text-align: left;">- Event correlation</td>
+<td style="text-align: center;">&#10060;</td>
+<td style="text-align: center;">&#10060;</td>
+<td style="text-align: center;">&#9989;</td>
+</tr>
+<tr>
+<td style="text-align: left;">- Discovery</td>
+<td style="text-align: center;">&#10060;</td>
+<td style="text-align: center;">&#9989;</td>
+<td style="text-align: center;">&#9989;</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: center;">Zabbix User</th>
+<th style="text-align: center;">Zabbix Admin</th>
+<th style="text-align: center;">Zabbix Super Admin</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Alerts</td>
+<td style="text-align: center;">&#10060;</td>
+<td style="text-align: center;">&#9989;</td>
+<td style="text-align: center;">&#9989;</td>
+</tr>
+<tr>
+<td style="text-align: left;">- Trigger actions</td>
+<td style="text-align: center;">&#10060;</td>
+<td style="text-align: center;">&#9989;</td>
+<td style="text-align: center;">&#9989;</td>
+</tr>
+<tr>
+<td style="text-align: left;">- Service actions</td>
+<td style="text-align: center;">&#10060;</td>
+<td style="text-align: center;">&#9989;</td>
+<td style="text-align: center;">&#9989;</td>
+</tr>
+<tr>
+<td style="text-align: left;">- Autoregistration actions</td>
+<td style="text-align: center;">&#10060;</td>
+<td style="text-align: center;">&#9989;</td>
+<td style="text-align: center;">&#9989;</td>
+</tr>
+<tr>
+<td style="text-align: left;">- Internal actions</td>
+<td style="text-align: center;">&#10060;</td>
+<td style="text-align: center;">&#9989;</td>
+<td style="text-align: center;">&#9989;</td>
+</tr>
+<tr>
+<td style="text-align: left;">- Media types</td>
+<td style="text-align: center;">&#10060;</td>
+<td style="text-align: center;">&#10060;</td>
+<td style="text-align: center;">&#9989;</td>
+</tr>
+<tr>
+<td style="text-align: left;">- Scripts</td>
+<td style="text-align: center;">&#10060;</td>
+<td style="text-align: center;">&#10060;</td>
+<td style="text-align: center;">&#9989;</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: center;">Zabbix User</th>
+<th style="text-align: center;">Zabbix Admin</th>
+<th style="text-align: center;">Zabbix Super Admin</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Users</td>
+<td style="text-align: center;">&#10060;</td>
+<td style="text-align: center;">&#10060;</td>
+<td style="text-align: center;">&#9989;</td>
+</tr>
+<tr>
+<td style="text-align: left;">- User groups</td>
+<td style="text-align: center;">&#10060;</td>
+<td style="text-align: center;">&#10060;</td>
+<td style="text-align: center;">&#9989;</td>
+</tr>
+<tr>
+<td style="text-align: left;">- User roles</td>
+<td style="text-align: center;">&#10060;</td>
+<td style="text-align: center;">&#10060;</td>
+<td style="text-align: center;">&#9989;</td>
+</tr>
+<tr>
+<td style="text-align: left;">- Users</td>
+<td style="text-align: center;">&#10060;</td>
+<td style="text-align: center;">&#10060;</td>
+<td style="text-align: center;">&#9989;</td>
+</tr>
+<tr>
+<td style="text-align: left;">- Api tokens</td>
+<td style="text-align: center;">&#10060;</td>
+<td style="text-align: center;">&#10060;</td>
+<td style="text-align: center;">&#9989;</td>
+</tr>
+<tr>
+<td style="text-align: left;">- Authentication</td>
+<td style="text-align: center;">&#10060;</td>
+<td style="text-align: center;">&#10060;</td>
+<td style="text-align: center;">&#9989;</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: center;">Zabbix User</th>
+<th style="text-align: center;">Zabbix Admin</th>
+<th style="text-align: center;">Zabbix Super Admin</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Administration</td>
+<td style="text-align: center;">&#10060;</td>
+<td style="text-align: center;">&#10060;</td>
+<td style="text-align: center;">&#9989;</td>
+</tr>
+<tr>
+<td style="text-align: left;">- General</td>
+<td style="text-align: center;">&#10060;</td>
+<td style="text-align: center;">&#10060;</td>
+<td style="text-align: center;">&#9989;</td>
+</tr>
+<tr>
+<td style="text-align: left;">- Audit log</td>
+<td style="text-align: center;">&#10060;</td>
+<td style="text-align: center;">&#10060;</td>
+<td style="text-align: center;">&#9989;</td>
+</tr>
+<tr>
+<td style="text-align: left;">- Housekeeping</td>
+<td style="text-align: center;">&#10060;</td>
+<td style="text-align: center;">&#10060;</td>
+<td style="text-align: center;">&#9989;</td>
+</tr>
+<tr>
+<td style="text-align: left;">- Proxies</td>
+<td style="text-align: center;">&#10060;</td>
+<td style="text-align: center;">&#10060;</td>
+<td style="text-align: center;">&#9989;</td>
+</tr>
+<tr>
+<td style="text-align: left;">- Macros</td>
+<td style="text-align: center;">&#10060;</td>
+<td style="text-align: center;">&#10060;</td>
+<td style="text-align: center;">&#9989;</td>
+</tr>
+<tr>
+<td style="text-align: left;">- Queue</td>
+<td style="text-align: center;">&#10060;</td>
+<td style="text-align: center;">&#10060;</td>
+<td style="text-align: center;">&#9989;</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>An <code>Admin</code> user will have more rights than a regular user and will be able to make some configuration changes in Zabbix.</li>
+<li>A <code>Super Admin</code> can access all parts of the menu. </li>
+</ul>
+<h2 id="creating-a-new-user-in-zabbix">Creating a new User in Zabbix<a class="headerlink" href="#creating-a-new-user-in-zabbix" title="Permanent link">&para;</a></h2>
+<p>So now that we are in the users section of Zabbix, it's probably a good time to create a new user for our system. If you skipped the previous step, go to the menu <code>Users</code> -&gt; <code>Users</code>.</p>
+<p>Click on the top right on <code>Create user</code> and fill in the details of your new users. You will see that some fields have red asterisks in front of them, like Username and Password, ... this means that those fields are mandatory to fill in.</p>
+<p><img alt="new user form" src="../../../configuration/image/zabbix-users/new-user-form.png" width="80%" /></p>
+<hr />
+<h4 id="strengthen-the-zabbix-password-policy">Strengthen the Zabbix password policy.<a class="headerlink" href="#strengthen-the-zabbix-password-policy" title="Permanent link">&para;</a></h4>
+<p>Zabbix passwords rely on a minimum length of 8 characters and also block a list of easy-to-guess passwords. We can make our passwords more secure by telling Zabbix that our passwords must contain uppercase and lowercase characters, a digit, and a special character. This policy is a global policy that will be enforced, and we have to set this policy as Super Admin. Go to the menu Users -&gt; Authentication. In older versions, you can find it under Administration Authentication.</p>
+<p><img alt="User Password policy" src="../../../configuration/image/zabbix-users/user-policy.png" width="80%" /></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Parameter</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Username</td>
+<td style="text-align: left;">A unique name that will be used as username when we login.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Name</td>
+<td style="text-align: left;">The users firstname this field is optional visible in acknowledgment information and notification recipient information if set.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Last Name</td>
+<td style="text-align: left;">Users last name. Optional, this field is optional visible in acknowledgment information and notification recipient information if set.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Groups</td>
+<td style="text-align: left;">Select what group the user will belong to. Atleast 1 group needs to be selected. This feeld will auto complete or you can press the '''Select''' button at the end of the field</td>
+</tr>
+<tr>
+<td style="text-align: left;">Password</td>
+<td style="text-align: left;">There are 2 password fields they can only be used for internal authentication but more about this later. If the user has the Super admin role then clicking on the Change password button opens an additional field to entering the current (old) password. On a successful password change, the user for which the password was changed will be logged out of all active sessions.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Language</td>
+<td style="text-align: left;">Language of the frontend. The php gettext extension is required for the translations to work. And the language needs to be configured on the system. See the chapter "Installing Zabbix" in case you forgot.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Timezone</td>
+<td style="text-align: left;">Select the time zone per user or use the default timezone that is configured on the Zabbix server.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Theme</td>
+<td style="text-align: left;">Here users can select their own look and feel by choosing one of the 4 themes provided by Zabbix or another custom made theme. Default will switch to the default theme chosen by the admin.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Auto-Login</td>
+<td style="text-align: left;">Check this box so that the user will be remembered for 30 days. The browser must accept cookies for this to work.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Auto-Logout</td>
+<td style="text-align: left;">Checking this box makes sure the user gets logged out automatically, after the set amount of seconds (minimum 90 seconds, maximum 1 day). Time suffixes are supported, e.g. 90s, 5m, 2h, 1d. Note that this option will not work if : <li>If the "Show warning if Zabbix server is down" global configuration option is enabled and Zabbix frontend is kept open.</li><li>When Monitoring menu pages perform background information refreshes.</li><li>If logging in with the Remember me for 30 days option checked.</li></td>
+</tr>
+<tr>
+<td style="text-align: left;">Refresh</td>
+<td style="text-align: left;">Set the refresh rate used for graphs, plain text data, etc. Can be set to 0 to disable. Time suffixes are supported. Ex: 90s, 5m, 1h.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Rows per page</td>
+<td style="text-align: left;">Define how many rows per page will be displayed in lists.</td>
+</tr>
+<tr>
+<td style="text-align: left;">URL(after login)</td>
+<td style="text-align: left;">You can make Zabbix transfer the user to a specific URL after successful login. This can be useful for monitors in NOC team for example so you arrive on a specific dashboard that is maximised. You can make Zabbix transfer the user to a specific URL after successful login. This can be useful for monitors in NOC team for example so you arrive on a specific dashboard that is maximised.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="user-media">User Media<a class="headerlink" href="#user-media" title="Permanent link">&para;</a></h3>
+<p>The tab ''' Media ''' contains a list of all media that are defined for our user. Media is used for sending notifications to the user. We can click the <code>Add</code> button.</p>
+<p><img alt="User Media" src="../../../configuration/image/zabbix-users/user-media.png" width="80%" /></p>
+<p>Adding the media here is not enough to receive notification; we also need to configure our media properly, and we still need to configure actions as well.
+When pressing the ''' Add ''' button, we get a popup where we can select some information.</p>
+<p><img alt="User Media popup" src="../../../configuration/image/zabbix-users/user-media-popup.png" width="80%" /></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Parameter</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Type</td>
+<td style="text-align: left;">A drop down list with the names of all media types. When a media type is disabled it will be in red.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Send to</td>
+<td style="text-align: left;">Here we can provide contact information. For an email media type it is possible to add several addresses by clicking on '''Add''' below the address field. In this case, the notification will be sent to all email addresses provided. It's also possible to specify recipient name in the Send to field of the email recipient in a format 'Recipient name <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#97;&#100;&#100;&#114;&#101;&#115;&#115;&#49;&#64;&#99;&#111;&#109;&#112;&#97;&#110;&#121;&#46;&#99;&#111;&#109;">&#97;&#100;&#100;&#114;&#101;&#115;&#115;&#49;&#64;&#99;&#111;&#109;&#112;&#97;&#110;&#121;&#46;&#99;&#111;&#109;</a>'. Note that if a recipient name is provided, an email address should be wrapped in angle brackets (&lt;&gt;). UTF-8 characters in the name are supported, quoted pairs and comments are not. For example: John Doe <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#109;&#97;&#110;&#97;&#103;&#101;&#114;&#64;&#111;&#112;&#101;&#110;&#45;&#102;&#117;&#116;&#117;&#114;&#101;&#46;&#99;&#111;&#109;">&#109;&#97;&#110;&#97;&#103;&#101;&#114;&#64;&#111;&#112;&#101;&#110;&#45;&#102;&#117;&#116;&#117;&#114;&#101;&#46;&#99;&#111;&#109;</a> and manager@nycdatacenter.com are both valid formats. Incorrect examples: John Doe manager@open-future.com, %%"Zabbix\@\&lt;H(comment)Q&gt;" zabbix@company.com %%.</td>
+</tr>
+<tr>
+<td style="text-align: left;">when active</td>
+<td style="text-align: left;">The time when media will be active from monday till sundat, 1-7 and the time from 00:00 till 24:00 for example only in weekends from 6 in the morning till 5 in the evening: 6-7,06-17:00i. This is based on the user his timezone</td>
+</tr>
+<tr>
+<td style="text-align: left;">Use if severity</td>
+<td style="text-align: left;">A list of checkboxes from the severities you would like to recieve notifications from. Selected severities will be displayed in color. !! Read the warning below!!</td>
+</tr>
+<tr>
+<td style="text-align: left;">Status</td>
+<td style="text-align: left;">Status of the media we have selected either enabled or disabled ( in use or not )</td>
+</tr>
+</tbody>
+</table>
+<details class="warning" open="open">
+<summary>Warning</summary>
+<p>When selecting the different severity levels, be aware that you have to select <code>Not classified</code> if you want to receive notifications about non-trigger events, like internal events. For more information, check out <a href="https://www.zabbix.com/documentation/7.0/en/manual/config/events/sources">Event Sources</a>. This is something that is not obvious, and Zabbix documentation could be better at explaining this.</p>
+</details>
+<hr />
+<h3 id="user-permissions">User permissions<a class="headerlink" href="#user-permissions" title="Permanent link">&para;</a></h3>
+<p>When we go to the <code>Permissions</code> tab in our <code>Users</code>, we will get an overview of all permissions our users had in the menu structure. Or when creating a new user, we have the option to select a <code>User Role</code>. Zabbix has four different <code>User Roles</code> built-in. There is a User role, Admin role, Super admin role, and a Guest role.</p>
+<p>The <code>Guest role</code> is a role with very strict access limitations. Its role is intended for users to access Zabbix without any user account. I never advise using this role unless you know what you are doing. When you open your GUI to users without any authorization, this could leak potential sensitive data like hostnames, IPs, etc.</p>
+<p>Choosing a <code>User type</code> is one thing; based on the <code>User type</code> we choose, our users will have more or less rights in our main menu. But there is another important part when choosing the <code>User Type</code>. This also has an impact on the rights each user has over host groups. For example, a regular user can only have read rights or no rights. A Zabbix admin user can have full, read-only, or no rights, and a Zabbix Super Admin always has full rights on host groups, and his rights on the host groups cannot be revoked.</p>
+<p>Here is an overview of every user and his rights:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Group rights</th>
+<th style="text-align: left;">Zabbix User</th>
+<th style="text-align: left;">Zabbix Admin</th>
+<th style="text-align: left;">Zabbix Super Admin</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Read/Write</td>
+<td style="text-align: left;">Read Only</td>
+<td style="text-align: left;">Full</td>
+<td style="text-align: left;">Full</td>
+</tr>
+<tr>
+<td style="text-align: left;">Read Only</td>
+<td style="text-align: left;">Read Only</td>
+<td style="text-align: left;">Read Only</td>
+<td style="text-align: left;">Full</td>
+</tr>
+<tr>
+<td style="text-align: left;">Deny</td>
+<td style="text-align: left;">None</td>
+<td style="text-align: left;">None</td>
+<td style="text-align: left;">Full</td>
+</tr>
+</tbody>
+</table>
+<details class="note" open="open">
+<summary>Note</summary>
+<p>With all this knowledge, we now know that if we want to create a regular user who also has access to certain parts of the Administration menu, that it's not possible. We can never create a user that has only RO access to certain host groups and RW access to the <code>Administration</code> part. What we could do, however, is create a <code>Super Administrator</code> account and remove access from the menu for certain parts of the <code>Administration</code>menu by creating a special role. There is no limit on the number of roles you can create.</p>
+</details>
+<details class="note" open="open">
+<summary>Note</summary>
+<p>Also, be aware that when you click on an item on the dashboard on <code>Update</code>, you will see a modal window popup with some options to change the severity, close a problem, etc., so some will be greyed out. This is because the user needs write permissions. For example, a user needs write permissions to close a problem and change the severity level.</p>
+</details>
+<p><img alt="Update" src="../../../configuration/image/zabbix-users/update-ack.png" width="80%" /></p>
+<details class="note" open="open">
+<summary>Note</summary>
+<p>With Zabbix 7 Permission checks have been made much faster. This was made possible by making some improvements on how permissions are stored. This should make the frontend faster when when we have permission havy pages to load like the ones with hosts or problems widgets.<br />
+- New tables have been introduced for the check of non-privileged users.<br />
+- The new tables will keep hashes (SHA-256) of user group sets and host group sets for each user/host.<br />
+- Also a new permission table was introduced for storing only the accessible combinations of users and hosts, specified by the hash IDs.<br />
+- Hashes and permissons are not calculated for Super Admin users.</p>
+</details>
+<hr />
+<h2 id="user-roles">User Roles<a class="headerlink" href="#user-roles" title="Permanent link">&para;</a></h2>
+<p>User roles have been in Zabbix since version 5.2 and make our lives easier by allowing us to make some custom adjustments to the standard defind user types in Zabbix.</p>
+<p>When we go to our <code>Permissions</code> tab, we can see a box <code>Role</code>. Press the <code>Select</code> box to see a popup with a list of roles to choose from. There are four standard roles to choose from.
+You can create your own list of rules by going to the menu <code>Users -&gt; User Roles</code> and create your own limited user.</p>
+<p>The box is marked with an asterisk in front, so you need to select a user role for every user you create.</p>
+<p><img alt="User Role box" src="../../../configuration/image/zabbix-users/user-roles-box.png" width="80%" /></p>
+<details class="warning" open="open">
+<summary>Warning</summary>
+<p>Be aware that no permissions can be added to user roles only permissions can be revoked.</p>
+</details>
+<hr />
+<h2 id="user-groups">User Groups<a class="headerlink" href="#user-groups" title="Permanent link">&para;</a></h2>
+<p>A user always needs to be member of one or more <code>User groups</code>. We will not set any user rights directly on Users in Zabbix but we do this on User groups. So if a User needs the  permission to view or edit a host or a template then this is set on the <code>User group</code> wich has the permisson to view or edit a host or template group and never on a host or a template directly.</p>
+<p><img alt="User Role box" src="../../../configuration/image/zabbix-users/group-permissions.png" width="80%" /></p>
+<p>Zabbix has a few different rights we can use on group level, as we have seen above.
+To make it easier for you I add them again:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Group rights</th>
+<th style="text-align: center;">Zabbix User</th>
+<th style="text-align: center;">Zabbix Admin</th>
+<th style="text-align: center;">Zabbix Super Admin</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Read/Write</td>
+<td style="text-align: center;">Read Only</td>
+<td style="text-align: center;">Read/Write</td>
+<td style="text-align: center;">Read/Write</td>
+</tr>
+<tr>
+<td style="text-align: left;">Read only</td>
+<td style="text-align: center;">Read Only</td>
+<td style="text-align: center;">Read Only</td>
+<td style="text-align: center;">Read/Write</td>
+</tr>
+<tr>
+<td style="text-align: left;">Deny</td>
+<td style="text-align: center;">None</td>
+<td style="text-align: center;">None</td>
+<td style="text-align: center;">Read/Write</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Read Only : The user has only read access and cannot modify anything.</li>
+<li>Read/Write : The user can see and edit.</li>
+<li>Deny: There is not even the options to see any data</li>
+</ul>
+<p>When it comes to permissions in Zabbix groups, the highest level will win. 
+A user that has read and read-write rights on the same host will get read-write permissions. Except for Deny, Deny will always overrule.
+So if we have a Zabbix <code>Admin</code> user then this user can have Read/Write rights, if we add a host in a hostgroup where our usergroup has read rigths, and the same server is in another hostgroup with Read/Write rights, then our user will have Read/Write permissions on the hosts.
+However if the same host is only in the <code>Read</code> hostgroup then our user will only have read rights.
+If we also add host in a Hostgroup where our usergroup has <code>Deny</code> rights then the server will not be visible.</p>
+<p>Let's have a look at our <code>User groups</code>, for this go to the menu <code>Users -&gt; User groups</code> and click on one of the existing users. I used <code>Guest</code> in this case.</p>
+<p><img alt="user groups" src="../../../configuration/image/user_groups/user-groups.png" width="80%" /></p>
+<hr />
+<h3 id="user-groups-overview">User Groups Overview<a class="headerlink" href="#user-groups-overview" title="Permanent link">&para;</a></h3>
+<p>Under the tab <code>User group</code> we see the following options:</p>
+<ul>
+<li>User group : A field where we have to specify a unique name. This field in mandatory</li>
+<li>Users : Here we add users to our group. Users need to exist before we can add them. Just press select or type the name.</li>
+<li>
+<p>Frontend Access : How users of the group will authenticate with Zabbix.</p>
+<blockquote>
+<ul>
+<li>System default : The global configure access method</li>
+<li>Internal : The most easiest way User and Password are configured in Zabbix ( Ignored if HTTP authentication is the global default.)</li>
+<li>LDAP: LDAP/AD authentication ( Ignored if HTTP authentication is the global default )</li>
+<li>Enabled : If checked the group is Enabled else it will be Disabled</li>
+<li>Debug : Activate debug mode for the users in this group <a href="https://www.zabbix.com/documentation/7.0/en/manual/web_interface/debug_mode">More info about debug</a></li>
+</ul>
+</blockquote>
+</li>
+<li>
+<p>The next tab next to <code>User group</code> is the tab <code>Template permissions</code>. Here we can define what <code>User group</code> will have access to what <code>template group</code>. We can define if a <code>User group</code> has read, read-write permissions or if all access must be denied.
+When selecting a template group don't forget to press the <code>Add</code> button first so that you see the <code>Template group</code> appear in the Permissions box. Then when you are ready confirm again at the bottom of the page with <code>Updqte</code>.</p>
+</li>
+</ul>
+<hr />
+<p><img alt="Template permissions tab" src="../../../configuration/image/user_groups/template-permissions.png" width="80%" /></p>
+<ul>
+<li>The <code>Hosts permissions</code> tab allows us to specify what <code>User group```` will have what kind of access on the selected</code>Host groups<code>this can again be read, read-write or explicit deny. Just as with the</code>Templates permissions<code>tab don't forget to click</code>Add<code>first and when you are ready defining all the permissions click</code>Update``` at the bottom. The name is a bit confusing as we don't select permissions for a host but a host group.</li>
+</ul>
+<p><img alt="Host permissions tab" src="../../../configuration/image/user_groups/host-permissions.png" width="80%" /></p>
+<details class="note" open="open">
+<summary>Note</summary>
+<p>If we add multiple lines with the same host group or template group with different permissions Zabbix will apply the strongest permission.<br />
+Alow be aware that a Super admin user can enforce nested groups to have the same level of permissions as the parent group. It can be done in the host group or template group configuration.</p>
+</details>
+<ul>
+<li>The <code>Problem tag filter</code> allows us to filter problems based on tags and their value. It also allows us to separate the access to host groups from our possibility to see only the problems we want.</li>
+</ul>
+<p><img alt="Problem tag filter tab" src="../../../configuration/image/user_groups/problem-tag-filter-tab.png" width="80%" /></p>
+<hr />
+<h2 id="lets-do-this-together">Let's do this together:<a class="headerlink" href="#lets-do-this-together" title="Permanent link">&para;</a></h2>
+<p>Let us make three <code>Host groups</code>, go to the <code>Data collection</code> menu -&gt; <code>Host groups</code> and create a Host group for <code>read</code> , <code>read-write</code>, and <code>deny</code>.</p>
+<p><img alt="3 host groups" src="../../../configuration/image/user_groups/3-hgroups.png" width="60%" /></p>
+<p>Next step is to create a host and add the host in our three groups. Go to the <code>Data collection</code> menu -&gt; <code>Hosts</code> and press <code>Create host</code> on the right. Add a <code>Host name</code>, the name is not that important and add the three <code>Host groups</code> we just made.</p>
+<p><img alt="3 host groups" src="../../../configuration/image/user_groups/3-hgroups2.png" /></p>
+<p>The only thing we need to do now is create our <code>User</code> and <code>User group</code> and give the correct rights. Go to our menu <code>Users</code> -&gt; <code>Users group</code> and click on the top right to <code>Create user group</code>. Let's call this group our <code>Admin Group</code> as we need a Zabbix <code>Admin</code> that we can give read, read-write and later deny to show this.</p>
+<p><img alt="3 host groups" src="../../../configuration/image/user_groups/3-hgroups3.png" width="70%" /></p>
+<p>Next go to the tab <code>Host permissions</code> and start typing the name of our group <code>read</code> in the search box or press the <code>Select</code> button and select the correct group. Next before we do anything select also the correct permissions <code>Deny</code> and press the add just below NOT the button.
+Do this also for the group <code>read-write</code> and <code>deny</code>. If everything looks like in our screenshot then press the <code>Add</code> button</p>
+<p><img alt="3 host groups" src="../../../configuration/image/user_groups/3-hgroups4.png" width="80%" /></p>
+<p>Now for the final step let's create a user. Go to the menu <code>Users</code> -&gt; <code>Users</code> and create a new user, in the field <code>Username</code> we can add our fictive user with the name Brian.
+In the <code>Groups</code> box we select our <code>Users group</code> this was <code>Admin Group</code>. Don't forget also to add a Password we need to do this twice.
+Next go to the tab <code>Permissions</code> and select the role <code>Admin role</code>.
+You will see directly once selected that our users bridan has read, write and deny on the correct groups. Press <code>Add</code> at the bottom.</p>
+<p><img alt="3 host groups" src="../../../configuration/image/user_groups/3-hgroups5.png" width="80%" />
+<img alt="3 host groups" src="../../../configuration/image/user_groups/3-hgroups6.png" width="80%" /></p>
+<p>Now it's time to check if everything is as expected. Our user <code>Brian</code> if all goes well shouldn't have any rights as we explicitly denied accesss.
+Press <code>Sign out</code> at the bottom left and then login as user <code>Brian</code>.
+Go to the menu <code>Monitoring</code> -&gt; <code>Hosts</code>. Select all the hosts groups, you should normally only see read, and read-write. Our host group <code>Deny</code> is not visible and our host <code>postgres</code> is not visible either.</p>
+<p><img alt="3 host groups" src="../../../configuration/image/user_groups/3-hgroups7.png" width="80%" /></p>
+<p>Now log back in as user <code>Admin</code>, our Zabbix Super Admin and remove the deny group from our <code>Admin group</code>. This can be done by selecting the <code>None</code> permissions for the group <code>Deny</code> in the <code>Host permissions</code> tab from our <code>User group</code>.</p>
+<p>Log back in as our user Brian go back to the <code>Monitoring</code> menu to <code>Hosts</code>. If all goes well our groups <code>read</code> and <code>read-write</code> are still selected if nog you just select them again. You will see that our host <code>postgres</code> is visisble and that you can click on it to edit the host propreties.</p>
+<p><img alt="3 host groups" src="../../../configuration/image/user_groups/3-hgroups8.png" width="80%" /></p>
+<p>As final test you can try to remove the group <code>read-write</code> same as we did before with the <code>Deny</code> group. This time only the <code>read</code> group will be visible for our user and Brian will not be able to edit our host <code>postgres</code> anymore.</p>
+<hr />
+<h3 id="lets-try-out-tags">Let's try out tags<a class="headerlink" href="#lets-try-out-tags" title="Permanent link">&para;</a></h3>
+<p>Now let's add tags into the mix. Imagine that we only like to see problems with a tag <code>read-write</code> and value <code>off</code>.
+Go to <code>User groups</code> select our <code>Admin Group</code> again and go to the tab <code>Problem tag filter</code> and fill in the needed tag <code>read-write</code> and value <code>off</code>.   </p>
+<p><img alt="Problem tag filter tab" src="../../../configuration/image/user_groups/problem-tag-filter-tab.png" width="80%" /></p>
+<p>Now we need to create a problem for this we will add an item and a trigger to our host <code>postgres</code>. Go to the menu <code>Data collection</code> -&gt; <code>Hosts</code> and click on items behind our host <code>postgres</code>. On the top right you will see a button <code>Create item</code> click on it and fill in the same data as in the screenshot below. Don't worry if you don't understand anything we will come to items later.</p>
+<p><img alt="item" src="../../../configuration/image/example/item.png" width="80%" /></p>
+<details class="note" open="open">
+<summary>Note</summary>
+<p>In this item we just tell our Zabbix server to do a ping to IP <code>192.168.10.1</code> make sure this IP doesn't exist in your lan so try to ping it first to be sure you don't get a reply back. If you do get a reply back change the IP with some address that is not pingable for you.</p>
+</details>
+<p>Next step once you have filled in all the data is to save the item and click on top on Triggers. You will also notice now that there is a <code>1</code> next to Items. This indicates that we have made 1 item on our host <code>postgres</code>.
+Now that we are in the trigger tab click in the top right corner on the button <code>Create trigger</code>.
+Once again copy over all the data from the screenshot and save the trigger. If you changed the IP in the item make sure you use same IP in the trigger.</p>
+<p><img alt="trigger" src="../../../configuration/image/example/trigger.png" width="80%" /></p>
+<p>Next let's add a tag on our host <code>postgres</code> that tells Zabbix to mark everything on the host with a tag <code>read-write</code> and value <code>on</code>. Remember we added a value <code>off</code> in our <code>User group</code> problem tag filter tab. So we only want to see everything with a tag <code>read-write</code> and value <code>off</code>.</p>
+<p><img alt="host-tags" src="../../../configuration/image/example/host-tags.png" width="80%" /></p>
+<p>When you go now to the <code>Problem</code> page in the menu <code>Monitoring</code> you should see after some time a warning that there is a problem on our host postgres. You will also see that the problem got a tag read-write with value <code>on</code>.</p>
+<p><img alt="problem" src="../../../configuration/image/example/problem.png" /></p>
+<p>You can clearly see that under our <code>Zabbix super admin</code> user the problem is visible. Now do the same but as user <code>Brian</code>. You will notice that there is no visible problem for our user even he has <code>read-write</code> access to the hostgroup where our server <code>postgres</code> belongs to.</p>
+<p>Now as user <code>Brian</code> I would like to see the problem so let's go to our menu <code>Data collection</code> and click on our host <code>postgres</code>. Go to the <code>Tags</code> tab and change the value from our tag <code>read-write</code> from on to <code>off</code>. So now everything on our host should get the tags <code>read-write</code> with value <code>off</code>. So now Brian should be able to see the problem right ? 
+Sadly <code>Brian</code> is still not able to see the problem in our Problem page. This is because the problem was already created in Zabbix and has already received the tag. So the only way to fix this is to close the problem first and let Zabbix create a new problem again.</p>
+<p>As <code>Super Admin</code> log back in and go to our trigger <code>Ping</code> and mark the box <code>Allow manual close</code> and press <code>Update</code>.
+Go back to the dashboard and behind the problem ping you will see <code>Update</code>. Click on it and selec the option <code>Close problem</code> and press <code>Update</code>.</p>
+<p><img alt="update-problem" src="../../../configuration/image/example/update-problem.png" width="80%" /></p>
+<p>Log back in as our user <code>Brian</code> and go to the problem dashboard. We will see that the problem is back. Even we closed the problem before Zabbix opened a new problem because the issue was not resolved. This time our issue has the tag with the correct value.</p>
+<p><img alt="problem-correct-tag" src="../../../configuration/image/example/problems-correct-tag.png" width="80%" /></p>
+<details class="note" open="open">
+<summary>Note</summary>
+<p>A Zabbix user needs to be created with a user role. You cannot create one without. </p>
+</details>
+<details class="warning" open="open">
+<summary>Warning</summary>
+<p>Be careful if you use the API at the time of writing it's possible to create a Zabbix user with the API without a role. When created by the API the user can even be saved by the frontend afterwards !</p>
+</details>
+<details class="info" open="open">
+<summary>Info</summary>
+<p>More information can be found in the online Zabbix documentation <a href="https://www.zabbix.com/documentation/7.0/en/manual/config/users_and_usergroups/user">here</a></p>
+</details>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["header.autohide", "navigation.sections", "navigation.expand"], "search": "../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copi\u00e9 dans le presse-papier", "clipboard.copy": "Copier dans le presse-papier", "search.result.more.one": "1 de plus sur cette page", "search.result.more.other": "# de plus sur cette page", "search.result.none": "Aucun document trouv\u00e9", "search.result.one": "1 document trouv\u00e9", "search.result.other": "# documents trouv\u00e9s", "search.result.placeholder": "Taper pour d\u00e9marrer la recherche", "search.result.term.missing": "Non trouv\u00e9", "select.version": "S\u00e9lectionner la version"}}</script>
+    
+    
+    
+    
+      <script src="../../../assets/javascripts/bundle.56dfad97.min.js"></script>
+      
+        <script src="../../../js/print-site.js"></script>
+      
+        <script src="../../../js/print-site.js"></script>
+      
+    
+    
+        
+            
+            
+        
+		
+		
+    
+
+  </body>
+</html>

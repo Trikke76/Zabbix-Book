@@ -1,0 +1,3401 @@
+
+<!doctype html>
+<html lang="th" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="An open-source Zabbix book">
+      
+      
+        <meta name="author" content="Patrik Uytterhoeven and all github contributors">
+      
+      
+        <link rel="canonical" href="https://trikke76.github.io/Zabbix-Book/th/installation/installing-zabbix-ha/">
+      
+      
+        <link rel="prev" href="../installing-zabbix/">
+      
+      
+        <link rel="next" href="../../configuration/Dashboard/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.35">
+    
+    
+      
+        <title>Configure Zabbix HA - Zabbix 7 Monitoring</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.35f28582.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CNunito:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Nunito"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings1.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings2.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings3.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings4.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings5.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings6.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-material.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings1.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings2.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings3.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings4.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings5.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings6.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-material.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings1.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings2.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings3.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings4.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings5.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings6.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-material.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings1.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings2.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings3.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings4.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings5.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings6.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-material.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings1.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings2.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings3.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings4.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings5.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings6.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-material.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings1.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings2.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings3.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings4.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings5.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings6.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-material.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings1.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings2.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings3.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings4.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings5.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings6.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-material.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings1.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings2.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings3.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings4.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings5.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-enum-headings6.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-material.css">
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#configure-zabbix-ha" class="md-skip">
+          ข้ามไปที่เนื้อหา
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
+            
+            
+    
+    
+    
+        <div class="gmc-announce">
+            หน้านี้ยังไม่ได้แปลเป็นภาษาไทย ดังนั้นจึงแสดงเป็นภาษาอังกฤษ
+            <a href="/gmc/th/contribute/#translations">สนับสนุนเราและแปล!</a>
+        </div>
+    
+    
+    <script>
+        const gGMC_SELECT_VERSION = "เลือกเวอร์ชัน";
+        const gGMC_TRANSLATE_CTA = "สนับสนุนเราและแปล!";
+        const gGMC_PAGE_LOCALE = "th";
+        const gGMC_FILE_LOCALE = "en";
+        const gGMC_TRANSLATE_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16.5 12c0-.68-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2 0 .37-.03.73-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10C6.47 2 2 6.5 2 12s4.5 10 10 10c.59 0 1.16-.06 1.72-.16A5.9 5.9 0 0 1 13 19c0-.29.03-.57.07-.85-.32.63-.67 1.24-1.07 1.81-.83-1.2-1.5-2.53-1.91-3.96h3.72a5.95 5.95 0 0 1 2.59-2.4c.06-.53.1-1.06.1-1.6M12 4.03c.83 1.2 1.5 2.54 1.91 3.97h-3.82c.41-1.43 1.08-2.77 1.91-3.97M4.26 14C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2s.06 1.34.14 2zm.82 2H8c.35 1.25.8 2.45 1.4 3.56A8 8 0 0 1 5.08 16M8 8H5.08A7.92 7.92 0 0 1 9.4 4.44C8.8 5.55 8.35 6.75 8 8m6.34 6H9.66c-.1-.66-.16-1.32-.16-2s.06-1.35.16-2h4.68c.09.65.16 1.32.16 2s-.07 1.34-.16 2m.25-9.56c1.84.63 3.37 1.9 4.33 3.56h-2.95a15.7 15.7 0 0 0-1.38-3.56M23 18v2h-3v3h-2v-3h-3v-2h3v-3h2v3z"/></svg>';
+    </script>
+    
+    
+
+          </div>
+          
+        </aside>
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="หัวข้อ">
+    <a href="../../" title="Zabbix 7 Monitoring" class="md-header__button md-logo" aria-label="Zabbix 7 Monitoring" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Zabbix 7 Monitoring
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Configure Zabbix HA
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="light-blue" data-md-color-accent="light-blue"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="เลือกภาษา">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="../../../fr/installation/installing-zabbix-ha/" hreflang="fr" class="md-select__link">
+              Français
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../../de/installation/installing-zabbix-ha/" hreflang="de" class="md-select__link">
+              German
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../../it/installation/installing-zabbix-ha/" hreflang="it" class="md-select__link">
+              Italian
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../../nl/installation/installing-zabbix-ha/" hreflang="nl" class="md-select__link">
+              Nederlands
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../../pt/installation/installing-zabbix-ha/" hreflang="pt" class="md-select__link">
+              Portuguese
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../../es/installation/installing-zabbix-ha/" hreflang="es" class="md-select__link">
+              Spanish
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="th" class="md-select__link">
+              ภาษาไทย
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../../zh/installation/installing-zabbix-ha/" hreflang="zh" class="md-select__link">
+              中国人
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../../installation/installing-zabbix-ha/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="ค้นหา" placeholder="ค้นหา" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="ค้นหา">
+        
+        <button type="reset" class="md-search__icon md-icon" title="ล้าง" aria-label="ล้าง" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            กำลังเริ่มต้นการค้นหา
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/trikke76/Zabbix-Book" title="ไปที่พื้นที่เก็บข้อมูล" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    trikke76
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="ตัวนำทาง" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../" title="Zabbix 7 Monitoring" class="md-nav__button md-logo" aria-label="Zabbix 7 Monitoring" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Zabbix 7 Monitoring
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/trikke76/Zabbix-Book" title="ไปที่พื้นที่เก็บข้อมูล" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    trikke76
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ยินดีต้อนรับ
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    การเริ่มต้น
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            การเริ่มต้น
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Requirements/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Requirements
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installing-zabbixdb/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Installing Zabbix DB Server
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installing-zabbix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Installing Zabbix
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Configure Zabbix HA
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Configure Zabbix HA
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="สารบัญ">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      สารบัญ
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#installing-postgresql-database" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installing PostgreSQL Database
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installing PostgreSQL Database">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#securing-the-postgresql-database" class="md-nav__link">
+    <span class="md-ellipsis">
+      Securing the PostgreSQL Database
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Securing the PostgreSQL Database">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#add-the-zabbix-repository-and-populate-the-db" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add the Zabbix repository and populate the DB
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#install-the-database-scripts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Install the database scripts
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-the-database-users" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creating the Database Users
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Creating the Database Users">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#populating-the-database" class="md-nav__link">
+    <span class="md-ellipsis">
+      Populating the Database
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuring-the-firewall" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuring the Firewall
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installing-the-zabbix-cluster" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installing the Zabbix Cluster
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installing the Zabbix Cluster">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#adding-zabbix-repositories" class="md-nav__link">
+    <span class="md-ellipsis">
+      Adding Zabbix Repositories
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#installing-zabbix-servers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installing Zabbix Servers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuring-zabbix-server-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuring Zabbix Server 1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuring-zabbix-server-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuring Zabbix Server 2
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#starting-zabbix-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      Starting Zabbix Server
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verifying-the-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Verifying the Configuration
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installing-the-frontends" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installing the frontends
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installing the frontends">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#setup-keepalived" class="md-nav__link">
+    <span class="md-ellipsis">
+      Setup keepalived
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#install-and-configure-the-frontend" class="md-nav__link">
+    <span class="md-ellipsis">
+      Install and configure the frontend
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configure-zabbix-frontend" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configure Zabbix Frontend
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configure Zabbix Frontend">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#checking-the-database-for-ha-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      Checking the Database for HA Information
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    พื้นฐาน
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            พื้นฐาน
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/Dashboard/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Zabbix Interface
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/zabbix-users/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Zabbix Users &amp; User groups
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/zabbix-hosts/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Zabbix hosts
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/zabbix-hostgroups/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Host groups
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/zabbix-interfaces/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Interfaces
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/zabbix-templates/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Templates
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/zabbix-items/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Items
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/zabbix-triggers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Zabbix triggers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/zabbix-macros/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Macros
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/zabbix-dataflow/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Flow
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Data collection
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Data collection
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data-collection/zabbix-agent/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Zabbix Agent
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    การตรวจจับปัญหา
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            การตรวจจับปัญหา
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../problems/zabbix-triggers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Triggers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Taking action when problems come
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Taking action when problems come
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../actions/zabbix-eventactions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Event based Actions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Managing permissions
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Managing permissions
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../permissions/managing-permissions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Managing Permissions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Visualising Problems
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Visualising Problems
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../visualising/Visualising-our-problems/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Visualising our problems
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Automating configuration
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Automating configuration
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../automation/automating-configuration/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Automating configuration
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    VMWare monitoring
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            VMWare monitoring
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../vmware/vmware-monitoring/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    VMware monitoring with Zabbix
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Monitoring websites
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            Monitoring websites
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../websites/monitoring-websites/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring websites
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Monitoring SNMP, IPMI and JAVA
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            Monitoring SNMP, IPMI and JAVA
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extra-monitoring/SNMP-monitoring/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SNMP Monitoring
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extra-monitoring/SNMP-traps-monitoring/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SNMP trap monitoring
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extra-monitoring/JAVA-monitoring/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JAVA monitoring
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extra-monitoring/IPMI-monitoring/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IPMI Monitoring
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Authentication
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            Authentication
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../authentication/zabbix-http/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Authentication with HTTP
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../authentication/zabbix-ldap/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Authentication with LDAP
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../authentication/zabbix-saml/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Authentication with SAML
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../authentication/zabbix-mfa/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Zabbix MFA support
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_14" >
+        
+          
+          <label class="md-nav__link" for="__nav_14" id="__nav_14_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Monitoring with Proxies
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_14_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_14">
+            <span class="md-nav__icon md-icon"></span>
+            Monitoring with Proxies
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../proxies/installing-proxies/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Installing Proxies
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../proxies/active-proxy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Active proxy
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../proxies/passive-proxy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Passive proxy
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../proxies/loadbalancing-proxies/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Proxy loadbalancing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_15" >
+        
+          
+          <label class="md-nav__link" for="__nav_15" id="__nav_15_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Securing Zabbix
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_15_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_15">
+            <span class="md-nav__icon md-icon"></span>
+            Securing Zabbix
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../security/securing-zabbix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Securing Zabbix Frontend
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../security/securing-zabbix-selinux/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Securing Zabbix with SELinux
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_16" >
+        
+          
+          <label class="md-nav__link" for="__nav_16" id="__nav_16_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Maintaining Zabbix
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_16_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_16">
+            <span class="md-nav__icon md-icon"></span>
+            Maintaining Zabbix
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../maintenance/maintaining-zabbix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Maintaining Zabbix
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_17" >
+        
+          
+          <label class="md-nav__link" for="__nav_17" id="__nav_17_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Monitoring Windows
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_17_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_17">
+            <span class="md-nav__icon md-icon"></span>
+            Monitoring Windows
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../windows/monitoring-windows/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Windows
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_18" >
+        
+          
+          <label class="md-nav__link" for="__nav_18" id="__nav_18_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Zabbix API
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_18_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_18">
+            <span class="md-nav__icon md-icon"></span>
+            Zabbix API
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/zabbix-api/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Zabbix API
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_19" >
+        
+          
+          <label class="md-nav__link" for="__nav_19" id="__nav_19_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Zabbix Extras
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_19_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_19">
+            <span class="md-nav__icon md-icon"></span>
+            Zabbix Extras
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extras/modbus/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Modbus monitoring with Zabbix.
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extras/contributors/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Contributors
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Guidlines-for-translations/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Translation and Guidlines
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="สารบัญ">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      สารบัญ
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#installing-postgresql-database" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installing PostgreSQL Database
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installing PostgreSQL Database">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#securing-the-postgresql-database" class="md-nav__link">
+    <span class="md-ellipsis">
+      Securing the PostgreSQL Database
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Securing the PostgreSQL Database">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#add-the-zabbix-repository-and-populate-the-db" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add the Zabbix repository and populate the DB
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#install-the-database-scripts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Install the database scripts
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-the-database-users" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creating the Database Users
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Creating the Database Users">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#populating-the-database" class="md-nav__link">
+    <span class="md-ellipsis">
+      Populating the Database
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuring-the-firewall" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuring the Firewall
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installing-the-zabbix-cluster" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installing the Zabbix Cluster
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installing the Zabbix Cluster">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#adding-zabbix-repositories" class="md-nav__link">
+    <span class="md-ellipsis">
+      Adding Zabbix Repositories
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#installing-zabbix-servers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installing Zabbix Servers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuring-zabbix-server-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuring Zabbix Server 1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuring-zabbix-server-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuring Zabbix Server 2
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#starting-zabbix-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      Starting Zabbix Server
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verifying-the-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Verifying the Configuration
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installing-the-frontends" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installing the frontends
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installing the frontends">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#setup-keepalived" class="md-nav__link">
+    <span class="md-ellipsis">
+      Setup keepalived
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#install-and-configure-the-frontend" class="md-nav__link">
+    <span class="md-ellipsis">
+      Install and configure the frontend
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configure-zabbix-frontend" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configure Zabbix Frontend
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configure Zabbix Frontend">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#checking-the-database-for-ha-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      Checking the Database for HA Information
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+
+
+    <a href="../../../print_page/" title="Print Site" class="md-content__button md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 3H6v4h12m1 5a1 1 0 0 1-1-1 1 1 0 0 1 1-1 1 1 0 0 1 1 1 1 1 0 0 1-1 1m-3 7H8v-5h8m3-6H5a3 3 0 0 0-3 3v6h4v4h12v-4h4v-6a3 3 0 0 0-3-3"/></svg>
+    </a>
+
+
+
+                  
+
+  
+  
+
+
+<h1 id="configure-zabbix-ha">Configure Zabbix HA<a class="headerlink" href="#configure-zabbix-ha" title="Permanent link">&para;</a></h1>
+<p>In this section, we will set up Zabbix in a High Availability (HA) configuration.
+This feature, introduced in Zabbix 6, is a crucial enhancement that ensures continued
+monitoring even if a Zabbix server fails. With HA, when one Zabbix server goes down,
+another can take over seamlessly.</p>
+<p>For this guide, we will use two Zabbix servers, but the setup allows for adding more
+if necessary.</p>
+<p>It's important to note that Zabbix's HA setup is straightforward,
+providing redundancy without complex features like load balancing.</p>
+<p>Just as in our basic configuration, we will document key details for the servers
+in this HA setup. Below is the list of servers and their respective IP addresses:</p>
+<p><img alt="HA Setup" src="../../../installation/image/ha/HA-setup.png" width="80%" /></p>
+<table>
+<thead>
+<tr>
+<th>Server</th>
+<th>IP Address</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Zabbix Server 1</td>
+<td>192.168.0.130</td>
+</tr>
+<tr>
+<td>Zabbix Server 2</td>
+<td>192.168.0.131</td>
+</tr>
+<tr>
+<td>PostgreSQL DB</td>
+<td>192.168.0.132</td>
+</tr>
+<tr>
+<td>Virtual IP</td>
+<td>192.168.0.135</td>
+</tr>
+</tbody>
+</table>
+<details class="note" open="open">
+<summary>Note</summary>
+<p>Our database (DB) in this setup is not configured for HA. Since it's not a
+Zabbix component, you will need to implement your own solution for database HA,
+such as a HA SAN or a database cluster setup. A DB cluster configuration is out
+of the scope of this guide and unrelated to Zabbix, so it will not be covered here.</p>
+</details>
+<hr />
+<h2 id="installing-postgresql-database">Installing PostgreSQL Database<a class="headerlink" href="#installing-postgresql-database" title="Permanent link">&para;</a></h2>
+<p>To set up the Zabbix HA environment, we'll begin by installing the PostgreSQL database.
+Follow these steps to install PostgreSQL on a Red Hat-based system.</p>
+<details class="note" open="open">
+<summary>Note</summary>
+<p>If you're using a non-x86 architecture or another OS, refer to the
+<a href="https://www.postgresql.org/download/">PostgreSQL official download page</a> for the
+correct installation commands.</p>
+</details>
+<details class="warning" open="open">
+<summary>Warning</summary>
+<p>In this exercise, we will simplify the PostgreSQL and OS installation.
+For detailed configurations and optimizations, review the previous sections
+of this guide.</p>
+</details>
+<ol>
+<li><strong>Install the PostgreSQL repository:</strong></li>
+</ol>
+<p><code>bash
+   sudo dnf install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-9-x86_64/pgdg-redhat-repo-latest.noarch.rpm</code></p>
+<ol>
+<li><strong>Disable the built-in PostgreSQL module:</strong></li>
+</ol>
+<p><code>bash
+   sudo dnf -qy module disable postgresql</code></p>
+<ol>
+<li><strong>Install PostgreSQL 16:</strong></li>
+</ol>
+<p><code>bash
+   sudo dnf install -y postgresql16-server</code></p>
+<ol>
+<li><strong>Initialize the database and enable automatic startup:</strong></li>
+</ol>
+<p><code>bash
+   sudo /usr/pgsql-16/bin/postgresql-16-setup initdb
+   sudo systemctl enable postgresql-16 --now</code></p>
+<p>At this stage, PostgreSQL should be installed and running, ready for configuration
+with Zabbix in an HA setup.</p>
+<hr />
+<h3 id="securing-the-postgresql-database">Securing the PostgreSQL Database<a class="headerlink" href="#securing-the-postgresql-database" title="Permanent link">&para;</a></h3>
+<p>PostgreSQL manages access permissions differently compared to MySQL or MariaDB.
+Specifically, PostgreSQL uses the <code>pg_hba.conf</code> file, which controls who can access
+the database, from where, and what encryption is used for passwords.
+To allow the Zabbix frontend and Zabbix server to connect to the PostgreSQL database,
+we need to configure this file accordingly.</p>
+<p>First, edit the <code>pg_hba.conf</code> file to specify the access permissions:</p>
+<pre><code class="language-bash"># vi /var/lib/pgsql/16/data/pg_hba.conf
+</code></pre>
+<p>Update the file to include the following lines:</p>
+<pre><code class="language-bash"># &quot;local&quot; is for Unix domain socket connections only
+local   all             all                                     trust
+# IPv4 local connections:
+host    zabbix          zabbix  192.168.0.130/32               scram-sha-256
+host    zabbix          zabbix  192.168.0.131/32               scram-sha-256
+host    all             all     127.0.0.1/32                   scram-sha-256
+</code></pre>
+<p>This configuration permits the Zabbix servers (at IPs <code>192.168.0.130</code> and
+<code>192.168.0.131</code>) to connect using SCRAM-SHA-256 encryption.</p>
+<p>Once you’ve updated <code>pg_hba.conf</code>, don't forget to restart PostgreSQL for the
+changes to take effect. But before doing so, you also need to modify <code>postgresql.conf</code>
+to allow incoming connections from the Zabbix servers.</p>
+<hr />
+<p>By default, PostgreSQL listens only on the Unix socket, restricting external connections.
+To change this, edit the <code>postgresql.conf</code> file:</p>
+<pre><code class="language-bash"># vi /var/lib/pgsql/16/data/postgresql.conf
+</code></pre>
+<p>Find and modify the <code>listen_addresses</code> line to:</p>
+<pre><code class="language-plaintext">listen_addresses = '*'
+</code></pre>
+<p>This will allow PostgreSQL to listen on all network interfaces, enabling external
+connections from the Zabbix servers.</p>
+<p>After making the changes to both configuration files, restart the PostgreSQL service:</p>
+<pre><code class="language-bash"># systemctl restart postgresql-16
+</code></pre>
+<p>If PostgreSQL fails to restart, check the <code>pg_hba.conf</code> file for any syntax errors
+or typos.</p>
+<hr />
+<h4 id="add-the-zabbix-repository-and-populate-the-db">Add the Zabbix repository and populate the DB<a class="headerlink" href="#add-the-zabbix-repository-and-populate-the-db" title="Permanent link">&para;</a></h4>
+<p>To set up the Zabbix database, you need to add the appropriate Zabbix repository
+and install the necessary database scripts. Begin by adding the Zabbix repository.
+Ensure that you select the correct repository for your operating system and Zabbix
+version by visiting <a href="https://www.zabbix.com/download">Zabbix download page</a>.</p>
+<p>For example, on a RHEL-based system:</p>
+<pre><code class="language-bash"># rpm -Uvh https://repo.zabbix.com/zabbix/7.0/rhel/9/x86_64/zabbix-release-latest.el9.noarch.rpm
+</code></pre>
+<h3 id="install-the-database-scripts">Install the database scripts<a class="headerlink" href="#install-the-database-scripts" title="Permanent link">&para;</a></h3>
+<p>Once the repository is added, install the database scripts:</p>
+<pre><code class="language-bash"># dnf install zabbix-sql-scripts -y
+</code></pre>
+<p>Next, unzip the database schema files required to create the necessary tables:</p>
+<pre><code class="language-bash"># gzip -d /usr/share/zabbix-sql-scripts/postgresql/server.sql.gz
+</code></pre>
+<p>At this point, the PostgreSQL database is secured, and the Zabbix database schema
+is ready to be populated.</p>
+<hr />
+<h3 id="creating-the-database-users">Creating the Database Users<a class="headerlink" href="#creating-the-database-users" title="Permanent link">&para;</a></h3>
+<p>With PostgreSQL configured and ready, the next step is to create the Zabbix users.
+These users will be used by both the Zabbix server and frontend to interact with
+the database.
+If you prefer to separate the users for the frontend and the server, refer to the
+basic installation guide for additional details.</p>
+<p>To create a new user for the Zabbix server:</p>
+<ul>
+<li>Switch to the <code>postgres</code> user:</li>
+</ul>
+<pre><code class="language-bash"># su - postgres
+</code></pre>
+<ul>
+<li>Use the <code>createuser</code> command to create the Zabbix user and assign a password:</li>
+</ul>
+<pre><code class="language-bash"># createuser --pwprompt zabbix
+</code></pre>
+<p>You will be prompted to enter a password for the new role:</p>
+<pre><code class="language-plaintext">    Enter password for new role: &lt;server-password&gt;
+    Enter it again: &lt;server-password&gt;
+
+    Replace `&lt;server-password&gt;` with a strong, secure password that you will use
+    for the Zabbix server's database connection.
+</code></pre>
+<p>Once the user is created, this account will be ready to use by both the
+<code>Zabbix server</code> and frontend (unless you choose to create separate users for each).</p>
+<hr />
+<h4 id="populating-the-database">Populating the Database<a class="headerlink" href="#populating-the-database" title="Permanent link">&para;</a></h4>
+<p>With the Zabbix user created, we can now set up the Zabbix database.
+Follow these steps to create and populate the database with the necessary schemas
+and data.</p>
+<ol>
+<li><strong>Create the Zabbix Database</strong></li>
+</ol>
+<p>Switch to the <code>postgres</code> user and create the Zabbix database:</p>
+<pre><code class="language-bash">    # su - postgres
+    # createdb -E Unicode -O zabbix zabbix
+</code></pre>
+<p>This command creates a new database named <code>zabbix</code>, using Unicode encoding
+and assigning ownership to the <code>zabbix</code> user.</p>
+<ul>
+<li><strong>Populate the Database</strong></li>
+</ul>
+<p>Next, connect to the database as the <code>zabbix</code> user and run the SQL script to
+set up the required schemas, tables, and data. Use the <code>psql</code>
+command-line tool:</p>
+<pre><code class="language-bash">    # psql -U zabbix -W zabbix
+    Password:
+    psql (16.2)
+    Type &quot;help&quot; for help.
+
+    zabbix=&gt; SELECT session_user, current_user;
+    session_user | current_user
+    --------------+--------------
+    zabbix       | zabbix
+    (1 row)
+</code></pre>
+<p>Once connected, execute the SQL script:</p>
+<pre><code class="language-sql">    zabbix=&gt; \i /usr/share/zabbix-sql-scripts/postgresql/server.sql
+</code></pre>
+<p>You should see output indicating that tables are being created and data is being inserted:</p>
+<pre><code class="language-plaintext">    CREATE TABLE
+    CREATE INDEX
+    CREATE TABLE
+    ...
+    INSERT 0 1
+    DELETE 80424
+    COMMIT
+</code></pre>
+<ul>
+<li><strong>Verify Table Ownership</strong></li>
+</ul>
+<p>Ensure that the <code>zabbix</code> user owns the tables by listing them:</p>
+<pre><code class="language-sql">zabbix=&gt; \dt
+               List of relations
+Schema |            Name            | Type  | Owner
+--------+----------------------------+-------+--------
+public | acknowledges               | table | zabbix
+public | actions                    | table | zabbix
+...
+</code></pre>
+<p>If the tables are correctly owned by the <code>zabbix</code> user, you can exit
+the <code>psql</code> prompt:</p>
+<pre><code class="language-sql">    zabbix=&gt; \q
+</code></pre>
+<p>The database is now populated and ready for use by the Zabbix server.</p>
+<h3 id="configuring-the-firewall">Configuring the Firewall<a class="headerlink" href="#configuring-the-firewall" title="Permanent link">&para;</a></h3>
+<p>To complete the setup, you need to configure the firewall to allow incoming connections
+to the PostgreSQL database from the Zabbix server. By default, the firewall does
+not permit these connections, so we'll need to open the appropriate ports and
+define rules.</p>
+<ul>
+<li><strong>Create a New Firewall Zone</strong></li>
+</ul>
+<p>Create a new firewall zone specifically for PostgreSQL access:</p>
+<pre><code class="language-bash"># firewall-cmd --new-zone=postgresql-access --permanent
+success
+</code></pre>
+<ul>
+<li><strong>Reload the Firewall Configuration</strong></li>
+</ul>
+<p>Apply the changes by reloading the firewall configuration:</p>
+<pre><code class="language-bash">    # firewall-cmd --reload
+    success
+</code></pre>
+<ul>
+<li><strong>Verify Available Zones</strong></li>
+</ul>
+<p>Confirm that the new zone has been added:</p>
+<pre><code class="language-bash">    # firewall-cmd --get-zones
+    block dmz drop external home internal nm-shared postgresql-access public
+    trusted work
+</code></pre>
+<ul>
+<li>
+<p><strong>Add the Zabbix Server IPs to the New Zone</strong></p>
+<p>Allow the Zabbix server IP addresses to access the PostgreSQL database.
+Replace <code>&lt;zabbix-serverip 1&gt;</code> and <code>&lt;zabbix-serverip 2&gt;</code> with the actual IP
+addresses of your Zabbix servers:</p>
+</li>
+</ul>
+<pre><code class="language-bash">    # firewall-cmd --zone=postgresql-access --add-source=&lt;zabbix-serverip 1&gt; --permanent
+    success
+
+    # firewall-cmd --zone=postgresql-access --add-source=&lt;zabbix-serverip 2&gt; --permanent
+    success
+</code></pre>
+<ul>
+<li><strong>Allow PostgreSQL Port</strong></li>
+</ul>
+<p>Open port 5432 for TCP connections in the new zone:</p>
+<pre><code class="language-bash">    # firewall-cmd --zone=postgresql-access --add-port=5432/tcp --permanent
+    success
+</code></pre>
+<ul>
+<li><strong>Reload the Firewall Configuration Again</strong></li>
+</ul>
+<p>Reload the firewall to apply the new rules:</p>
+<pre><code class="language-bash">    # firewall-cmd --reload
+</code></pre>
+<ul>
+<li><strong>Verify the Firewall Rules</strong></li>
+</ul>
+<p>Check that the firewall rules are correctly set up:</p>
+<pre><code class="language-bash">    # firewall-cmd --zone=postgresql-access --list-all
+</code></pre>
+<p>Your PostgreSQL server is now configured to accept connections from your Zabbix
+server. You can proceed with the next task in your Zabbix HA setup.</p>
+<hr />
+<h2 id="installing-the-zabbix-cluster">Installing the Zabbix Cluster<a class="headerlink" href="#installing-the-zabbix-cluster" title="Permanent link">&para;</a></h2>
+<p>Setting up a Zabbix cluster involves configuring multiple Zabbix servers to work
+together, providing high availability. While the process is similar to setting up
+a single Zabbix server, there are additional configuration steps required to
+enable HA (High Availability).</p>
+<h3 id="adding-zabbix-repositories">Adding Zabbix Repositories<a class="headerlink" href="#adding-zabbix-repositories" title="Permanent link">&para;</a></h3>
+<p>First, add the Zabbix 7.0 repositories to both of your Zabbix servers:</p>
+<pre><code class="language-bash"># rpm -Uvh https://repo.zabbix.com/zabbix/7.0/rhel/9/x86_64/zabbix-release-6.5-2.el9.noarch.rpm
+</code></pre>
+<h3 id="installing-zabbix-servers">Installing Zabbix Servers<a class="headerlink" href="#installing-zabbix-servers" title="Permanent link">&para;</a></h3>
+<p>Once the repository is added, install the Zabbix server package on both servers:</p>
+<pre><code class="language-bash"># dnf install zabbix-server-pgsql -y
+</code></pre>
+<h3 id="configuring-zabbix-server-1">Configuring Zabbix Server 1<a class="headerlink" href="#configuring-zabbix-server-1" title="Permanent link">&para;</a></h3>
+<p>Edit the Zabbix server configuration file on the first server:</p>
+<pre><code class="language-bash"># vi /etc/zabbix/zabbix_server.conf
+</code></pre>
+<p>Update the following lines to connect to the PostgreSQL database:</p>
+<pre><code class="language-plaintext">DBHost=&lt;zabbix db ip&gt;
+DBName=zabbix
+DBUser=zabbix
+DBPassword=&lt;your secret password&gt;
+</code></pre>
+<p>Configure the HA parameters for this server:</p>
+<pre><code class="language-plaintext">HANodeName=zabbix1 (or choose a name you prefer)
+</code></pre>
+<p>Specify the frontend node address for failover scenarios:</p>
+<pre><code class="language-plaintext">NodeAddress=&lt;Zabbix server 1 ip&gt;:10051
+</code></pre>
+<h3 id="configuring-zabbix-server-2">Configuring Zabbix Server 2<a class="headerlink" href="#configuring-zabbix-server-2" title="Permanent link">&para;</a></h3>
+<p>Repeat the configuration steps for the second Zabbix server. Adjust the <code>HANodeName</code>
+and <code>NodeAddress</code> as necessary for this server.</p>
+<h3 id="starting-zabbix-server">Starting Zabbix Server<a class="headerlink" href="#starting-zabbix-server" title="Permanent link">&para;</a></h3>
+<p>After configuring both servers, enable and start the <code>zabbix-server</code> service on each:</p>
+<pre><code class="language-bash"># systemctl enable zabbix-server --now
+</code></pre>
+<h3 id="verifying-the-configuration">Verifying the Configuration<a class="headerlink" href="#verifying-the-configuration" title="Permanent link">&para;</a></h3>
+<p>Check the log files on both servers to ensure they have started correctly and are
+operating in their respective HA modes.</p>
+<p>On the first server:</p>
+<pre><code class="language-bash"># grep HA /var/log/zabbix/zabbix_server.log
+</code></pre>
+<p>You should see:</p>
+<pre><code class="language-plaintext">22597:20240309:155230.353 starting HA manager
+22597:20240309:155230.362 HA manager started in active mode
+</code></pre>
+<p>On the second server (and any additional nodes):</p>
+<pre><code class="language-bash"># grep HA /var/log/zabbix/zabbix_server.log
+</code></pre>
+<p>You should see:</p>
+<pre><code class="language-plaintext">22304:20240309:155331.163 starting HA manager
+22304:20240309:155331.174 HA manager started in standby mode
+</code></pre>
+<p>Your Zabbix cluster should now be set up with high availability, ensuring continuous
+monitoring even if one of the servers fails.</p>
+<hr />
+<h2 id="installing-the-frontends">Installing the frontends<a class="headerlink" href="#installing-the-frontends" title="Permanent link">&para;</a></h2>
+<p>First things first before we can install and configure our webserver we need to
+install keepalived. Keepalived allows us to use a VIP for our frontends. Keepalived
+provides frameworks for both load balancing and high availability.</p>
+<details class="info" open="open">
+<summary>Info</summary>
+<p>Some useful documentation on the subject you might like.
+<a href="https://www.redhat.com/sysadmin/advanced-keepalived">https://www.redhat.com/sysadmin/advanced-keepalived</a> and <a href="https://keepalived.readthedocs.io/en/latest/introduction.html">https://keepalived.readthedocs.io/en/latest/introduction.html</a></p>
+</details>
+<h3 id="setup-keepalived">Setup keepalived<a class="headerlink" href="#setup-keepalived" title="Permanent link">&para;</a></h3>
+<p>So let's get started.
+On both our servers we have to install keepalived.</p>
+<pre><code class="language-bash">dnf install keepalived
+</code></pre>
+<p>We also need to adapt the configuration of keepalived on both servers.
+The configuration for both servers needs to be a bit changed so let's start with
+our server 1. Edit the config file with the following command:</p>
+<pre><code class="language-bash"># vi /etc/keepalived/keepalived.conf
+</code></pre>
+<p>Delete everything and replace it with the following lines:</p>
+<pre><code class="language-bash">vrrp_track_process track_nginx {
+    process nginx
+    weight 10
+}
+
+vrrp_instance VI_1 {
+    state MASTER
+    interface enp0s1
+    virtual_router_id 51
+    priority 244
+    advert_int 1
+    authentication {
+        auth_type PASS
+        auth_pass 12345
+    }
+    virtual_ipaddress {
+        192.168.0.135
+    }
+    track_process {
+         track_nginx
+      }
+}
+</code></pre>
+<p>Replace <code>enp0s1</code> with the interface name of your machine and replace the password
+with something secure. For the virual_ipaddress use aa free IP from your network.
+Now do the same thing for our second Zabbix server.</p>
+<pre><code class="language-bash"># vi /etc/keepalived/keepalived.conf
+</code></pre>
+<p>Delete everything and replace it with the following lines:</p>
+<pre><code class="language-bash">vrrp_track_process track_nginx {
+      process nginx
+      weight 10
+}
+
+vrrp_instance VI_1 {
+    state BACKUP
+    interface enp0s1
+    virtual_router_id 51
+    priority 243
+    advert_int 1
+    authentication {
+        auth_type PASS
+        auth_pass 12345
+    }
+    virtual_ipaddress {
+        192.168.0.135
+    }
+    track_process {
+         track_nginx
+      }
+}
+</code></pre>
+<p>Just as with our 1<sup>st</sup> Zabbix server, replace <code>enp0s1</code> with the interface name of
+your machine and replace the password with something secure. For the virual_ipaddress
+use aa free IP from your network.</p>
+<h3 id="install-and-configure-the-frontend">Install and configure the frontend<a class="headerlink" href="#install-and-configure-the-frontend" title="Permanent link">&para;</a></h3>
+<p>On both servers we can run the following commands to install our webserver and the
+zabbix frontend packages:</p>
+<pre><code class="language-bash">dnf install nginx zabbix-web-pgsql zabbix-nginx-conf
+</code></pre>
+<p>Also let's not forget to configure our firewall</p>
+<pre><code class="language-bash">firewall-cmd --add-service=http --permanent
+firewall-cmd --add-service=zabbix-server --permanent
+firewall-cmd --reload
+</code></pre>
+<p>And now we can start our keepalived and enable it so that it comes up next reboot</p>
+<pre><code class="language-bash">systemctl enable keepalived nginx --now
+</code></pre>
+<h3 id="configure-zabbix-frontend">Configure Zabbix Frontend<a class="headerlink" href="#configure-zabbix-frontend" title="Permanent link">&para;</a></h3>
+<p><img alt="Zabbix Server Setup" src="../../../installation/image/ha/welcome.png" width="80%" /></p>
+<p>After configuring the Zabbix servers, you need to complete the setup via the
+Zabbix web interface. Follow these steps:</p>
+<ul>
+<li><strong>Access the Zabbix Web Interface</strong></li>
+</ul>
+<p>Navigate through the web interface until you reach the page where you need to
+   configure the database connection.</p>
+<ul>
+<li>
+<p><strong>Fill in Database Connection Details</strong></p>
+</li>
+<li>
+<p><strong>Database IP Address:</strong> Enter the IP address of your PostgreSQL database server.</p>
+</li>
+<li><strong>Port:</strong> You can leave this as <code>0</code> to use the default port (5432).</li>
+<li><strong>Database Name:</strong> Enter the name of your database (e.g., <code>zabbix</code>).</li>
+<li><strong>User:</strong> Enter the database user (e.g., <code>zabbix</code>).</li>
+<li><strong>Password:</strong> Enter the password for the database user.</li>
+</ul>
+<p><strong>Note:</strong> Ensure you deselect TLS encryption and select the option to store
+   passwords as plaintext.</p>
+<ul>
+<li><strong>Adjust SELinux Settings</strong></li>
+</ul>
+<p>If you encounter issues during the configuration due to SELinux restrictions,
+   run the following commands on both Zabbix servers to allow the web server to
+   communicate with the database:</p>
+<pre><code class="language-bash">    # setsebool -P httpd_can_network_connect_db on
+    # setsebool -P httpd_can_connect_zabbix on
+</code></pre>
+<p>These commands modify SELinux policies to enable network connections between
+   the web server and the database.</p>
+<ul>
+<li><strong>Continue with the Setup</strong></li>
+</ul>
+<p>After adjusting SELinux settings, return to the web interface and click "Next."
+   The setup should proceed without issues.</p>
+<p>By completing these steps, your Zabbix servers should be fully configured and
+connected to the database, ready for use in your monitoring environment.</p>
+<p><img alt="DB Setup" src="../../../installation/image/ha/db-connection.png" width="80%" /></p>
+<p>We are almost ready the only thing left here is now to add the name of our server
+and configure the default timezone.</p>
+<p><img alt="DB Setup" src="../../../installation/image/ha/settings.png" width="80%" /></p>
+<p>Since you’re using a host-based firewall, you need to add the necessary rules to
+permit IP protocol 112 traffic. Otherwise, Keepalived’s advertisement method won’t work.</p>
+<pre><code>firewall-cmd --add-rich-rule='rule protocol value=&quot;112&quot; accept' --permanent
+</code></pre>
+<p>Now that this is all taken care of stop keepalived on our server and repeat the
+same steps on the second server. After this is finished start keepalived again.</p>
+<p>Congratulations you have a HA Zabbix server now .</p>
+<h4 id="checking-the-database-for-ha-information">Checking the Database for HA Information<a class="headerlink" href="#checking-the-database-for-ha-information" title="Permanent link">&para;</a></h4>
+<p>Once your Zabbix HA setup is operational, you might want to verify the status
+of your servers within the database. Here’s how to check the information:</p>
+<ul>
+<li><strong>Query HA Node Information</strong></li>
+</ul>
+<p>Access your Zabbix database and run the following SQL query to view details about the HA nodes:</p>
+<pre><code class="language-sql">    zabbix=# SELECT * FROM ha_node;
+</code></pre>
+<pre><code class="language-sql">Example output:
+
+         ha_nodeid         |  name   |    address    | port  | lastaccess | status |       ha_sessionid
+---------------------------+---------+---------------+-------+------------+--------+---------------------------
+ cltk7h2n600017kkd1jtx6f1f | zabbix2 | 192.168.0.131 | 10051 | 1710085786 |      0 | cltlov4ly0000jkkdteikeo77
+ cltk7ci340001inkc2befwg9f | zabbix1 | 192.168.0.130 | 10051 | 1710085787 |      3 | cltlov1r00000jtkcpeh9oqhp
+</code></pre>
+<p>This query provides information on each HA node, including its ID, name, address, port, last access time, status, and session ID.</p>
+<ul>
+<li><strong>Understanding Node Statuses</strong></li>
+</ul>
+<p>The status column in the <code>ha_node</code> table indicates the current state of each node. Here are the possible statuses:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Status</th>
+<th style="text-align: left;">Number</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Active</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">Only one node can be active at any time</td>
+</tr>
+<tr>
+<td style="text-align: left;">Standby</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">Multiple nodes can be in standby mode</td>
+</tr>
+<tr>
+<td style="text-align: left;">Stopped</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">A node has been detected as stopped</td>
+</tr>
+<tr>
+<td style="text-align: left;">Unavailable</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">A node was lost without proper shutdown detection</td>
+</tr>
+</tbody>
+</table>
+<p>The frontend uses this information to determine which server to connect to based
+on the active and standby nodes.</p>
+<ul>
+<li><strong>Configuring Zabbix Agents</strong></li>
+</ul>
+<p>Ensure that Zabbix agents are configured to point to both the active and passive Zabbix servers. This option is supported in all agents since Zabbix 6.0.</p>
+<pre><code class="language-plaintext">Server=&lt;active-server-ip&gt;,&lt;passive-server-ip&gt;
+ServerActive=&lt;active-server-ip&gt;,&lt;passive-server-ip&gt;
+</code></pre>
+<p>This configuration ensures that agents can communicate with both servers,
+enhancing redundancy and reliability.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["header.autohide", "navigation.sections", "navigation.expand"], "search": "../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "\u0e04\u0e31\u0e14\u0e25\u0e2d\u0e01\u0e41\u0e25\u0e49\u0e27", "clipboard.copy": "\u0e04\u0e31\u0e14\u0e25\u0e2d\u0e01", "search.result.more.one": "\u0e2d\u0e35\u0e01\u0e2b\u0e19\u0e36\u0e48\u0e07\u0e43\u0e19\u0e2b\u0e19\u0e49\u0e32\u0e19\u0e35\u0e49", "search.result.more.other": "# \u0e40\u0e1e\u0e34\u0e48\u0e21\u0e40\u0e15\u0e34\u0e21\u0e43\u0e19\u0e2b\u0e19\u0e49\u0e32\u0e19\u0e35\u0e49", "search.result.none": "\u0e44\u0e21\u0e48\u0e1e\u0e1a\u0e40\u0e2d\u0e01\u0e2a\u0e32\u0e23\u0e17\u0e35\u0e48\u0e15\u0e23\u0e07\u0e01\u0e31\u0e19", "search.result.one": "\u0e1e\u0e1a\u0e40\u0e2d\u0e01\u0e2a\u0e32\u0e23\u0e17\u0e35\u0e48\u0e15\u0e23\u0e07\u0e01\u0e31\u0e19", "search.result.other": "\u0e1e\u0e1a # \u0e40\u0e2d\u0e01\u0e2a\u0e32\u0e23\u0e17\u0e35\u0e48\u0e15\u0e23\u0e07\u0e01\u0e31\u0e19", "search.result.placeholder": "\u0e1e\u0e34\u0e21\u0e1e\u0e4c\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e40\u0e23\u0e34\u0e48\u0e21\u0e04\u0e49\u0e19\u0e2b\u0e32", "search.result.term.missing": "\u0e44\u0e21\u0e48\u0e1e\u0e1a", "select.version": "\u0e40\u0e25\u0e37\u0e2d\u0e01\u0e40\u0e27\u0e2d\u0e23\u0e4c\u0e0a\u0e31\u0e19"}}</script>
+    
+    
+    
+    
+      <script src="../../../assets/javascripts/bundle.56dfad97.min.js"></script>
+      
+        <script src="../../../js/print-site.js"></script>
+      
+        <script src="../../../js/print-site.js"></script>
+      
+        <script src="../../../js/print-site.js"></script>
+      
+        <script src="../../../js/print-site.js"></script>
+      
+        <script src="../../../js/print-site.js"></script>
+      
+        <script src="../../../js/print-site.js"></script>
+      
+        <script src="../../../js/print-site.js"></script>
+      
+        <script src="../../../js/print-site.js"></script>
+      
+    
+    
+        
+            
+            
+        
+		
+		
+    
+
+  </body>
+</html>
